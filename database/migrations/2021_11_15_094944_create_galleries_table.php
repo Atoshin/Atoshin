@@ -17,6 +17,8 @@ class CreateGalleriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('bio')->nullable();
+            $table->string('avatar')->nullable();
+//            $table->string('owner_name')->nullable();
             $table->timestamps();
         });
     }

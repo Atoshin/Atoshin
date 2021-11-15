@@ -17,12 +17,12 @@ class CreateAssetsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('bio')->nullable();
-            $table->string('price');
-            $table->integer('ownership_percentage');
-            $table->integer('total_fractions');
-            $table->integer('sold_fractions');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->string('price')->nullable();
+            $table->integer('ownership_percentage')->default(40);
+            $table->integer('total_fractions')->default(100);
+            $table->integer('sold_fractions')->default(0);
+            $table->timestamp('start_date')->default(\Carbon\Carbon::now());
+            $table->timestamp('end_date')->default(\Carbon\Carbon::next(7));
             $table->enum('status', ['published','unpublished'])->default('unpublished');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('creator_id');

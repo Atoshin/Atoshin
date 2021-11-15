@@ -16,6 +16,7 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
+            $table->string('avatar')->nullable();
             $table->string('bio')->nullable();
             $table->string('website')->nullable();
             $table->string('youtube')->nullable();
