@@ -19,4 +19,9 @@ class Gallery extends Model
     {
         return $this->hasOne(Location::class);
     }
+
+    public function medias()
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
 }

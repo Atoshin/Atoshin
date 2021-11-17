@@ -22,7 +22,7 @@ class CreateAssetsTable extends Migration
             $table->integer('total_fractions')->default(100);
             $table->integer('sold_fractions')->default(0);
             $table->timestamp('start_date')->default(\Carbon\Carbon::now());
-            $table->timestamp('end_date')->default(\Carbon\Carbon::next(7));
+            $table->timestamp('end_date')->nullable();
             $table->enum('status', ['published','unpublished'])->default('unpublished');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('creator_id');

@@ -30,4 +30,9 @@ class Asset extends Model
     {
         return $this->belongsTo(Artist::class);
     }
+
+    public function medias()
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
 }
