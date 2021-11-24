@@ -1,4 +1,4 @@
-@extends('admin.layout.layout')
+@extends('admin.layout.master')
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">

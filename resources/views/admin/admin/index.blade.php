@@ -4,7 +4,7 @@
 
     <div class="card">
         <div class="card-header">
-            <a href="{{route('admin.create')}}" type="button"
+            <a href="{{route('admins.create')}}" type="button"
                class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add Admin </a>
             <h3 class="card-title">admin table</h3>
         </div>
@@ -32,11 +32,11 @@
                     <td>
                         <div class="row">
                             <div class="col-md-3">
-                                <a href="{{route('admin.edit',$admin->id)}}" type="button"
+                                <a href="{{route('admins.edit',$admin->id)}}" type="button"
                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                             </div>
                             <div class="col-md-3">
-                                <form  method='post' action="{{route('admin.destroy',$admin->id)}}">
+                                <form  method='post' action="{{route('admins.destroy',$admin->id)}}">
                                     @method('delete')
                                     @csrf
                                     <button type="submit"

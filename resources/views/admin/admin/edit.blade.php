@@ -6,7 +6,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form class="form-horizontal"  method="post"   action="{{route('admin.update',$admin->id)}}">
+        <form class="form-horizontal"  method="post"   action="{{route('admins.update',$admin->id)}}">
             @method('patch')
             @csrf
             <div class="card-body">

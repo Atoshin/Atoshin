@@ -44,7 +44,7 @@ AdminController extends Controller
         ]);
 
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admins.index');
     }
 
     /**
@@ -85,7 +85,7 @@ AdminController extends Controller
         $admin->email=$request->email;
         $admin->username=$request->username;
         $admin->save();
-        return redirect()->route('admin.index');
+        return redirect()->route('admins.index');
     }
 
     /**
