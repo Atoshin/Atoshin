@@ -26,9 +26,5 @@ Route::prefix('admin')->group(function(){
 //user
     Route::get('users/index',[\App\Http\Controllers\UserController::class,'index'])->name('user.index');
 
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 
-
-
-
-
-});
