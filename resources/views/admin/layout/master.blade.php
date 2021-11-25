@@ -14,6 +14,20 @@
     <link rel="stylesheet" href="{{asset('admin/js/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(Session::has('message'))
+        <script type="text/javascript">
+            Swal.fire({
+                target: 'body',
+                icon: '{{Session::has('icon') ? Session::get('icon') : 'success'}}',
+                title: '{{Session::get('message')}}',
+                showConfirmButton: false,
+                timer: 3000,
+            })
+        </script>
+
+    @endif
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">

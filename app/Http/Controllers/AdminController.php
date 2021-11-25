@@ -92,13 +92,13 @@ AdminController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $admin =Admin::find($id);
         $admin->delete();
-//        \request()->session()->flash('message', 'deleted successfully');
+        \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
     }
 

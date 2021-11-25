@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Usertable</h1>
+                    <h1>User table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -18,6 +18,7 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
+                        <a href="" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add User</a>
                         <h3 class="card-title">User</h3>
                     </div>
                     <!-- /.card-header -->
@@ -26,12 +27,13 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>first_name</th>
-                                <th>last_name</th>
-                                <th>avatar</th>
-                                <th>email</th>
-                                <th>username</th>
-                                <th>bio</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Avatar</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Bio</th>
+                                <th>Operation</th>
 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -47,27 +49,25 @@
                                     <td>{{$user->username}}</td>
                                     <td>{{$user->bio}}</td>
 
-{{--                                    <td>--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-md-3">--}}
-{{--                                                <a href="{{route('admin.edit',$admin->id)}}" type="button"--}}
-{{--                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="col-md-3">--}}
-{{--                                                <form  method='post' action="{{route('admin.destroy',$admin->id)}}">--}}
-{{--                                                    @method('delete')--}}
-{{--                                                    @csrf--}}
-{{--                                                    <button type="submit"--}}
-
-{{--                                                            class="btn btn-danger"><i--}}
-{{--                                                            class="fa fa-trash "></i>delete--}}
-{{--                                                    </button>--}}
-{{--                                                </form>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <a href="" type="button"
+                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button"
+                                                        onclick="deleteModal(this)"
+                                                        data-id="{{$user->id}}"
+                                                        class="btn btn-danger "><i
+                                                        class="fa fa-trash "></i>delete
+                                                </button>
+                                            </div>
+                                        </div>
 
 
-{{--                                    </td>--}}
+                                    </td>
+
 
                                 </tr>
                             @endforeach
@@ -82,6 +82,10 @@
         </div>
         <!-- /.row -->
         </div>
+        <form action="" id="delete-form" method="POST">
+            @method('delete')
+            @csrf
+        </form>
 
     </section>
 
@@ -118,6 +122,44 @@
                 "responsive": true,
             });
         });
+    </script>
+    <script>
+
+        $(".delete-icon").on("click", function () {
+            var UserId = $(this).data('id');
+            $("#delete-form").attr("action", "/users/" + UserId)
+        });
+
+    </script>
+    <script>
+        function deleteModal(element) {
+            var UserID = $(element).data('id');
+            document.getElementById('delete-form').action = `/users/$UserID`;
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to delete this user?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: `yes`,
+                cancelButtonText: `no`,
+                confirmButtonColor: '#22303d',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    $("#delete-form").submit();
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire({
+                        title: 'the removal request was canceled',
+                        icon: 'info',
+                        confirmButtonText : 'ok',
+                        confirmButtonColor: '#22303d'
+
+
+                    });
+
+                }
+            })
+        }
     </script>
 
 @endsection
