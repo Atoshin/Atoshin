@@ -44,7 +44,7 @@ AdminController extends Controller
         ]);
 
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admins.index');
     }
 
     /**
@@ -85,20 +85,20 @@ AdminController extends Controller
         $admin->email=$request->email;
         $admin->username=$request->username;
         $admin->save();
-        return redirect()->route('admin.index');
+        return redirect()->route('admins.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $admin =Admin::find($id);
         $admin->delete();
-//        \request()->session()->flash('message', 'deleted successfully');
+        \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
     }
 

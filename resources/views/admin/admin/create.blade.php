@@ -7,7 +7,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form class="form-horizontal"   method="post"    action="{{route('admin.store')}}">
+        <form class="form-horizontal"   method="post"    action="{{route('admins.store')}}">
             @csrf
             <div class="card-body">
                 <div class="form-group row">
