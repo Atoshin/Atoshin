@@ -21,22 +21,32 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('admin.user.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        User::query()->create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'avatar' => $request->avatar,
+            'email' => $request->email,
+            'username' => $request->username,
+            'bio' => $request->bio,
+        ]);
+
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -54,11 +64,14 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $user =User::find($id);
+
+        return view('admin.user.edit', compact( 'user'));
+
     }
 
     /**
@@ -66,11 +79,19 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $user=User::find($id);
+        $user->first_name=$request->first_name;
+        $user->last_name=$request->last_name;
+        $user->avatar=$request->avatar;
+        $user->email=$request->email;
+        $user->username=$request->username;
+        $user->bio=$request->bio;
+        $user->save();
+        return redirect()->route('users.index');
     }
 
     /**

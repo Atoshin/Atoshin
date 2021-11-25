@@ -77,10 +77,13 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $category =Category::find($id);
+        $category->delete();
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
     }
 }

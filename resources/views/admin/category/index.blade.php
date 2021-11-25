@@ -51,6 +51,11 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+            <div class="card col-sm-12">
+                <div class="card-header">
+                    <a href="" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add category</a>
+                    <h3 class="card-title">User</h3>
+                </div>
 
             <div class="card col-sm-12">
                 <div class="card-header">
@@ -80,8 +85,20 @@
                                     {{--<a href="#" class="text-muted">--}}
                                     {{--<i class="fas fa-search"></i>--}}
                                     {{--</a>--}}
-                                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <a href="" type="button"
+                                               class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="button"
+                                                    onclick="deleteModal(this)"
+                                                    data-id="{{$category->id}}"
+                                                    class="btn btn-danger "><i
+                                                    class="fa fa-trash "></i>delete
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -95,10 +112,18 @@
         </div>
         <!-- /.col -->
     </div>
+        <form action="" id="delete-form" method="POST">
+            @method('delete')
+            @csrf
+        </form>
     <!-- /.row -->
     </div>
 
 </section>
+<form action="" id="delete-form" method="POST">
+    @method('delete')
+    @csrf
+</form>
 
 
 @endsection
@@ -133,6 +158,45 @@
                 "responsive": true,
             });
         });
+    </script>
+    <script>
+
+        $(".delete-icon").on("click", function () {
+            var CategoryId = $(this).data('id');
+            $("#delete-form").attr("action", "/categories/" + CategoryId)
+        });
+
+    </script>
+    <script>
+        function deleteModal(element) {
+            var CategoryID = $(element).data('id');
+
+            document.getElementById('delete-form').action = "/categories/" + CategoryID;
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to delete this category?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: `yes`,
+                cancelButtonText: `no`,
+                confirmButtonColor: '#22303d',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    $("#delete-form").submit();
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire({
+                        title: 'the removal request was canceled',
+                        icon: 'info',
+                        confirmButtonText : 'ok',
+                        confirmButtonColor: '#22303d'
+
+
+                    });
+
+                }
+            })
+        }
     </script>
 
 @endsection

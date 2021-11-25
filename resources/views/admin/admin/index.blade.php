@@ -77,7 +77,7 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add Admin </a>
+                        <a href="{{route('admins.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add Admin </a>
                         <h3 class="card-title">Admin</h3>
                     </div>
                     <!-- /.card-header -->
@@ -101,7 +101,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <a href="" type="button"
+                                                <a href="{{route('admins.edit',$admin->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
                                             <div class="col-md-3">
