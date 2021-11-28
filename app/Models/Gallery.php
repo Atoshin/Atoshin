@@ -10,9 +10,9 @@ class Gallery extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function asset()
+    public function assets()
     {
-        return $this->hasOne(Asset::class, 'creator_id');
+        return $this->hasMany(Asset::class, 'creator_id');
     }
 
     public function location()

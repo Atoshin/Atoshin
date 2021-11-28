@@ -35,4 +35,9 @@ class Asset extends Model
     {
         return $this->morphMany(Media::class, 'mediable');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
 }

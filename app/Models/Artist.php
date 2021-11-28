@@ -10,9 +10,9 @@ class Artist extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function asset()
+    public function assets()
     {
-        return $this->hasOne(Asset::class);
+        return $this->hasMany(Asset::class);
     }
 
     public function medias()

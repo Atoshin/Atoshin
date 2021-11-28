@@ -19,6 +19,8 @@ class CreateAssetsTable extends Migration
             $table->string('bio')->nullable();
             $table->string('price')->nullable();
             $table->integer('ownership_percentage')->default(40);
+            $table->integer('commission_percentage');
+            $table->integer('royalties_percentage');
             $table->integer('total_fractions')->default(100);
             $table->integer('sold_fractions')->default(0);
             $table->timestamp('start_date')->default(\Carbon\Carbon::now());
