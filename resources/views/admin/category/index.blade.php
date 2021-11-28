@@ -51,7 +51,7 @@
                                             {{--</a>--}}
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <a href="" type="button"
+                                                    <a href="{{route('categories.edit',$category->id)}}" type="button"
                                                        class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                                 </div>
                                                 <div class="col-md-3">
