@@ -18,7 +18,8 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('users.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add User</a>
+                        <a href="{{route('users.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add User</a>
                         <h3 class="card-title">User</h3>
                     </div>
                     <!-- /.card-header -->
@@ -32,8 +33,9 @@
                                 <th>Email</th>
                                 <th>Username</th>
                                 <th>Bio</th>
+                                <th>Wallet Address</th>
                                 <th>Operation</th>
-{{--                                <th>operations</th>--}}
+                                {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
 
@@ -47,6 +49,7 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->username}}</td>
                                     <td>{{$user->bio}}</td>
+                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>
 
                                     <td>
                                         <div class="row">
@@ -150,10 +153,8 @@
                     Swal.fire({
                         title: 'the removal request was canceled',
                         icon: 'info',
-                        confirmButtonText : 'ok',
+                        confirmButtonText: 'ok',
                         confirmButtonColor: '#22303d'
-
-
                     });
 
                 }

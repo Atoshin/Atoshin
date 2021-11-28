@@ -250,5 +250,6 @@
             element.style.float = 'inline-end';
         });
     </script>
+
 @endsection
 

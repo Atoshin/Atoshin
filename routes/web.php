@@ -21,4 +21,4 @@ Route::get('admin/dashboard', [\App\Http\Controllers\AdminDashboardController::c
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('admins', \App\Http\Controllers\AdminController::class);
 Route::resource('users', \App\Http\Controllers\UserController::class);
-
+Route::resource('wallets', \App\Http\Controllers\WalletController::class);
