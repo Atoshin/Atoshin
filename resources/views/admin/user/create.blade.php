@@ -64,7 +64,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"    action="{{route('users.store')}}">
+        <form  method="post"    action="{{route('users.store')}}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -108,5 +108,6 @@
             </div>
         </form>
     </div>
+
 
 @endsection
