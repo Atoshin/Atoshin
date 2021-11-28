@@ -16,6 +16,7 @@ class CreateSignaturesTable extends Migration
         Schema::create('signatures', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['login','buy']);
+            $table->string('hash');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
