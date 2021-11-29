@@ -136,7 +136,7 @@
     <script>
         function deleteModal(element) {
             var UserID = $(element).data('id');
-            document.getElementById('delete-form').action = `/users/$UserID`;
+            document.getElementById('delete-form').action = `/users/${UserID}`;
             Swal.fire({
                 icon: 'warning',
                 title: 'Do you want to delete this user?',
