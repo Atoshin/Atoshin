@@ -1,179 +1,144 @@
 @extends('admin.layout.master')
 @section('content')
-{{--@foreach()--}}
-{{--<div class="card-body table-responsive p-0">--}}
-{{--    --}}{{--<button type="button" href="{{route('categories.create')}}" class="btn btn-secondary btn-sm">Create</button>--}}
-{{--    <a href="{{route('categories.create')}}" class="btn btn-secondary btn-sm">Create</a>--}}
-{{--    <table class="table table-striped table-valign-middle">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th>Title</th>--}}
-{{--            <th>Parent category</th>--}}
-{{--            --}}{{--<th>Sales</th>--}}
-{{--            <th>More</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
-{{--        @foreach($categories as $category)--}}
-{{--            <tr>--}}
-{{--                <td>--}}
-{{--                    {{$category->title}}--}}
-{{--                </td>--}}
-{{--                <td>--}}
-{{--                    {{$category->parent ? $category->parent->title : "-"}}--}}
-{{--                </td>--}}
-{{--                <td>--}}
-{{--                    --}}{{--<a href="#" class="text-muted">--}}
-{{--                        --}}{{--<i class="fas fa-search"></i>--}}
-{{--                    --}}{{--</a>--}}
-{{--                    <button type="button" class="btn btn-primary btn-sm">Edit</button>--}}
-{{--                    <button type="button" class="btn btn-danger btn-sm">Delete</button>--}}
-{{--                </td>--}}
-{{--            </tr>--}}
-{{--            @endforeach--}}
-{{--        </tbody>--}}
-{{--    </table>--}}
-{{--</div>--}}
-
-
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>DataTables</h1>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>DataTables</h1>
+                </div>
             </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
+        </div><!-- /.container-fluid -->
+    </section>
 
 
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="card col-sm-12">
-                <div class="card-header">
-                    <a href="" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add category</a>
-                    <h3 class="card-title">User</h3>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-sm-12">
+                    <div class="card-header">
+                        <a href="{{route('categories.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add category</a>
+                        <h3 class="card-title">User</h3>
+                    </div>
+
+                    <div class="card col-sm-12">
+                        <div class="card-header">
+                            <h3 class="card-title">Category</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Parent category</th>
+                                    <th>More</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach($categories as $category)
+                                    <tr>
+                                        <td>
+                                            {{$category->title}}
+                                        </td>
+                                        <td>
+                                            {{$category->parent ? $category->parent->title : "-"}}
+                                        </td>
+                                        <td>
+                                            {{--<a href="#" class="text-muted">--}}
+                                            {{--<i class="fas fa-search"></i>--}}
+                                            {{--</a>--}}
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a href="{{route('categories.edit',$category->id)}}" type="button"
+                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button"
+                                                            onclick="deleteModal(this)"
+                                                            data-id="{{$category->id}}"
+                                                            class="btn btn-danger "><i
+                                                            class="fa fa-trash "></i>delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
                 </div>
-
-            <div class="card col-sm-12">
-                <div class="card-header">
-                    <h3 class="card-title">Category</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Parent category</th>
-                            <th>More</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        @foreach($categories as $category)
-                            <tr>
-                                <td>
-                                    {{$category->title}}
-                                </td>
-                                <td>
-                                    {{$category->parent ? $category->parent->title : "-"}}
-                                </td>
-                                <td>
-                                    {{--<a href="#" class="text-muted">--}}
-                                    {{--<i class="fas fa-search"></i>--}}
-                                    {{--</a>--}}
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <a href="" type="button"
-                                               class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="button"
-                                                    onclick="deleteModal(this)"
-                                                    data-id="{{$category->id}}"
-                                                    class="btn btn-danger "><i
-                                                    class="fa fa-trash "></i>delete
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
+                <!-- /.col -->
             </div>
-            <!-- /.card -->
+            <form action="" id="delete-form" method="POST">
+                @method('delete')
+                @csrf
+            </form>
+            <!-- /.row -->
         </div>
-        <!-- /.col -->
-    </div>
-        <form action="" id="delete-form" method="POST">
-            @method('delete')
-            @csrf
-        </form>
-    <!-- /.row -->
-    </div>
 
-</section>
-<form action="" id="delete-form" method="POST">
-    @method('delete')
-    @csrf
-</form>
+    </section>
+    <form action="" id="delete-form" method="POST">
+        @method('delete')
+        @csrf
+    </form>
 
 
-{{--    <section class="content">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <div class="row">--}}
-{{--                <div class="card col-sm-12">--}}
-{{--                    <div class="card-header" style="display: inline;">--}}
-{{--                        <div>--}}
-{{--                            <h3 class="card-title">Categories</h3>--}}
-{{--                        </div>--}}
-{{--                        <div style="float: inline-end ">--}}
-{{--                            <a href="{{route('categories.create')}}" class="btn btn-secondary btn-sm">Create</a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <!-- /.card-header -->--}}
-{{--                    <div class="card-body">--}}
-{{--                        <table id="example1" class="table table-bordered table-striped">--}}
-{{--                            <thead>--}}
-{{--                            <tr>--}}
-{{--                                <th>Title</th>--}}
-{{--                                <th>Parent category</th>--}}
-{{--                                <th>More</th>--}}
-{{--                            </tr>--}}
-{{--                            </thead>--}}
-{{--                            <tbody>--}}
-{{--                            @foreach($categories as $category)--}}
-{{--                                <tr>--}}
-{{--                                    <td>--}}
-{{--                                        {{$category->title}}--}}
-{{--                                    </td>--}}
-{{--                                    <td>--}}
-{{--                                        {{$category->parent ? $category->parent->title : "-"}}--}}
-{{--                                    </td>--}}
-{{--                                    <td>--}}
-{{--                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>--}}
-{{--                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
-{{--                            </tbody>--}}
-{{--                        </table>--}}
-{{--                    </div>--}}
-{{--                    <!-- /.card-body -->--}}
-{{--                </div>--}}
-{{--                <!-- /.card -->--}}
-{{--            </div>--}}
-{{--            <!-- /.col -->--}}
-{{--        </div>--}}
-{{--        <!-- /.row -->--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    {{--    <section class="content">--}}
+    {{--        <div class="container-fluid">--}}
+    {{--            <div class="row">--}}
+    {{--                <div class="card col-sm-12">--}}
+    {{--                    <div class="card-header" style="display: inline;">--}}
+    {{--                        <div>--}}
+    {{--                            <h3 class="card-title">Categories</h3>--}}
+    {{--                        </div>--}}
+    {{--                        <div style="float: inline-end ">--}}
+    {{--                            <a href="{{route('categories.create')}}" class="btn btn-secondary btn-sm">Create</a>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <!-- /.card-header -->--}}
+    {{--                    <div class="card-body">--}}
+    {{--                        <table id="example1" class="table table-bordered table-striped">--}}
+    {{--                            <thead>--}}
+    {{--                            <tr>--}}
+    {{--                                <th>Title</th>--}}
+    {{--                                <th>Parent category</th>--}}
+    {{--                                <th>More</th>--}}
+    {{--                            </tr>--}}
+    {{--                            </thead>--}}
+    {{--                            <tbody>--}}
+    {{--                            @foreach($categories as $category)--}}
+    {{--                                <tr>--}}
+    {{--                                    <td>--}}
+    {{--                                        {{$category->title}}--}}
+    {{--                                    </td>--}}
+    {{--                                    <td>--}}
+    {{--                                        {{$category->parent ? $category->parent->title : "-"}}--}}
+    {{--                                    </td>--}}
+    {{--                                    <td>--}}
+    {{--                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>--}}
+    {{--                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>--}}
+    {{--                                    </td>--}}
+    {{--                                </tr>--}}
+    {{--                            @endforeach--}}
+    {{--                            </tbody>--}}
+    {{--                        </table>--}}
+    {{--                    </div>--}}
+    {{--                    <!-- /.card-body -->--}}
+    {{--                </div>--}}
+    {{--                <!-- /.card -->--}}
+    {{--            </div>--}}
+    {{--            <!-- /.col -->--}}
+    {{--        </div>--}}
+    {{--        <!-- /.row -->--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 @endsection
 
 @section('scripts')
@@ -234,7 +199,7 @@
                     Swal.fire({
                         title: 'the removal request was canceled',
                         icon: 'info',
-                        confirmButtonText : 'ok',
+                        confirmButtonText: 'ok',
                         confirmButtonColor: '#22303d'
 
 

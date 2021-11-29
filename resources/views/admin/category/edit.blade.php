@@ -40,17 +40,18 @@
     {{--    //////--}}
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Add Category</h3>
+            <h3 class="card-title">Edit Category</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"    action="{{route('categories.store')}}">
+        <form method="post"    action="{{route('categories.update', $category->id)}}">
+            @method('patch')
             @csrf
             <div class="card-body">
 
                 <div class="form-group">
                     <label >Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="title">
+                    <input type="text" class="form-control" name="title" placeholder="title" value="{{$category->title}}">
                 </div>
                 {{--                <div class="form-group">--}}
                 {{--                    <label for="exampleInputFile">File input</label>--}}
