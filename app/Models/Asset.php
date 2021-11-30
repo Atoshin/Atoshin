@@ -13,7 +13,7 @@ class Asset extends Model
 
     public function videoFeeds()
     {
-        return $this->hasMany(VideoFeed::class);
+        return $this->hasMany(Video::class);
     }
 
     public function category()
