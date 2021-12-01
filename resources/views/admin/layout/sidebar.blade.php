@@ -26,6 +26,12 @@
                         <p>Categories</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('contracts.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Contracts</p>
+                    </a>
+                </li>
 {{--                <li class="nav-header">EXAMPLES</li>--}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
