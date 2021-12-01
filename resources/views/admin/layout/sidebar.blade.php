@@ -62,6 +62,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('galleries.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>gallery</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('assets.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>assets</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Top Navigation + Sidebar</p>

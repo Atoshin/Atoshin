@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::prefix('v1')->group(function () {
+
+    //region home page
+
+    Route::get('homepage/material',[\App\Http\Controllers\Api\HomePageController::class,'gethomePageMaterial'])->name('homepage');
+    Route::post('assets/{type}/{asset_id}/media/upload', [\App\Http\Controllers\Api\MediaController::class, 'upload']);
+
+
 });

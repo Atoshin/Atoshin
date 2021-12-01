@@ -60,49 +60,26 @@
     {{--/////--}}
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">New Artist</h3>
+            <h3 class="card-title">New Gallery</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form  method="post"    action="{{route('artists.store')}}">
+        <form  method="post"    action="{{route('galleries.store')}}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Full name</label>
-                    <input type="text" class="form-control" name="full_name" placeholder="Full name">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Avatar</label>
-                    <input type="text" class="form-control" name="avatar" placeholder="Avatar">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Name">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
                     <textarea type="text" class="form-control" name="bio" placeholder="Bio"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Website</label>
-                    <input type="url" class="form-control" name="website" placeholder="Website">
+                    <label for="exampleInputPassword1">Avatar</label>
+                    <input type="text" class="form-control" name="avatar" placeholder="Avatar">
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Youtube</label>
-                    <input type="url" class="form-control" name="youtube" placeholder="Youtube">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Instagram</label>
-                    <input type="url" class="form-control" name="instagram" placeholder="Instagram">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Twitter</label>
-                    <input type="url" class="form-control" name="twitter" placeholder="Twitter">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Facebook</label>
-                    <input type="url" class="form-control" name="facebook" placeholder="Facebook">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Linkedin</label>
-                    <input type="url" class="form-control" name="linkdin" placeholder="Linkedin">
-                </div>
+
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>

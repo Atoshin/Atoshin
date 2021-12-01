@@ -23,3 +23,13 @@ Route::resource('admins', \App\Http\Controllers\AdminController::class);
 Route::resource('users', \App\Http\Controllers\UserController::class);
 Route::resource('artists', \App\Http\Controllers\ArtistController::class);
 Route::resource('contracts', \App\Http\Controllers\ContractController::class);
+Route::resource('galleries', \App\Http\Controllers\GalleryController::class);
+Route::resource('assets', \App\Http\Controllers\AssetController::class);
+Route::get('videos/{asset_id}',[\App\Http\Controllers\VideoController::class,'index'])->name('videos.index');
+Route::get('videos/{asset_id}/create',[\App\Http\Controllers\VideoController::class,'create'])->name('videos.create');
+Route::patch('videos/{asset_id}/update',[\App\Http\Controllers\VideoController::class,'update'])->name('videos.update');
+Route::delete('videos/{asset_id}/destroy',[\App\Http\Controllers\VideoController::class,'destroy'])->name('videos.destroy');
+Route::get('videos/{asset_id}/edit',[\App\Http\Controllers\VideoController::class,'edit'])->name('videos.edit');
+Route::post('videos/{asset_id}/store',[\App\Http\Controllers\VideoController::class,'store'])->name('videos.store');
+
+
