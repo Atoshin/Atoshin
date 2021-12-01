@@ -18,6 +18,13 @@ class CreateContractsTable extends Migration
             $table->timestamps();
             $table->string('hash');
             $table->string('contract_number');
+            $table->unsignedBigInteger('asset_id');
+
+            $table->foreign('asset_id')
+                ->references('id')
+                ->on('assets')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

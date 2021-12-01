@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4842c22e789d247c4b660e69490545f",
+    "content-hash": "71c3a2d495478553f2c4f437e9fbbb5d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2850,6 +2850,73 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "rootsoft/laravel-ipfs",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RootSoft/laravel-ipfs.git",
+                "reference": "e900355db638dd9302abda3dee78532da10a7f45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RootSoft/laravel-ipfs/zipball/e900355db638dd9302abda3dee78532da10a7f45",
+                "reference": "e900355db638dd9302abda3dee78532da10a7f45",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^7.2",
+                "league/flysystem": "^1.1.3",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rootsoft\\IPFS\\IPFSServiceProvider"
+                    ],
+                    "aliases": {
+                        "IPFS": "Rootsoft\\IPFS\\IPFSFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rootsoft\\IPFS\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tomas Verhelst",
+                    "email": "tomas.verhelst@kotapp.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package to communicate with IPFS",
+            "homepage": "https://github.com/rootsoft/laravel-ipfs",
+            "keywords": [
+                "ipfs",
+                "laravel",
+                "laravel-ipfs",
+                "php",
+                "rootsoft"
+            ],
+            "support": {
+                "issues": "https://github.com/RootSoft/laravel-ipfs/issues",
+                "source": "https://github.com/RootSoft/laravel-ipfs/tree/0.0.1"
+            },
+            "time": "2021-04-06T19:05:24+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7962,5 +8029,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

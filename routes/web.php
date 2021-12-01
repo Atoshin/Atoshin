@@ -22,3 +22,4 @@ Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 Route::resource('admins', \App\Http\Controllers\AdminController::class);
 Route::resource('users', \App\Http\Controllers\UserController::class);
 Route::resource('artists', \App\Http\Controllers\ArtistController::class);
+Route::resource('contracts', \App\Http\Controllers\ContractController::class);
