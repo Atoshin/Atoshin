@@ -41,7 +41,6 @@
 {{--                                        {{ $video->asset->title}}--}}
 {{--                                    </td>--}}
                                     <td>
-
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <a href="{{ route('videos.edit',$video) }}" type="button"
