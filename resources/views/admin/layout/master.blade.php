@@ -15,6 +15,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
 
+    @yield('styles')
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if(Session::has('message'))
         <script type="text/javascript">

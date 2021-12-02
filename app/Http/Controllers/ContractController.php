@@ -10,7 +10,7 @@ class ContractController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.contract.create');
     }
 
     /**
@@ -85,5 +85,14 @@ class ContractController extends Controller
         $contract->delete();
         \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
+    }
+
+    public function uploadFile(Request $request)
+    {
+        $file = $request->file('file');
+        $fileName = time().'.'.$file->extension();
+        $file->move(public_path('file'),$fileName);
+
+        return response()->json(['success'=>$fileName]);
     }
 }

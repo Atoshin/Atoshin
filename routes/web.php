@@ -31,5 +31,5 @@ Route::patch('videos/{asset_id}/update',[\App\Http\Controllers\VideoController::
 Route::delete('videos/{asset_id}/destroy',[\App\Http\Controllers\VideoController::class,'destroy'])->name('videos.destroy');
 Route::get('videos/{asset_id}/edit',[\App\Http\Controllers\VideoController::class,'edit'])->name('videos.edit');
 Route::post('videos/{asset_id}/store',[\App\Http\Controllers\VideoController::class,'store'])->name('videos.store');
-
+Route::post('upload', [ \App\Http\Controllers\ContractController::class, 'uploadFile' ])->name('uploadFile');
 

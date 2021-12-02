@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVideoFeedsTable extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVideoFeedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('video_feeds', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('link');
             $table->unsignedBigInteger('asset_id');
@@ -34,6 +34,6 @@ class CreateVideoFeedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('video_feeds');
+        Schema::dropIfExists('videos');
     }
 }
