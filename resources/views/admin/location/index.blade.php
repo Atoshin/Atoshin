@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Gallery table</h1>
+                    <h1>Location Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -18,47 +18,45 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('galleries.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
-                                class="fa fa-plus mr-2 "></i> Add Gallery</a>
-                        <h3 class="card-title">Gallery</h3>
+                        <a href="{{route('locations.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add Location</a>
+                        <h3 class="card-title">Location</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Bio</th>
-                                <th>Avatar</th>
+                                <th>Lat</th>
+                                <th>Long</th>
+                                <th>Address</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
 
                             <tbody>
-                            @foreach($galleries as $gallery)
+                            @foreach($locations as $location)
                                 <tr>
 
-                                    <td>{{$gallery->name}}</td>
-                                    <td>{{$gallery->bio}}</td>
-                                    <td>{{$gallery->avatar}}</td>
+                                    <td>{{$location->lat}}</td>
+                                    <td>{{$location->long}}</td>
+                                    <td>{{$location->address}}</td>
+                                    {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
+
                                     <td>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <a href="{{route('galleries.edit',$gallery->id)}}" type="button"
+                                                <a href="" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
                                             <div class="col-md-4">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
-                                                        data-id="{{$gallery->id}}"
+                                                        data-id="{{$location->id}}"
                                                         class="btn btn-danger "><i
                                                         class="fa fa-trash "></i>delete
                                                 </button>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
                                             </div>
                                         </div>
 
@@ -78,7 +76,7 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-        </div>
+
         <form action="" id="delete-form" method="POST">
             @method('delete')
             @csrf
@@ -123,18 +121,18 @@
     <script>
 
         $(".delete-icon").on("click", function () {
-            var GalleryId = $(this).data('id');
-            $("#delete-form").attr("action", "/users/" + GalleryId)
+            var ArtistId = $(this).data('id');
+            $("#delete-form").attr("action", "/artists/" + ArtistId)
         });
 
     </script>
     <script>
         function deleteModal(element) {
-            var GalleryID = $(element).data('id');
-            document.getElementById('delete-form').action = `/galleries/${GalleryID}`;
+            var ArtistID = $(element).data('id');
+            document.getElementById('delete-form').action = `/artists/${ArtistID}`;
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this Gallery?',
+                title: 'Do you want to delete this artist?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,

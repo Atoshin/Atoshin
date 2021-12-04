@@ -30,5 +30,12 @@
     "/admin/dist/img/user7-128x128.jpg": "/admin/dist/img/user7-128x128.jpg",
     "/admin/dist/img/user8-128x128.jpg": "/admin/dist/img/user8-128x128.jpg",
     "/admin/dist/js/adminlte.js": "/admin/dist/js/adminlte.js",
-    "/admin/dist/js/pages/dashboard2.js": "/admin/dist/js/pages/dashboard2.js"
+    "/admin/dist/js/pages/dashboard2.js": "/admin/dist/js/pages/dashboard2.js",
+    "/admin/leaflet/leaflet-src.esm.js": "/admin/leaflet/leaflet-src.esm.js",
+    "/admin/leaflet/leaflet-src.esm.js.map": "/admin/leaflet/leaflet-src.esm.js.map",
+    "/admin/leaflet/leaflet-src.js": "/admin/leaflet/leaflet-src.js",
+    "/admin/leaflet/leaflet-src.js.map": "/admin/leaflet/leaflet-src.js.map",
+    "/admin/leaflet/leaflet.css": "/admin/leaflet/leaflet.css",
+    "/admin/leaflet/leaflet.js": "/admin/leaflet/leaflet.js",
+    "/admin/leaflet/leaflet.js.map": "/admin/leaflet/leaflet.js.map"
 }

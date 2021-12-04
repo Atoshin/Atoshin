@@ -15,8 +15,8 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->float('lat');
-            $table->float('long');
+            $table->double('lat');
+            $table->double('long');
             $table->string('address');
             $table->unsignedBigInteger('gallery_id');
             $table->timestamps();

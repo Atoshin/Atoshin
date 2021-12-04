@@ -40,8 +40,10 @@
             <address>
                 <div class="mb-1">   <b>Price:</b> {{$asset->price}}<br></div>
 {{--                795 Folsom Ave, Suite 600<br>--}}
-         <div class="mb-1"> <b> Ownership Percentage:</b>  {{$asset->ownership_percentage}} <br></div>
                 <div class="mb-1">   <b> Total Fractions:</b>  {{$asset->total_fractions}}<br></div>
+                <div class="mb-1"> <b>Sold Fractions:</b> {{$asset->sold_fractions}}<br></div>
+                <div class="mb-1"> <b> Status:</b> {{$asset->status}}<br></div>
+
 {{--                Email: info@almasaeedstudio.com--}}
             </address>
         </div>
@@ -49,10 +51,11 @@
         <div class="col-sm-4 invoice-col">
 
             <address>
-             <div class="mb-1"> <b>Sold Fractions:</b> {{$asset->sold_fractions}}<br></div>
+                <div class="mb-1">   <b> Commission percentage:</b>  {{$asset->commission_percentage}}<br></div>
+                <div class="mb-1"> <b> Ownership Percentage:</b>  {{$asset->ownership_percentage}} <br></div>
+                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>
                 <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>
                 <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>
-                <div class="mb-1"> <b> Status:</b> {{$asset->status}}<br></div>
 {{--                Email: john.doe@example.com--}}
             </address>
         </div>

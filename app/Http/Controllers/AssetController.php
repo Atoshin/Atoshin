@@ -46,7 +46,8 @@ class AssetController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
-    { $asset=Asset::find($id);
+    {
+        $asset=Asset::find($id);
         return view('admin.asset.show',compact('asset'));
     }
 

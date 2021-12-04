@@ -1,0 +1,102 @@
+@extends('admin.layout.master')
+@section('content')
+    {{--<div class="card ">--}}
+
+    {{--    <h3 class="card-title">Location</h3>--}}
+
+    {{--</div>--}}
+
+    <div class="card-header">
+        <div class="card-header">
+            <a href="" type="button" class="btn btn-success mr-2 float-right"> <i
+                    class="fa fa-plus mr-2 "></i> Add Address </a>
+            {{--                        <h3 class="card-title">{{$gallery->}}</h3>--}}
+            <h3 class="card-title card-blue">Location</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form action="{{route('locations.store', $gallery_id)}}" method="POST">
+                @csrf
+                <div class="row">
+                    @if($location)
+                        <div class="col-sm-12 map" id="map" style="height: 500px; margin-bottom: 20px;">
+                        </div>
+                    @endif
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>Lat</label>
+                            <input type="text" id="lat" class="form-control" value="{{$location ? $location->lat : ''}}"
+                                   name="lat" placeholder="Lat">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Long</label>
+                            <input type="text" id="long" class="form-control" name="long"
+                                   value="{{$location ? $location->long : ''}}"
+                                   placeholder="Long">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- textarea -->
+                        <div class="form-group">
+                            <label>Address</label>
+
+                            <textarea class="form-control" rows="3" name="address"
+                                      placeholder="Address">{{$location ? $location->address : ''}}</textarea>
+                        </div>
+                    </div>
+                    {{--                <div class="col-sm-6">--}}
+                    {{--                    <div class="form-group">--}}
+                    {{--                        <label>Textarea Disabled</label>--}}
+                    {{--                        <textarea class="form-control" rows="3" placeholder="Enter ..." disabled></textarea>--}}
+                    {{--                    </div>--}}
+                    {{--                </div>--}}
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-default float-right">Cancel</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+@endsection
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            var map = L.map('map', {
+                center: [{{$location ? $location->lat : ''}}, {{$location ? $location->long : ''}}],
+                zoom: 13
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                _sizeChanged: true,
+                tileSize: 512,
+                zoomOffset: -1,
+                maxZoom: 18,
+                _zoomAnimated: true,
+            }).addTo(map);
+            setTimeout(function () {
+                map.invalidateSize()
+            }, 400);
+            L.marker([{{$location ? $location->lat : ''}}, {{$location ? $location->long : ''}}]).addTo(map);
+            map.on('click', function(e) {
+                var popLocation= e.latlng;
+                $("#lat").val(popLocation.lat);
+                $("#long").val(popLocation.lng);
+                var popup = L.popup()
+                    .setLatLng(popLocation)
+                    .setContent(`<p>Lat: ${popLocation.lat}<br />Long: ${popLocation.lng}</p>`)
+                    .openOn(map);
+            });
+        })
+    </script>
+@endsection

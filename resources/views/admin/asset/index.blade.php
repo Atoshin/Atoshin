@@ -27,13 +27,8 @@
                             <thead>
                             <tr>
 
-                                <th>Title</th>
-                                <th>Bio</th>
-                                <th>Price</th>
-                                <th>ownership_percentage</th>
-                                <th>commission_percentage</th>
-                                <th>royalties_percentage</th>
-                                <th>total_fractions</th>
+
+                                <th>link</th>
                                 {{--                                <th>sold_fractions</th>--}}
                                 {{--                                <th>start_date</th>--}}
                                 {{--                                <th>end_date</th>--}}
@@ -45,13 +40,8 @@
 
                             @foreach($assets as $asset)
                                 <tr>
-                                    <td>{{$asset->title}}</td>
-                                    <td>{{$asset->bio}}</td>
-                                    <td>{{$asset->price}}</td>
-                                    <td>{{$asset->ownership_percentage}}</td>
-                                    <td>{{$asset->commission_percentage}}</td>
-                                    <td>{{$asset->royalties_percentage}}</td>
-                                    <td>{{$asset->total_fractions}}</td>
+
+                                    <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
                                     {{--                                    <td>{{$asset->sold_fractions}}</td>--}}
                                     {{--                                    <td>{{$asset->start_date}}</td>--}}
                                     {{--                                    <td>{{$asset->end_date}}</td>--}}

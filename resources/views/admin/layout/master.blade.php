@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('admin/js/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/leaflet/leaflet.css')}}">
 
     @yield('styles')
 
@@ -70,6 +71,7 @@
 {{--<script src="dist/js/demo.js"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('admin/dist/js/pages/dashboard2.js')}}"></script>
+<script src="{{asset('admin/leaflet/leaflet.js')}}"></script>
 
 @yield('scripts')
 

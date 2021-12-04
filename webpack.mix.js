@@ -19,4 +19,5 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/admin/dist/img', 'public/admin/dist/img')
     .copy('resources/admin/dist/js/adminlte.js', 'public/admin/dist/js')
     .copy('resources/admin/dist/js/pages/dashboard2.js', 'public/admin/dist/js/pages')
+    .copy('resources/admin/leaflet', 'public/admin/leaflet')
     .css('resources/admin/dist/css/adminlte.min.css', 'public/admin/dist/css');
