@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -15,7 +16,7 @@ class GalleryController extends Controller
     public function index()
     {
         $galleries = Gallery:: all();
-        return view('admin.admin.gallery.index', compact('galleries'));
+        return view('admin.gallery.index', compact('galleries'));
     }
 
     /**
@@ -25,7 +26,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('admin.admin.gallery.create');
+        return view('admin.gallery.create');
     }
 
     /**
@@ -36,10 +37,15 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        Gallery::query()->create([
+        $gallery = Gallery::query()->create([
             'name' => $request->name,
             'bio' => $request->bio,
             'avatar' => $request->avatar,
+        ]);
+        Wallet::query()->create([
+            'wallet_address' => $request->wallet_address,
+            'walletable_id' => $gallery->id,
+            'walletable_type' => 'App\Models\Gallery'
         ]);
 
 
@@ -67,7 +73,7 @@ class GalleryController extends Controller
     {
         $gallery =Gallery::find($id);
 
-        return view('admin.admin.gallery.edit', compact( 'gallery'));
+        return view('admin.gallery.edit', compact( 'gallery'));
     }
 
     /**
@@ -83,6 +89,17 @@ class GalleryController extends Controller
         $gallery->name=$request->name;
         $gallery->bio=$request->bio;
         $gallery->avatar=$request->avatar;
+        $wallet = $gallery->wallet;
+        if ($wallet) {
+            $wallet->wallet_address = $request->wallet_address;
+            $wallet->save();
+        } else {
+            Wallet::query()->create([
+                'wallet_address' => $request->wallet_address,
+                'walletable_id' => $gallery->id,
+                'walletable_type' => 'App\Models\Gallery'
+            ]);
+        }
         $gallery->save();
         return redirect()->route('galleries.index');
     }
@@ -96,6 +113,11 @@ class GalleryController extends Controller
     public function destroy($id)
     {
         $gallery =Gallery::find($id);
+        $wallet = $gallery->wallet;
+        if ($wallet)
+        {
+            $wallet->delete();
+        }
         $gallery->delete();
         \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
