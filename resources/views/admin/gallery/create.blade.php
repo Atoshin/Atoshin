@@ -78,8 +78,7 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Avatar</label>
                     <input type="text" class="form-control" name="avatar" placeholder="Avatar">
-                </div>
-
+                </div>t
                 <div class="form-group">
                     <label for="exampleInputPassword1">Wallet Address</label>
                     <input type="text" class="form-control" name="wallet_address" placeholder="Wallet Address">
