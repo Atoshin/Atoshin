@@ -16,16 +16,21 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" value="{{$gallery->bio}}" placeholder="Bio"></textarea>
+                    <textarea type="text" class="form-control" name="bio" value="{{$gallery->bio}}" placeholder="Bio">{{$gallery->bio}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Avatar</label>
                     <input type="text" class="form-control" name="avatar" value="{{$gallery->avatar}}" placeholder="Avatar">
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Wallet Address</label>
+                    <input type="text" class="form-control" name="wallet_address" value="{{$gallery->wallet ? $gallery->wallet->wallet_address : ''}}" placeholder="Wallet Address">
                 </div>
+
+{{--                <div class="form-check">--}}
+{{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+{{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
+{{--                </div>--}}
             </div>
             <!-- /.card-body -->
 

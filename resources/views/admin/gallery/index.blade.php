@@ -30,7 +30,8 @@
                                 <th>Name</th>
                                 <th>Bio</th>
                                 <th>Avatar</th>
-                                <th>Operation</th>
+                                <th>Wallet</th>
+                                <th>Operations</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -42,6 +43,7 @@
                                     <td>{{$gallery->name}}</td>
                                     <td>{{$gallery->bio}}</td>
                                     <td>{{$gallery->avatar}}</td>
+                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>
                                     <td>
                                         <div class="row">
                                             <div class="col-md-4">

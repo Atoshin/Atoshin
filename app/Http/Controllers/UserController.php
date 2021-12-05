@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Wallet;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User:: all();
+        $users = User::all();
         return view('admin.user.index', compact('users'));
     }
 
@@ -49,7 +50,8 @@ class UserController extends Controller
             ]);
             Wallet::query()->create([
                 'wallet_address' => $request->wallet_address,
-                'user_id' => $user->id
+                'walletable_id' => $user->id,
+                'walletable_type' => 'App\Models\User'
             ]);
         });
         return redirect()->route('users.index');
@@ -100,10 +102,12 @@ class UserController extends Controller
         $user->save();
         if ($wallet) {
             $wallet->wallet_address = $request->wallet_address;
+            $wallet->save();
         } else {
             Wallet::query()->create([
                 'wallet_address' => $request->wallet_address,
-                'user_id' => $user->id
+                'walletable_id' => $user->id,
+                'walletable_type' => 'App\Models\User'
             ]);
         }
         return redirect()->route('users.index');
@@ -118,6 +122,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $wallet = $user->wallet;
+        if ($wallet)
+        {
+            $wallet->delete();
+        }
         $user->delete();
         \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();

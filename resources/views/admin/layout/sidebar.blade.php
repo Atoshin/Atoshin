@@ -32,56 +32,61 @@
                         <p>Contracts</p>
                     </a>
                 </li>
-{{--                <li class="nav-header">EXAMPLES</li>--}}
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Layout Options
-                            <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
-                        </p>
+                    <a href="{{route('admins.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>admins</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('admins.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>admins</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('users.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('artists.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>artists</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('galleries.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>gallery</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('assets.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>assets</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Top Navigation + Sidebar</p>
-                            </a>
-                        </li>
-
-                    </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('users.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('artists.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>artists</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('galleries.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>gallery</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('assets.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>assets</p>
+                    </a>
+                </li>
+{{--                <li class="nav-header">EXAMPLES</li>--}}
+
+{{--                <li class="nav-item">--}}
+{{--                    --}}
+{{--                    <a href="#" class="nav-link">--}}
+{{--                        <i class="nav-icon fas fa-copy"></i>--}}
+{{--                        <p>--}}
+{{--                            Layout Options--}}
+{{--                            <i class="fas fa-angle-left right"></i>--}}
+{{--                            <span class="badge badge-info right">6</span>--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                    <ul class="nav nav-treeview">--}}
+{{--                        --}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">--}}
+{{--                                <i class="far fa-circle nav-icon"></i>--}}
+{{--                                <p>Top Navigation + Sidebar</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+
+{{--                    </ul>--}}
+{{--                    --}}
+{{--                </li>--}}
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
