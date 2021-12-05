@@ -87,11 +87,19 @@
             setTimeout(function () {
                 map.invalidateSize()
             }, 400);
-            L.marker([{{$location ? $location->lat : ''}}, {{$location ? $location->long : ''}}]).addTo(map);
-            map.on('click', function(e) {
-                var popLocation= e.latlng;
+            const mainMarker = L.marker([{{$location ? $location->lat : ''}}, {{$location ? $location->long : ''}}], {draggable: true}).addTo(map);
+            let secondaryMarker;
+            map.on('click', function (e) {
+                var popLocation = e.latlng;
                 $("#lat").val(popLocation.lat);
                 $("#long").val(popLocation.lng);
+                if (secondaryMarker) {
+                    map.removeLayer(secondaryMarker)
+                }
+                secondaryMarker = L.marker([popLocation.lat, popLocation.lng]);
+                map.removeLayer(mainMarker);
+                secondaryMarker.addTo(map)
+
                 var popup = L.popup()
                     .setLatLng(popLocation)
                     .setContent(`<p>Lat: ${popLocation.lat}<br />Long: ${popLocation.lng}</p>`)

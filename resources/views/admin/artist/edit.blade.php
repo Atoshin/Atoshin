@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <input type="text" class="form-control" name="bio" value="{{$artist->bio}}" placeholder="Bio">
+                    <textarea type="text" class="form-control" name="bio" value="{{$artist->bio}}" placeholder="Bio"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Website</label>

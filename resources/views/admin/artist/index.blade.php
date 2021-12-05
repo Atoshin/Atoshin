@@ -27,16 +27,16 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Full name</th>
-                                <th>Avatar</th>
-                                <th>Bio</th>
-                                <th>Website</th>
-                                <th>Youtube</th>
-                                <th>Instagram</th>
-                                <th>Twitter</th>
-                                <th>Facebook</th>
-                                <th>Linkedin</th>
-                                <th>Operation</th>
+                                <th>Link</th>
+{{--                                <th>Avatar</th>--}}
+{{--                                <th>Bio</th>--}}
+{{--                                <th>Website</th>--}}
+{{--                                <th>Youtube</th>--}}
+{{--                                <th>Instagram</th>--}}
+{{--                                <th>Twitter</th>--}}
+{{--                                <th>Facebook</th>--}}
+{{--                                <th>Linkedin</th>--}}
+{{--                                <th>Operation</th>--}}
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -45,15 +45,15 @@
                             @foreach($artists as $artist)
                                 <tr>
 
-                                    <td>{{$artist->full_name}}</td>
-                                    <td>{{$artist->avatar}}</td>
-                                    <td>{{$artist->bio}}</td>
-                                    <td>{{$artist->website}}</td>
-                                    <td>{{$artist->youtube}}</td>
-                                    <td>{{$artist->instagram}}</td>
-                                    <td>{{$artist->twitter}}</td>
-                                    <td>{{$artist->facebook}}</td>
-                                    <td>{{$artist->linkedin}}</td>
+                                    <td><a href="{{route('artists.show',$artist->id)}}">{{$artist->full_name}}</a></td>
+{{--                                    <td>{{$artist->avatar}}</td>--}}
+{{--                                    <td>{{$artist->bio}}</td>--}}
+{{--                                    <td>{{$artist->website}}</td>--}}
+{{--                                    <td>{{$artist->youtube}}</td>--}}
+{{--                                    <td>{{$artist->instagram}}</td>--}}
+{{--                                    <td>{{$artist->twitter}}</td>--}}
+{{--                                    <td>{{$artist->facebook}}</td>--}}
+{{--                                    <td>{{$artist->linkedin}}</td>--}}
 
 {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 
