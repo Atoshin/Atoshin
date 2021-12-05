@@ -27,13 +27,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Avatar</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Bio</th>
-                                <th>Wallet Address</th>
+                                <th>Name</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -43,13 +37,10 @@
                             @foreach($users as $user)
                                 <tr>
 
-                                    <td>{{$user->first_name}}</td>
-                                    <td>{{$user->last_name}}</td>
-                                    <td>{{$user->avatar}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->username}}</td>
-                                    <td>{{$user->bio}}</td>
-                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>
+
+                                    <td><a href="{{route('users.show',$user->id)}}">{{$user->first_name}}</a></td>
+
+{{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 
                                     <td>
                                         <div class="row">

@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{$artist->full_name}}</h1>
+                    <h1>{{$gallery->name}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="callout callout-info">
                     <h5><i ></i>Bio:</h5>
-                    {{$artist->bio}}
+                    {{$gallery->bio}}
                 </div>
                 <div class="invoice p-3 mb-3">
                     <!-- title row -->
@@ -38,11 +38,9 @@
                         <div class="col-sm-4 invoice-col">
                             {{--      <div class="mb-1"><b>Bio:</b> {{$asset->bio}}</div>--}}
                             <address>
-                                <div class="mb-1">   <b>Website:</b> {{$aartist->website}}<br></div>
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1">   <b> Instagram:</b>  {{$asset->instagram}}<br></div>
-                                <div class="mb-1"> <b>Youtube:</b> {{$asset->youtube}}<br></div>
-                                <div class="mb-1"> <b> Twitter:</b> {{$asset->twitter}}<br></div>
+                                <div class="mb-1">   <b> Avatar:</b>  {{$gallery->avatar}}<br></div>
+
 
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
@@ -51,22 +49,21 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1">   <b>Facebook:</b>  {{$asset->facebook}}<br></div>
-                                <div class="mb-1"> <b>Linkedin:</b>  {{$asset->linkedin}} <br></div>
-{{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
-{{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
-{{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
+                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}} ><br></div>
+                                {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
+                                {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
+                                {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
                                 {{--                Email: john.doe@example.com--}}
                             </address>
                         </div>
                         <!-- /.col -->
-{{--                        <div class="col-sm-4 invoice-col">--}}
-{{--                            <div class="mb-1"> <b>creator:</b> {{$asset->gallery->name}}<br></div>--}}
-{{--                            <div class="mb-1"> <b>category:</b> {{$asset->category->title}}<br></div>--}}
-{{--                            <b>Artist:</b> {{$asset->artist->full_name}}<br>--}}
-{{--                            --}}{{--            <b>Account:</b> 968-34567--}}
-{{--                        </div>--}}
-                        <!-- /.col -->
+                    {{--                        <div class="col-sm-4 invoice-col">--}}
+                    {{--                            <div class="mb-1"> <b>creator:</b> {{$asset->gallery->name}}<br></div>--}}
+                    {{--                            <div class="mb-1"> <b>category:</b> {{$asset->category->title}}<br></div>--}}
+                    {{--                            <b>Artist:</b> {{$asset->artist->full_name}}<br>--}}
+                    {{--                            --}}{{--            <b>Account:</b> 968-34567--}}
+                    {{--                        </div>--}}
+                    <!-- /.col -->
                     </div>
                     <!-- /.row -->
 

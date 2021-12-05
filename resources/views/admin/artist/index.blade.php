@@ -27,7 +27,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Link</th>
+                                <th>Full name</th>
 {{--                                <th>Avatar</th>--}}
 {{--                                <th>Bio</th>--}}
 {{--                                <th>Website</th>--}}
