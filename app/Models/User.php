@@ -45,10 +45,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function wallet()
-    {
-        return $this->hasOne(Wallet::class);
-    }
+//    public function wallet()
+//    {
+//        return $this->hasOne(Wallet::class);
+//    }
 
     public function signatures()
     {
@@ -58,5 +58,10 @@ class User extends Authenticatable
     public function media()
     {
         return $this->morphOne(Media::class, 'mediable');
+    }
+
+    public function wallet()
+    {
+        return $this->morphOne(Wallet::class, 'walletable');
     }
 }

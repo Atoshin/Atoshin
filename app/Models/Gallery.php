@@ -24,4 +24,9 @@ class Gallery extends Model
     {
         return $this->morphMany(Media::class, 'mediable');
     }
+
+    public function wallet()
+    {
+        return $this->morphOne(Wallet::class, 'walletable');
+    }
 }
