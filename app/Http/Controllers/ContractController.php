@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
+use App\Models\Asset;
 use App\Models\Contract;
+use App\Models\Media;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -12,31 +15,40 @@ class ContractController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index($asset_id)
     {
-        $contracts = Contract::all();
-        return view('admin.contract.index',['contracts' => $contracts]);
+        $contracts = Contract::query()->where('asset_id',$asset_id)->get();
+        $asset = Asset::find($asset_id);
+        return view('admin.contract.index',['contracts' => $contracts,'asset_id'=>$asset_id,'asset'=>$asset]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create($asset_id)
     {
-        return view('admin.contract.create');
+        return view('admin.contract.create',compact('asset_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $contract = Contract::query()->create([
+            'hash'=>'nothing',
+            'contract_number'=>$request->contract_number,
+            'asset_id'=>$request->asset_id
+        ]);
+
+
+        return redirect()->route('upload.page',['type'=>Contract::class,'id'=>$contract->id]);
+
     }
 
     /**
@@ -77,22 +89,31 @@ class ContractController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $contract =Contract::find($id);
-        $contract->delete();
-        \request()->session()->flash('message', 'deleted successfully');
-        return redirect()->back();
+
     }
 
     public function uploadFile(Request $request)
     {
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
-        $file->move(public_path('file'),$fileName);
+        $uploadFolder = 'file';
+        $file->store($uploadFolder, 'public');
+        $media = Media::query()->create([
+            'ipfs_hash'=>'NOTHING',
+            'mime_type'=>$file->getClientMimeType(),
+            'path'=>$file->path(),
+            'mediable_type'=>Contract::class,
+            'mediable_id'=> 500000
 
-        return response()->json(['success'=>$fileName]);
+        ]);
+
+        return response()->json([
+            'success'=>$fileName,
+            'media_id'=>$media->id
+        ]);
     }
 }

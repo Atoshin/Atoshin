@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MediaTrait;
+use App\Models\Contract;
 use App\Models\Gallery;
 use App\Models\Wallet;
+use App\Models\Media;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
+    use MediaTrait;
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +53,12 @@ class GalleryController extends Controller
         ]);
 
 
-        return redirect()->route('galleries.index');
+
+
+
+
+
+        return redirect()->route('upload.page',['type'=>Gallery::class,'id'=>$gallery->id]);
     }
 
     /**

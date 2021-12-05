@@ -36,7 +36,7 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        Artist::query()->create([
+        $artist = Artist::query()->create([
             'full_name' => $request->full_name,
             'avatar' => $request->avatar,
             'bio' => $request->bio,
@@ -49,7 +49,7 @@ class ArtistController extends Controller
         ]);
 
 
-        return redirect()->route('artists.index');
+        return redirect()->route('upload.page',['type'=>Artist::class,'id'=>$artist->id]);
     }
 
     /**

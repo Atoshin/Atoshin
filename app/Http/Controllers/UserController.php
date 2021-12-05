@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +40,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request, &$user) {
             $user = User::query()->create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -54,7 +55,7 @@ class UserController extends Controller
                 'walletable_type' => 'App\Models\User'
             ]);
         });
-        return redirect()->route('users.index');
+        return redirect()->route('upload.page',['type'=>User::class,'id'=>$user->id]);
     }
 
     /**

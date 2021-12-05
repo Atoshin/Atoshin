@@ -40,12 +40,7 @@
                         <p>Assets</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('contracts.index')}}" class="nav-link">
-                        <i class="fas fa-file-contract nav-icon"></i>
-                        <p>Contracts</p>
-                    </a>
-                </li>
+
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
                     <a href="{{route('categories.index')}}" class="nav-link">
                         <i class="fa fa-cubes nav-icon"></i>
