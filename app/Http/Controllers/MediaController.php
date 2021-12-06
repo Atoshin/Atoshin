@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -16,7 +17,9 @@ class MediaController extends Controller
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
         $uploadFolder = 'file';
-        $file->store($uploadFolder, 'public');
+        $path = $file->store($uploadFolder, 'public');
+
+//        $path = Storage::putFile('public/' . $path, $request->file('file'));
 
 
 
@@ -28,7 +31,7 @@ class MediaController extends Controller
             $media = Media::query()->create([
                 'ipfs_hash'=>$response->json()['Hash'],
                 'mime_type'=>$file->getClientMimeType(),
-                'path'=>$file->path(),
+                'path'=> 'storage/' . $path,
                 'mediable_type'=>$mediable_type,
                 'mediable_id'=> $mediable_id
 
@@ -39,7 +42,7 @@ class MediaController extends Controller
             $media = Media::query()->create([
                 'ipfs_hash'=>'NOTHING',
                 'mime_type'=>$file->getClientMimeType(),
-                'path'=>$file->path(),
+                'path'=> 'storage/' . $path,
                 'mediable_type'=>$mediable_type,
                 'mediable_id'=> $mediable_id
 

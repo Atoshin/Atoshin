@@ -66,7 +66,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user=User::find($id);
+        $user=User::with('media')->find($id);
+
         return view('admin.user.show',compact('user'));
     }
 

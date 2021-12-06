@@ -52,12 +52,16 @@
                             <address>
                                 <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>
                                 <div class="mb-1"> <b>Wallet Address:</b>  {{$user->wallet->wallet_address}} <br></div>
+
+
                                 {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
                                 {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
                                 {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
                                 {{--                Email: john.doe@example.com--}}
                             </address>
                         </div>
+{{--                        <h1>{{asset('storage/'.$user->media->path)}}</h1>--}}
+                        <img src="{{asset($user->media->path)}}" alt=""/>
                         <!-- /.col -->
                     {{--                        <div class="col-sm-4 invoice-col">--}}
                     {{--                            <div class="mb-1"> <b>creator:</b> {{$asset->gallery->name}}<br></div>--}}
