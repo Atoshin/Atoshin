@@ -154,7 +154,7 @@
             document.getElementById('delete-form').action = `/assets/${AssetID}`;
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this admin?',
+                title: 'Do you want to delete this asset?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,

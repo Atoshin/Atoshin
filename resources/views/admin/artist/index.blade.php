@@ -130,7 +130,7 @@
             document.getElementById('delete-form').action = `/artists/${ArtistID}`;
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this user?',
+                title: 'Do you want to delete this artist?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,
