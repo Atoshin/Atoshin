@@ -50,24 +50,37 @@
                                     <td>
 
                                         <div class="row">
-                                            <div class="col-md-3">
-                                                <a href="" type="button"
-                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <button type="button"
-                                                        onclick="deleteModal(this)"
-                                                        data-id="{{$asset->id}}"
-                                                        class="btn btn-danger delete-icon"><i
-                                                        class="fa fa-trash mr-2"></i>delete
-                                                </button>
+                                                <div class="m-1">
+                                                    <a href="" type="button"
+                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                </div>
+                                                <div class="m-1">
+                                                    <button type="button"
+                                                            onclick="deleteModal(this)"
+                                                            data-id="{{$asset->id}}"
+                                                            class="btn btn-danger delete-icon"><i
+                                                            class="fa fa-trash mr-2"></i>delete
+                                                    </button>
+                                                </div>
 
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="{{ route('videos.index', $asset->id) }}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-video "></i> videos
-                                                </a>
-                                            </div>
+
+
+
+                                                <div class="m-1">
+                                                    <a href="{{ route('videos.index', $asset->id) }}" type="button"
+                                                       class="btn btn-success "> <i class="fa fa-video "></i> videos
+                                                    </a>
+                                                </div>
+                                                <div class="m-1">
+                                                    <a href="{{ route('contracts.index', $asset->id) }}" type="button"
+                                                       class="btn btn-warning "> <i class="fa fa-file-contract "></i> contracts
+                                                    </a>
+                                                </div>
+
+
+
+
+
                                         </div>
 
 

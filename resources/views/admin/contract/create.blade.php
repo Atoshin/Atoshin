@@ -1,10 +1,13 @@
 @extends('admin.layout.master')
 @section('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link
         rel="stylesheet"
         href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
         type="text/css"
     />
+
+
 @endsection
 @section('content')
 
@@ -22,15 +25,11 @@
                     <label >Contract Number</label>
                     <input type="text" class="form-control" name="contract_number" placeholder="Contract Number">
                 </div>
+                <input type="hidden" name="media_id" id="media_id_input">
+                <input type="hidden" name="asset_id" id="asset_id_input" value="{{$asset_id}}">
 
-                <div class="form-group">
-                    <label for="contract ">Upload Contract Document</label>
-                    <div class="dropzone">
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="file" />
-                        </form>
-                    </div>
-                </div>
+
+
 
 
 
@@ -44,22 +43,10 @@
         </form>
 
 
+
     </div>
 
 
 @endsection
 
-@section('scripts')
 
-
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
-    <script>
-        // Dropzone has been added as a global variable.
-        const dropzone = new Dropzone("div.dropzone", {
-            url: "/file/post"
-
-        });
-    </script>
-
-@endsection
