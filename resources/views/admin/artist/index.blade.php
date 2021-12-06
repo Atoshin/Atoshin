@@ -27,16 +27,8 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Full name</th>
-{{--                                <th>Avatar</th>--}}
-{{--                                <th>Bio</th>--}}
-{{--                                <th>Website</th>--}}
-{{--                                <th>Youtube</th>--}}
-{{--                                <th>Instagram</th>--}}
-{{--                                <th>Twitter</th>--}}
-{{--                                <th>Facebook</th>--}}
-{{--                                <th>Linkedin</th>--}}
-{{--                                <th>Operation</th>--}}
+                                <th> Full Name</th>
+                                <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -45,17 +37,10 @@
                             @foreach($artists as $artist)
                                 <tr>
 
-                                    <td><a href="{{route('artists.show',$artist->id)}}">{{$artist->full_name}}</a></td>
-{{--                                    <td>{{$artist->avatar}}</td>--}}
-{{--                                    <td>{{$artist->bio}}</td>--}}
-{{--                                    <td>{{$artist->website}}</td>--}}
-{{--                                    <td>{{$artist->youtube}}</td>--}}
-{{--                                    <td>{{$artist->instagram}}</td>--}}
-{{--                                    <td>{{$artist->twitter}}</td>--}}
-{{--                                    <td>{{$artist->facebook}}</td>--}}
-{{--                                    <td>{{$artist->linkedin}}</td>--}}
 
-{{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
+                                    <td><a href="{{route('artists.show',$artist->id)}}">{{$artist->full_name}}</a></td>
+
+                                    {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 
                                     <td>
                                         <div class="row">
@@ -145,7 +130,7 @@
             document.getElementById('delete-form').action = `/artists/${ArtistID}`;
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this artist?',
+                title: 'Do you want to delete this user?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,

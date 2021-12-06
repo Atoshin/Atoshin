@@ -9,7 +9,7 @@ class Video extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public $table='video_feeds';
+    public $table='videos';
 
     public function asset()
     {

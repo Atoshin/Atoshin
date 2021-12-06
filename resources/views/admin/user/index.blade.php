@@ -74,7 +74,7 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-        </div>
+       
         <form action="" id="delete-form" method="POST">
             @method('delete')
             @csrf

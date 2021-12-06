@@ -8,8 +8,8 @@
 
     <div class="card-header">
         <div class="card-header">
-            <a href="" type="button" class="btn btn-success mr-2 float-right"> <i
-                    class="fa fa-plus mr-2 "></i> Add Address </a>
+{{--            <a href="" type="button" class="btn btn-success mr-2 float-right"> <i--}}
+{{--                    class="fa fa-plus mr-2 "></i> Add Address </a>--}}
             {{--                        <h3 class="card-title">{{$gallery->}}</h3>--}}
             <h3 class="card-title card-blue">Location</h3>
         </div>
@@ -85,7 +85,8 @@
             setTimeout(function () {
                 map.invalidateSize()
             }, 400);
-            const mainMarker = L.marker([{{$location ? $location->lat : 51.4934}}, {{$location ? $location->long : 0}}], {draggable: true}).addTo(map);
+            const mainMarker = L.marker([{{$location ? $location->lat : 51.4934
+}}, {{$location ? $location->long : 0}}], {draggable: true}).addTo(map);
             let secondaryMarker;
             map.on('click', function (e) {
                 var popLocation = e.latlng;

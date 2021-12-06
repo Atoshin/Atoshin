@@ -38,7 +38,7 @@
                         <div class="col-sm-4 invoice-col">
                             {{--      <div class="mb-1"><b>Bio:</b> {{$asset->bio}}</div>--}}
                             <address>
-                                <div class="mb-1">   <b>Email:</b>  <a href="{{$user->email}}">{{$user->email}}</a></div>
+                                <div class="mb-1">   <b>Email:</b>  {{$user->email}}</div>
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
                                 <div class="mb-1">   <b> Avatar:</b>  {{$user->avatar}}<br></div>
 
