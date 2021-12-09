@@ -60,7 +60,7 @@ class ArtistController extends Controller
      */
     public function show($id)
     {
-        $artist=Artist::find($id);
+        $artist=Artist::with('medias')->find($id);
         return view('admin.artist.show',compact('artist'));
     }
 

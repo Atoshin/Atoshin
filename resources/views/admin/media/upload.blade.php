@@ -35,6 +35,8 @@
                 <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>
             @elseif($type == \App\Models\Contract::class)
                 <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+            @elseif($type == \App\Models\Asset::class)
+                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
             @endif
         </div>
 

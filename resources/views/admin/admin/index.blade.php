@@ -100,11 +100,11 @@
                                     <td>{{$admin->email}}</td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="m-1">
                                                 <a href="{{route('admins.edit',$admin->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
                                                         data-id="{{$admin->id}}"

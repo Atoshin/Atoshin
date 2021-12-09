@@ -44,11 +44,11 @@
 
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="m-1">
                                                 <a href="{{route('users.edit',$user->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
                                                         data-id="{{$user->id}}"
@@ -74,7 +74,7 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-       
+
         <form action="" id="delete-form" method="POST">
             @method('delete')
             @csrf

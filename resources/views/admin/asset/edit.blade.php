@@ -64,56 +64,56 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form  method="post"    action="{{route('assets.store')}}">
+        <form  method="post"    action="{{route('assets.update',$asset->id)}}">
             @csrf
+            @method("PATCH")
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Title">
+                    <input type="text" class="form-control" name="title" placeholder="Title" value="{{$asset->title}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Price</label>
-                    <input type="text" class="form-control" name="price" placeholder="Price">
+                    <input type="text" class="form-control" name="price" placeholder="Price" value="{{$asset->price}}" >
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" placeholder="Bio"></textarea>
+                    <textarea type="text" class="form-control" name="bio" placeholder="Bio" value="{{$asset->bio}}"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Ownership Percentage</label>
-                    <input type="text" class="form-control" name="ownership_percentage" placeholder="Ownership Percentage">
+                    <input type="text" class="form-control" name="ownership_percentage" placeholder="Ownership Percentage" value="{{$asset->ownership_percentage}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Commission Percentage</label>
-                    <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage">
+                    <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage" value="{{$asset->commission_percentage}}" >
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Royalties Percentage</label>
-                    <input type="text" class="form-control" name="royalties_percentage" placeholder="Royalties Percentage">
+                    <input type="text" class="form-control" name="royalties_percentage" placeholder="Royalties Percentage" value="{{$asset->royalties_percentage}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Total Fractions</label>
-                    <input type="text" class="form-control" name="total_fractions" placeholder="Total Fractions">
+                    <input type="text" class="form-control" name="total_fractions" placeholder="Total Fractions" value="{{$asset->total_fractions}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Sold Fractions</label>
-                    <input type="text" class="form-control" name="sold_fractions" placeholder="Sold Fractions">
+                    <input type="text" class="form-control" name="sold_fractions" placeholder="Sold Fractions" value="{{$asset->sold_fractions}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Start Date</label>
-                    <input type="date" class="form-control" name="start_date" placeholder="Start Date">
+                    <input type="date" class="form-control" name="start_date" placeholder="Start Date" value="{{$asset->start_date->format('Y-m-d')}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">End Date</label>
-                    <input type="date" class="form-control" name="end_date" placeholder="End Date">
+                    <input type="date" class="form-control" name="end_date" placeholder="End Date" value="{{$asset->end_date->format('Y-m-d')}}">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">Status</label>
                     <select name="status" class="form-control" id="">
-                        <option value="" selected disabled>select</option>
-                        <option value="published">published</option>
-                        <option value="unpublished">unpublished</option>
+                        <option @if($asset->status=='published') selected @endif value="published">published</option>
+                        <option @if($asset->status=='unpublished') selected @endif value="unpublished">unpublished</option>
                     </select>
                 </div>
 
@@ -122,7 +122,7 @@
                     <select name="category_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($categories as $category)
-                            <option value="{{$category->id}}" >{{$category->title}}</option>
+                            <option @if($asset->category_id== $category->id) selected @endif value="{{$category->id}}" >{{$category->title}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -132,7 +132,7 @@
                     <select name="creator_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($galleries as $gallery)
-                            <option value="{{$gallery->id}}" >{{$gallery->name}}</option>
+                            <option @if($asset->creator_id==$gallery->id) selected @endif value="{{$gallery->id}}" >{{$gallery->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -142,7 +142,7 @@
                     <select name="artist_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($artists as $artist)
-                            <option value="{{$artist->id}}" >{{$artist->full_name}}</option>
+                            <option @if($asset->artist_id == $artist->id) selected @endif value="{{$artist->id}}" >{{$artist->full_name}}</option>
                         @endforeach
                     </select>
                 </div>

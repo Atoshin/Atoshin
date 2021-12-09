@@ -20,9 +20,6 @@ class MediaController extends Controller
         $path = $file->store($uploadFolder, 'public');
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
-
-
-
         if($mediable_type == Asset::class)
         {
             $response = Http::attach(
@@ -36,9 +33,11 @@ class MediaController extends Controller
                 'mediable_id'=> $mediable_id
 
             ]);
+
         }
         else
         {
+
             $media = Media::query()->create([
                 'ipfs_hash'=>'NOTHING',
                 'mime_type'=>$file->getClientMimeType(),
@@ -47,6 +46,7 @@ class MediaController extends Controller
                 'mediable_id'=> $mediable_id
 
             ]);
+
         }
 
 

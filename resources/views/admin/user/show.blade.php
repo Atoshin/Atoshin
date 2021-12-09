@@ -1,4 +1,11 @@
 @extends('admin.layout.master')
+@section('styles')
+    <style>
+        img {
+            border-radius: 50%;
+        }
+    </style>
+@endsection
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -19,8 +26,18 @@
         <div class="row">
             <div class="col-12">
                 <div class="callout callout-info">
-                    <h5><i ></i>Bio:</h5>
-                    {{$user->bio}}
+                    <div class="row">
+                        <div class="col-1">
+                            <img src="{{asset($user->media->path)}}" alt="" width="100" height="100"/>
+                        </div>
+                        <div class="col-11">
+                            <h5>Bio:</h5>
+                            <p>{{$user->bio}}</p>
+                        </div>
+
+                    </div>
+
+
                 </div>
                 <div class="invoice p-3 mb-3">
                     <!-- title row -->
@@ -61,7 +78,7 @@
                             </address>
                         </div>
 {{--                        <h1>{{asset('storage/'.$user->media->path)}}</h1>--}}
-                        <img src="{{asset($user->media->path)}}" alt=""/>
+
                         <!-- /.col -->
                     {{--                        <div class="col-sm-4 invoice-col">--}}
                     {{--                            <div class="mb-1"> <b>creator:</b> {{$asset->gallery->name}}<br></div>--}}

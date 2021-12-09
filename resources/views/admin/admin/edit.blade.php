@@ -60,10 +60,7 @@
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" name="password" value="{{$admin->password}}" placeholder="Password">
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
+
             </div>
             <!-- /.card-body -->
 

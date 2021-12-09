@@ -17,7 +17,7 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="" type="button" class="btn btn-success mr-2 float-right"> <i
+                        <a href="{{route('assets.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add Asset </a>
                         <h3 class="card-title">Asset</h3>
                     </div>
@@ -51,7 +51,7 @@
 
                                         <div class="row">
                                                 <div class="m-1">
-                                                    <a href="" type="button"
+                                                    <a href="{{route('assets.edit',$asset->id)}}" type="button"
                                                        class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                                 </div>
                                                 <div class="m-1">

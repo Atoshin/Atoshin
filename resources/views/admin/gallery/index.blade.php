@@ -41,11 +41,11 @@
 {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="m-1">
                                                 <a href="{{route('galleries.edit',$gallery->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
                                                         data-id="{{$gallery->id}}"
@@ -53,7 +53,7 @@
                                                         class="fa fa-trash "></i>delete
                                                 </button>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <a href="{{route('locations.create', $gallery->id)}}" type="button"
                                                    class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
                                             </div>
