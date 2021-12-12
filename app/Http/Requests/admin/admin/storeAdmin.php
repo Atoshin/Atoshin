@@ -15,7 +15,9 @@ class storeAdmin extends FormRequest
     public function rules()
     {
         return [
-
+                'email'=>'required|unique:admins|email',
+                'username'=>'required|min: 3',
+                'password'=>'required'
         ];
     }
 }
