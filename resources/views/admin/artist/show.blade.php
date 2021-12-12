@@ -10,6 +10,9 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
+                <div class="col-1">
+                    <img src="{{asset($artist->medias->first()->path)}}" alt="" width="100" height="100"/>
+                </div>
                 <div class="col-sm-6">
                     <h1>{{$artist->full_name}}</h1>
                 </div>
@@ -27,9 +30,7 @@
             <div class="col-12">
                 <div class="callout callout-info">
                     <div class="row">
-                        <div class="col-1">
-                            <img src="{{asset($artist->medias->first()->path)}}" alt="" width="100" height="100"/>
-                        </div>
+
                         <div class="col-11">
                             <h5>Bio:</h5>
                             <p>{{$artist->bio}}</p>

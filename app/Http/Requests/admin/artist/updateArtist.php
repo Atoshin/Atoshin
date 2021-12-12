@@ -17,12 +17,12 @@ class updateArtist extends FormRequest
         return [
             'full_name'=>'required',
             'bio'=>'max: 1000|required',
-            'website'=>'url',
-            'twitter'=>'url',
-            'facebook'=>'url',
-            'instagram'=>'url',
-            'linkedin'=>'url',
-            'youtube'=>'url',
+            'website'=>'url|nullable',
+            'twitter'=>'url|nullable',
+            'facebook'=>'url|nullable',
+            'instagram'=>'url|nullable',
+            'linkedin'=>'url|nullable',
+            'youtube'=>'url|nullable',
 
         ];
     }
