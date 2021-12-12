@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Balances;
+namespace App\Http\Requests\admin\admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -16,7 +16,7 @@ class updateAdmin extends FormRequest
     {
         return [
             'email'=>'required|unique:admins|email',
-            'username'=>'required|min:3',
+            'username'=>'required|min:4',
             'password'=>'required'
         ];
     }

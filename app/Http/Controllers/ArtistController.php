@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\admin\storeAdmin;
+use App\Http\Requests\admin\admin\updateAdmin;
+use App\Http\Requests\admin\artist\storeArtist;
+use App\Http\Requests\admin\artist\updateArtist;
 use App\Models\Artist;
 use Illuminate\Http\Request;
 
@@ -34,7 +38,7 @@ class ArtistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeArtist $request)
     {
         $artist = Artist::query()->create([
             'full_name' => $request->full_name,
@@ -84,7 +88,7 @@ class ArtistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(updateArtist $request, $id)
     {
         $artist =Artist::find($id);
         $artist->full_name=$request->full_name;

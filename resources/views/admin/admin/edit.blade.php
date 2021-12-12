@@ -50,15 +50,30 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" name="email" value="{{$admin->email}}" placeholder="Enter email">
+                    <input type="text" class="form-control" name="email" value="{{$admin->email}}" placeholder="Enter email">
+                    @error('email')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Username</label>
                     <input type="text" class="form-control" name="username" value="{{$admin->username}}" placeholder="Username">
+                    @error('username')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" name="password" value="{{$admin->password}}" placeholder="Password">
+                    @error('password')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
 
             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\admin\storeAdmin;
+use App\Http\Requests\admin\admin\updateAdmin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 
@@ -35,7 +37,7 @@ AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeAdmin $request)
     {
         Admin::query()->create([
             'email' => $request->email,
@@ -79,7 +81,7 @@ AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(updateAdmin $request, $id)
     {
         $admin =Admin::find($id);
         $admin->email=$request->email;

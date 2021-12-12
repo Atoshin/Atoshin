@@ -4,7 +4,7 @@ namespace App\Http\Requests\admin\artist;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class storeArtist extends FormRequest
+class updateArtist extends FormRequest
 {
 
     /**
@@ -16,13 +16,14 @@ class storeArtist extends FormRequest
     {
         return [
             'full_name'=>'required',
-            'bio'=>'max:1000|required',
+            'bio'=>'max: 1000|required',
             'website'=>'url',
             'twitter'=>'url',
             'facebook'=>'url',
             'instagram'=>'url',
             'linkedin'=>'url',
             'youtube'=>'url',
+
         ];
     }
 }

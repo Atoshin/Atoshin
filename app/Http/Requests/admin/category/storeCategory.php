@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Balances;
+namespace App\Http\Requests\admin\category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategory extends FormRequest
+class storeCategory extends FormRequest
 {
 
     /**
@@ -15,6 +15,7 @@ class StoreCategory extends FormRequest
     public function rules()
     {
         return [
+            'title'=>'required'
 
         ];
     }

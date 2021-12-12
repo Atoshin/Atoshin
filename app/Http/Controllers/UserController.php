@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\users\storeUser;
+use App\Http\Requests\admin\users\updateUser;
 use App\Models\Artist;
 use App\Models\User;
 use App\Models\Wallet;
@@ -38,7 +40,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeUser $request)
     {
         DB::transaction(function () use ($request, &$user) {
             $user = User::query()->create([
@@ -92,7 +94,7 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(updateUser $request, $id)
     {
         $user = User::find($id);
         $wallet = $user->wallet;

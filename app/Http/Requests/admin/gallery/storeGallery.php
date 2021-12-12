@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Balances;
+namespace App\Http\Requests\admin\gallery;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGallery extends FormRequest
+class storeGallery extends FormRequest
 {
 
     /**
@@ -15,6 +15,9 @@ class StoreGallery extends FormRequest
     public function rules()
     {
         return [
+            'name'=>'required',
+            'bio'=>'required|max:1000',
+            'wallet_address'=>'required'
 
         ];
     }

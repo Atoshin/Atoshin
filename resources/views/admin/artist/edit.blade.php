@@ -13,38 +13,76 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Full name</label>
                     <input type="text" class="form-control" name="full_name" value="{{$artist->full_name}}" placeholder="Full name">
+                    @error('full_name')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Avatar</label>
-                    <input type="text" class="form-control" name="avatar" value="{{$artist->avatar}}" placeholder="Avatar">
-                </div>
+
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" value="{{$artist->bio}}" placeholder="Bio"></textarea>
+                    <textarea type="text" class="form-control" name="bio" value="{{$artist->bio}}" placeholder="Bio">{{$artist->bio}}</textarea>
+
+                    @error('bio')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Website</label>
-                    <input type="url" class="form-control" name="website" value="{{$artist->website}}" placeholder="Website">
+                    <input type="text" class="form-control" name="website" value="{{$artist->website}}" placeholder="Website">
+                    @error('website')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Youtube</label>
-                    <input type="url" class="form-control" name="youtube" value="{{$artist->youtube}}" placeholder="Youtube">
+                    <input type="text" class="form-control" name="youtube" value="{{$artist->youtube}}" placeholder="Youtube">
+                    @error('youtube')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Instagram</label>
-                    <input type="url" class="form-control" name="instagram" value="{{$artist->instagram}}" placeholder="Instagram">
+                    <input type="text" class="form-control" name="instagram" value="{{$artist->instagram}}" placeholder="Instagram">
+                    @error('instagram')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Twitter</label>
-                    <input type="url" class="form-control" name="twitter" value="{{$artist->twitter}}" placeholder="Twitter">
+                    <input type="text" class="form-control" name="twitter" value="{{$artist->twitter}}" placeholder="Twitter">
+                    @error('twitter')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Facebook</label>
-                    <input type="url" class="form-control" name="facebook" value="{{$artist->facebook}}" placeholder="Facebook">
+                    <input type="text" class="form-control" name="facebook" value="{{$artist->facebook}}" placeholder="Facebook">
+                    @error('facebook')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Linkedin</label>
-                    <input type="url" class="form-control" name="linkedin" value="{{$artist->linkedin}}" placeholder="Linkedin">
+                    <input type="text" class="form-control" name="linkedin" value="{{$artist->linkedin}}" placeholder="Linkedin">
+                    @error('linkedin')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
 {{--                <div class="form-group">--}}
 {{--                    <label for="exampleInputPassword1">Wallet Address</label>--}}

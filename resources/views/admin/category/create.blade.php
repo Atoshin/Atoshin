@@ -50,7 +50,12 @@
 
                 <div class="form-group">
                     <label >Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="title">
+                    <input type="text" class="form-control" name="title" placeholder="title" value="{{old('title')}}">
+                    @error('title')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 {{--                <div class="form-group">--}}
                 {{--                    <label for="exampleInputFile">File input</label>--}}

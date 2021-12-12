@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\gallery\storeGallery;
+use App\Http\Requests\admin\gallery\updateGallery;
+use App\Http\Requests\admin\users\updateUser;
 use App\Http\Traits\MediaTrait;
 use App\Models\Contract;
 use App\Models\Gallery;
@@ -39,7 +42,7 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeGallery $request)
     {
         $gallery = Gallery::query()->create([
             'name' => $request->name,
@@ -94,7 +97,7 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(updategallery $request, $id)
     {
         $gallery =Gallery::find($id);
         $gallery->name=$request->name;

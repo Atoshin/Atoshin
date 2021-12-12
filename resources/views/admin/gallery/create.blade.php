@@ -69,19 +69,30 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Name">
+                    <input type="text" class="form-control" name="name" placeholder="Name" value="{{old('name')}}">
+                    @error('name')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" placeholder="Bio"></textarea>
+                    <textarea type="text" class="form-control" name="bio" placeholder="Bio">{{old('bio')}}</textarea>
+                    @error('bio')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Avatar</label>
-                    <input type="text" class="form-control" name="avatar" placeholder="Avatar">
-                </div>t
                 <div class="form-group">
                     <label for="exampleInputPassword1">Wallet Address</label>
                     <input type="text" class="form-control" name="wallet_address" placeholder="Wallet Address">
+                    @error('wallet_address')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
 
 {{--                <div class="form-check">--}}

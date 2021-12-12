@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\category\storeCategory;
+use App\Http\Requests\admin\category\updateCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -34,7 +36,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeCategory $request)
     {
         Category::query()->create([
             'title' => $request->title,
@@ -75,7 +77,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(updateCategory $request, $id)
     {
         $category =Category::find($id);
         $category->title=$request->title;

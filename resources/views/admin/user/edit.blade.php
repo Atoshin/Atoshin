@@ -13,30 +13,56 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">First name</label>
                     <input type="text" class="form-control" name="first_name" value="{{$user->first_name}}" placeholder="Firstname">
+                    @error('first_name')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Last name</label>
                     <input type="text" class="form-control" name="last_name" value="{{$user->last_name}}" placeholder="Lastname">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Avatar</label>
-                    <input type="text" class="form-control" name="avatar" value="{{$user->avatar}}" placeholder="Avatar">
+                    @error('last_name')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Email</label>
-                    <input type="email" class="form-control" name="email" value="{{$user->email}}" placeholder="Email">
+                    <input type="text" class="form-control" name="email" value="{{$user->email}}" placeholder="Email">
+                    @error('email')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Username</label>
                     <input type="text" class="form-control" name="username" value="{{$user->username}}" placeholder="Username">
+                    @error('username')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <input type="text" class="form-control" name="bio" value="{{$user->bio}}" placeholder="Bio">
+                    <textarea type="text" class="form-control" name="bio" value="{{$user->bio}}" placeholder="Bio">{{$user->bio}}</textarea>
+                    @error('bio')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Wallet Address</label>
                     <input type="text" class="form-control" name="wallet_address" value="{{$user->wallet ? $user->wallet->wallet_address : ''}}" placeholder="Wallet Address">
+                    @error('wallet_address')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
 {{--                <div class="form-check">--}}
 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}

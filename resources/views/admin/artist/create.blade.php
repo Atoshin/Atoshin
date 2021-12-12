@@ -69,39 +69,75 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Full name</label>
-                    <input type="text" class="form-control" name="full_name" placeholder="Full name">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Avatar</label>
-                    <input type="text" class="form-control" name="avatar" placeholder="Avatar">
+                    <input type="text" class="form-control" name="full_name" placeholder="Full name" value="{{old('full_name')}}">
+                    @error('full_name')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" placeholder="Bio"></textarea>
+                    <textarea type="text" class="form-control" name="bio" placeholder="Bio" >{{old('bio')}}</textarea>
+                    @error('bio')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Website</label>
-                    <input type="url" class="form-control" name="website" placeholder="Website">
+                    <input type="text" class="form-control" name="website" placeholder="Website" value="{{old('website')}}">
+                    @error('website')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Youtube</label>
-                    <input type="url" class="form-control" name="youtube" placeholder="Youtube">
+                    <input type="text" class="form-control" name="youtube" placeholder="Youtube" value="{{old('youtube')}}">
+                    @error('youtube')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Instagram</label>
-                    <input type="url" class="form-control" name="instagram" placeholder="Instagram">
+                    <input type="text" class="form-control" name="instagram" placeholder="Instagram" value="{{old('instagram')}}">
+                    @error('instagram')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Twitter</label>
-                    <input type="url" class="form-control" name="twitter" placeholder="Twitter">
+                    <input type="text" class="form-control" name="twitter" placeholder="Twitter" value="{{old('twitter')}}">
+                    @error('twitter')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Facebook</label>
-                    <input type="url" class="form-control" name="facebook" placeholder="Facebook">
+                    <input type="text" class="form-control" name="facebook" placeholder="Facebook" value="{{old('facebook')}}">
+                    @error('facebook')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Linkedin</label>
-                    <input type="url" class="form-control" name="linkdin" placeholder="Linkedin">
+                    <input type="text" class="form-control" name="linkedin" placeholder="Linkedin" value="{{old('linkedin')}}">
+                    @error('linkedin')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
 
             </div>
