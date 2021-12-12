@@ -9,7 +9,7 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row mb-2" style="align-items: center;">
                 <div class="col-1">
                     <img src="{{asset($user->media->path)}}" alt="" width="100" height="100"/>
                 </div>
