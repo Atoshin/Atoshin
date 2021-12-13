@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('styles')
     <style>
-        img {
+        .avatar {
             border-radius: 50%;
         }
     </style>
@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
                 <div class="col-1">
-                    <img src="{{asset($user->media->path)}}" alt="" width="100" height="100"/>
+                    <img src="{{asset($user->media->path)}}" class="avatar" alt="" width="100" height="100"/>
                 </div>
                 <div class="col-sm-6">
                     <h1>{{$user->first_name}}</h1>
