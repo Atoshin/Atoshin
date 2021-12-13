@@ -84,14 +84,8 @@
                     </small>
                     @enderror
                 </div>
-{{--                <div class="form-group">--}}
-{{--                    <label for="exampleInputPassword1">Wallet Address</label>--}}
-{{--                    <input type="text" class="form-control" name="wallet_address" value="{{$user->wallet ? $user->wallet->wallet_address : ''}}" placeholder="Wallet Address">--}}
-{{--                </div>--}}
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
+
+
             </div>
             <!-- /.card-body -->
 
@@ -101,4 +95,12 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('scripts')
+
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'bio' );
+    </script>
 @endsection

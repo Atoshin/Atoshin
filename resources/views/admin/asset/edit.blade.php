@@ -60,7 +60,7 @@
     {{--/////--}}
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">New Artist</h3>
+            <h3 class="card-title">Edit Asset</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -71,42 +71,72 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Title</label>
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{$asset->title}}">
+                    @error('title')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Price</label>
                     <input type="text" class="form-control" name="price" placeholder="Price" value="{{$asset->price}}" >
+                    @error('price')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" placeholder="Bio" value="{{$asset->bio}}"></textarea>
+                    <textarea type="text" class="form-control" name="bio" placeholder="Bio" >{{$asset->bio}}</textarea>
+                    @error('bio')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Ownership Percentage</label>
                     <input type="text" class="form-control" name="ownership_percentage" placeholder="Ownership Percentage" value="{{$asset->ownership_percentage}}">
+                    @error('ownership_percentage')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Commission Percentage</label>
                     <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage" value="{{$asset->commission_percentage}}" >
+                    @error('commission_percentage')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Royalties Percentage</label>
                     <input type="text" class="form-control" name="royalties_percentage" placeholder="Royalties Percentage" value="{{$asset->royalties_percentage}}">
+                    @error('royalties_percentage')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Total Fractions</label>
                     <input type="text" class="form-control" name="total_fractions" placeholder="Total Fractions" value="{{$asset->total_fractions}}">
+                    @error('total_fractions')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Sold Fractions</label>
                     <input type="text" class="form-control" name="sold_fractions" placeholder="Sold Fractions" value="{{$asset->sold_fractions}}">
+                    @error('sold_fractions')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Start Date</label>
                     <input type="date" class="form-control" name="start_date" placeholder="Start Date" value="{{$asset->start_date->format('Y-m-d')}}">
+                    @error('start_date')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">End Date</label>
                     <input type="date" class="form-control" name="end_date" placeholder="End Date" value="{{$asset->end_date->format('Y-m-d')}}">
+                    @error('end_date')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -115,6 +145,9 @@
                         <option @if($asset->status=='published') selected @endif value="published">published</option>
                         <option @if($asset->status=='unpublished') selected @endif value="unpublished">unpublished</option>
                     </select>
+                    @error('status')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -125,6 +158,9 @@
                             <option @if($asset->category_id== $category->id) selected @endif value="{{$category->id}}" >{{$category->title}}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -135,6 +171,9 @@
                             <option @if($asset->creator_id==$gallery->id) selected @endif value="{{$gallery->id}}" >{{$gallery->name}}</option>
                         @endforeach
                     </select>
+                    @error('creator_id')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -145,6 +184,9 @@
                             <option @if($asset->artist_id == $artist->id) selected @endif value="{{$artist->id}}" >{{$artist->full_name}}</option>
                         @endforeach
                     </select>
+                    @error('artist_id')
+                    <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
             </div>
             <!-- /.card-body -->
@@ -157,4 +199,12 @@
     </div>
 
 
+@endsection
+
+@section('scripts')
+
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'bio' );
+    </script>
 @endsection

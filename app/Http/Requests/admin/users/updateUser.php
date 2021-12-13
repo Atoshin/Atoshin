@@ -21,7 +21,7 @@ class updateUser extends FormRequest
             'first_name'=>'required',
             'last_name'=>'required',
             'bio'=>'required|max:1000',
-            'wallet_address'=>'required'
+            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/g'
         ];
     }
 }

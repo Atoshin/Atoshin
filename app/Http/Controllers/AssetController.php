@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\asset\storeAsset;
+use App\Http\Requests\admin\asset\updateAsset;
 use App\Models\Artist;
 use App\Models\Asset;
 use App\Models\Category;
@@ -41,7 +43,7 @@ class AssetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeAsset $request)
     {
         $asset = Asset::query()->create([
             'title'=>$request->title,
@@ -95,7 +97,7 @@ class AssetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(updateAsset $request, $id)
     {
         $asset=Asset::query()->findOrFail($id);
         $asset->title = $request->title;

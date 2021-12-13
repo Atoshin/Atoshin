@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\admin\gallery;
+namespace App\Http\Requests\admin\location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class storeGallery extends FormRequest
+class storeLocation extends FormRequest
 {
 
     /**
@@ -15,9 +15,9 @@ class storeGallery extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'bio'=>'required|max:1000',
-            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/g'
+                'lat'=>'required',
+                'long'=>'required',
+                'address'=>'required|min:3',
 
         ];
     }

@@ -1,4 +1,12 @@
 @extends('admin.layout.master')
+@section('styles')
+    <style>
+        textarea{
+            color: #000000 !important;
+            background-color: #000000 !important;
+        }
+    </style>
+@endsection
 @section('content')
 
     {{--    <div class="card card-info">--}}
@@ -78,7 +86,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio</label>
-                    <textarea type="text" class="form-control" name="bio" placeholder="Bio" >{{old('bio')}}</textarea>
+                    <textarea type="text" class="form-control editor" name="bio" placeholder="Bio" id="editor" >{{old('bio')}}</textarea>
                     @error('bio')
                     <small class="text-danger">
                         {{$message}}
@@ -151,4 +159,12 @@
     </div>
 
 
+@endsection
+
+@section('scripts')
+
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'bio' );
+    </script>
 @endsection

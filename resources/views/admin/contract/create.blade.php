@@ -24,6 +24,9 @@
                 <div class="form-group">
                     <label >Contract Number</label>
                     <input type="text" class="form-control" name="contract_number" placeholder="Contract Number">
+                    @error('contract_number')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <input type="hidden" name="media_id" id="media_id_input">
                 <input type="hidden" name="asset_id" id="asset_id_input" value="{{$asset_id}}">

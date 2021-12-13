@@ -27,6 +27,9 @@
                             <label>Lat</label>
                             <input type="text" id="lat" class="form-control" value="{{$location ? $location->lat : ''}}"
                                    name="lat" placeholder="Lat">
+                            @error('lat')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -35,6 +38,9 @@
                             <input type="text" id="long" class="form-control" name="long"
                                    value="{{$location ? $location->long : ''}}"
                                    placeholder="Long">
+                            @error('long')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -46,6 +52,9 @@
 
                             <textarea class="form-control" rows="3" name="address"
                                       placeholder="Address">{{$location ? $location->address : ''}}</textarea>
+                            @error('address')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                     </div>
                     {{--                <div class="col-sm-6">--}}

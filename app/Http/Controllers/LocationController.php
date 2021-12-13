@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\location\storeLocation;
 use App\Models\Gallery;
 use App\Models\Location;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class LocationController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($gallery_id, Request $request)
+    public function store($gallery_id, storeLocation $request)
     {
         $location = Gallery::query()->find($gallery_id)->location;
         if ($location) {

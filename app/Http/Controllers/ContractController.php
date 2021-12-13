@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\contract\storeContract;
 use App\Models\Artist;
 use App\Models\Asset;
 use App\Models\Contract;
@@ -38,7 +39,7 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeContract $request)
     {
         $contract = Contract::query()->create([
             'hash'=>'nothing',

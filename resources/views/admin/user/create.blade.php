@@ -137,3 +137,11 @@
 
 
 @endsection
+
+@section('scripts')
+
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'bio' );
+    </script>
+@endsection
