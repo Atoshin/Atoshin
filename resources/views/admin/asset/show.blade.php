@@ -62,8 +62,20 @@
                 <div class="mb-1">   <b> Commission percentage:</b>  {{$asset->commission_percentage}}<br></div>
                 <div class="mb-1"> <b> Ownership Percentage:</b>  {{$asset->ownership_percentage}} <br></div>
                 <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>
-                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>
-                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>
+                <div class="mb-1">
+                    <b> Start Date:</b>
+                        @if($asset->start_date)
+                    {{$asset->start_date}}<br></div>
+                @else
+                    <span>-</span>
+                @endif
+                <div class="mb-1">
+                    <b> End Date:</b>
+                    @if($asset->end_date)
+                    {{$asset->end_date}}<br></div>
+                @else
+                    <span>-</span>
+                @endif
 {{--                Email: john.doe@example.com--}}
             </address>
         </div>
