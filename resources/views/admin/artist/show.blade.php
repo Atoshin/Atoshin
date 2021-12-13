@@ -48,13 +48,28 @@
                         <div class="col-sm-4 invoice-col">
                             {{--      <div class="mb-1"><b>Bio:</b> {{$asset->bio}}</div>--}}
                             <address>
-                                <div class="mb-1"><b>Website:</b> <a
-                                        href="{{$artist->website}}">{{$artist->website}}</a></div>
+                                <div class="mb-1"><b>Website:</b>
+                             @if($artist->website)
+                                       <a href="{{$artist->website}}">{{$artist->website}}</a></div>
+                                @else
+                                    <span>-</span>
+                                @endif
+
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1"><b> Instagram:</b> <a
-                                        href="{{$artist->instagram}}">{{$artist->instagram}}</a></div>
-                                <div class="mb-1"><b>Youtube:</b> <a
+                                <div class="mb-1"><b> Instagram:</b>
+                                    @if($artist->instagram)
+                                     <a   href="{{$artist->instagram}}">{{$artist->instagram}}</a></div>
+                                @else
+                                    <span>-</span>
+                                @endif
+                                <div class="mb-1"><b>Youtube:</b>
+                                    @if($artist->youtube)
+
+                                    <a
                                         href="{{$artist->youtube}}">{{$artist->youtube}}</a></div>
+                                @else
+                                    <span>-</span>
+                                @endif
 
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
@@ -63,12 +78,29 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1"><b>Facebook:</b> <a
+                                <div class="mb-1"><b>Facebook:</b>
+
+                                    @if($artist->facebook)
+                                    <a
                                         href="{{$artist->facebook}}">{{$artist->facebook}}</a></div>
-                                <div class="mb-1"><b>Linkedin:</b> <a
+                                @else
+                                    <span>-</span>
+                                @endif
+                                <div class="mb-1"><b>Linkedin:</b>
+                                    @if($artist->linkedin)
+                                    <a
                                         href="{{$artist->linkedin}}">{{$artist->linkedin}}</a></div>
-                                <div class="mb-1"><b> Twitter:</b> <a
+                                @else
+                                    <span>-</span>
+                                @endif
+                                <div class="mb-1"><b> Twitter:</b>
+
+                                   @if($artist->twitter)
+                                    <a
                                         href="{{$artist->twitter}}">{{$artist->twitter}}</a></div>
+                                @else
+                                    <span>-</span>
+                                @endif
                                 {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
                                 {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
                                 {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}

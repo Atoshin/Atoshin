@@ -25,7 +25,9 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
+        </div>
     </section>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -57,8 +59,10 @@
                         <div class="col-sm-4 invoice-col">
                             {{--      <div class="mb-1"><b>Bio:</b> {{$asset->bio}}</div>--}}
                             <address>
+                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}}<br></div>
+
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1">   <b> Avatar:</b>  {{$gallery->avatar}}<br></div>
+{{--                                <div class="mb-1">   <b> Avatar:</b>  {{$gallery->avatar}}<br></div>--}}
 
 
                                 {{--                Email: info@almasaeedstudio.com--}}
@@ -69,7 +73,7 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}}<br></div>
+{{--                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}}<br></div>--}}
 
                             </address>
                         </div>
@@ -80,7 +84,7 @@
 
                     <div class="row m-4" style="border-top:2px solid whitesmoke">
                         @foreach($gallery->medias as $media)
-                            <img  style="margin-top: 20px" src="{{asset($media->path)}}" alt="" width="100" height="100"/>
+                            <img  style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}" alt="" width="100" height="100"/>
                         @endforeach
                     </div>
 
