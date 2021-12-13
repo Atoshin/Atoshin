@@ -18,13 +18,14 @@
                     <div class="card-header">
                         <a href="{{route('contracts.create',$asset_id)}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add contract</a>
+                        <h3 class="card-title">Contract</h3>
 
                     </div>
 
-                    <div class="card col-sm-12">
-                        <div class="card-header">
-                            <h3 class="card-title">Contract</h3>
-                        </div>
+{{--                    <div class="card col-sm-12">--}}
+{{--                        <div class="card-header">--}}
+{{--                            <h3 class="card-title">Contract</h3>--}}
+{{--                        </div>--}}
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
