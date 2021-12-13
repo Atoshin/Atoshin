@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Atoshin</title>
+    <link rel="icon" type="image/png" href="{{asset('admin/dist/img/Atoshinlogo.png')}}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
