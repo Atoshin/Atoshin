@@ -14,7 +14,6 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-
                 <div class="card col-sm-12">
                     <div class="card-header">
                         <a href="{{route('assets.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i

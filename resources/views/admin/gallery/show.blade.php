@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('styles')
     <style>
-        img {
+        .avatar {
             border-radius: 50%;
         }
     </style>
@@ -9,6 +9,10 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-1">
+                    <img src="{{asset($gallery->medias->first()->path)}}" class="avatar" alt="" width="100" height="100"/>
+                </div>
             <div class="row mb-2" style="align-items: center;">
                 <div class="col-sm-6">
                     <h1>{{$gallery->name}}</h1>
@@ -27,9 +31,9 @@
             <div class="col-12">
                 <div class="callout callout-info">
                     <div class="row">
-                        <div class="col-1">
-                            <img src="{{asset($gallery->medias->first()->path)}}" alt="" width="100" height="100"/>
-                        </div>
+{{--                        <div class="col-1">--}}
+{{--                            <img src="{{asset($gallery->medias->first()->path)}}" alt="" width="100" height="100"/>--}}
+{{--                        </div>--}}
                         <div class="col-11">
                             <h5>Bio:</h5>
                             <p>{{$gallery->bio}}</p>
@@ -65,7 +69,7 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}} ><br></div>
+                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}}<br></div>
 
                             </address>
                         </div>
@@ -73,10 +77,13 @@
 
                 </div>
 
-                    <div class="row m-4">
+
+                    <div class="row m-4" style="border-top:2px solid whitesmoke">
                         @foreach($gallery->medias as $media)
-                            <img src="{{asset($media->path)}}" alt="" width="100" height="100"/>
+                            <img  style="margin-top: 20px" src="{{asset($media->path)}}" alt="" width="100" height="100"/>
                         @endforeach
                     </div>
+
+
 
 @endsection
