@@ -34,7 +34,7 @@
                         {{--                        </div>--}}
                         <div class="col-11">
                             <h5>Bio:</h5>
-                            <p>{{$gallery->bio}}</p>
+                            <p>{{strip_tags($gallery->bio)}}</p>
                         </div>
 
                     </div>

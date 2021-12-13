@@ -24,7 +24,7 @@ class storeWallet extends FormRequest
     public function rules()
     {
         return [
-            'walletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/g'
+            'walletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
         ];
     }
 }

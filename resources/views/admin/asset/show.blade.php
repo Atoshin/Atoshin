@@ -28,7 +28,7 @@
             <div class="col-12">
                 <div class="callout callout-info">
                     <h5><i ></i>Bio:</h5>
-                    {{$asset->bio}}
+                    {{strip_tags($asset->bio)}}
                 </div>
 <div class="invoice p-3 mb-3">
     <!-- title row -->

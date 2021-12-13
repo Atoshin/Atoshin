@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-11">
                             <h5>Bio:</h5>
-                            <p>{{$user->bio}}</p>
+                            <p>{{strip_tags($user->bio)}}</p>
                         </div>
 
                     </div>

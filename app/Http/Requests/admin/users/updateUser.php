@@ -15,13 +15,12 @@ class updateUser extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|unique:users|email',
+            'email'=>'nullable|unique:users|email',
             'username'=>'required|min:4',
-            'password'=>'required',
             'first_name'=>'required',
             'last_name'=>'required',
             'bio'=>'required|max:1000',
-            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/g'
+            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/'
         ];
     }
 }
