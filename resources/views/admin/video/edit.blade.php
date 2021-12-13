@@ -13,6 +13,11 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Link</label>
                     <input type="text" class="form-control" name="link" value="{{$video->link}}" placeholder="Link">
+                    @error('link')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
             </div>
             <!-- /.card-body -->
