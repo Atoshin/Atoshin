@@ -16,6 +16,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/leaflet/leaflet.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
     @yield('styles')
 

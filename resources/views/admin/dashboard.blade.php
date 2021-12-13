@@ -16,6 +16,22 @@
         <div class="container-fluid">
             <!-- Main row -->
             <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon elevation-1" style="background-color: #CC8D1D"><i class="fa fa-building nav-icon"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Galleries</span>
+                            <span class="info-box-number">
+                  {{$galleries_count}}
+                </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+            </div>
+            <div class="row">
                 <!-- Left col -->
                 <div class="col-md-12">
                     <!-- TABLE: LATEST ORDERS -->

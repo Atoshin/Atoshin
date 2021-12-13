@@ -60,4 +60,12 @@ class MediaController extends Controller
     {
         return view('admin.media.upload',compact('type','id'));
     }
+
+    public function destroy($id)
+    {
+        $artist =Artist::find($id);
+        $artist->delete();
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
+    }
 }

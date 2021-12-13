@@ -51,22 +51,35 @@
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
     <script>
+        const mediaIds = []
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile',['mediable_type' => $type, 'mediable_id' => $id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
+            maxFiles: 10,
             maxFilesize: 3,
+            // dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
+            // dictResponseError: 'خطایی در اپلود فایل رخ داده',
+            // dictMaxFilesExceeded: 'امکان اپلود فایل دیگر وجود ندارد , فقط یک فایل مجاز است',
+            dictRemoveFile: 'Delete',
+            dictCancelUpload: 'Cancel upload',
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
+            init: function () {
+                this.on("removedfile", function (file) {
+                    console.log(file)
+                });
+
+            },
             success: function(file, response)
             {
-                console.log(response)
-                document.getElementById('media_id_input').value = response.media_id
-                console.log(response);
+
+                mediaIds.push(response.media_id)
             },
+
         });
     </script>
 

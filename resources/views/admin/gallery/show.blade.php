@@ -32,9 +32,9 @@
                         {{--                        <div class="col-1">--}}
                         {{--                            <img src="{{asset($gallery->medias->first()->path)}}" alt="" width="100" height="100"/>--}}
                         {{--                        </div>--}}
-                        <div class="col-11">
+                        <div class="col-11 ckeditor-text">
                             <h5>Bio:</h5>
-                            <p>{{strip_tags($gallery->bio)}}</p>
+                            <p>{!! $gallery->bio !!}</p>
                         </div>
 
                     </div>
