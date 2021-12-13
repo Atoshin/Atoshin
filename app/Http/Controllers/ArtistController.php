@@ -18,7 +18,7 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        $artists =Artist:: all();
+        $artists =Artist::query()->orderBy("created_at","desc")->get();
         return view('admin.artist.index', compact('artists'));
     }
 

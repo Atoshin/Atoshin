@@ -16,7 +16,7 @@ class VideoController extends Controller
     public function index($asset_id)
     {
         $asset=Asset::find($asset_id);
-        $videos = Video::where('asset_id',$asset_id)->get();
+        $videos = Video::query()->where('asset_id',$asset_id)->orderBy("created_at")->get();;
         return view('admin.video.index', compact('videos', 'asset_id', 'asset'));
     }
 

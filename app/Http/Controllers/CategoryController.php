@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::query()->orderBy("created_at","desc")->get();
         return view('admin.category.index',['categories' => $categories]);
     }
 

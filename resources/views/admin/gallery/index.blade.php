@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Gallery table</h1>
+                    <h1>Gallery Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -53,7 +53,7 @@
                                                         class="fa fa-trash "></i>delete
                                                 </button>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="m-1">
                                                 <a href="{{route('locations.create', $gallery->id)}}" type="button"
                                                    class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
                                             </div>
@@ -103,18 +103,18 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+            // $('#example2').DataTable({
+            //     "paging": true,
+            //     "lengthChange": false,
+            //     "searching": false,
+            //     "ordering": true,
+            //     "info": true,
+            //     "autoWidth": false,
+            //     "responsive": true,
+            // });
         });
     </script>
     <script>
