@@ -2,63 +2,63 @@
 @section('content')
 
 
-{{--    <div class="card">--}}
-{{--        <div class="card-header">--}}
-{{--            <a href="{{route('admins.create')}}" type="button"--}}
-{{--               class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add Admin </a>--}}
-{{--            <h3 class="card-title">admin table</h3>--}}
-{{--        </div>--}}
-{{--        <!-- /.card-header -->--}}
-{{--        <div class="card-body">--}}
-{{--            <table id="example2" class="table table-bordered table-hover">--}}
-{{--                <thead>--}}
-{{--                <tr>--}}
-{{--                    <th>--}}
-{{--                        Id--}}
-{{--                    </th>--}}
-{{--                    <th>username</th>--}}
-{{--                    <th>email</th>--}}
-{{--                    <th>operations</th>--}}
+    {{--    <div class="card">--}}
+    {{--        <div class="card-header">--}}
+    {{--            <a href="{{route('admins.create')}}" type="button"--}}
+    {{--               class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add Admin </a>--}}
+    {{--            <h3 class="card-title">admin table</h3>--}}
+    {{--        </div>--}}
+    {{--        <!-- /.card-header -->--}}
+    {{--        <div class="card-body">--}}
+    {{--            <table id="example2" class="table table-bordered table-hover">--}}
+    {{--                <thead>--}}
+    {{--                <tr>--}}
+    {{--                    <th>--}}
+    {{--                        Id--}}
+    {{--                    </th>--}}
+    {{--                    <th>username</th>--}}
+    {{--                    <th>email</th>--}}
+    {{--                    <th>operations</th>--}}
 
-{{--                </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody>--}}
-{{--                @foreach($admins as $admin)--}}
-{{--                <tr>--}}
-{{--                    <td>{{$admin->id}}</td>--}}
-{{--                    <td>{{$admin->username}}--}}
-{{--                    </td>--}}
-{{--                    <td>{{$admin->email}}</td>--}}
-{{--                    <td>--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-md-3">--}}
-{{--                                <a href="{{route('admins.edit',$admin->id)}}" type="button"--}}
-{{--                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-3">--}}
-{{--                                <form  method='post' action="{{route('admins.destroy',$admin->id)}}">--}}
-{{--                                    @method('delete')--}}
-{{--                                    @csrf--}}
-{{--                                    <button type="submit"--}}
+    {{--                </tr>--}}
+    {{--                </thead>--}}
+    {{--                <tbody>--}}
+    {{--                @foreach($admins as $admin)--}}
+    {{--                <tr>--}}
+    {{--                    <td>{{$admin->id}}</td>--}}
+    {{--                    <td>{{$admin->username}}--}}
+    {{--                    </td>--}}
+    {{--                    <td>{{$admin->email}}</td>--}}
+    {{--                    <td>--}}
+    {{--                        <div class="row">--}}
+    {{--                            <div class="col-md-3">--}}
+    {{--                                <a href="{{route('admins.edit',$admin->id)}}" type="button"--}}
+    {{--                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="col-md-3">--}}
+    {{--                                <form  method='post' action="{{route('admins.destroy',$admin->id)}}">--}}
+    {{--                                    @method('delete')--}}
+    {{--                                    @csrf--}}
+    {{--                                    <button type="submit"--}}
 
-{{--                                            class="btn btn-danger"><i--}}
-{{--                                            class="fa fa-trash "></i>delete--}}
-{{--                                    </button>--}}
-{{--                                </form>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+    {{--                                            class="btn btn-danger"><i--}}
+    {{--                                            class="fa fa-trash "></i>delete--}}
+    {{--                                    </button>--}}
+    {{--                                </form>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
 
 
-{{--                    </td>--}}
+    {{--                    </td>--}}
 
-{{--                </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--          --}}
-{{--            </table>--}}
-{{--        </div>--}}
-{{--        <!-- /.card-body -->--}}
-{{--    </div>--}}
+    {{--                </tr>--}}
+    {{--                @endforeach--}}
+    {{--                </tbody>--}}
+    {{--          --}}
+    {{--            </table>--}}
+    {{--        </div>--}}
+    {{--        <!-- /.card-body -->--}}
+    {{--    </div>--}}
 
     <section class="content-header">
         <div class="container-fluid">
@@ -77,7 +77,8 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('admins.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i class="fa fa-plus mr-2 "></i> Add Admin </a>
+                        <a href="{{route('admins.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add Admin </a>
                         <h3 class="card-title">Admin</h3>
                     </div>
                     <!-- /.card-header -->
@@ -86,9 +87,9 @@
                             <thead>
                             <tr>
 
-                                                    <th>Username</th>
-                                                    <th>Email</th>
-                                                    <th>Operations</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Operations</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -157,18 +158,9 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
         });
     </script>
     <script>
@@ -199,7 +191,7 @@
                     Swal.fire({
                         title: 'the removal request was canceled',
                         icon: 'info',
-                        confirmButtonText : 'ok',
+                        confirmButtonText: 'ok',
                         confirmButtonColor: '#22303d'
 
 

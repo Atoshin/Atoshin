@@ -17,7 +17,8 @@ AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin:: all();
+        $admins = Admin::query()->orderBy("created_at")->get();
+
         return view('admin.admin.index', compact('admins'));
     }
 
