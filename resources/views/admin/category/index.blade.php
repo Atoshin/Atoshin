@@ -18,13 +18,13 @@
                     <div class="card-header">
                         <a href="{{route('categories.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add category</a>
-                        <h3 class="card-title">User</h3>
+                        <h3 class="card-title">Category</h3>
                     </div>
 
-                    <div class="card col-sm-12">
-                        <div class="card-header">
-                            <h3 class="card-title">Category</h3>
-                        </div>
+{{--                    <div class="card col-sm-12">--}}
+{{--                        <div class="card-header">--}}
+{{--                            <h3 class="card-title">Category</h3>--}}
+{{--                        </div>--}}
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">

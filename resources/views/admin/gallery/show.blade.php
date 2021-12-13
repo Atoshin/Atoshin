@@ -9,6 +9,10 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-1">
+                    <img src="{{asset($gallery->medias->first()->path)}}" alt="" width="100" height="100"/>
+                </div>
             <div class="row mb-2" style="align-items: center;">
                 <div class="col-sm-6">
                     <h1>{{$gallery->name}}</h1>
