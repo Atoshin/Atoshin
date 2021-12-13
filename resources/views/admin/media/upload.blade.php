@@ -57,13 +57,14 @@
             url: "{{route('uploadFile',['mediable_type' => $type, 'mediable_id' => $id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
+            // addRemoveLinks: true,
             maxFiles: 10,
             maxFilesize: 3,
             // dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
             // dictResponseError: 'خطایی در اپلود فایل رخ داده',
             // dictMaxFilesExceeded: 'امکان اپلود فایل دیگر وجود ندارد , فقط یک فایل مجاز است',
-            dictRemoveFile: 'Delete',
+
+            // dictRemoveFile: 'Delete',
             dictCancelUpload: 'Cancel upload',
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
