@@ -15,7 +15,7 @@ class updateAdmin extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|unique:admins|email',
+            'email'=>'required|email',
             'username'=>'required|min:4',
             'password'=>'required'
         ];

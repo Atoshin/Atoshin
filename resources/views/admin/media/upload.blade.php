@@ -57,7 +57,7 @@
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
-            maxFilesize: 100,
+            maxFilesize: 3,
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },

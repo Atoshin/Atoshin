@@ -64,6 +64,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
+
         <form  method="post"    action="{{route('users.store')}}">
             @csrf
             <div class="card-body">
@@ -121,6 +122,7 @@
                     </small>
                     @enderror
                 </div>
+
 {{--                <div class="form-check">--}}
 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
 {{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}

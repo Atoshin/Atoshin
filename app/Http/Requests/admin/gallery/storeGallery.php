@@ -17,7 +17,7 @@ class storeGallery extends FormRequest
         return [
             'name'=>'required',
             'bio'=>'required|max:1000',
-            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/g'
+            'wallet_address'=>'required|unique:wallets|string|regex:/0x[a-fA-F0-9]{40}/'
 
         ];
     }
