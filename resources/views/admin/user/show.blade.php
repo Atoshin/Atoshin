@@ -57,8 +57,7 @@
                             <address>
                                 <div class="mb-1">   <b>Email:</b>  {{$user->email}}</div>
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1">   <b> Avatar:</b>  {{$user->avatar}}<br></div>
-
+                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>
 
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
@@ -67,7 +66,7 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>
+{{--                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>--}}
                                 <div class="mb-1"> <b>Wallet Address:</b>  {{$user->wallet->wallet_address}} <br></div>
 
 
