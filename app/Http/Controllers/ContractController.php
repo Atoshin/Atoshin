@@ -18,7 +18,7 @@ class ContractController extends Controller
      */
     public function index($asset_id)
     {
-        $contracts = Contract::query()->where('asset_id',$asset_id)->get();
+        $contracts = Contract::query()->where('asset_id',$asset_id)->orderBy("created_at","desc")->get();
         $asset = Asset::find($asset_id);
         return view('admin.contract.index',['contracts' => $contracts,'asset_id'=>$asset_id,'asset'=>$asset]);
     }

@@ -20,7 +20,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset:: all();
+        $assets = Asset:: query()->orderBy("created_at","desc")->get();
         return view('admin.asset.index', compact('assets'));
     }
 

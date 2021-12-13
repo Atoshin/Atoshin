@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>asset Table</h1>
+                    <h1>Asset Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -27,7 +27,7 @@
                             <tr>
 
 
-                                <th>link</th>
+                                <th>Title</th>
                                 {{--                                <th>sold_fractions</th>--}}
                                 {{--                                <th>start_date</th>--}}
                                 {{--                                <th>end_date</th>--}}
@@ -41,10 +41,7 @@
                                 <tr>
 
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
-                                    {{--                                    <td>{{$asset->sold_fractions}}</td>--}}
-                                    {{--                                    <td>{{$asset->start_date}}</td>--}}
-                                    {{--                                    <td>{{$asset->end_date}}</td>--}}
-                                    {{--                                    <td>{{$asset->status}}</td>--}}
+
 
                                     <td>
 
@@ -125,18 +122,18 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false,"ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+            // $('#example2').DataTable({
+            //     "paging": true,
+            //     "lengthChange": false,
+            //     "searching": false,
+            //     "ordering": true,
+            //     "info": true,
+            //     "autoWidth": false,
+            //     "responsive": true,
+            // });
         });
     </script>
     <script>
