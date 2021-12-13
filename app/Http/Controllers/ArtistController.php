@@ -101,7 +101,7 @@ class ArtistController extends Controller
         $artist->facebook=$request->facebook;
         $artist->linkedin=$request->linkedin;
         $artist->save();
-        return redirect()->route('artists.index');
+        return redirect()->route('upload.page',['type'=>Artist::class,'id'=>$artist->id]);
     }
 
     /**

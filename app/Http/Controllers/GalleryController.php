@@ -115,7 +115,7 @@ class GalleryController extends Controller
             ]);
         }
         $gallery->save();
-        return redirect()->route('galleries.index');
+        return redirect()->route('upload.page',['type'=>Gallery::class,'id'=>$gallery->id]);
     }
 
     /**

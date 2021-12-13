@@ -224,5 +224,14 @@
                     <!--                </div>-->
                     <!--              </div>-->
                 </div>
+                <div class="row m-4" style="border-top:2px solid whitesmoke">
+
+                    @foreach($artist->medias as $media)
+                        @if($loop->index>0)
+                            <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}" alt=""
+                                 width="100" height="100"/>
+                        @endif
+                    @endforeach
+                </div>
 
 @endsection
