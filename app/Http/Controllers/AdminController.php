@@ -6,6 +6,7 @@ use App\Http\Requests\admin\admin\storeAdmin;
 use App\Http\Requests\admin\admin\updateAdmin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class
 AdminController extends Controller
@@ -43,7 +44,8 @@ AdminController extends Controller
         Admin::query()->create([
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
+//            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
 
 
