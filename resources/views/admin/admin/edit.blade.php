@@ -66,22 +66,21 @@
                     </small>
                     @enderror
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" name="password" value="{{$admin->password}}" placeholder="Password">
-                    @error('password')
-                    <small class="text-danger">
-                        {{$message}}
-                    </small>
-                    @enderror
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label for="exampleInputPassword1">Password</label>--}}
+{{--                    <input type="password" class="form-control" name="password" value="{{$admin->password}}" placeholder="Password">--}}
+{{--                    @error('password')--}}
+{{--                    <small class="text-danger">--}}
+{{--                        {{$message}}--}}
+{{--                    </small>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
 
             </div>
             <!-- /.card-body -->
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" class="btn btn-default float-right">Cancel</button>
             </div>
         </form>
     </div>
