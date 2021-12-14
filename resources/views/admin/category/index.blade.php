@@ -31,8 +31,8 @@
                                 <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Parent category</th>
-                                    <th>More</th>
+{{--                                    <th>Parent category</th>--}}
+                                    <th>Options</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,9 +42,9 @@
                                         <td>
                                             {{$category->title}}
                                         </td>
-                                        <td>
-                                            {{$category->parent ? $category->parent->title : "-"}}
-                                        </td>
+{{--                                        <td>--}}
+{{--                                            {{$category->parent ? $category->parent->title : "-"}}--}}
+{{--                                        </td>--}}
                                         <td>
                                             {{--<a href="#" class="text-muted">--}}
                                             {{--<i class="fas fa-search"></i>--}}

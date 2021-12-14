@@ -27,7 +27,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>UserName</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -38,7 +38,7 @@
                                 <tr>
 
 
-                                    <td><a href="{{route('users.show',$user->id)}}">{{$user->first_name}}</a></td>
+                                    <td><a href="{{route('users.show',$user->id)}}">{{$user->username}}</a></td>
 
 {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 

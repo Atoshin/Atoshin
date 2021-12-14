@@ -78,18 +78,22 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                            <div class="mb-1"><b>creator:</b> {{$asset->gallery->name}}<br></div>
+                            <div class="mb-1" ><b>creator:</b> <a style="color: white;text-decoration-line: underline" href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a><br></div>
                             <div class="mb-1"><b>category:</b> {{$asset->category->title}}<br></div>
-                            <b>Artist:</b> {{$asset->artist->full_name}}<br>
+                            <b>Artist:</b><a style="color: white;text-decoration-line: underline" href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a><br>
                             {{--            <b>Account:</b> 968-34567--}}
                         </div>
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
 
-                    <div class="row">
+                    <div class="row m-4" style="border-top:2px solid whitesmoke">
+
                         @foreach($asset->medias as $media)
-                            <img src="{{asset($media->path)}}" alt="" width="100" height="100"/>
+                            @if($loop->index>0)
+                                <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}" alt=""
+                                     width="100" height="100"/>
+                            @endif
                         @endforeach
                     </div>
 
