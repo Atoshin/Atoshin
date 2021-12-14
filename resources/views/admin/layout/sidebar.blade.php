@@ -15,6 +15,12 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-user nav-icon"></i>
+                        <p>{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->username}}</p>
+                    </a>
+                </li>
+                <li class="nav-item" style="border-bottom: white 0.7px solid;">
                     <a href="{{route('admin.dashboard')}}" class="nav-link">
 {{--                        <i class="far fa-circle nav-icon"></i>--}}
                         <i class="fa fa-align-left nav-icon"></i>
@@ -63,35 +69,18 @@
                 </li>
 
 
-
-{{--                <li class="nav-header">EXAMPLES</li>--}}
-
-{{--                <li class="nav-item">--}}
-{{--                    --}}
-{{--                    <a href="#" class="nav-link">--}}
-{{--                        <i class="nav-icon fas fa-copy"></i>--}}
-{{--                        <p>--}}
-{{--                            Layout Options--}}
-{{--                            <i class="fas fa-angle-left right"></i>--}}
-{{--                            <span class="badge badge-info right">6</span>--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                    <ul class="nav nav-treeview">--}}
-{{--                        --}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">--}}
-{{--                                <i class="far fa-circle nav-icon"></i>--}}
-{{--                                <p>Top Navigation + Sidebar</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-
-{{--                    </ul>--}}
-{{--                    --}}
-{{--                </li>--}}
-
             </ul>
+
         </nav>
         <!-- /.sidebar-menu -->
+        <div style="margin-top: auto">
+            <form action="{{route('logout')}}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
     </div>
+
+
     <!-- /.sidebar -->
 </aside>
