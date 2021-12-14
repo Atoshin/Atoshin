@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>video-feed</h1>
+                    <h1>Video Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -27,7 +27,7 @@
                             <thead>
                             <tr>
 
-                                <th>link</th>
+                                <th>Link</th>
 {{--                                <th>title</th>--}}
                                 <th>Operations</th>
                             </tr>
@@ -42,11 +42,11 @@
 {{--                                    </td>--}}
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="m-1">
                                                 <a href="{{ route('videos.edit',$video) }}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
                                                         data-id="{{$video->id}}"
@@ -101,18 +101,18 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+            // $('#example2').DataTable({
+            //     "paging": true,
+            //     "lengthChange": false,
+            //     "searching": false,
+            //     "ordering": true,
+            //     "info": true,
+            //     "autoWidth": false,
+            //     "responsive": true,
+            // });
         });
     </script>
     <script>

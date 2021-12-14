@@ -61,4 +61,12 @@ class MediaController extends Controller
         $media = Media::query()->where('mediable_type',$type)->where('mediable_id',$id)->get();
         return view('admin.media.upload',compact('type','id','media'));
     }
+
+    public function destroy($id)
+    {
+        $artist =Artist::find($id);
+        $artist->delete();
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
+    }
 }

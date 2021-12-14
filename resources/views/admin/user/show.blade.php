@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('styles')
     <style>
-        img {
+        .avatar {
             border-radius: 50%;
         }
     </style>
@@ -11,17 +11,12 @@
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
                 <div class="col-1">
-                    <img src="{{asset($user->media->path)}}" alt="" width="100" height="100"/>
+                    <img src="{{asset($user->media->path)}}" class="avatar" alt="" width="100" height="100"/>
                 </div>
                 <div class="col-sm-6">
                     <h1>{{$user->first_name}}</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        {{--                        <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-                        <li class="breadcrumb-item active"></li>
-                    </ol>
-                </div>
+
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -57,8 +52,7 @@
                             <address>
                                 <div class="mb-1">   <b>Email:</b>  {{$user->email}}</div>
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1">   <b> Avatar:</b>  {{$user->avatar}}<br></div>
-
+                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>
 
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
@@ -67,7 +61,7 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>
+{{--                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>--}}
                                 <div class="mb-1"> <b>Wallet Address:</b>  {{$user->wallet->wallet_address}} <br></div>
 
 

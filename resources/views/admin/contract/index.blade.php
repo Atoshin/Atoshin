@@ -18,13 +18,14 @@
                     <div class="card-header">
                         <a href="{{route('contracts.create',$asset_id)}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add contract</a>
+                        <h3 class="card-title">Contract</h3>
 
                     </div>
 
-                    <div class="card col-sm-12">
-                        <div class="card-header">
-                            <h3 class="card-title">Contract</h3>
-                        </div>
+{{--                    <div class="card col-sm-12">--}}
+{{--                        <div class="card-header">--}}
+{{--                            <h3 class="card-title">Contract</h3>--}}
+{{--                        </div>--}}
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
@@ -108,7 +109,7 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });

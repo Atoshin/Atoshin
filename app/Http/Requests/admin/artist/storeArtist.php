@@ -16,7 +16,7 @@ class storeArtist extends FormRequest
     {
         return [
             'full_name'=>'required',
-            'bio'=>'max:1000|required',
+            'bio'=>'max:3000|required',
             'website'=>'url|nullable',
             'twitter'=>'url|nullable',
             'facebook'=>'url|nullable',

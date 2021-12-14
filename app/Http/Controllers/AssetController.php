@@ -20,7 +20,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset:: all();
+        $assets = Asset:: query()->orderBy("created_at","desc")->get();
         return view('admin.asset.index', compact('assets'));
     }
 
@@ -115,7 +115,7 @@ class AssetController extends Controller
         $asset->artist_id = $request->artist_id;
         $asset->save();
 
-        return redirect()->route('assets.index');
+        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
 
     }
 

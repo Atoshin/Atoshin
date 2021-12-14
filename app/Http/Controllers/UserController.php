@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::query()->orderBy("created_at","desc")->get();
         return view('admin.user.index', compact('users'));
     }
 
@@ -115,7 +115,7 @@ class UserController extends Controller
                 'walletable_type' => 'App\Models\User'
             ]);
         }
-        return redirect()->route('users.index');
+        return redirect()->route('upload.page',['type'=>User::class,'id'=>$user->id]);
     }
 
     /**

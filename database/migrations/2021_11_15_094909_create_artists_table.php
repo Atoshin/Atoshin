@@ -17,7 +17,7 @@ class CreateArtistsTable extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('avatar')->nullable();
-            $table->string('bio')->nullable();
+            $table->longText('bio')->nullable();
             $table->string('website')->nullable();
             $table->string('youtube')->nullable();
             $table->string('instagram')->nullable();

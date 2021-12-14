@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>User table</h1>
+                    <h1>User Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -27,7 +27,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>UserName</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -38,7 +38,7 @@
                                 <tr>
 
 
-                                    <td><a href="{{route('users.show',$user->id)}}">{{$user->first_name}}</a></td>
+                                    <td><a href="{{route('users.show',$user->id)}}">{{$user->username}}</a></td>
 
 {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 
@@ -102,18 +102,18 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+            // $('#example2').DataTable({
+            //     "paging": true,
+            //     "lengthChange": false,
+            //     "searching": false,
+            //     "ordering": true,
+            //     "info": true,
+            //     "autoWidth": false,
+            //     "responsive": true,
+            // });
         });
     </script>
     <script>

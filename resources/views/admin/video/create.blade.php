@@ -12,7 +12,12 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Link</label>
-                    <input type="url" class="form-control" name="link" placeholder="Link">
+                    <input type="text" class="form-control" name="link" placeholder="Link">
+                    @error('link')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
 {{--                <div class="form-check">--}}
 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
@@ -23,7 +28,6 @@
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" class="btn btn-default float-right">Cancel</button>
             </div>
         </form>
     </div>

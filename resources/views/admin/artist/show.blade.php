@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('styles')
     <style>
-        img {
+        .avatar {
             border-radius: 50%;
         }
     </style>
@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
                 <div class="col-1">
-                    <img src="{{asset($artist->medias->first()->path)}}" alt="" width="100" height="100"/>
+                    <img src="{{asset($artist->medias->first()->path)}}" class="avatar" alt="" width="100" height="100"/>
                 </div>
                 <div class="col-sm-6">
                     <h1>{{$artist->full_name}}</h1>
@@ -27,7 +27,7 @@
 
                         <div class="col-11">
                             <h5>Bio:</h5>
-                            <p>{{strip_tags($artist->bio)}}</p>
+                            <p>{!!$artist->bio!!}</p>
                         </div>
 
                     </div>
@@ -223,6 +223,15 @@
                     <!--                  </button>-->
                     <!--                </div>-->
                     <!--              </div>-->
+                </div>
+                <div class="row m-4" style="border-top:2px solid whitesmoke">
+
+                    @foreach($artist->medias as $media)
+                        @if($loop->index>0)
+                            <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}" alt=""
+                                 width="100" height="100"/>
+                        @endif
+                    @endforeach
                 </div>
 
 @endsection

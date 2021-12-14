@@ -22,7 +22,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::all();
+        $galleries = Gallery::query()->orderBy("created_at","desc")->get();
         return view('admin.gallery.index', compact('galleries'));
     }
 
@@ -115,7 +115,7 @@ class GalleryController extends Controller
             ]);
         }
         $gallery->save();
-        return redirect()->route('galleries.index');
+        return redirect()->route('upload.page',['type'=>Gallery::class,'id'=>$gallery->id]);
     }
 
     /**

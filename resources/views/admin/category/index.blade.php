@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>DataTables</h1>
+                    <h1>Category Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -31,8 +31,8 @@
                                 <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Parent category</th>
-                                    <th>More</th>
+{{--                                    <th>Parent category</th>--}}
+                                    <th>Options</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,9 +42,9 @@
                                         <td>
                                             {{$category->title}}
                                         </td>
-                                        <td>
-                                            {{$category->parent ? $category->parent->title : "-"}}
-                                        </td>
+{{--                                        <td>--}}
+{{--                                            {{$category->parent ? $category->parent->title : "-"}}--}}
+{{--                                        </td>--}}
                                         <td>
                                             {{--<a href="#" class="text-muted">--}}
                                             {{--<i class="fas fa-search"></i>--}}
@@ -159,7 +159,7 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false,"ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });

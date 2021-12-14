@@ -21,7 +21,7 @@ class storeAsset extends FormRequest
                 'ownership_percentage'=>'required|numeric',
                 'commission_percentage'=>'required|numeric',
                 'royalties_percentage'=>'required|numeric',
-                'total_fractions'=>'numeric',
+                'total_fractions'=>'required|numeric',
                 'sold_fractions'=>'numeric',
                 'end_date'=>'date',
                 'start_date'=>'date',

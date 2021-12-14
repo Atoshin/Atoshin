@@ -18,7 +18,7 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        $artists =Artist:: all();
+        $artists =Artist::query()->orderBy("created_at","desc")->get();
         return view('admin.artist.index', compact('artists'));
     }
 
@@ -101,7 +101,7 @@ class ArtistController extends Controller
         $artist->facebook=$request->facebook;
         $artist->linkedin=$request->linkedin;
         $artist->save();
-        return redirect()->route('artists.index');
+        return redirect()->route('upload.page',['type'=>Artist::class,'id'=>$artist->id]);
     }
 
     /**

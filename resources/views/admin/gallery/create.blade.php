@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Wallet Address</label>
-                    <input type="text" class="form-control" name="wallet_address" placeholder="Wallet Address">
+                    <input type="text" class="form-control" name="wallet_address" placeholder="Wallet Address" value="{{old('wallet_address')}}">
                     @error('wallet_address')
                     <small class="text-danger">
                         {{$message}}
@@ -104,7 +104,6 @@
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Next</button>
-                <button type="submit" class="btn btn-default float-right">Cancel</button>
             </div>
         </form>
     </div>

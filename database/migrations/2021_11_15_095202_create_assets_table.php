@@ -16,7 +16,7 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('bio')->nullable();
+            $table->longText('bio')->nullable();
             $table->string('price')->nullable();
             $table->integer('ownership_percentage')->default(40);
             $table->integer('commission_percentage');

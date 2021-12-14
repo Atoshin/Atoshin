@@ -6,6 +6,7 @@ use App\Http\Requests\admin\admin\storeAdmin;
 use App\Http\Requests\admin\admin\updateAdmin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class
 AdminController extends Controller
@@ -17,7 +18,8 @@ AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin:: all();
+        $admins = Admin::query()->orderBy("created_at","desc")->get();
+
         return view('admin.admin.index', compact('admins'));
     }
 
@@ -42,7 +44,8 @@ AdminController extends Controller
         Admin::query()->create([
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
+//            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
 
 

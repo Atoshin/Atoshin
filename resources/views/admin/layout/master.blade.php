@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Atoshin</title>
+    <link rel="icon" type="image/png" href="{{asset('admin/dist/img/Atoshin-hexagon.png')}}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -15,6 +16,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/leaflet/leaflet.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
     @yield('styles')
 
