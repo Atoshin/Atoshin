@@ -48,6 +48,7 @@ class LocationController extends Controller
                 'lat' => $request->lat,
                 'long' => $request->long,
                 'address' => $request->address,
+                'telephone' => $request->telephone,
             ]);
         } else {
             Location::query()->create([
@@ -55,6 +56,7 @@ class LocationController extends Controller
                 'lat' => $request->lat,
                 'long' => $request->long,
                 'address' => $request->address,
+                'telephone' => $request->telephone,
             ]);
         }
 

@@ -55,7 +55,14 @@
                             @error('address')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
+                            <label>Telephone</label>
+                            <input type="text" class="form-control" rows="3" name="telephone"
+                                   value="{{$location ? $location->telephone : ''}}"
+                                      placeholder="Telephone">
                         </div>
+                        @error('telephone')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
                     </div>
                     {{--                <div class="col-sm-6">--}}
                     {{--                    <div class="form-group">--}}

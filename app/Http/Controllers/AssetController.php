@@ -71,7 +71,7 @@ class AssetController extends Controller
      */
     public function show($id)
     {
-        $asset=Asset::with('medias')->find($id);
+        $asset=Asset::with(['medias','videos'])->find($id);
         return view('admin.asset.show',compact('asset'));
     }
 

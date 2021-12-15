@@ -62,14 +62,14 @@
                                 @else
                                     <span>-</span>
                                 @endif
-                                <div class="mb-1"><b>Youtube:</b>
-                                    @if($artist->youtube)
+{{--                                <div class="mb-1"><b>Youtube:</b>--}}
+{{--                                    @if($artist->youtube)--}}
 
-                                    <a
-                                        href="{{$artist->youtube}}">{{$artist->youtube}}</a></div>
-                                @else
-                                    <span>-</span>
-                                @endif
+{{--                                    <a--}}
+{{--                                        href="{{$artist->youtube}}">{{$artist->youtube}}</a></div>--}}
+{{--                                @else--}}
+{{--                                    <span>-</span>--}}
+{{--                                @endif--}}
 
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
@@ -93,20 +93,20 @@
                                 @else
                                     <span>-</span>
                                 @endif
-                                <div class="mb-1"><b> Twitter:</b>
+{{--                                <div class="mb-1"><b> Twitter:</b>--}}
 
-                                   @if($artist->twitter)
-                                    <a
-                                        href="{{$artist->twitter}}">{{$artist->twitter}}</a></div>
-                                @else
-                                    <span>-</span>
-                                @endif
+{{--                                   @if($artist->twitter)--}}
+{{--                                    <a--}}
+{{--                                        href="{{$artist->twitter}}">{{$artist->twitter}}</a></div>--}}
+{{--                                @else--}}
+{{--                                    <span>-</span>--}}
+{{--                                @endif--}}
                                 {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
                                 {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
                                 {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
                                 {{--                Email: john.doe@example.com--}}
                             </address>
-                        </div>
+
                         <!-- /.col -->
                     {{--                        <div class="col-sm-4 invoice-col">--}}
                     {{--                            <div class="mb-1"> <b>creator:</b> {{$asset->gallery->name}}<br></div>--}}
@@ -116,6 +116,28 @@
                     {{--                        </div>--}}
                     <!-- /.col -->
                     </div>
+                        <div class="col-sm-4 invoice-col">
+
+                            <address>
+
+                                <div class="mb-1"><b>Youtube:</b>
+                                    @if($artist->youtube)
+
+                                        <a
+                                            href="{{$artist->youtube}}">{{$artist->youtube}}</a></div>
+                                @else
+                                    <span>-</span>
+                                @endif
+                                <div class="mb-1"><b> Twitter:</b>
+
+                                    @if($artist->twitter)
+                                        <a  href="{{$artist->twitter}}">{{$artist->twitter}}</a></div>
+
+                                @else
+                                    <span>-</span>
+                                @endif
+                            </address>
+                        </div>
                     <!-- /.row -->
 
                     <!-- Table row -->

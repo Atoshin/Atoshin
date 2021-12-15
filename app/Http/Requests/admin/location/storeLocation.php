@@ -18,6 +18,7 @@ class storeLocation extends FormRequest
                 'lat'=>'required',
                 'long'=>'required',
                 'address'=>'required|min:3',
+                'telephone'=>'required',
 
         ];
     }
