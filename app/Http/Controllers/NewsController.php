@@ -17,7 +17,7 @@ class NewsController extends Controller
     {
         $artist = Artist::find($artist_id);
         $news = News::query()->where('artist_id', $artist_id)->orderBy('created_at')->get();
-        return view('admin.news.index',compact('news', 'artist'));
+        return view('admin.news.index',compact('news', 'artist', 'artist_id'));
     }
 
     /**
@@ -25,9 +25,9 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($artist_id)
     {
-        //
+        return view('admin.news.create',compact('artist_id'));
     }
 
     /**
@@ -36,9 +36,15 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , $artist_id)
     {
-        //
+        News::query()->create([
+         'artist_id'=>$artist_id,
+         'link'=>$request->link,
+         'title'=>$request->title
+        ]);
+
+        return redirect()->route('news.index',$artist_id);
     }
 
     /**

@@ -18,9 +18,10 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-{{--                        <a href="{{route('news.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i--}}
-{{--                                class="fa fa-plus mr-2 "></i> Add News</a>--}}
-{{--                        <h3 class="card-title">News</h3>--}}
+                        <a href="{{route('news.create', $artist_id)}}" type="button"
+                           class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add News</a>
+                        <h3 class="card-title">News</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -30,37 +31,35 @@
                                 <th>Title</th>
                                 <th>Link</th>
                                 <th>Operation</th>
-                                {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
 
                             <tbody>
                             @foreach($news as $a_news)
                                 <tr>
-
                                     <td>{{$a_news->title}}</td>
-                                    <td>{{$a_news->link}}</td>
-                                    {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
-
+                                    <td><a href="{{$a_news->link}}">{{$a_news->link}}</a></td>
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
-                                                <a href="{{route('news.edit',$a_news->id)}}" type="button"
-                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                {{--                                                <a href="{{route('news.edit',$a_news->id)}}" type="button"--}}
+                                                {{--                                                   class="btn btn-primary "> --}}
+                                                {{--                                                    <i class="fa fa-edit "></i> edit --}}
+                                                {{--                                                </a>--}}
                                             </div>
                                             <div class="m-1">
-                                                <button type="button"
-                                                        onclick="deleteModal(this)"
-                                                        data-id="{{$a_news->id}}"
-                                                        class="btn btn-danger "><i
-                                                        class="fa fa-trash "></i>delete
-                                                </button>
+                                                {{--                                                <button type="button"--}}
+                                                {{--                                                        onclick="deleteModal(this)"--}}
+                                                {{--                                                        data-id="{{$a_news->id}}"--}}
+                                                {{--                                                        class="btn btn-danger "><i--}}
+                                                {{--                                                        class="fa fa-trash "></i>delete--}}
+                                                {{--                                                </button>--}}
                                             </div>
 
-{{--                                            <div class="m-1">--}}
-{{--                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"--}}
-{{--                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>--}}
-{{--                                            </div>--}}
+                                            {{--                                            <div class="m-1">--}}
+                                            {{--                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"--}}
+                                            {{--                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>--}}
+                                            {{--                                            </div>--}}
                                         </div>
 
 

@@ -78,8 +78,8 @@ Route::get('send-mail', function () {
 
     //news
     Route::get('news/{artist_id}', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
-//    Route::get('news/{artist_id}/create', [\App\Http\Controllers\NewsController::class, 'create'])->name('news.create');
-//    Route::post('news/{artist_id}/store', [\App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+    Route::get('news/{artist_id}/create', [\App\Http\Controllers\NewsController::class, 'create'])->name('news.create');
+    Route::post('news/{artist_id}/store', [\App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
 //    Route::patch('news/{artist_id}/update',[\App\Http\Controllers\NewsController::class,'update'])->name('news.update');
 //    Route::delete('news/{artist_id}/destroy',[\App\Http\Controllers\NewsController::class,'destroy'])->name('news.destroy');
 //    Route::get('news/{artist_id}/edit',[\App\Http\Controllers\NewsController::class,'edit'])->name('news.edit');
