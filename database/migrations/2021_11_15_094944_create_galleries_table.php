@@ -18,6 +18,12 @@ class CreateGalleriesTable extends Migration
             $table->string('name');
             $table->longText('bio')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('website')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('linkedin')->nullable();
 //            $table->string('owner_name')->nullable();
             $table->timestamps();
         });

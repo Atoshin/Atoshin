@@ -20,4 +20,5 @@ class updateAdmin extends FormRequest
             'password'=>'required'
         ];
     }
+
 }

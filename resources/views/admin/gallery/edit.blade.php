@@ -38,6 +38,60 @@
                     </small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Website</label>
+                    <input type="text" class="form-control" name="website" value="{{$gallery->website}}" placeholder="Website">
+                    @error('website')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Youtube</label>
+                    <input type="text" class="form-control" name="youtube" value="{{$gallery->youtube}}" placeholder="Youtube">
+                    @error('youtube')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Instagram</label>
+                    <input type="text" class="form-control" name="instagram" value="{{$gallery->instagram}}" placeholder="Instagram">
+                    @error('instagram')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Twitter</label>
+                    <input type="text" class="form-control" name="twitter" value="{{$gallery->twitter}}" placeholder="Twitter">
+                    @error('twitter')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Facebook</label>
+                    <input type="text" class="form-control" name="facebook" value="{{$gallery->facebook}}" placeholder="Facebook">
+                    @error('facebook')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Linkedin</label>
+                    <input type="text" class="form-control" name="linkedin" value="{{$gallery->linkedin}}" placeholder="Linkedin">
+                    @error('linkedin')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
 
 {{--                <div class="form-check">--}}
 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
