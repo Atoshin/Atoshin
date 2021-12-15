@@ -19,4 +19,9 @@ class Artist extends Model
     {
         return $this->morphMany(Media::class, 'mediable');
     }
+
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
 }

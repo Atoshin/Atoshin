@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 class GalleryController extends Controller
 {
     use MediaTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +23,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::query()->orderBy("created_at","desc")->get();
+        $galleries = Gallery::query()->orderBy("created_at", "desc")->get();
         return view('admin.gallery.index', compact('galleries'));
     }
 
@@ -39,7 +40,7 @@ class GalleryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(storeGallery $request)
@@ -49,7 +50,12 @@ class GalleryController extends Controller
             'bio' => $request->bio,
             'summary' => $request->summary,
             'avatar' => $request->avatar,
-
+            'website' => $request->website,
+            'youtube' => $request->youtube,
+            'instagram' => $request->instagram,
+            'twitter' => $request->twitter,
+            'facebook' => $request->facebook,
+            'linkedin' => $request->linkedin,
         ]);
         Wallet::query()->create([
             'wallet_address' => $request->wallet_address,
@@ -58,54 +64,56 @@ class GalleryController extends Controller
         ]);
 
 
-
-
-
-
-
-        return redirect()->route('upload.page',['type'=>Gallery::class,'id'=>$gallery->id]);
+        return redirect()->route('upload.page', ['type' => Gallery::class, 'id' => $gallery->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id){
+    public function show($id)
+    {
 
     $gallery=Gallery::with('medias')->find($id);
 
-        return view('admin.gallery.show',compact('gallery'));
+        return view('admin.gallery.show', compact('gallery'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $gallery =Gallery::find($id);
+        $gallery = Gallery::find($id);
 
-        return view('admin.gallery.edit', compact( 'gallery'));
+        return view('admin.gallery.edit', compact('gallery'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(updategallery $request, $id)
     {
-        $gallery =Gallery::find($id);
-        $gallery->name=$request->name;
-        $gallery->bio=$request->bio;
+        $gallery = Gallery::find($id);
+        $gallery->name = $request->name;
+        $gallery->bio = $request->bio;
         $gallery->summary=$request->summary;
-        $gallery->avatar=$request->avatar;
+        $gallery->avatar = $request->avatar;
+        $gallery->website = $request->website;
+        $gallery->youtube = $request->youtube;
+        $gallery->instagram = $request->instagram;
+        $gallery->twitter = $request->twitter;
+        $gallery->facebook = $request->facebook;
+        $gallery->linkedin = $request->linkedin;
         $wallet = $gallery->wallet;
         if ($wallet) {
             $wallet->wallet_address = $request->wallet_address;
@@ -118,21 +126,20 @@ class GalleryController extends Controller
             ]);
         }
         $gallery->save();
-        return redirect()->route('upload.page',['type'=>Gallery::class,'id'=>$gallery->id]);
+        return redirect()->route('upload.page', ['type' => Gallery::class, 'id' => $gallery->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $gallery =Gallery::find($id);
+        $gallery = Gallery::find($id);
         $wallet = $gallery->wallet;
-        if ($wallet)
-        {
+        if ($wallet) {
             $wallet->delete();
         }
         $gallery->delete();
