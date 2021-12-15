@@ -18,6 +18,7 @@ class CreateLocationsTable extends Migration
             $table->double('lat');
             $table->double('long');
             $table->string('address');
+            $table->string('telephone');
             $table->unsignedBigInteger('gallery_id');
             $table->timestamps();
 

@@ -44,8 +44,8 @@ AdminController extends Controller
         Admin::query()->create([
             'email' => $request->email,
             'username' => $request->username,
-//            'password' => $request->password,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
+//            'password' => Hash::make($request->password),
         ]);
 
 

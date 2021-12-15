@@ -12,7 +12,7 @@ class Asset extends Model
     protected $dates = ['start_date','end_date'];
 
 
-    public function videoFeeds()
+    public function videos()
     {
         return $this->hasMany(Video::class);
     }
