@@ -25,6 +25,15 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+Route::get('send-mail', function () {
+    $details = [
+        'title' => 'Mail from Arash Behboudi',
+        'body' => 'I just wanted to say hi '
+    ];
+    \Illuminate\Support\Facades\Mail::to('kimiadezfuli@gmail.com')->send(new \App\Mail\TestMail($details));
+    dd("Email is Sent.");
+});
+
 
 //Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');

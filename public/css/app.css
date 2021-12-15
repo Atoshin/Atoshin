@@ -1,9 +1,1 @@
-.ckeditor-text a {
-  color: blue;
-}
-
-.info-box-content a {
-  color: white;
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
-}
+.ckeditor-text a{color:blue}.info-box-content a{color:#fff;-webkit-text-decoration-line:underline;text-decoration-line:underline}
