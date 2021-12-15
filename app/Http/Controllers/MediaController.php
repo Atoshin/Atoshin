@@ -49,16 +49,17 @@ class MediaController extends Controller
 
         }
 
-
-        return response()->json([
-            'success'=>$fileName,
-            'media_id'=>$media->id
-        ]);
+        return redirect()->back();
+//        return response()->json([
+//            'success'=>$fileName,
+//            'media_id'=>$media->id
+//        ]);
     }
 
     public function uploadPage($type,$id)
     {
-        return view('admin.media.upload',compact('type','id'));
+        $media = Media::query()->where('mediable_type',$type)->where('mediable_id',$id)->get();
+        return view('admin.media.upload',compact('type','id','media'));
     }
 
     public function destroy($id)

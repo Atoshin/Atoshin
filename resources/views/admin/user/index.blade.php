@@ -28,6 +28,7 @@
                             <thead>
                             <tr>
                                 <th>UserName</th>
+                                <th>Wallet address</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -38,9 +39,15 @@
                                 <tr>
 
 
-                                    <td><a href="{{route('users.show',$user->id)}}">{{$user->username}}</a></td>
+                                    <td>
+                                        @if($user->username)
+                                            <a href="{{route('users.show',$user->id)}}">{{$user->username}}</a>
+                                        @else
+                                            <span>-</span>
+                                        @endif
+                                    </td>
 
-{{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
+                                    <td>{{$user->wallet ? $user->wallet->wallet_address : '-'}}</td>
 
                                     <td>
                                         <div class="row">
