@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('loginTemplate/css/style.css')}}">
 
 </head>
-<body class="img js-fullheight" style="background-color: #515151">
+<body class="img js-fullheight" style=" height: 435px; background-image: url("images/bg.jpg");">
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -24,10 +24,10 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Login</h3>
-                    <form action="{{route('login')}}" class="signin-form" method="POST">
+                    <form action="{{route('login')}}" class="signin-form" method="POST" autocomplete="off">
                         @csrf
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" name="username" required>
+                            <input type="text" class="form-control" placeholder="Username" name="username" required  >
                             @error('username')
                                 <small>{{$message}}</small>
                             @enderror
@@ -45,12 +45,12 @@
                         <div class="form-group d-md-flex">
                             <div class="w-50">
                                 <label class="checkbox-wrap checkbox-primary">Remember Me
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" name="remember" checked>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="w-50 text-md-right">
-                                <a href="#" style="color: #fff">Forgot Password</a>
+                                <a href="{{route('forget.password.get')}}" style="color: #fff">Forgot Password</a>
                             </div>
                         </div>
                     </form>
@@ -62,9 +62,9 @@
 </section>
 
 <script src="{{asset('loginTemplate/js/jquery.min.js')}}"></script>
-<script src="js/popper.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
+<script src="{{asset('loginTemplate/js/popper.js')}}"></script>
+<script src="{{asset('loginTemplate/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('loginTemplate/js/main.js')}}"></script>
 
 </body>
 </html>

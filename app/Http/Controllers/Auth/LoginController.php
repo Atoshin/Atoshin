@@ -21,12 +21,17 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
         $creds = $request->validate([
             'username' => 'required|string',
             'password' => 'required'
         ]);
 
         if (Auth::guard('admin')->attempt($creds)){
+
+            $admin = Auth::guard('admin')->getProvider()->retrieveByCredentials($creds);
+            Auth::guard('admin')->login($admin, $request->get('remember'));
+
             $request->session()->regenerate();
             return redirect()->intended('admin/dashboard');
 

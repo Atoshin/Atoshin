@@ -105,6 +105,7 @@
                                                 <a href="{{route('admins.edit',$admin->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
+                                            @if($admin->id != \Illuminate\Support\Facades\Auth::user()->id)
                                             <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
@@ -113,6 +114,7 @@
                                                         class="fa fa-trash mr-2"></i>delete
                                                 </button>
                                             </div>
+                                            @endif
                                         </div>
 
 
