@@ -44,6 +44,7 @@ class ArtistController extends Controller
             'full_name' => $request->full_name,
             'avatar' => $request->avatar,
             'bio' => $request->bio,
+            'summary' => $request->summary,
             'website' => $request->website,
             'youtube' => $request->youtube,
             'instagram' => $request->instagram,
@@ -94,6 +95,7 @@ class ArtistController extends Controller
         $artist->full_name=$request->full_name;
         $artist->avatar=$request->avatar;
         $artist->bio=$request->bio;
+        $artist->summary=$request->summary;
         $artist->website=$request->website;
         $artist->youtube=$request->youtube;
         $artist->instagram=$request->instagram;

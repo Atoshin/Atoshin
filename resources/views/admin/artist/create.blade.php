@@ -1,11 +1,6 @@
 @extends('admin.layout.master')
 @section('styles')
-    <style>
-        textarea{
-            color: #000000 !important;
-            background-color: #000000 !important;
-        }
-    </style>
+
 @endsection
 @section('content')
 
@@ -88,6 +83,16 @@
                     <label for="exampleInputPassword1">Bio</label>
                     <textarea type="text" class="form-control editor" name="bio" placeholder="Bio" id="editor" >{{old('bio')}}</textarea>
                     @error('bio')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Summary</label>
+                    <textarea type="text" class="form-control" name="summary"  placeholder="Summary">{{old('summary')}}</textarea>
+
+                    @error('summary')
                     <small class="text-danger">
                         {{$message}}
                     </small>

@@ -17,6 +17,7 @@ class updateArtist extends FormRequest
         return [
             'full_name'=>'required',
             'bio'=>'max: 3000|required',
+            'summary'=>'max: 3000|required',
             'website'=>'url|nullable',
             'twitter'=>'url|nullable',
             'facebook'=>'url|nullable',

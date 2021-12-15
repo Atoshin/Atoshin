@@ -86,6 +86,15 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="exampleInputPassword1">Summary</label>
+                    <textarea type="text" class="form-control" name="summary" placeholder="Bio">{{old('summary')}}</textarea>
+                    @error('summary')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="exampleInputPassword1">Wallet Address</label>
                     <input type="text" class="form-control" name="wallet_address" placeholder="Wallet Address" value="{{old('wallet_address')}}">
                     @error('wallet_address')

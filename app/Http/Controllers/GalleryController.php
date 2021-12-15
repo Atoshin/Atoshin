@@ -47,6 +47,7 @@ class GalleryController extends Controller
         $gallery = Gallery::query()->create([
             'name' => $request->name,
             'bio' => $request->bio,
+            'summary' => $request->summary,
             'avatar' => $request->avatar,
         ]);
         Wallet::query()->create([
@@ -102,6 +103,7 @@ class GalleryController extends Controller
         $gallery =Gallery::find($id);
         $gallery->name=$request->name;
         $gallery->bio=$request->bio;
+        $gallery->summary=$request->summary;
         $gallery->avatar=$request->avatar;
         $wallet = $gallery->wallet;
         if ($wallet) {

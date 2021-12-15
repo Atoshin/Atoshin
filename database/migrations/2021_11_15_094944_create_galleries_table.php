@@ -17,6 +17,7 @@ class CreateGalleriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('bio')->nullable();
+            $table->longText('summary')->nullable();
             $table->string('avatar')->nullable();
             $table->string('website')->nullable();
             $table->string('youtube')->nullable();

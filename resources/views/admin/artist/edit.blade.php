@@ -31,6 +31,16 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="exampleInputPassword1">Summary</label>
+                    <textarea type="text" class="form-control" name="summary" value="{{$artist->summary}}" placeholder="Summary">{{$artist->summary}}</textarea>
+
+                    @error('summary')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="exampleInputPassword1">Website</label>
                     <input type="text" class="form-control" name="website" value="{{$artist->website}}" placeholder="Website">
                     @error('website')

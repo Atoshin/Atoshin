@@ -29,7 +29,15 @@
                             <h5>Bio:</h5>
                             <p>{!!$artist->bio!!}</p>
                         </div>
+                    </div>
+                </div>
+                <div class="callout callout-info">
+                    <div class="row">
 
+                        <div class="col-11">
+                            <h5>Summary:</h5>
+                            <p>{!!$artist->summary!!}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="invoice p-3 mb-3">
