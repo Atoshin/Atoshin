@@ -58,7 +58,7 @@
                             <address>
                                 <div class="mb-1"><b>Website:</b>
                              @if($artist->website)
-                                       <a href="{{$artist->website}}">{{$artist->website}}</a></div>
+                                       <a href="{{$artist->website}}">{{substr($artist->website,0,25) . '...'}}</a></div>
                                 @else
                                     <span>-</span>
                                 @endif
@@ -66,7 +66,7 @@
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
                                 <div class="mb-1"><b> Instagram:</b>
                                     @if($artist->instagram)
-                                     <a   href="{{$artist->instagram}}">{{$artist->instagram}}</a></div>
+                                     <a   href="{{$artist->instagram}}">{{substr($artist->instagram,0,25) . '...'}}</a></div>
                                 @else
                                     <span>-</span>
                                 @endif
@@ -90,14 +90,14 @@
 
                                     @if($artist->facebook)
                                     <a
-                                        href="{{$artist->facebook}}">{{$artist->facebook}}</a></div>
+                                        href="{{$artist->facebook}}">{{substr($artist->facebook,0,25) . '...'}}</a></div>
                                 @else
                                     <span>-</span>
                                 @endif
                                 <div class="mb-1"><b>Linkedin:</b>
                                     @if($artist->linkedin)
                                     <a
-                                        href="{{$artist->linkedin}}">{{$artist->linkedin}}</a></div>
+                                        href="{{$artist->linkedin}}">{{substr($artist->linkedin,0,25) . '...'}}</a></div>
                                 @else
                                     <span>-</span>
                                 @endif
@@ -132,14 +132,14 @@
                                     @if($artist->youtube)
 
                                         <a
-                                            href="{{$artist->youtube}}">{{$artist->youtube}}</a></div>
+                                            href="{{$artist->youtube}}">{{substr($artist->youtube,0,25) . '...'}}</a></div>
                                 @else
                                     <span>-</span>
                                 @endif
                                 <div class="mb-1"><b> Twitter:</b>
 
                                     @if($artist->twitter)
-                                        <a  href="{{$artist->twitter}}">{{$artist->twitter}}</a></div>
+                                        <a  href="{{$artist->twitter}}">{{substr($artist->twitter,0,25) . '...'}}</a></div>
 
                                 @else
                                     <span>-</span>

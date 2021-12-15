@@ -72,7 +72,7 @@
                                 <address>
                                     <div class="mb-1"><b>Website:</b>
                                         @if($gallery->website)
-                                            <a href="{{$gallery->website}}">{{$gallery->website}}</a></div>
+                                            <a href="{{$gallery->website}}">{{substr($artist->website,0,25) . '...'}}</a></div>
                                     @else
                                         <span>-</span>
                                     @endif
@@ -80,7 +80,7 @@
                                     {{--                795 Folsom Ave, Suite 600<br>--}}
                                     <div class="mb-1"><b> Instagram:</b>
                                         @if($gallery->instagram)
-                                            <a href="{{$gallery->instagram}}">{{$gallery->instagram}}</a></div>
+                                            <a href="{{$gallery->instagram}}">{{substr($artist->instagram,0,25) . '...'}}</a></div>
                                     @else
                                         <span>-</span>
                                     @endif
@@ -88,7 +88,7 @@
                                         @if($gallery->youtube)
 
                                             <a
-                                                href="{{$gallery->youtube}}">{{$gallery->youtube}}</a></div>
+                                                href="{{$gallery->youtube}}">{{substr($artist->youtube,0,25) . '...'}}</a></div>
                                     @else
                                         <span>-</span>
                                     @endif
@@ -104,14 +104,14 @@
 
                                         @if($gallery->facebook)
                                             <a
-                                                href="{{$gallery->facebook}}">{{$gallery->facebook}}</a></div>
+                                                href="{{$gallery->facebook}}">{{substr($artist->facebook,0,25) . '...'}}</a></div>
                                     @else
                                         <span>-</span>
                                     @endif
                                     <div class="mb-1"><b>Linkedin:</b>
                                         @if($gallery->linkedin)
                                             <a
-                                                href="{{$gallery->linkedin}}">{{$gallery->linkedin}}</a></div>
+                                                href="{{$gallery->linkedin}}">{{substr($artist->linkedin,0,25) . '...'}}</a></div>
                                     @else
                                         <span>-</span>
                                     @endif
@@ -119,7 +119,7 @@
 
                                         @if($gallery->twitter)
                                             <a
-                                                href="{{$gallery->twitter}}">{{$gallery->twitter}}</a></div>
+                                                href="{{$gallery->twitter}}">{{substr($artist->twitter,0,25) . '...'}}</a></div>
                                     @else
                                         <span>-</span>
                                     @endif

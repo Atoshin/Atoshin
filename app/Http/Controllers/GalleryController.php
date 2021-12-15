@@ -49,6 +49,7 @@ class GalleryController extends Controller
             'bio' => $request->bio,
             'summary' => $request->summary,
             'avatar' => $request->avatar,
+
         ]);
         Wallet::query()->create([
             'wallet_address' => $request->wallet_address,
