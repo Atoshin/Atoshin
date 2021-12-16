@@ -86,7 +86,7 @@
     <script>
         $(document).ready(function () {
             var map = L.map('map', {
-                center: [{{$location ? $location->lat : 51.4934}}, {{$location ? $location->long : 0}}],
+                center: [{{$location ? $location->lat : 35.6892}}, {{$location ? $location->long : 51.3890}}],
                 zoom: 13
             });
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -100,8 +100,8 @@
             setTimeout(function () {
                 map.invalidateSize()
             }, 400);
-            const mainMarker = L.marker([{{$location ? $location->lat : 51.4934
-}}, {{$location ? $location->long : 0}}], {draggable: true}).addTo(map);
+            const mainMarker = L.marker([{{$location ? $location->lat : 35.6892
+}}, {{$location ? $location->long : 51.3890}}], {draggable: true}).addTo(map);
             let secondaryMarker;
             map.on('click', function (e) {
                 var popLocation = e.latlng;
