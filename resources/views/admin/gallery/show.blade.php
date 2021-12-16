@@ -72,7 +72,7 @@
                             <address>
                                 <div class="mb-1"><b>Website:</b>
                                     @if($gallery->website)
-                                        <a href="{{$gallery->website}}">{{substr($artist->website,0,25) . '...'}}</a>
+                                        <a href="{{$gallery->website}}">{{substr($gallery->website,0,25) . '...'}}</a>
                                 </div>
                                 @else
                                     <span>-</span>
@@ -81,7 +81,7 @@
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
                                 <div class="mb-1"><b> Instagram:</b>
                                     @if($gallery->instagram)
-                                        <a href="{{$gallery->instagram}}">{{substr($artist->instagram,0,25) . '...'}}</a>
+                                        <a href="{{$gallery->instagram}}">{{substr($gallery->instagram,0,25) . '...'}}</a>
                                 </div>
                                 @else
                                     <span>-</span>
@@ -90,7 +90,7 @@
                                     @if($gallery->youtube)
 
                                         <a
-                                            href="{{$gallery->youtube}}">{{substr($artist->youtube,0,25) . '...'}}</a>
+                                            href="{{$gallery->youtube}}">{{substr($gallery->youtube,0,25) . '...'}}</a>
                                 </div>
                                 @else
                                     <span>-</span>
@@ -107,7 +107,7 @@
 
                                     @if($gallery->facebook)
                                         <a
-                                            href="{{$gallery->facebook}}">{{substr($artist->facebook,0,25) . '...'}}</a>
+                                            href="{{$gallery->facebook}}">{{substr($gallery->facebook,0,25) . '...'}}</a>
                                 </div>
                                 @else
                                     <span>-</span>
@@ -115,7 +115,7 @@
                                 <div class="mb-1"><b>Linkedin:</b>
                                     @if($gallery->linkedin)
                                         <a
-                                            href="{{$gallery->linkedin}}">{{substr($artist->linkedin,0,25) . '...'}}</a>
+                                            href="{{$gallery->linkedin}}">{{substr($gallery->linkedin,0,25) . '...'}}</a>
                                 </div>
                                 @else
                                     <span>-</span>
@@ -124,7 +124,7 @@
 
                                     @if($gallery->twitter)
                                         <a
-                                            href="{{$gallery->twitter}}">{{substr($artist->twitter,0,25) . '...'}}</a>
+                                            href="{{$gallery->twitter}}">{{substr($gallery->twitter,0,25) . '...'}}</a>
                                 </div>
                                 @else
                                     <span>-</span>
@@ -164,7 +164,7 @@
                         <script>
                             $(document).ready(function () {
                                 var map = L.map('map', {
-                                    center: [{{$gallery->location ? $gallery->location->lat : 51.4934}}, {{$gallery->location ? $gallery->location->long : 0}}],
+                                    center: [{{$gallery->location ? $gallery->location->lat : 35.6892}}, {{$gallery->location ? $gallery->location->long : 51.3890}}],
                                     zoom: 13
                                 });
                                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -178,7 +178,7 @@
                                 setTimeout(function () {
                                     map.invalidateSize()
                                 }, 400);
-                                const mainMarker = L.marker([{{$gallery->location ? $gallery->location->lat : 51.4934}}, {{$gallery->location ? $gallery->location->long : 0}}], {draggable: false}).addTo(map);
+                                const mainMarker = L.marker([{{$gallery->location ? $gallery->location->lat : 35.6892}}, {{$gallery->location ? $gallery->location->long : 51.3890}}], {draggable: false}).addTo(map);
                             })
                         </script>
 
