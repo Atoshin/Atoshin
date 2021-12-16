@@ -49,6 +49,7 @@ class LocationController extends Controller
                 'long' => $request->long,
                 'address' => $request->address,
                 'telephone' => $request->telephone,
+                'gallery_id' => $gallery_id
             ]);
         } else {
             Location::query()->create([
