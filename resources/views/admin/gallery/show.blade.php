@@ -146,7 +146,7 @@
                     </div>
 
 
-                    <div class="row m-4" style="border-top:2px solid whitesmoke">
+                    <div class="row m-4 pb-3" style="border-top:2px solid whitesmoke; border-bottom: 2px solid whitesmoke">
 
                         @foreach($gallery->medias as $media)
                             @if($loop->index>0)
@@ -156,8 +156,11 @@
                             @endif
                         @endforeach
                     </div>
+{{--                    <div>--}}
+{{--                        <h5>Location:</h5>--}}
+{{--                    </div>--}}
 
-                    <div class="col-sm-12 map" id="map" style="height: 500px; margin-bottom: 20px;">
+                    <div class="col-sm-6 map" id="map" style="height: 500px; margin-bottom: 20px;">
                     </div>
                     @endsection
                     @section('scripts')
