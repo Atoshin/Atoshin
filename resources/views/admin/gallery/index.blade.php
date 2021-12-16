@@ -45,14 +45,14 @@
                                                 <a href="{{route('galleries.edit',$gallery->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-                                            <div class="m-1">
-                                                <button type="button"
-                                                        onclick="deleteModal(this)"
-                                                        data-id="{{$gallery->id}}"
-                                                        class="btn btn-danger "><i
-                                                        class="fa fa-trash "></i>delete
-                                                </button>
-                                            </div>
+{{--                                            <div class="m-1">--}}
+{{--                                                <button type="button"--}}
+{{--                                                        onclick="deleteModal(this)"--}}
+{{--                                                        data-id="{{$gallery->id}}"--}}
+{{--                                                        class="btn btn-danger "><i--}}
+{{--                                                        class="fa fa-trash "></i>delete--}}
+{{--                                                </button>--}}
+{{--                                            </div>--}}
                                             <div class="m-1">
                                                 <a href="{{route('locations.create', $gallery->id)}}" type="button"
                                                    class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
