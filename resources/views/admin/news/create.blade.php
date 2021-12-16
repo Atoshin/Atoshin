@@ -6,11 +6,12 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form  method="post"    action="{{route('news.store', $artist_id)}}">
+        <form method="post" action="{{route('news.store', $artist_id)}}">
 
             @csrf
             <div class="card-body">
                 <div class="form-group">
+                    <div></div>
                     <label for="exampleInputEmail1">Link</label>
                     <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">
                     @error('link')
@@ -18,7 +19,8 @@
                         {{$message}}
                     </small>
                     @enderror
-
+                </div>
+                <div>
                     <label for="exampleInputEmail1">Title</label>
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{old('title')}}">
                     @error('link')
@@ -27,17 +29,18 @@
                     </small>
                     @enderror
                 </div>
-{{--                <div class="form-check">--}}
-{{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-{{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
-{{--                </div>--}}
             </div>
-            <!-- /.card-body -->
+        {{--                <div class="form-check">--}}
+        {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+        {{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
+        {{--                </div>--}}
+    </div>
+    <!-- /.card-body -->
 
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </form>
     </div>
 
 

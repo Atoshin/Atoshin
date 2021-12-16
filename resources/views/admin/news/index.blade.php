@@ -42,18 +42,18 @@
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
-                                                {{--                                                <a href="{{route('news.edit',$a_news->id)}}" type="button"--}}
-                                                {{--                                                   class="btn btn-primary "> --}}
-                                                {{--                                                    <i class="fa fa-edit "></i> edit --}}
-                                                {{--                                                </a>--}}
+                                                <a href="{{route('news.edit',$a_news->id)}}" type="button"
+                                                   class="btn btn-primary ">
+                                                    <i class="fa fa-edit "></i> edit
+                                                </a>
                                             </div>
                                             <div class="m-1">
-                                                {{--                                                <button type="button"--}}
-                                                {{--                                                        onclick="deleteModal(this)"--}}
-                                                {{--                                                        data-id="{{$a_news->id}}"--}}
-                                                {{--                                                        class="btn btn-danger "><i--}}
-                                                {{--                                                        class="fa fa-trash "></i>delete--}}
-                                                {{--                                                </button>--}}
+                                                <button type="button"
+                                                        onclick="deleteModal(this)"
+                                                        data-id="{{$a_news->id}}"
+                                                        class="btn btn-danger "><i
+                                                        class="fa fa-trash "></i>delete
+                                                </button>
                                             </div>
 
                                             {{--                                            <div class="m-1">--}}
@@ -115,14 +115,14 @@
 
         $(".delete-icon").on("click", function () {
             var newsId = $(this).data('id');
-            $("#delete-form").attr("action", "/news/" + newsId)
+            $("#delete-form").attr("action", "/news/" + newsId+"/destroy")
         });
 
     </script>
     <script>
         function deleteModal(element) {
-            var ArtistID = $(element).data('id');
-            document.getElementById('delete-form').action = `/news/${ArtistID}`;
+            var newsId = $(element).data('id');
+            document.getElementById('delete-form').action = "/news/"+newsId+"/destroy";
             Swal.fire({
                 icon: 'warning',
                 title: 'Do you want to delete this news?',

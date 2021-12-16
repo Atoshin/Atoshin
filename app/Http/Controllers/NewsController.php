@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\news\storeNews;
+use App\Http\Requests\admin\news\updateNews;
 use App\Models\Artist;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , $artist_id)
+    public function store(storeNews $request , $artist_id)
     {
         News::query()->create([
          'artist_id'=>$artist_id,
@@ -66,7 +68,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $news = News::find($id);
+        return view('admin.news.edit', compact('news'));
     }
 
     /**
@@ -76,9 +79,13 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(updateNews $request, $id)
     {
-        //
+        $news = News::find($id);
+        $news->link = $request->link;
+        $news->title = $request->title;
+        $news->save();
+        return redirect()->route('news.index',$news->artist_id);
     }
 
     /**
@@ -89,6 +96,10 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $news = News::find($id);
+        $news->delete();
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
+
     }
 }
