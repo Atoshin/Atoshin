@@ -76,6 +76,15 @@ Route::get('send-mail', function () {
     Route::post('contracts/store',[\App\Http\Controllers\ContractController::class,'store'])->name('contracts.store');
     //end
 
+    //news
+    Route::get('news/{artist_id}', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+    Route::get('news/{artist_id}/create', [\App\Http\Controllers\NewsController::class, 'create'])->name('news.create');
+    Route::post('news/{artist_id}/store', [\App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+    Route::get('news/{news_id}/edit',[\App\Http\Controllers\NewsController::class,'edit'])->name('news.edit');
+    Route::patch('news/{news_id}/update',[\App\Http\Controllers\NewsController::class,'update'])->name('news.update');
+    Route::delete('news/{news_id}/destroy',[\App\Http\Controllers\NewsController::class,'destroy'])->name('news.destroy');
+    //end
+
     //redirect region
     Route::get('redirect/{route}',function ($route) {
         return redirect()->route($route);

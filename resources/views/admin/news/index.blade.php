@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Artist table</h1>
+                    <h1>News Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -18,49 +18,48 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('artists.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
-                                class="fa fa-plus mr-2 "></i> Add Artist</a>
-                        <h3 class="card-title">Artist</h3>
+                        <a href="{{route('news.create', $artist_id)}}" type="button"
+                           class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add News</a>
+                        <h3 class="card-title">News</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th> Full Name</th>
+                                <th>Title</th>
+                                <th>Link</th>
                                 <th>Operation</th>
-                                {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
 
                             <tbody>
-                            @foreach($artists as $artist)
+                            @foreach($news as $a_news)
                                 <tr>
-
-
-                                    <td><a href="{{route('artists.show',$artist->id)}}">{{$artist->full_name}}</a></td>
-
-                                    {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
-
+                                    <td>{{$a_news->title}}</td>
+                                    <td><a href="{{$a_news->link}}">{{$a_news->link}}</a></td>
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
-                                                <a href="{{route('artists.edit',$artist->id)}}" type="button"
-                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                <a href="{{route('news.edit',$a_news->id)}}" type="button"
+                                                   class="btn btn-primary ">
+                                                    <i class="fa fa-edit "></i> edit
+                                                </a>
                                             </div>
                                             <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
-                                                        data-id="{{$artist->id}}"
+                                                        data-id="{{$a_news->id}}"
                                                         class="btn btn-danger "><i
                                                         class="fa fa-trash "></i>delete
                                                 </button>
                                             </div>
-                                            <div class="m-1">
-                                                <a href="{{ route('news.index', $artist->id) }}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-newspaper "></i> News
-                                                </a>
-                                            </div>
+
+                                            {{--                                            <div class="m-1">--}}
+                                            {{--                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"--}}
+                                            {{--                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>--}}
+                                            {{--                                            </div>--}}
                                         </div>
 
 
@@ -107,35 +106,26 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            // $('#example2').DataTable({
-            //     "paging": true,
-            //     "lengthChange": false,
-            //     "searching": false,
-            //     "ordering": false,
-            //     "info": true,
-            //     "autoWidth": false,
-            //     "responsive": true,
-            // });
         });
     </script>
     <script>
 
         $(".delete-icon").on("click", function () {
-            var ArtistId = $(this).data('id');
-            $("#delete-form").attr("action", "/artists/" + ArtistId)
+            var newsId = $(this).data('id');
+            $("#delete-form").attr("action", "/news/" + newsId+"/destroy")
         });
 
     </script>
     <script>
         function deleteModal(element) {
-            var ArtistID = $(element).data('id');
-            document.getElementById('delete-form').action = `/artists/${ArtistID}`;
+            var newsId = $(element).data('id');
+            document.getElementById('delete-form').action = "/news/"+newsId+"/destroy";
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this artist?',
+                title: 'Do you want to delete this news?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,
