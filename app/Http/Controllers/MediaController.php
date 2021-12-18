@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
 use App\Models\Asset;
 use App\Models\Contract;
+use App\Models\Gallery;
 use App\Models\Media;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -50,16 +53,12 @@ class MediaController extends Controller
         }
 
         return redirect()->back();
-//        return response()->json([
-//            'success'=>$fileName,
-//            'media_id'=>$media->id
-//        ]);
     }
 
     public function uploadPage($type,$id)
     {
-        $media = Media::query()->where('mediable_type',$type)->where('mediable_id',$id)->get();
-        return view('admin.media.upload',compact('type','id','media'));
+//        $media = Media::query()->where('mediable_type',$type)->where('mediable_id',$id)->get();
+        return view('admin.media.upload',compact('type','id'));
     }
 
     public function destroy($id)
@@ -69,4 +68,171 @@ class MediaController extends Controller
         \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
     }
+
+    public function uploadPageMain($type,$id)
+    {
+        return view('admin.media.upload-main',compact('type','id'));
+    }
+
+    public function uploadMainFile(Request $request,$mediable_type,$mediable_id)
+    {
+        $file = $request->file('file');
+        $fileName = time().'.'.$file->extension();
+        $uploadFolder = 'file';
+        $path = $file->store($uploadFolder, 'public');
+
+//        $path = Storage::putFile('public/' . $path, $request->file('file'));
+        if($mediable_type == Asset::class)
+        {
+            $response = Http::attach(
+                'attachment', file_get_contents($request->file('file')), $fileName
+            )->post('https://ipfs.infura.io:5001/api/v0/add');
+            $media = Media::query()->create([
+                'ipfs_hash'=>$response->json()['Hash'],
+                'mime_type'=>$file->getClientMimeType(),
+                'path'=> 'storage/' . $path,
+                'mediable_type'=>$mediable_type,
+                'mediable_id'=> $mediable_id,
+                'main'=>true
+
+            ]);
+
+        }
+        else
+        {
+
+            $media = Media::query()->create([
+                'ipfs_hash'=>'NOTHING',
+                'mime_type'=>$file->getClientMimeType(),
+                'path'=> 'storage/' . $path,
+                'mediable_type'=>$mediable_type,
+                'mediable_id'=> $mediable_id,
+                'main'=>true
+
+            ]);
+
+        }
+        return response()->json([
+            'message' => 'File Uploaded Successfully',
+        ], 200);
+
+    }
+
+    public function uploadFileEdit(Request $request,$mediable_type,$mediable_id)
+    {
+        $file = $request->file('file');
+        $fileName = time().'.'.$file->extension();
+        $uploadFolder = 'file';
+        $path = $file->store($uploadFolder, 'public');
+
+//        $path = Storage::putFile('public/' . $path, $request->file('file'));
+        if($mediable_type == Asset::class)
+        {
+            $response = Http::attach(
+                'attachment', file_get_contents($request->file('file')), $fileName
+            )->post('https://ipfs.infura.io:5001/api/v0/add');
+            $media = Media::query()->create([
+                'ipfs_hash'=>$response->json()['Hash'],
+                'mime_type'=>$file->getClientMimeType(),
+                'path'=> 'storage/' . $path,
+                'mediable_type'=>$mediable_type,
+                'mediable_id'=> $mediable_id,
+                'main'=>true
+
+            ]);
+
+        }
+        else
+        {
+
+            $media = Media::query()->create([
+                'ipfs_hash'=>'NOTHING',
+                'mime_type'=>$file->getClientMimeType(),
+                'path'=> 'storage/' . $path,
+                'mediable_type'=>$mediable_type,
+                'mediable_id'=> $mediable_id,
+                'main'=>true
+
+            ]);
+
+        }
+        return response()->json([
+            'message' => 'File Uploaded Successfully',
+        ], 200);
+    }
+
+    public function uploadEditPage($type,$id)
+    {
+        if($type == User::class)
+        {
+            $entity = $type::query()->with('media')->where('id',$id)->first();
+            return view('admin.media.upload-edit',compact('type','id','entity'));
+        }
+        else
+        {
+            $entity = $type::query()->with('medias')->where('id',$id)->first();
+            return view('admin.media.upload-edit',compact('type','id','entity'));
+        }
+
+    }
+
+    public function uploadMainFileEdit(Request $request,$mediable_type,$mediable_id)
+    {
+        $file = $request->file('file');
+        $fileName = time().'.'.$file->extension();
+        $uploadFolder = 'file';
+        $path = $file->store($uploadFolder, 'public');
+
+//        $path = Storage::putFile('public/' . $path, $request->file('file'));
+        if($mediable_type == Asset::class)
+        {
+            $response = Http::attach(
+                'attachment', file_get_contents($request->file('file')), $fileName
+            )->post('https://ipfs.infura.io:5001/api/v0/add');
+            $media = Media::query()->create([
+                'ipfs_hash'=>$response->json()['Hash'],
+                'mime_type'=>$file->getClientMimeType(),
+                'path'=> 'storage/' . $path,
+                'mediable_type'=>$mediable_type,
+                'mediable_id'=> $mediable_id
+
+            ]);
+
+        }
+        else
+        {
+
+            $media = Media::query()->create([
+                'ipfs_hash'=>'NOTHING',
+                'mime_type'=>$file->getClientMimeType(),
+                'path'=> 'storage/' . $path,
+                'mediable_type'=>$mediable_type,
+                'mediable_id'=> $mediable_id
+
+            ]);
+
+        }
+
+        return redirect()->back();
+    }
+
+    public function uploadEditPageMain($type,$id)
+    {
+
+        if($type == User::class)
+        {
+            $entity = $type::query()->with('media')->where('id',$id)->first();
+            return view('admin.media.upload-main-edit',compact('type','id','entity'));
+        }
+        else
+        {
+            $entity = $type::query()->with('medias')->where('id',$id)->first();
+            return view('admin.media.upload-main-edit',compact('type','id','entity'));
+        }
+
+    }
+
+
+
+
 }

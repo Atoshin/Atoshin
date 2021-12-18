@@ -60,7 +60,7 @@ class AssetController extends Controller
             'creator_id'=>$request->creator_id,
             'artist_id'=>$request->artist_id
         ]);
-        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('upload.page.main',['type'=>Asset::class,'id'=>$asset->id]);
     }
 
     /**

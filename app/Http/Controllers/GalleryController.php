@@ -64,7 +64,12 @@ class GalleryController extends Controller
         ]);
 
 
-        return redirect()->route('upload.page', ['type' => Gallery::class, 'id' => $gallery->id]);
+
+
+
+
+
+        return redirect()->route('upload.page.main',['type'=>Gallery::class,'id'=>$gallery->id]);
     }
 
     /**
