@@ -111,14 +111,7 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
-    <script>
 
-        $(".delete-icon").on("click", function () {
-            var newsId = $(this).data('id');
-            $("#delete-form").attr("action", "/news/" + newsId+"/destroy")
-        });
-
-    </script>
     <script>
         function deleteModal(element) {
             var newsId = $(element).data('id');
