@@ -37,7 +37,7 @@ class LoginController extends Controller
 
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('message','invalid username or password');
 
     }
 

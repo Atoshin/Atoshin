@@ -17,7 +17,16 @@
         </div>
 
         <div class="form-group">
-            <label for="contract ">Upload Media</label>
+            @if($type == \App\Models\Gallery::class)
+                <label for="contract ">Upload Gallery Logo</label>
+            @elseif($type == \App\Models\Artist::class)
+                <label for="contract ">Upload Artist Avatar</label>
+            @elseif($type == \App\Models\User::class)
+                <label for="contract ">Upload User Avatar</label>
+            @elseif($type == \App\Models\Asset::class)
+                <label for="contract ">Upload Asset Main Picture</label>
+            @endif
+
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
@@ -27,18 +36,15 @@
         </div>
 
         <div class="card-footer">
-{{--            @if($type == \App\Models\Gallery::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Artist::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\User::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Contract::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Asset::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
-{{--            @endif--}}
-                <a class="btn btn-primary" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
+            @if($type == \App\Models\Gallery::class)
+                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
+            @elseif($type == \App\Models\Artist::class)
+                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
+            @elseif($type == \App\Models\User::class)
+                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\User::class,'id'=>$id])}}">Next</a>
+            @elseif($type == \App\Models\Asset::class)
+                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
+            @endif
         </div>
 
     </div>
@@ -55,25 +61,29 @@
         const mediaIds = []
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
-            url: "{{route('uploadFile',['mediable_type' => $type, 'mediable_id' => $id])}}",
+            url: "{{route('uploadFile.main',['mediable_type' => $type, 'mediable_id' => $id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             // addRemoveLinks: true,
-            maxFiles: 10,
+            maxFiles: 1,
             maxFilesize: 3,
             // dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
             // dictResponseError: 'خطایی در اپلود فایل رخ داده',
             // dictMaxFilesExceeded: 'امکان اپلود فایل دیگر وجود ندارد , فقط یک فایل مجاز است',
 
             // dictRemoveFile: 'Delete',
-            dictCancelUpload: 'Cancel upload',
+
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             init: function () {
+                let thisDropzone = this;
                 this.on("removedfile", function (file) {
                     console.log(file)
                 });
+
+
+
 
             },
             success: function(file, response)

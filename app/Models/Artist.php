@@ -24,4 +24,9 @@ class Artist extends Model
     {
         return $this->hasMany(News::class);
     }
+
+    public function videoLinks()
+    {
+        return $this->morphMany(VideoLink::class, 'videoLinkable');
+    }
 }

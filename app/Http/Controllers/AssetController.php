@@ -63,7 +63,7 @@ class AssetController extends Controller
             'size'=>$request->size,
             'material'=>$request->material,
         ]);
-        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('upload.page.main',['type'=>Asset::class,'id'=>$asset->id]);
     }
 
     /**

@@ -25,16 +25,6 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-Route::get('send-mail', function () {
-    $details = [
-        'title' => 'Mail from Arash Behboudi',
-        'body' => 'I just wanted to say hi '
-    ];
-    \Illuminate\Support\Facades\Mail::to('kimiadezfuli@gmail.com')->send(new \App\Mail\TestMail($details));
-    dd("Email is Sent.");
-});
-
-
 //Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');
 
@@ -54,6 +44,14 @@ Route::get('send-mail', function () {
     //region media
     Route::post('upload/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFile' ])->name('uploadFile');
     Route::get('media/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
+    Route::post('upload/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFile' ])->name('uploadFile.main');
+    Route::get('media/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPageMain'])->name('upload.page.main');
+
+    Route::post('upload/edit/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFileEdit' ])->name('uploadFile.update');
+    Route::get('media/edit/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPage'])->name('upload.page.edit');
+    Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
+    Route::get('media/edit/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPageMain'])->name('upload.page.main.edit');
+
     //end
 
     //region assets
@@ -85,7 +83,13 @@ Route::get('send-mail', function () {
     Route::delete('news/{news_id}/destroy',[\App\Http\Controllers\NewsController::class,'destroy'])->name('news.destroy');
     //end
 
-    //redirect region
+    //video link
+    Route::post('video/link/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'store'])->name('videoLink.store');
+    Route::get('video/links/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'index'])->name('videoLink.index');
+    Route::delete('video/link/{id}/destroy',[\App\Http\Controllers\VideoLinkController::class,'destroy'])->name('videos.destroy');
+
+
+//redirect region
     Route::get('redirect/{route}',function ($route) {
         return redirect()->route($route);
     })->name('redirect');

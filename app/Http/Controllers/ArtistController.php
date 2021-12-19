@@ -54,7 +54,7 @@ class ArtistController extends Controller
         ]);
 
 
-        return redirect()->route('upload.page',['type'=>Artist::class,'id'=>$artist->id]);
+        return redirect()->route('upload.page.main',['type'=>Artist::class,'id'=>$artist->id]);
     }
 
     /**

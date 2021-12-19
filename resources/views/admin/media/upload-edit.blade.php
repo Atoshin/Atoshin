@@ -27,18 +27,17 @@
         </div>
 
         <div class="card-footer">
-{{--            @if($type == \App\Models\Gallery::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Artist::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\User::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Contract::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Asset::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
-{{--            @endif--}}
-                <a class="btn btn-primary" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
+            @if($type == \App\Models\Gallery::class)
+                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>
+            @elseif($type == \App\Models\Artist::class)
+                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>
+            @elseif($type == \App\Models\User::class)
+                <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>
+            @elseif($type == \App\Models\Contract::class)
+                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+            @elseif($type == \App\Models\Asset::class)
+                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+            @endif
         </div>
 
     </div>
@@ -55,10 +54,10 @@
         const mediaIds = []
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
-            url: "{{route('uploadFile',['mediable_type' => $type, 'mediable_id' => $id])}}",
+            url: "{{route('uploadFile.update',['mediable_type' => $type, 'mediable_id' => $id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            // addRemoveLinks: true,
+            addRemoveLinks: true,
             maxFiles: 10,
             maxFilesize: 3,
             // dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
@@ -71,9 +70,17 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             init: function () {
+                let thisDropzone = this;
                 this.on("removedfile", function (file) {
                     console.log(file)
                 });
+
+                @foreach($entity->medias as $index=>$file)
+
+                let mockFile{{$index}} = {name: "{{substr($file->where('main',false)->first()->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($file->where('main',false)->first()->path,8,54))}}"};
+                thisDropzone.options.addedfile.call(thisDropzone, mockFile{{$index}});
+                thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset(  $file->where('main',false)->first()->path)}}");
+                @endforeach
 
             },
             success: function(file, response)
@@ -81,6 +88,8 @@
 
                 mediaIds.push(response.media_id)
             },
+
+
 
         });
     </script>

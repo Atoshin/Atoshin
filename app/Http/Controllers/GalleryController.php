@@ -8,6 +8,7 @@ use App\Http\Requests\admin\users\updateUser;
 use App\Http\Traits\MediaTrait;
 use App\Models\Contract;
 use App\Models\Gallery;
+use App\Models\VideoLink;
 use App\Models\Wallet;
 use App\Models\Media;
 use Illuminate\Http\Request;
@@ -64,7 +65,12 @@ class GalleryController extends Controller
         ]);
 
 
-        return redirect()->route('upload.page', ['type' => Gallery::class, 'id' => $gallery->id]);
+
+
+
+
+
+        return redirect()->route('upload.page.main',['type'=>Gallery::class,'id'=>$gallery->id]);
     }
 
     /**

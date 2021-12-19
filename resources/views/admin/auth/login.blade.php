@@ -12,21 +12,25 @@
     <link rel="stylesheet" href="{{asset('loginTemplate/css/style.css')}}">
 
 </head>
-<body class="img js-fullheight" style=" height: 435px; background-image: url("images/bg.jpg");">
+<body class="img js-fullheight" >
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <img src="{{asset('admin/dist/img/Atoshinlogo.png')}}" alt="Atoshin Logo" class="brand-image" style="opacity: .8">
+                <img src="{{asset('admin/dist/img/Atoshinlogo.png')}}" alt="Atoshin Logo" class="brand-image" style="filter: brightness(0) invert(1);">
             </div>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
-                    <h3 class="mb-4 text-center">Login</h3>
+
+                        <h3 class="mb-4 text-center">Login</h3>
+
+
                     <form action="{{route('login')}}" class="signin-form" method="POST" autocomplete="off">
                         @csrf
+                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Username" name="username" required  >
                             @error('username')
@@ -51,10 +55,16 @@
                                 </label>
                             </div>
                             <div class="w-50 text-md-right">
-                                <a href="{{route('forget.password.get')}}" style="color: #fff">Forgot Password</a>
+                                <a href="{{route('forget.password.get')}}" style="color: #fff">Forgot Password?</a>
                             </div>
                         </div>
                     </form>
+                        @if (\Illuminate\Support\Facades\Session::has('message'))
+                            <div class="alert" style="background-color:#CC8D1D !important ">
+                                    <p class="text-dark">{!! \Illuminate\Support\Facades\Session::get('message') !!}</p>
+                            </div>
+
+                        @endif
 
                 </div>
             </div>

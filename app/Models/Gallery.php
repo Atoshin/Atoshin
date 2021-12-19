@@ -29,4 +29,9 @@ class Gallery extends Model
     {
         return $this->morphOne(Wallet::class, 'walletable');
     }
+
+    public function videoLinks()
+    {
+        return $this->morphMany(VideoLink::class, 'videoLinkable');
+    }
 }
