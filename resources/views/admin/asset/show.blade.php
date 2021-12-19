@@ -42,9 +42,22 @@
                             <address>
                                 <div class="mb-1"><b>Price:</b> {{$asset->price}}<br></div>
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1"><b> Total Fractions:</b> {{$asset->total_fractions}}<br></div>
-                                <div class="mb-1"><b>Sold Fractions:</b> {{$asset->sold_fractions}}<br></div>
-                                <div class="mb-1"><b> Status:</b> {{$asset->status}}<br></div>
+                                <div class="mb-1"><b>category:</b> {{$asset->category->title}}<br></div>
+                                <div class="mb-1"><b> Commission percentage:</b> {{$asset->commission_percentage}}<br>
+                                    <div class="mb-1">
+                                        <b> Creation:</b>
+                                        @if($asset->creation)
+                                            {{$asset->creation}}<br></div>
+                                    @else
+                                        <span>-</span>
+                                    @endif
+                                </div>
+                                <div class="mb-1"><b>creator:</b> <a style="color: white;text-decoration-line: underline"
+                                                                     href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a><br>
+                                </div>
+
+{{--                                <div class="mb-1"><b>Sold Fractions:</b> {{$asset->sold_fractions}}<br></div>--}}
+
 
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
@@ -53,12 +66,9 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1"><b> Commission percentage:</b> {{$asset->commission_percentage}}<br>
-                                </div>
-                                <div class="mb-1"><b> Ownership Percentage:</b> {{$asset->ownership_percentage}} <br>
-                                </div>
-                                <div class="mb-1"><b> Royalties Percentage:</b> {{$asset->royalties_percentage}} <br>
-                                </div>
+                                <div class="mb-1"><b> Total Fractions:</b> {{$asset->total_fractions}}<br></div>
+
+
                                 <div class="mb-1">
                                     <b> Start Date:</b>
                                     @if($asset->start_date)
@@ -66,25 +76,45 @@
                                 @else
                                     <span>-</span>
                                 @endif
+                                <div class="mb-1"><b> Ownership Percentage:</b> {{$asset->ownership_percentage}} <br>
+                                </div>
+
                                 <div class="mb-1">
-                                    <b> End Date:</b>
-                                    @if($asset->end_date)
-                                        {{$asset->end_date}}<br></div>
+                                    <b> Size:</b>
+                                    @if($asset->size)
+                                        {{$asset->size}}<br></div>
                                 @else
                                     <span>-</span>
                                 @endif
+                                <b>Artist:</b><a style="color: white;text-decoration-line: underline"
+                                                 href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a><br>
+
                                 {{--                Email: john.doe@example.com--}}
                             </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                            <div class="mb-1"><b>creator:</b> <a style="color: white;text-decoration-line: underline"
-                                                                 href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a><br>
+                            <div class="mb-1"><b> Status:</b> {{$asset->status}}<br></div>
+                            <div class="mb-1">
+                                <b> End Date:</b>
+                                @if($asset->end_date)
+                                    {{$asset->end_date}}<br></div>
+                            @else
+                                <span>-</span>
+                            @endif
+                            <div class="mb-1"><b> Royalties Percentage:</b> {{$asset->royalties_percentage}} <br>
                             </div>
-                            <div class="mb-1"><b>category:</b> {{$asset->category->title}}<br></div>
-                            <b>Artist:</b><a style="color: white;text-decoration-line: underline"
-                                             href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a><br>
+
                             {{--            <b>Account:</b> 968-34567--}}
+
+
+                            <div class="mb-1">
+                                <b> Material:</b>
+                                @if($asset->material)
+                                    {{$asset->material}}<br></div>
+                            @else
+                                <span>-</span>
+                            @endif
                         </div>
                         <!-- /.col -->
                     </div>

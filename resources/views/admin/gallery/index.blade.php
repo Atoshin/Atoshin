@@ -28,6 +28,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Status</th>
                                 <th>Operations</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -38,6 +39,7 @@
                                 <tr>
 
                                     <td><a href="{{route('galleries.show',$gallery->id)}}">{{$gallery->name}}</a></td>
+                                    <td>{{$gallery->status}}</td>
 {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
                                     <td>
                                         <div class="row">
