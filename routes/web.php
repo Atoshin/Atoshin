@@ -54,6 +54,14 @@ Route::get('send-mail', function () {
     //region media
     Route::post('upload/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFile' ])->name('uploadFile');
     Route::get('media/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
+    Route::post('upload/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFile' ])->name('uploadFile.main');
+    Route::get('media/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPageMain'])->name('upload.page.main');
+
+    Route::post('upload/edit/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFileEdit' ])->name('uploadFile.update');
+    Route::get('media/edit/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPage'])->name('upload.page.edit');
+    Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
+    Route::get('media/edit/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPageMain'])->name('upload.page.main.edit');
+
     //end
 
     //region assets

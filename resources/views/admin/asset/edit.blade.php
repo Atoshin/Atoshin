@@ -188,6 +188,31 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Material</label>
+                    <input type="text" class="form-control" name="material" value="{{$asset->material}}" placeholder="Material">
+                    @error('material')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div> <div class="form-group">
+                    <label for="exampleInputPassword1">Size</label>
+                    <input type="text" class="form-control" name="size" value="{{$asset->size}}" placeholder="Size">
+                    @error('size')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div> <div class="form-group">
+                    <label for="exampleInputPassword1">Date of Creation</label>
+                    <input type="text" class="form-control" name="creation" value="{{$asset->creation}}" placeholder="Date of Creation">
+                    @error('creation')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
             </div>
             <!-- /.card-body -->
 

@@ -57,7 +57,13 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff; }
+  background-color: #fff;
+  height: 435px;
+  background-image: url('../images/bg.jpg');
+  backdrop-filter: blur(10px) ;
+
+
+}
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -8317,9 +8323,9 @@ textarea.form-control {
 
 /* Style the checkmark/indicator */
 .checkbox-primary {
-  color: #fbceb5; }
+  color: #CC8D1D; }
   .checkbox-primary input:checked ~ .checkmark:after {
-    color: #fbceb5; }
+    color: #CC8D1D; }
 
 .btn {
   cursor: pointer;
@@ -8331,18 +8337,18 @@ textarea.form-control {
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #fbceb5 !important;
-    border: 1px solid #fbceb5 !important;
+    background: #CC8D1D !important;
+    border: 1px solid #CC8D1D !important;
     color: #000 !important; }
     .btn.btn-primary:hover {
-      border: 1px solid #fbceb5;
+      border: 1px solid #CC8D1D;
       background: transparent;
       color: #fbceb5; }
     .btn.btn-primary.btn-outline-primary {
-      border: 1px solid #fbceb5;
+      border: 1px solid #CC8D1D;
       background: transparent;
-      color: #fbceb5; }
+      color: #CC8D1D; }
       .btn.btn-primary.btn-outline-primary:hover {
         border: 1px solid transparent;
-        background: #fbceb5;
+        background: #CC8D1D;
         color: #fff; }

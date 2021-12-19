@@ -58,9 +58,12 @@ class AssetController extends Controller
             'end_date'=>$request->end_date,
             'category_id'=>$request->category_id,
             'creator_id'=>$request->creator_id,
-            'artist_id'=>$request->artist_id
+            'artist_id'=>$request->artist_id,
+            'creation'=>$request->creation,
+            'size'=>$request->size,
+            'material'=>$request->material,
         ]);
-        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('upload.page.main',['type'=>Asset::class,'id'=>$asset->id]);
     }
 
     /**
@@ -113,6 +116,9 @@ class AssetController extends Controller
         $asset->category_id = $request->category_id;
         $asset->creator_id = $request->creator_id;
         $asset->artist_id = $request->artist_id;
+        $asset->creation = $request->creation;
+        $asset->size = $request->size;
+        $asset->material = $request->material;
         $asset->save();
 
         return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);

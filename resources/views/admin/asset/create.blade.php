@@ -71,7 +71,8 @@
                     <label for="exampleInputEmail1">Title</label>
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{old('title')}}">
                     @error('title')
-                        <small class="text-danger">{{$message}}</small>
+                        <small class="text-danger">
+                            {{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
@@ -188,6 +189,33 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
 
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Material</label>
+                    <input type="text" class="form-control" name="material" placeholder="Material" value="{{old('material')}}">
+                    @error('material')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Size</label>
+                    <input type="text" class="form-control" name="size" placeholder="Size" value="{{old('size')}}">
+                    @error('size')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Date of Creation</label>
+                    <input type="date" class="form-control" name="creation" placeholder="Date of creation" value="{{old('date of creation')}}">
+                    @error('creation')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
                 </div>
             </div>
             <!-- /.card-body -->
