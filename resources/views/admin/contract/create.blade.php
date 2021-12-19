@@ -17,7 +17,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"    action="{{route('contracts.store')}}">
+        <form method="post"  id="myform"  action="{{route('contracts.store')}}">
             @csrf
             <div class="card-body">
 
@@ -40,7 +40,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
 {{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
             </div>
         </form>
@@ -50,6 +50,14 @@
     </div>
 
 
+@endsection
+@section('scripts')
+<script>
+    $("#myform").on('submit',function (){
+        $("#btnSubmit").attr("disabled", true);
+    });
+
+</script>
 @endsection
 
 

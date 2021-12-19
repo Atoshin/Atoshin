@@ -44,7 +44,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"    action="{{route('admins.store')}}">
+        <form method="post"  id="myform"  action="{{route('admins.store')}}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -91,10 +91,18 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit"  id="btnSubmit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
 
 
+@endsection
+@section('scripts')
+<script>
+    $("#myform").on('submit',function (){
+        $("#btnSubmit").attr("disabled", true);
+    });
+
+</script>
 @endsection

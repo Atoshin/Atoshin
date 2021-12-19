@@ -6,7 +6,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post" action="{{route('news.store', $artist_id)}}">
+        <form method="post" id="myform" action="{{route('news.store', $artist_id)}}">
 
             @csrf
             <div class="card-body">
@@ -38,10 +38,18 @@
     <!-- /.card-body -->
 
     <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
     </div>
     </form>
     </div>
 
 
+@endsection
+@section('scripts')
+<script>
+    $("#myform").on('submit',function (){
+        $("#btnSubmit").attr("disabled", true);
+    });
+
+</script>
 @endsection

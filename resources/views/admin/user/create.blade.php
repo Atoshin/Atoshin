@@ -65,7 +65,7 @@
         <!-- /.card-header -->
         <!-- form start -->
 
-        <form  method="post"    action="{{route('users.store')}}">
+        <form  method="post"  id="myform"  action="{{route('users.store')}}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
@@ -131,7 +131,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
@@ -144,5 +144,11 @@
     <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'bio' );
+    </script>
+    <script>
+        $("#myform").on('submit',function (){
+            $("#btnSubmit").attr("disabled", true);
+        });
+
     </script>
 @endsection

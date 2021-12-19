@@ -130,11 +130,15 @@
                                     <span>-</span>
                                 @endif
                                 <div class="mb-1"><b> Status:</b> {{$gallery->status}}<br></div>
+
+
                                 {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
                                 {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
                                 {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
                                 {{--                Email: john.doe@example.com--}}
                             </address>
+
+
                         </div>
                         <!-- /.col -->
                     {{--                        <div class="col-sm-4 invoice-col">--}}
@@ -144,6 +148,26 @@
                     {{--                            --}}{{--            <b>Account:</b> 968-34567--}}
                     {{--                        </div>--}}
                     <!-- /.col -->
+                    </div>
+
+                    <div class="row m-4" style="border-top:2px solid whitesmoke">
+
+                        @foreach($gallery->assets as $asset)
+                            <ul>
+                                <li><b>Asset:</b>
+                                    <a href="{{route('assets.show',$asset->id)}}">
+                                        {{$asset->title}}
+                                    </a>
+                                </li>
+                                <li><b>Artist:</b>
+                                    <a href="{{route('artists.show',$asset->artist->id)}}">{{$asset->artist->full_name}}</a>
+                                </li>
+                            </ul>
+
+
+
+
+                        @endforeach
                     </div>
 
 
@@ -169,7 +193,9 @@
                                     <div class="mb-1"><b>Address:</b> {{$gallery->location->address}}<br><br><br><br><br><br>
                                     <div class="mb-1"><b>Telephone:</b> {{$gallery->location->telephone}}<br>
                                     </div>
+                                    </div>
                                 </address>
+
                             </div>
                         </div>
 

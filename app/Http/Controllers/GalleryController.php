@@ -76,7 +76,7 @@ class GalleryController extends Controller
     public function show($id)
     {
 
-    $gallery=Gallery::with('medias')->find($id);
+    $gallery=Gallery::with('medias','assets')->find($id);
 
         return view('admin.gallery.show', compact('gallery'));
     }

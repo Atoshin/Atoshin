@@ -16,7 +16,7 @@
 
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{route('locations.store', $gallery_id)}}" method="POST">
+            <form action="{{route('locations.store', $gallery_id)}}" method="POST" id="myform">
                 @csrf
                 <div class="row">
                         <div class="col-sm-12 map" id="map" style="height: 500px; margin-bottom: 20px;">
@@ -72,7 +72,7 @@
                     {{--                </div>--}}
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
                 </div>
 
 
@@ -120,5 +120,11 @@
                     .openOn(map);
             });
         })
+    </script>
+    <script>
+        $("#myform").on('submit',function (){
+            $("#btnSubmit").attr("disabled", true);
+        });
+
     </script>
 @endsection

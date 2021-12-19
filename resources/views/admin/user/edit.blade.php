@@ -6,7 +6,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"    action="{{route('users.update',$user->id)}}">
+        <form method="post"   id="myform" action="{{route('users.update',$user->id)}}">
             @method('patch')
             @csrf
             <div class="card-body">
@@ -72,7 +72,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
@@ -83,5 +83,11 @@
     <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'bio' );
+    </script>
+    <script>
+        $("#myform").on('submit',function (){
+            $("#btnSubmit").attr("disabled", true);
+        });
+
     </script>
 @endsection
