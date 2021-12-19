@@ -85,8 +85,15 @@
         </div>
 
         <div class="card-footer">
+{{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
+            @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
+                <a class="btn btn-primary"
+                   href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
+            @else
                 <a class="btn btn-primary"
                    href="{{route('galleries.index')}}">Submit</a>
+            @endif
+
         </div>
 
 
