@@ -27,17 +27,18 @@
         </div>
 
         <div class="card-footer">
-            @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>
-            @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>
-            @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>
-            @elseif($type == \App\Models\Contract::class)
-                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
-            @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
-            @endif
+{{--            @if($type == \App\Models\Gallery::class)--}}
+{{--                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>--}}
+{{--            @elseif($type == \App\Models\Artist::class)--}}
+{{--                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>--}}
+{{--            @elseif($type == \App\Models\User::class)--}}
+{{--                <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>--}}
+{{--            @elseif($type == \App\Models\Contract::class)--}}
+{{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
+{{--            @elseif($type == \App\Models\Asset::class)--}}
+{{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
+{{--            @endif--}}
+                <a class="btn btn-primary" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
         </div>
 
     </div>

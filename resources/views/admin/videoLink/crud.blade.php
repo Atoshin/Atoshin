@@ -86,7 +86,7 @@
 
         <div class="card-footer">
                 <a class="btn btn-primary"
-                   href="{{route('videoLink.store', ['type' => $type, 'id' => $id])}}">Next</a>
+                   href="{{route('galleries.index')}}">Submit</a>
         </div>
 
 
