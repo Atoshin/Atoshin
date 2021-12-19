@@ -163,10 +163,6 @@
                                     <a href="{{route('artists.show',$asset->artist->id)}}">{{$asset->artist->full_name}}</a>
                                 </li>
                             </ul>
-
-
-
-
                         @endforeach
                     </div>
 

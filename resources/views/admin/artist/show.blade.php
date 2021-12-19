@@ -153,6 +153,7 @@
                                 @endif
                             </address>
                         </div>
+
                         <!-- /.row -->
 
                         <!-- Table row -->
@@ -261,6 +262,20 @@
                         <!--                </div>-->
                         <!--              </div>-->
                     </div>
+                    <div class="row m-4" style="border-top:2px solid whitesmoke">
+
+                        @foreach($artist->assets as $asset)
+                            <ul>
+                                <li><b>Asset:</b>
+                                    <a href="{{route('assets.show',$asset->id)}}">
+                                        {{$asset->title}}
+                                    </a>
+
+                                </li>
+                            </ul>
+                        @endforeach
+                    </div>
+
                     <div class="row m-4" style="border-top:2px solid whitesmoke">
 
                         @foreach($artist->medias as $media)
