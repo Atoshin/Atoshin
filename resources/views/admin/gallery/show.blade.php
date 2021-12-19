@@ -151,7 +151,12 @@
                     </div>
 
                     <div class="row m-4" style="border-top:2px solid whitesmoke">
-
+                        <div>
+                        <div>
+                            <b>Assets</b>
+                        </div>
+                        <div>
+                        @if(count($gallery->assets)>0)
                         @foreach($gallery->assets as $asset)
                             <ul>
                                 <li><b>Asset:</b>
@@ -163,36 +168,82 @@
                                     <a href="{{route('artists.show',$asset->artist->id)}}">{{$asset->artist->full_name}}</a>
                                 </li>
                             </ul>
-
-
-
-
                         @endforeach
+                        @else
+                            <ul style="list-style-type: none">
+                                <li >
+                                    No Asset
+                                </li>
+                            </ul>
+                        @endif
+                        </div>
+                        </div>
                     </div>
+                    <div class="row m-4 pb-3"
+                         style="border-top:2px solid whitesmoke; border-bottom: 2px solid whitesmoke">
+                        <div>
+                            <div>
+                                <div>
+                                    <b>Pictures</b>
+                                </div>
+                                <div>
+                                    @if(count($gallery->medias)>1)
+                                    @foreach($gallery->medias as $media)
+                                        @if($loop->index>0)
+                                            <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}"
+                                                 alt=""
+                                                 width="100" height="100"/>
+                                        @endif
+                                    @endforeach
+                                    @else
+                                    <ul style="list-style-type: none">
+                                        <li >
+                                            No Picture
 
+                                        </li>
+                                    </ul>
+                                    @endif
+                                </div>
+                            </div>
 
-                    <div class="row m-4 pb-3" style="border-top:2px solid whitesmoke; border-bottom: 2px solid whitesmoke">
+                            <div>
+                                <div>
+                                    <b>Videos</b>
+                                </div>
+                                <div>
+                                    @if(count($gallery->videoLinks)>0)
+                                    @foreach($gallery->videoLinks as $videoLink)
+                                        {!! ($videoLink->link) !!}
+                                    @endforeach
+                                    @else
+                                        <ul style="list-style-type: none">
+                                            <li >
+                                                No Video
 
-                        @foreach($gallery->medias as $media)
-                            @if($loop->index>0)
-                                <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}"
-                                     alt=""
-                                     width="100" height="100"/>
-                            @endif
-                        @endforeach
+                                            </li>
+                                        </ul>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-{{--                    <div>--}}
-{{--                        <h5>Location:</h5>--}}
-{{--                    </div>--}}
+                    {{--                    <div>--}}
+                    {{--                        <h5>Location:</h5>--}}
+                    {{--                    </div>--}}
                     <div style="display: flex; flex-direction: row">
-                        <div class="col-sm-6 map" id="map" style="height: 500px; margin-bottom: 20px; margin-left: 20px">
+                        <div class="col-sm-6 map" id="map"
+                             style="height: 500px; margin-bottom: 20px; margin-left: 20px">
                         </div>
                         <div style="margin-left: 50px">
                             <div class="col-sm-4 invoice-col">
                                 <address>
-                                    <div class="mb-1"><b>Address:</b> {{$gallery->location ? $gallery->location->address:'-'}}<br><br><br><br><br><br>
-                                    <div class="mb-1"><b>Telephone:</b> {{$gallery->location ? $gallery->location->telephone:'-'}}<br>
-                                    </div>
+                                    <div class="mb-1">
+                                        <b>Address:</b> {{$gallery->location ? $gallery->location->address:'-'}}<br><br><br><br><br><br>
+                                        <div class="mb-1">
+                                            <b>Telephone:</b> {{$gallery->location ? $gallery->location->telephone:'-'}}
+                                            <br>
+                                        </div>
                                     </div>
                                 </address>
 
@@ -200,7 +251,6 @@
                         </div>
 
                     </div>
-
 
 
                     @endsection

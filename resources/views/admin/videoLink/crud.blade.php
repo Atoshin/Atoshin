@@ -1,4 +1,12 @@
 @extends('admin.layout.master')
+@section('styles')
+    <style>
+        /*.youtube > iframe{*/
+        /*    width: 300px;*/
+        /*    height: 150px;*/
+        /*}*/
+    </style>
+@endsection
 @section('content')
 
     <div class="card card-primary">
@@ -15,7 +23,8 @@
                         <div class="form-group">
                             <div></div>
                             <label for="exampleInputEmail1">Link</label>
-                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">
+                            <textarea type="text" class="form-control" name="link" placeholder="Link">{{old('link')}}</textarea>
+{{--                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">--}}
                             @error('link')
                             <small class="text-danger">
                                 {{$message}}
@@ -24,7 +33,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Add Video</button>
                     </div>
 
                 </form>
@@ -55,7 +64,9 @@
                 <tbody>
                 @foreach($video_links as $videoLink)
                     <tr>
-                        <td><a href="{{$videoLink->link}}">{{$videoLink->link}}</a></td>
+                        <td>
+                            <div class="youtube">{!!($videoLink->link)!!}</div>
+                        </td>
                         <td>
                             <div class="row">
 
