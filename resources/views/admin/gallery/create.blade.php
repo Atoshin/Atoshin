@@ -103,6 +103,7 @@
                     </small>
                     @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="exampleInputPassword1">Website</label>
                     <input type="text" class="form-control" name="website" placeholder="Website" value="{{old('website')}}">
@@ -155,6 +156,17 @@
                     <small class="text-danger">
                         {{$message}}
                     </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Status</label>
+                    <select name="status" class="form-control" id="">
+
+                        <option value="published">published</option>
+                        <option value="unpublished">unpublished</option>
+                    </select>
+                    @error('status')
+                    <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
 

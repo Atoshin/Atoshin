@@ -129,6 +129,7 @@
                                 @else
                                     <span>-</span>
                                 @endif
+                                <div class="mb-1"><b> Status:</b> {{$gallery->status}}<br></div>
                                 {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
                                 {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
                                 {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
@@ -159,9 +160,23 @@
 {{--                    <div>--}}
 {{--                        <h5>Location:</h5>--}}
 {{--                    </div>--}}
+                    <div style="display: flex; flex-direction: row">
+                        <div class="col-sm-6 map" id="map" style="height: 500px; margin-bottom: 20px; margin-left: 20px">
+                        </div>
+                        <div style="margin-left: 50px">
+                            <div class="col-sm-4 invoice-col">
+                                <address>
+                                    <div class="mb-1"><b>Address:</b> {{$gallery->location->address}}<br><br><br><br><br><br>
+                                    <div class="mb-1"><b>Telephone:</b> {{$gallery->location->telephone}}<br>
+                                    </div>
+                                </address>
+                            </div>
+                        </div>
 
-                    <div class="col-sm-6 map" id="map" style="height: 500px; margin-bottom: 20px;">
                     </div>
+
+
+
                     @endsection
                     @section('scripts')
                         <script>

@@ -28,6 +28,7 @@ class storeAsset extends FormRequest
                 'creator_id'=>'required',
                 'artist_id'=>'required',
                 'category_id'=>'required',
+            'creation'=>'date',
 
 
 

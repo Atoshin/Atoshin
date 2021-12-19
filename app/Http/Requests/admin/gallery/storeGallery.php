@@ -26,6 +26,7 @@ class storeGallery extends FormRequest
             'linkedin'=>'url|nullable',
             'youtube'=>'url|nullable',
 
+
         ];
     }
 }
