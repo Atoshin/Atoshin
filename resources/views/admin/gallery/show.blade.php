@@ -190,8 +190,8 @@
                         <div style="margin-left: 50px">
                             <div class="col-sm-4 invoice-col">
                                 <address>
-                                    <div class="mb-1"><b>Address:</b> {{$gallery->location->address}}<br><br><br><br><br><br>
-                                    <div class="mb-1"><b>Telephone:</b> {{$gallery->location->telephone}}<br>
+                                    <div class="mb-1"><b>Address:</b> {{$gallery->location ? $gallery->location->address:'-'}}<br><br><br><br><br><br>
+                                    <div class="mb-1"><b>Telephone:</b> {{$gallery->location ? $gallery->location->telephone:'-'}}<br>
                                     </div>
                                     </div>
                                 </address>
