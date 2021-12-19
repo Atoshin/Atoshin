@@ -85,7 +85,13 @@ Route::get('send-mail', function () {
     Route::delete('news/{news_id}/destroy',[\App\Http\Controllers\NewsController::class,'destroy'])->name('news.destroy');
     //end
 
-    //redirect region
+    //video link
+    Route::post('video/link/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'store'])->name('videoLink.store');
+    Route::get('video/links/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'index'])->name('videoLink.index');
+    Route::delete('video/link/{id}/destroy',[\App\Http\Controllers\VideoLinkController::class,'destroy'])->name('videos.destroy');
+
+
+//redirect region
     Route::get('redirect/{route}',function ($route) {
         return redirect()->route($route);
     })->name('redirect');
