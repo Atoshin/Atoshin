@@ -12,7 +12,7 @@ class VideoLinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($type , $id)
+    public function index($type , $id )
     {
         $video_links = VideoLink::query()->where('video_linkable_type',$type)->where('video_linkable_id',$id)->get();
         return view('admin.videoLink.crud',compact('type','id','video_links'));
