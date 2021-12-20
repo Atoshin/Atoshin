@@ -26,6 +26,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>Photo</th>
                                 <th>Name</th>
                                 <th>path</th>
                                 <th>homepage</th>
@@ -36,7 +37,10 @@
                             <tbody>
                             @foreach($medias as $media)
                                 <tr>
-
+                                    <td>
+                                        <img src="{{asset($media->path)}}" class="avatar" alt="" width="100"
+                                             height="100"/>
+                                    </td>
                                     <td><a target="_blank" href="#">{{substr($media->path,13,50)}}</a></td>
                                     <td>{{$media->path}}</td>
                                     {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}

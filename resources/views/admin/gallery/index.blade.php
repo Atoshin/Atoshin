@@ -59,6 +59,11 @@
                                                 <a href="{{route('locations.create', $gallery->id)}}" type="button"
                                                    class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
                                             </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('media.index',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id]) }}" type="button"
+                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
+                                                </a>
+                                            </div>
                                         </div>
 
 
