@@ -60,14 +60,14 @@
                                                     <a href="{{route('assets.edit',$asset->id)}}" type="button"
                                                        class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                                 </div>
-                                                <div class="m-1">
-                                                    <button type="button"
-                                                            onclick="deleteModal(this)"
-                                                            data-id="{{$asset->id}}"
-                                                            class="btn btn-danger delete-icon"><i
-                                                            class="fa fa-trash mr-2"></i>delete
-                                                    </button>
-                                                </div>
+{{--                                                <div class="m-1">--}}
+{{--                                                    <button type="button"--}}
+{{--                                                            onclick="deleteModal(this)"--}}
+{{--                                                            data-id="{{$asset->id}}"--}}
+{{--                                                            class="btn btn-danger delete-icon"><i--}}
+{{--                                                            class="fa fa-trash mr-2"></i>delete--}}
+{{--                                                    </button>--}}
+{{--                                                </div>--}}
 
 
 
@@ -110,10 +110,10 @@
         </div>
         <!-- /.row -->
 
-        <form action="" id="delete-form" method="POST">
-            @method('delete')
-            @csrf
-        </form>
+{{--        <form action="" id="delete-form" method="POST">--}}
+{{--            @method('delete')--}}
+{{--            @csrf--}}
+{{--        </form>--}}
 
     </section>
 
@@ -151,44 +151,44 @@
             // });
         });
     </script>
-    <script>
+{{--    <script>--}}
 
-        $(".delete-icon").on("click", function () {
-            var AssetId = $(this).data('id');
-            $("#delete-form").attr("action", "/assets/" + AssetId)
-        });
+{{--        $(".delete-icon").on("click", function () {--}}
+{{--            var AssetId = $(this).data('id');--}}
+{{--            $("#delete-form").attr("action", "/assets/" + AssetId)--}}
+{{--        });--}}
 
-    </script>
-    <script>
-        function deleteModal(element) {
-            var AssetID = $(element).data('id');
-            document.getElementById('delete-form').action = `/assets/${AssetID}`;
-            Swal.fire({
-                icon: 'warning',
-                title: 'Do you want to delete this asset?',
-                showCancelButton: true,
-                showConfirmButton: true,
-                confirmButtonText: `yes`,
-                cancelButtonText: `no`,
-                confirmButtonColor: '#22303d',
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.value) {
-                    $("#delete-form").submit();
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        title: 'the removal request was canceled',
-                        icon: 'info',
-                        confirmButtonText: 'ok',
-                        confirmButtonColor: '#22303d'
+{{--    </script>--}}
+{{--    <script>--}}
+{{--        function deleteModal(element) {--}}
+{{--            var AssetID = $(element).data('id');--}}
+{{--            document.getElementById('delete-form').action = `/assets/${AssetID}`;--}}
+{{--            Swal.fire({--}}
+{{--                icon: 'warning',--}}
+{{--                title: 'Do you want to delete this asset?',--}}
+{{--                showCancelButton: true,--}}
+{{--                showConfirmButton: true,--}}
+{{--                confirmButtonText: `yes`,--}}
+{{--                cancelButtonText: `no`,--}}
+{{--                confirmButtonColor: '#22303d',--}}
+{{--            }).then((result) => {--}}
+{{--                /* Read more about isConfirmed, isDenied below */--}}
+{{--                if (result.value) {--}}
+{{--                    $("#delete-form").submit();--}}
+{{--                } else if (result.dismiss === 'cancel') {--}}
+{{--                    Swal.fire({--}}
+{{--                        title: 'the removal request was canceled',--}}
+{{--                        icon: 'info',--}}
+{{--                        confirmButtonText: 'ok',--}}
+{{--                        confirmButtonColor: '#22303d'--}}
 
 
-                    });
+{{--                    });--}}
 
-                }
-            })
-        }
-    </script>
+{{--                }--}}
+{{--            })--}}
+{{--        }--}}
+{{--    </script>--}}
 
 @endsection
 
