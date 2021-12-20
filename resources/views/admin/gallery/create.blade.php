@@ -161,9 +161,8 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Status</label>
                     <select name="status" class="form-control" id="">
-
-                        <option value="published">published</option>
                         <option value="unpublished">unpublished</option>
+                        <option value="published">published</option>
                     </select>
                     @error('status')
                     <small class="text-danger">{{$message}}</small>

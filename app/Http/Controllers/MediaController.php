@@ -8,6 +8,7 @@ use App\Models\Contract;
 use App\Models\Gallery;
 use App\Models\Media;
 use App\Models\User;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -137,7 +138,7 @@ class MediaController extends Controller
                 'path'=> 'storage/' . $path,
                 'mediable_type'=>$mediable_type,
                 'mediable_id'=> $mediable_id,
-                'main'=>true
+
 
             ]);
 
@@ -151,7 +152,7 @@ class MediaController extends Controller
                 'path'=> 'storage/' . $path,
                 'mediable_type'=>$mediable_type,
                 'mediable_id'=> $mediable_id,
-                'main'=>true
+
 
             ]);
 
@@ -194,7 +195,8 @@ class MediaController extends Controller
                 'mime_type'=>$file->getClientMimeType(),
                 'path'=> 'storage/' . $path,
                 'mediable_type'=>$mediable_type,
-                'mediable_id'=> $mediable_id
+                'mediable_id'=> $mediable_id,
+                'main'=>true
 
             ]);
 
@@ -207,8 +209,8 @@ class MediaController extends Controller
                 'mime_type'=>$file->getClientMimeType(),
                 'path'=> 'storage/' . $path,
                 'mediable_type'=>$mediable_type,
-                'mediable_id'=> $mediable_id
-
+                'mediable_id'=> $mediable_id,
+                'main'=> true
             ]);
 
         }
@@ -222,6 +224,7 @@ class MediaController extends Controller
         if($type == User::class)
         {
             $entity = $type::query()->with('media')->where('id',$id)->first();
+
             return view('admin.media.upload-main-edit',compact('type','id','entity'));
         }
         else
@@ -229,6 +232,38 @@ class MediaController extends Controller
             $entity = $type::query()->with('medias')->where('id',$id)->first();
             return view('admin.media.upload-main-edit',compact('type','id','entity'));
         }
+
+    }
+
+    public function deleteMain($type,$id)
+    {
+
+        $media = Media::where('mediable_type',$type)->where('mediable_id',$id)->where('main',true)->first();
+        Storage::delete(\asset(substr($media->path,13,50)));
+        $media->delete();
+        return Response()->json([
+            'message'=>'deleted_successfully',
+            'type'=>$type,
+            'id'=>$id
+        ]);
+    }
+
+    public function delete($type,$id)
+    {
+        $media = Media::where('mediable_type',$type)->where('mediable_id',$id)->first();
+        Storage::delete(\asset(substr($media->path,13,50)));
+        $media->delete();
+        return Response()->json([
+            'message'=>'deleted_successfully',
+            'type'=>$type,
+            'id'=>$id
+        ]);
+    }
+
+    public function index($type,$id)
+    {
+        $medias = Media::query()->where('mediable_type',$type)->where('mediable_id',$id)->get();
+        return view('admin.media.index',compact('medias'));
 
     }
 

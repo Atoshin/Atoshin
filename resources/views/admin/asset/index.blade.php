@@ -28,6 +28,10 @@
 
 
                                 <th>Title</th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>Order</th>
                                 {{--                                <th>sold_fractions</th>--}}
                                 {{--                                <th>start_date</th>--}}
                                 {{--                                <th>end_date</th>--}}
@@ -41,6 +45,12 @@
                                 <tr>
 
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
+                                    <td>{{$asset->status}}</td>
+                                    @if($asset->order)
+                                    <td>{{$asset->order}}</td>
+                                    @else
+                                        <span>-</span>
+                                    @endif
 
 
                                     <td>
@@ -72,6 +82,11 @@
                                                        class="btn btn-warning "> <i class="fa fa-file-contract "></i> contracts
                                                     </a>
                                                 </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('media.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id]) }}" type="button"
+                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
+                                                </a>
+                                            </div>
 
 
 

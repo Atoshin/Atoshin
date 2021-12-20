@@ -62,6 +62,7 @@ class AssetController extends Controller
             'creation'=>$request->creation,
             'size'=>$request->size,
             'material'=>$request->material,
+            'order'=>$request->order,
         ]);
         return redirect()->route('upload.page.main',['type'=>Asset::class,'id'=>$asset->id]);
     }
@@ -119,6 +120,7 @@ class AssetController extends Controller
         $asset->creation = $request->creation;
         $asset->size = $request->size;
         $asset->material = $request->material;
+        $asset->order = $request->order;
         $asset->save();
 
         return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);

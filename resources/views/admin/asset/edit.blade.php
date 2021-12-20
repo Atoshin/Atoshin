@@ -142,8 +142,9 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Status</label>
                     <select name="status" class="form-control" id="">
-                        <option @if($asset->status=='published') selected @endif value="published">published</option>
                         <option @if($asset->status=='unpublished') selected @endif value="unpublished">unpublished</option>
+                        <option @if($asset->status=='published') selected @endif value="published">published</option>
+
                     </select>
                     @error('status')
                     <small class="text-danger">{{$message}}</small>
@@ -204,7 +205,8 @@
                         {{$message}}
                     </small>
                     @enderror
-                </div> <div class="form-group">
+                </div>
+                <div class="form-group">
                     <label for="exampleInputPassword1">Date of Creation</label>
                     <input type="text" class="form-control" name="creation" value="{{$asset->creation}}" placeholder="Date of Creation">
                     @error('creation')
@@ -213,6 +215,19 @@
                     </small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Order(0-4)</label>
+                    <input type="text" class="form-control" name="order" value="{{$asset->order}}" placeholder="order">
+                    @error('order')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+
+                <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset main picture</a>
+                <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset photos</a>
+
             </div>
             <!-- /.card-body -->
 

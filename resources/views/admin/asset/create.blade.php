@@ -142,9 +142,9 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Status</label>
                     <select name="status" class="form-control" id="">
-
-                        <option value="published">published</option>
                         <option value="unpublished">unpublished</option>
+                        <option value="published">published</option>
+
                     </select>
                     @error('status')
                     <small class="text-danger">{{$message}}</small>
@@ -154,6 +154,7 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Category</label>
                     <select name="category_id" class="form-control" id="">
+                        <option value="" selected disabled>select</option>
                         @foreach($categories as $category)
                             <option value="{{$category->id}}" >{{$category->title}}</option>
                         @endforeach
@@ -212,6 +213,16 @@
                     <label for="exampleInputEmail1">Date of Creation</label>
                     <input type="date" class="form-control" name="creation" placeholder="Date of creation" value="{{old('date of creation')}}">
                     @error('creation')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1">Order(0-4)</label>
+                    <input type="text" class="form-control" name="order" placeholder="Order" value="{{old('order')}}">
+                    @error('order')
                     <small class="text-danger">
                         {{$message}}
                     </small>

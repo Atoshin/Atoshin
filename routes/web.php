@@ -51,6 +51,9 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
     Route::get('media/edit/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPage'])->name('upload.page.edit');
     Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
     Route::get('media/edit/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPageMain'])->name('upload.page.main.edit');
+    Route::get('media/index/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'index'])->name('media.index');
+    Route::delete('media/delete/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'deleteMain'])->name('media.main.delete');
+    Route::delete('media/delete/{type}/{id}',[\App\Http\Controllers\MediaController::class,'delete'])->name('media.delete');
 
     //end
 
