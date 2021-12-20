@@ -107,8 +107,8 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Status</label>
                     <select name="status" class="form-control" id="">
-                        <option @if($gallery->status=='published') selected @endif value="published">published</option>
                         <option @if($gallery->status=='unpublished') selected @endif value="unpublished">unpublished</option>
+                        <option @if($gallery->status=='published') selected @endif value="published">published</option>
                     </select>
                     @error('status')
                     <small class="text-danger">{{$message}}</small>

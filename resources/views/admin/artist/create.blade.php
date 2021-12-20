@@ -157,7 +157,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Next</button>
             </div>
         </form>
     </div>
