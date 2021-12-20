@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\videoLink\storeVideoLink;
 use App\Models\VideoLink;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class VideoLinkController extends Controller
      */
     public function index($type , $id )
     {
-        $video_links = VideoLink::query()->where('video_linkable_type',$type)->where('video_linkable_id',$id)->get();
+        $video_links = VideoLink::query()->where('video_linkable_type',$type)->where('video_linkable_id',$id)
+            ->orderBy("created_at" ,"desc")->get();
+
         return view('admin.videoLink.crud',compact('type','id','video_links'));
     }
 
@@ -34,10 +37,22 @@ class VideoLinkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , $type , $id)
+    public function store(storeVideoLink $request , $type , $id)
     {
+        $isDefault = false;
+        if($request->is_default == "on"){
+            $isDefault = true;
+            $allVideoLinks = VideoLink::query()->where('video_linkable_type',$type)->where('video_linkable_id',$id)->get();
+            foreach ($allVideoLinks as $video)
+            {
+                $video->is_default = false;
+                $video->save();
+            }
+        }
+
         VideoLink::query()->create([
             'link' => $request->link,
+            'is_default' => $isDefault,
             'video_linkable_type' => $type,
             'video_linkable_id' => $id
         ]);

@@ -71,9 +71,7 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             init: function () {
-                this.on("removedfile", function (file) {
-                    console.log(file)
-                });
+
 
             },
             success: function(file, response)
