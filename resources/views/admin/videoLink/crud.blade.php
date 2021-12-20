@@ -8,12 +8,10 @@
     </style>
 @endsection
 @section('content')
-
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Video links</h3>
         </div>
-
         <div class="form-group">
             {{--            <label for="contract ">Video links</label>--}}
             <div class="dropzone">
@@ -21,16 +19,23 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <div></div>
-                            <label for="exampleInputEmail1">Link</label>
-                            <textarea type="text" class="form-control" name="link"
-                                      placeholder="Link">{{old('link')}}</textarea>
-                            {{--                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">--}}
-                            @error('link')
-                            <small class="text-danger">
-                                {{$message}}
-                            </small>
-                            @enderror
+                            <div>
+                                <label for="exampleInputEmail1">Link</label>
+                                <textarea type="text" class="form-control" name="link"
+                                          placeholder="Link">{{old('link')}}</textarea>
+                                {{--                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">--}}
+                                @error('link')
+                                <small class="text-danger">
+                                    {{$message}}
+                                </small>
+                                @enderror
+                            </div>
+                            @if($type == "App\Models\Gallery")
+                                <div style="margin-top: 15px">
+                                    <input type="checkbox" name="is_default" id="is_default">
+                                    <label for="exampleInputEmail1">Show this video in Home page</label>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="card-footer">
@@ -40,19 +45,6 @@
                 </form>
             </div>
         </div>
-
-        {{--        <div class="card-footer">--}}
-        {{--            @if($type == \App\Models\Gallery::class)--}}
-        {{--                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>--}}
-        {{--                <a class="btn btn-primary" href="{{route('videoLink.store', ['type' => $type, 'id' => $id])}}">Submit</a>--}}
-        {{--            @elseif($type == \App\Models\Artist::class)--}}
-        {{--                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>--}}
-        {{--            @endif--}}
-        {{--        </div>--}}
-
-
-
-        {{--        table--}}
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -62,7 +54,6 @@
                     <th>Operations</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 @foreach($video_links as $videoLink)
                     <tr>
@@ -73,8 +64,7 @@
                             <div class="">{{$videoLink->link}}</div>
                         </td>
                         <td>
-                            <div class="row">
-
+                            <div class="row" style="display: block ruby">
                                 <div class="m-1">
                                     <button type="button"
                                             onclick="deleteModal(this)"
@@ -83,23 +73,16 @@
                                             class="fa fa-trash "></i>delete
                                     </button>
                                 </div>
-
-                                {{--                                            <div class="m-1">--}}
-                                {{--                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"--}}
-                                {{--                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>--}}
-                                {{--                                            </div>--}}
+                                @if($videoLink->is_default == true)
+                                    <i class="fa fa-crown" style="color: #CC8D1D"></i>
+                                @endif
                             </div>
-
-
                         </td>
-
-
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-
         <div class="card-footer">
             @if($type == "App\Models\Gallery")
                 {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
@@ -127,18 +110,12 @@
                        href="{{route('assets.index')}}">Submit</a>
                 @endif
             @endif
-
-
         </div>
-
-
     </div>
     <form action="" id="delete-form" method="POST">
         @method('delete')
         @csrf
     </form>
-
-
 @endsection
 
 @section('scripts')
@@ -170,5 +147,4 @@
             })
         }
     </script>
-
 @endsection
