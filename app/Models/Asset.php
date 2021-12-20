@@ -41,4 +41,8 @@ class Asset extends Model
     {
         return $this->hasMany(Contract::class);
     }
+    public function videoLinks()
+    {
+        return $this->morphMany(VideoLink::class, 'video_linkable');
+    }
 }

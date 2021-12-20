@@ -118,21 +118,76 @@
                         </div>
                         <!-- /.col -->
                     </div>
+                </div>
                     <!-- /.row -->
 
-                    <div class="row m-4" style="border-top:2px solid whitesmoke">
+{{--                    <div class="row m-4" style="border-top:2px solid whitesmoke">--}}
 
-                        @foreach($asset->medias as $media)
-                            <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}" alt=""
-                                 width="100" height="100"/>
+{{--                        @foreach($asset->medias as $media)--}}
+{{--                            <img style="margin-top: 20px; margin-right: 20px" src="{{asset($media->path)}}" alt=""--}}
+{{--                                 width="100" height="100"/>--}}
 
-                        @endforeach
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+                    <div>
+                    <div class="row m-4 pb-3"
+                         style="border-top:2px solid whitesmoke;">
+                        {{--                        <div>--}}
+                        <div>
+                            <div>
+                                <b>Pictures</b>
+                            </div>
+                            <div>
+                                @if(count($asset->medias)>1)
+                                    @foreach($asset->medias as $media)
+                                        @if($media->main==false)
+                                            <img style="margin-top: 20px; margin-right: 20px"
+                                                 src="{{asset($media->path)}}"
+                                                 alt=""
+                                                 width="100" height="100"/>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <ul style="list-style-type: none">
+                                        <li>
+                                            No Picture
+
+                                        </li>
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-4 pb-3"
+                         style="border-top:2px solid whitesmoke;">
+
+                        <div>
+                            <div>
+                                <b>Videos</b>
+                            </div>
+                            <div>
+                                @if(count($asset->videoLinks)>0)
+                                    @foreach($asset->videoLinks as $videoLink)
+                                        {!! ($videoLink->link) !!}
+                                    @endforeach
+                                @else
+                                    <ul style="list-style-type: none">
+                                        <li>
+                                            No Video
+
+                                        </li>
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
-
-                    <div class="row m-4" style="border-top:2px solid whitesmoke">
+                    <div class="row m-4 pb-3" style="border-top:2px solid whitesmoke">
                         <div>
-                            <div>Videos:</div>
+                            <div>
+                                <b>Live Video Links</b>
+                            </div>
+                            <div>
                             @if(count($asset->videos)>0)
                                 <div>
                                     @foreach($asset->videos as $video)
@@ -142,13 +197,18 @@
                                     @endforeach
                                 </div>
                             @else
-                                <span>-</span>
+                                    <ul style="list-style-type: none">
+                                        <li>
+                                            No Live Video Link
+                                        </li>
+                                    </ul>
                             @endif
+                            </div>
                         </div>
+                    </div>
                     </div>
 
 
-                </div>
 
 
 

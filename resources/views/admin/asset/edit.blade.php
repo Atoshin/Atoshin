@@ -227,6 +227,7 @@
 
                 <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset main picture</a>
                 <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset photos</a>
+                <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset videos</a>
 
             </div>
             <!-- /.card-body -->
