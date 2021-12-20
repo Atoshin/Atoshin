@@ -28,6 +28,10 @@
 
 
                                 <th>Title</th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>Order</th>
                                 {{--                                <th>sold_fractions</th>--}}
                                 {{--                                <th>start_date</th>--}}
                                 {{--                                <th>end_date</th>--}}
@@ -41,6 +45,12 @@
                                 <tr>
 
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
+                                    <td>{{$asset->status}}</td>
+                                    @if($asset->order)
+                                    <td>{{$asset->order}}</td>
+                                    @else
+                                        <span>-</span>
+                                    @endif
 
 
                                     <td>

@@ -23,13 +23,13 @@ class updateAsset extends FormRequest
             'royalties_percentage'=>'required|numeric',
             'total_fractions'=>'numeric',
             'sold_fractions'=>'numeric',
-            'end_date'=>'date',
-            'start_date'=>'date',
+            'end_date'=>'date|nullable',
+            'start_date'=>'date|nullable',
             'creator_id'=>'required',
             'artist_id'=>'required',
             'category_id'=>'required',
-            'creation'=>'date',
-            'order'=>'required|regex:/([0-4]{1})$/,'
+            'creation'=>'date|nullable',
+            'order'=>'regex:/([0-4]{1})$/|unique:assets|nullable'
         ];
     }
 }

@@ -21,10 +21,10 @@ class CreateAssetsTable extends Migration
             $table->integer('ownership_percentage')->default(40);
             $table->integer('commission_percentage');
             $table->integer('royalties_percentage');
-            $table->integer('order');
+            $table->integer('order')->nullable();
             $table->integer('total_fractions')->default(100);
             $table->integer('sold_fractions')->default(0);
-            $table->timestamp('start_date')->default(\Carbon\Carbon::now());
+            $table->timestamp('start_date')->default(\Carbon\Carbon::now())->nullable();
             $table->timestamp('end_date')->nullable();
             $table->enum('status', ['published','unpublished'])->default('unpublished');
             $table->unsignedBigInteger('category_id');
