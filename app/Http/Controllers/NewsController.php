@@ -18,7 +18,7 @@ class NewsController extends Controller
     public function index($artist_id)
     {
         $artist = Artist::find($artist_id);
-        $news = News::query()->where('artist_id', $artist_id)->orderBy('created_at')->get();
+        $news = News::query()->where('artist_id', $artist_id)->orderBy('created_at',"desc")->get();
         return view('admin.news.index',compact('news', 'artist', 'artist_id'));
     }
 
