@@ -1,4 +1,12 @@
 @extends('admin.layout.master')
+@section('styles')
+    <style>
+        /*.youtube > iframe{*/
+        /*    width: 300px;*/
+        /*    height: 150px;*/
+        /*}*/
+    </style>
+@endsection
 @section('content')
 
     <div class="card card-primary">
@@ -7,7 +15,7 @@
         </div>
 
         <div class="form-group">
-{{--            <label for="contract ">Video links</label>--}}
+            {{--            <label for="contract ">Video links</label>--}}
             <div class="dropzone">
                 <form action="{{route('videoLink.store', ['type' => $type, 'id' => $id])}}" method="post">
                     @csrf
@@ -15,7 +23,9 @@
                         <div class="form-group">
                             <div></div>
                             <label for="exampleInputEmail1">Link</label>
-                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">
+                            <textarea type="text" class="form-control" name="link"
+                                      placeholder="Link">{{old('link')}}</textarea>
+                            {{--                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">--}}
                             @error('link')
                             <small class="text-danger">
                                 {{$message}}
@@ -24,30 +34,31 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Add Video</button>
                     </div>
 
                 </form>
             </div>
         </div>
 
-{{--        <div class="card-footer">--}}
-{{--            @if($type == \App\Models\Gallery::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>--}}
-{{--                <a class="btn btn-primary" href="{{route('videoLink.store', ['type' => $type, 'id' => $id])}}">Submit</a>--}}
-{{--            @elseif($type == \App\Models\Artist::class)--}}
-{{--                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>--}}
-{{--            @endif--}}
-{{--        </div>--}}
+        {{--        <div class="card-footer">--}}
+        {{--            @if($type == \App\Models\Gallery::class)--}}
+        {{--                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>--}}
+        {{--                <a class="btn btn-primary" href="{{route('videoLink.store', ['type' => $type, 'id' => $id])}}">Submit</a>--}}
+        {{--            @elseif($type == \App\Models\Artist::class)--}}
+        {{--                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>--}}
+        {{--            @endif--}}
+        {{--        </div>--}}
 
 
 
-{{--        table--}}
+        {{--        table--}}
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Link</th>
+                    <th>Code</th>
                     <th>Operations</th>
                 </tr>
                 </thead>
@@ -55,7 +66,12 @@
                 <tbody>
                 @foreach($video_links as $videoLink)
                     <tr>
-                        <td><a href="{{$videoLink->link}}">{{$videoLink->link}}</a></td>
+                        <td>
+                            <div class="youtube">{!!($videoLink->link)!!}</div>
+                        </td>
+                        <td>
+                            <div class="">{{$videoLink->link}}</div>
+                        </td>
                         <td>
                             <div class="row">
 
@@ -85,14 +101,33 @@
         </div>
 
         <div class="card-footer">
-{{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
-            @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
-                <a class="btn btn-primary"
-                   href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
-            @else
-                <a class="btn btn-primary"
-                   href="{{route('galleries.index')}}">Submit</a>
+            @if($type == "App\Models\Gallery")
+                {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
+                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
+                    <a class="btn btn-primary"
+                       href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
+                @else
+                    <a class="btn btn-primary"
+                       href="{{route('galleries.index')}}">Submit</a>
+                @endif
+            @elseif($type == "App\Models\Artist")
+                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.edit')
+                    <a class="btn btn-primary"
+                       href="{{route('artists.edit' , ['artist'=>$id])}}">Submit</a>
+                @else
+                    <a class="btn btn-primary"
+                       href="{{route('artists.index')}}">Submit</a>
+                @endif
+            @elseif($type == "App\Models\Asset")
+                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'assets.edit')
+                    <a class="btn btn-primary"
+                       href="{{route('assets.edit' , ['asset'=>$id])}}">Submit</a>
+                @else
+                    <a class="btn btn-primary"
+                       href="{{route('assets.index')}}">Submit</a>
+                @endif
             @endif
+
 
         </div>
 
@@ -110,7 +145,7 @@
     <script>
         function deleteModal(element) {
             var videoLinkId = $(element).data('id');
-            document.getElementById('delete-form').action = "/video/link/"+videoLinkId+"/destroy";
+            document.getElementById('delete-form').action = "/video/link/" + videoLinkId + "/destroy";
             Swal.fire({
                 icon: 'warning',
                 title: 'Do you want to delete this video link?',

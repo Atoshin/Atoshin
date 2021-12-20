@@ -15,7 +15,7 @@ class CreateVideoLinksTable extends Migration
     {
         Schema::create('video_links', function (Blueprint $table) {
             $table->id();
-            $table->string('link');
+            $table->longText('link');
             $table->integer('video_linkable_id');
             $table->string('video_linkable_type');
             $table->timestamps();

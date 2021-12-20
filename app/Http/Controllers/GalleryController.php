@@ -12,6 +12,7 @@ use App\Models\VideoLink;
 use App\Models\Wallet;
 use App\Models\Media;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller
 {
@@ -46,29 +47,25 @@ class GalleryController extends Controller
      */
     public function store(storeGallery $request)
     {
-        $gallery = Gallery::query()->create([
-            'name' => $request->name,
-            'bio' => $request->bio,
-            'summary' => $request->summary,
-            'avatar' => $request->avatar,
-            'website' => $request->website,
-            'youtube' => $request->youtube,
-            'instagram' => $request->instagram,
-            'twitter' => $request->twitter,
-            'facebook' => $request->facebook,
-            'linkedin' => $request->linkedin,
-        ]);
-        Wallet::query()->create([
-            'wallet_address' => $request->wallet_address,
-            'walletable_id' => $gallery->id,
-            'walletable_type' => 'App\Models\Gallery'
-        ]);
-
-
-
-
-
-
+        DB::transaction(function () use ($request, &$gallery){
+            $gallery = Gallery::query()->create([
+                'name' => $request->name,
+                'bio' => $request->bio,
+                'summary' => $request->summary,
+                'avatar' => $request->avatar,
+                'website' => $request->website,
+                'youtube' => $request->youtube,
+                'instagram' => $request->instagram,
+                'twitter' => $request->twitter,
+                'facebook' => $request->facebook,
+                'linkedin' => $request->linkedin,
+            ]);
+            Wallet::query()->create([
+                'wallet_address' => $request->wallet_address,
+                'walletable_id' => $gallery->id,
+                'walletable_type' => 'App\Models\Gallery'
+            ]);
+        });
 
         return redirect()->route('upload.page.main',['type'=>Gallery::class,'id'=>$gallery->id]);
     }
@@ -82,7 +79,7 @@ class GalleryController extends Controller
     public function show($id)
     {
 
-    $gallery=Gallery::with('medias','assets')->find($id);
+    $gallery=Gallery::with('medias','assets','videoLinks')->find($id);
 
         return view('admin.gallery.show', compact('gallery'));
     }
