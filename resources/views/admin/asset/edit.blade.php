@@ -213,6 +213,10 @@
                     </small>
                     @enderror
                 </div>
+
+                <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset main picture</a>
+                <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset photos</a>
+
             </div>
             <!-- /.card-body -->
 

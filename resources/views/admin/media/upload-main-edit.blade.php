@@ -37,13 +37,17 @@
 
         <div class="card-footer">
             @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary"
+                   href="{{route('galleries.index')}}">Submit</a>
             @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary"
+                   href="{{route('artists.index')}}">Submit</a>
             @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\User::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary"
+                   href="{{route('users.index')}}">Submit</a>
             @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary"
+                   href="{{route('assets.index')}}">Submit</a>
             @endif
         </div>
 
@@ -77,24 +81,47 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             init: function () {
-                let thisDropzone =this;
-                this.on("removedfile", function (file) {
+                let thisDropzone = this;
 
+                this.on("removedfile", function (file) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        }
+                    });
+                    $.ajax({
+                        url: "{{route('media.main.delete',['type'=>$type,'id'=>$id])}}",
+                        method: "delete",
+                        success: function (res) {
+                            console.log(res)
+                        }
+                    })
                 });
                 @if($type != \App\Models\User::class)
-                    let mockFile = {name: "{{substr($entity->medias->where('main',true)->first()->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($entity->medias->where('main',true)->first()->path,8,54))}}"};
-                    thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset(  $entity->medias->where('main',true)->first()->path)}}");
+                @if($entity->medias->where('main',true)->first() != null)
+                let mockFile = {
+                    name: "{{substr($entity->medias->where('main',true)->first()->path,13,50)}}",
+                    size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($entity->medias->where('main',true)->first()->path,8,54))}}"
+                };
+                thisDropzone.options.addedfile.call(thisDropzone, mockFile);
+                thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset(  $entity->medias->where('main',true)->first()->path)}}");
+
+                @endif
                 @else
-                    let mockFile = {name: "{{substr($user->media->first()->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($user->media->where('main',true)->first()->path,8,54))}}"};
-                    thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset($user->medias->where('main',true)->first()->path)}}");
+
+                let mockFile = {
+                    name: "{{substr($entity->media->where('mediable_type',$type)->where('mediable_id',$id)->where('main',true)->first()->path,13,50)}}",
+                    size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($entity->media->where('mediable_type',$type)->where('mediable_id',$id)->where('main',true)->first()->path,8,54))}}"
+                };
+                thisDropzone.options.addedfile.call(thisDropzone, mockFile);
+                thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset($entity->media->where('mediable_type',$type)->where('mediable_id',$id)->where('main',true)->first()->path)}}");
                 @endif
 
 
+
+
             },
-            success: function(file, response)
-            {
+            success: function (file, response) {
 
                 mediaIds.push(response.media_id)
             },

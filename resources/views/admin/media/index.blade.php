@@ -1,10 +1,11 @@
 @extends('admin.layout.master')
 @section('content')
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Asset Table</h1>
+                    <h1>Media Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -14,78 +15,39 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('assets.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
-                                class="fa fa-plus mr-2 "></i> Add Asset </a>
-                        <h3 class="card-title">Asset</h3>
+
+                        <h3 class="card-title">Media</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-
-
-                                <th>Title</th>
-                                {{--                                <th>sold_fractions</th>--}}
-                                {{--                                <th>start_date</th>--}}
-                                {{--                                <th>end_date</th>--}}
-                                {{--                                <th>status</th>--}}
-                                <th>Operations</th>
+                                <th>Name</th>
+                                <th>path</th>
+                                <th>homepage</th>
+                                {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
-                            <tbody>
 
-                            @foreach($assets as $asset)
+                            <tbody>
+                            @foreach($medias as $media)
                                 <tr>
 
-                                    <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
-
-
+                                    <td><a target="_blank" href="#">{{substr($media->path,13,50)}}</a></td>
+                                    <td>{{$media->path}}</td>
+                                    {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
                                     <td>
-
-                                        <div class="row">
-                                                <div class="m-1">
-                                                    <a href="{{route('assets.edit',$asset->id)}}" type="button"
-                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
-                                                </div>
-                                                <div class="m-1">
-                                                    <button type="button"
-                                                            onclick="deleteModal(this)"
-                                                            data-id="{{$asset->id}}"
-                                                            class="btn btn-danger delete-icon"><i
-                                                            class="fa fa-trash mr-2"></i>delete
-                                                    </button>
-                                                </div>
-
-
-
-
-                                                <div class="m-1">
-                                                    <a href="{{ route('videos.index', $asset->id) }}" type="button"
-                                                       class="btn btn-success "> <i class="fa fa-video "></i> videos
-                                                    </a>
-                                                </div>
-                                                <div class="m-1">
-                                                    <a href="{{ route('contracts.index', $asset->id) }}" type="button"
-                                                       class="btn btn-warning "> <i class="fa fa-file-contract "></i> contracts
-                                                    </a>
-                                                </div>
-                                            <div class="m-1">
-                                                <a href="{{ route('media.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id]) }}" type="button"
-                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
-                                                </a>
-                                            </div>
-
-
-
-
-
-                                        </div>
-
-
+                                        @if($media->homepage_picture)
+                                            Yes
+                                        @else
+                                            No
+                                        @endif
                                     </td>
+
 
                                 </tr>
                             @endforeach
@@ -99,7 +61,7 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-
+        </div>
         <form action="" id="delete-form" method="POST">
             @method('delete')
             @csrf
@@ -127,7 +89,7 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,"ordering": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
@@ -144,18 +106,18 @@
     <script>
 
         $(".delete-icon").on("click", function () {
-            var AssetId = $(this).data('id');
-            $("#delete-form").attr("action", "/assets/" + AssetId)
+            var GalleryId = $(this).data('id');
+            $("#delete-form").attr("action", "/users/" + GalleryId)
         });
 
     </script>
     <script>
         function deleteModal(element) {
-            var AssetID = $(element).data('id');
-            document.getElementById('delete-form').action = `/assets/${AssetID}`;
+            var GalleryID = $(element).data('id');
+            document.getElementById('delete-form').action = `/galleries/${GalleryID}`;
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this asset?',
+                title: 'Do you want to delete this Gallery?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,
@@ -171,8 +133,6 @@
                         icon: 'info',
                         confirmButtonText: 'ok',
                         confirmButtonColor: '#22303d'
-
-
                     });
 
                 }
@@ -180,7 +140,13 @@
         }
     </script>
 
+
+
 @endsection
+
+
+
+
 
 
 
