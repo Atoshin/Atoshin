@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
                 <div class="col-1">
-                    <img src="{{asset($artist->medias->first()->path)}}" class="avatar" alt="" width="100"
+                    <img src="{{asset($artist->medias->where('mediable_type',\App\Models\Artist::class)->where('mediable_id',$artist->id)->where('main',true)->first()->path)}}" class="avatar" alt="" width="100"
                          height="100"/>
                 </div>
                 <div class="col-sm-6">
@@ -324,7 +324,7 @@
                             <div>
                                 @if(count($artist->medias)>1)
                                     @foreach($artist->medias as $media)
-                                        @if($loop->index>0)
+                                        @if($media->main==false)
                                             <img style="margin-top: 20px; margin-right: 20px"
                                                  src="{{asset($media->path)}}"
                                                  alt=""

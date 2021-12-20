@@ -101,7 +101,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" id="btnSubmit" class="btn btn-primary">Next</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
             </div>
         </form>
 

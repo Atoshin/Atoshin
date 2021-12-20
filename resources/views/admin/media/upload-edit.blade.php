@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+    @extends('admin.layout.master')
 @section('styles')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link
@@ -87,10 +87,11 @@
                 });
 
                 @foreach($entity->medias as $index=>$file)
-
+                @if(!$file->main)
                 let mockFile{{$index}} = {name: "{{substr($file->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($file->path,8,54))}}"};
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile{{$index}});
-                thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset(  $file->where('main',false)->first()->path)}}");
+                thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset(  $file->path)}}");
+                @endif
                 @endforeach
 
             },
