@@ -57,6 +57,7 @@
                 <thead>
                 <tr>
                     <th>Link</th>
+                    <th>Code</th>
                     <th>Operations</th>
                 </tr>
                 </thead>
@@ -66,6 +67,9 @@
                     <tr>
                         <td>
                             <div class="youtube">{!!($videoLink->link)!!}</div>
+                        </td>
+                        <td>
+                            <div class="">{{$videoLink->link}}</div>
                         </td>
                         <td>
                             <div class="row">
