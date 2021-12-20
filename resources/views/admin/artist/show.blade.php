@@ -236,7 +236,7 @@
                     </div>
 
                     <div class="row m-4 pb-3"
-                         style="border-top:2px solid whitesmoke; border-bottom: 2px solid whitesmoke">
+                         style="border-top:2px solid whitesmoke;">
 
                         <div>
                             <div>
@@ -268,7 +268,7 @@
                         <div class="col-12">
                             @if(count($artist->news)>0)
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="">
                                     @foreach($artist->news as $a_news)
                                         <tr>
                                             <th style="width:50%">{{$a_news->title}}</th>
