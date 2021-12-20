@@ -29,6 +29,7 @@ class storeAsset extends FormRequest
                 'artist_id'=>'required',
                 'category_id'=>'required',
             'creation'=>'date',
+            'order'=>'required|regex:/([0-4]{1})$/|unique:assets'
 
 
 

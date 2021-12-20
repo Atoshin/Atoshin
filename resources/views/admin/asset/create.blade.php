@@ -217,6 +217,15 @@
                     </small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Order(0-4)</label>
+                    <input type="text" class="form-control" name="order" placeholder="Order" value="{{old('order')}}">
+                    @error('order')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
             </div>
             <!-- /.card-body -->
 
