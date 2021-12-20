@@ -41,7 +41,7 @@
             @elseif($type == \App\Models\Artist::class)
                 <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
             @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\User::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary" href="{{route('users.index')}}">Next</a>
             @elseif($type == \App\Models\Asset::class)
                 <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
             @endif

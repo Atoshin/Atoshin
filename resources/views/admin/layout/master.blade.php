@@ -20,6 +20,14 @@
 
     @yield('styles')
 
+    <style>
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+
+
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if(Session::has('message'))
         <script type="text/javascript">

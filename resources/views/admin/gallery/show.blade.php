@@ -159,6 +159,10 @@
                                 @if(count($gallery->assets)>0)
                                     @foreach($gallery->assets as $asset)
                                         <ul>
+                                            @foreach($asset->medias as $media)
+                                                <img src="{{asset($media->path)}}" alt="" width="100"
+                                                     height="100">
+                                            @endforeach
                                             <li>
                                                 <b>Title:</b>
                                                 <a href="{{route('assets.show',$asset->id)}}">
@@ -169,6 +173,9 @@
                                                 <a href="{{route('artists.show',$asset->artist->id)}}">{{$asset->artist->full_name}}</a>
                                             </li>
                                         </ul>
+                                        @if(!$loop->last)
+                                            <hr>
+                                        @endif
                                     @endforeach
                                 @else
                                     <ul style="list-style-type: none">

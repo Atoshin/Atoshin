@@ -96,7 +96,7 @@
                 </div>
 
                 <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist avatar</a>
-{{--                <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist photos</a>--}}
+                <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist photos</a>
             </div>
             <!-- /.card-body -->
 

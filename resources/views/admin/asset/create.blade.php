@@ -1,4 +1,6 @@
 @extends('admin.layout.master')
+
+
 @section('content')
 
     {{--    <div class="card card-info">--}}
