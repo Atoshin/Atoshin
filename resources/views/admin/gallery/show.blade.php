@@ -159,7 +159,8 @@
                                 @if(count($gallery->assets)>0)
                                     @foreach($gallery->assets as $asset)
                                         <ul>
-                                            <li><b>Asset:</b>
+                                            <li>
+                                                <b>Title:</b>
                                                 <a href="{{route('assets.show',$asset->id)}}">
                                                     {{$asset->title}}
                                                 </a>
