@@ -3,7 +3,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Login 10</title>
+    <title>Atoshin</title>
+    <link rel="icon" type="image/png" href="{{asset('admin/dist/img/Atoshin-hexagon.png')}}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
