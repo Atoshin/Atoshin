@@ -46,7 +46,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
     Route::get('media/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
     Route::post('upload/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFile' ])->name('uploadFile.main');
     Route::get('media/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPageMain'])->name('upload.page.main');
-
+Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class,'homepage'])->name('homepage.media');
     Route::post('upload/edit/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFileEdit' ])->name('uploadFile.update');
     Route::get('media/edit/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPage'])->name('upload.page.edit');
     Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
@@ -85,6 +85,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
     Route::patch('news/{news_id}/update',[\App\Http\Controllers\NewsController::class,'update'])->name('news.update');
     Route::delete('news/{news_id}/destroy',[\App\Http\Controllers\NewsController::class,'destroy'])->name('news.destroy');
     //end
+
 
     //video link
     Route::post('video/link/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'store'])->name('videoLink.store');

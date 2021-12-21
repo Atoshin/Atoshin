@@ -30,6 +30,7 @@
                                 <th>Name</th>
                                 <th>path</th>
                                 <th>homepage</th>
+                                <th>show in homepage</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -50,6 +51,14 @@
                                         @else
                                             No
                                         @endif
+                                    </td>
+                                    <td>
+                                        <form action="{{route('homepage.media',$media->id)}}">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch-{{$media->id}}" onchange="submitForm(event)">
+                                                <label class="custom-control-label" for="customSwitch-{{$media->id}}" ></label>
+                                            </div>
+                                        </form>
                                     </td>
 
 
@@ -141,6 +150,15 @@
 
                 }
             })
+        }
+    </script>
+    <script>
+        function submitForm(e)
+        {
+            const checkbox = e.target;
+            console.log(checkbox.value)
+            const form = checkbox.parentElement.parentElement
+            // form.submit()
         }
     </script>
 

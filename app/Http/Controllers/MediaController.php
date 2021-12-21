@@ -267,6 +267,21 @@ class MediaController extends Controller
 
     }
 
+    public function homepage($id)
+    {
+        $media = Media::query()->find($id);
+        if($media->homepage_picture)
+        {
+            $media->homepage_picture = false;
+        }
+        else
+        {
+            $media->homepage_picture = true;
+        }
+        $media->save();
+        return redirect()->back();
+    }
+
 
 
 
