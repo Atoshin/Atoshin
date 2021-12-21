@@ -25,7 +25,7 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-//Route::middleware('auth:admin')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');
 
     Route::get('admin/dashboard', [\App\Http\Controllers\AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
@@ -102,5 +102,5 @@ Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class
         return redirect()->route($route,$arguments);
     })->name('redirect.with.arguments');
     //end
-//});
+});
 

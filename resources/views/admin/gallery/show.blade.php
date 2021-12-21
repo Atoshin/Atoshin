@@ -159,10 +159,10 @@
                                 @if(count($gallery->assets)>0)
                                     @foreach($gallery->assets as $asset)
                                         <ul>
-                                            @foreach($asset->medias as $media)
-                                                <img src="{{asset($media->path)}}" alt="" width="100"
+
+                                                <img src="{{asset($asset->medias->where('main',true)->first()->path)}}" alt="" width="100"
                                                      height="100">
-                                            @endforeach
+
                                             <li>
                                                 <b>Title:</b>
                                                 <a href="{{route('assets.show',$asset->id)}}">
