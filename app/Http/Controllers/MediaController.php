@@ -270,13 +270,14 @@ class MediaController extends Controller
     public function homepage($id)
     {
         $media = Media::query()->find($id);
-        if($media->homepage_picture)
+
+        if($media->homeapage_picture == true)
         {
-            $media->homepage_picture = false;
+            $media->homeapage_picture = false;
         }
         else
         {
-            $media->homepage_picture = true;
+            $media->homeapage_picture = true;
         }
         $media->save();
         return redirect()->back();

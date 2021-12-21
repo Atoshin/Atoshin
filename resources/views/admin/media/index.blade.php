@@ -53,9 +53,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{route('homepage.media',$media->id)}}">
+                                        <form action="{{route('homepage.media',$media->id)}}" method="post">
+                                            @csrf
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch-{{$media->id}}" onchange="submitForm(event)">
+                                                <input type="checkbox" class="custom-control-input"@if($media->homeapage_picture == true) checked @endif id="customSwitch-{{$media->id}}" onchange="submitForm(event)">
                                                 <label class="custom-control-label" for="customSwitch-{{$media->id}}" ></label>
                                             </div>
                                         </form>
@@ -158,7 +159,7 @@
             const checkbox = e.target;
             console.log(checkbox.value)
             const form = checkbox.parentElement.parentElement
-            // form.submit()
+            form.submit()
         }
     </script>
 
