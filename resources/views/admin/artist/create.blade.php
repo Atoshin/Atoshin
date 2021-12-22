@@ -71,7 +71,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Full name</label>
+                    <label for="exampleInputEmail1">Full name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="full_name" placeholder="Full name" value="{{old('full_name')}}">
                     @error('full_name')
                     <small class="text-danger">
@@ -80,7 +80,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Bio</label>
+                    <label for="exampleInputPassword1">Bio <span class="text-danger">*</span></label>
                     <textarea type="text" class="form-control editor" name="bio" placeholder="Bio" id="editor" >{{old('bio')}}</textarea>
                     @error('bio')
                     <small class="text-danger">
@@ -89,7 +89,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Summary</label>
+                    <label for="exampleInputPassword1">Summary <span class="text-danger">*</span></label>
                     <textarea type="text" class="form-control" name="summary"  placeholder="Summary">{{old('summary')}}</textarea>
 
                     @error('summary')

@@ -35,7 +35,7 @@
                                     <th>Hash</th>
                                     <th>Asset</th>
                                     <th>created at</th>
-                                    <th>More</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -54,18 +54,18 @@
                                         <td>
                                             {{$contract->created_at}}
                                         </td>
-                                        <td>
-                                            {{--<a href="#" class="text-muted">--}}
-                                            {{--<i class="fas fa-search"></i>--}}
-                                            {{--</a>--}}
-                                            <div class="row">
+{{--                                        <td>--}}
+{{--                                            --}}{{--<a href="#" class="text-muted">--}}
+{{--                                            --}}{{--<i class="fas fa-search"></i>--}}
+{{--                                            --}}{{--</a>--}}
+{{--                                            <div class="row">--}}
 {{--                                                <div class="col-md-3">--}}
 {{--                                                    <a href="{{route('contracts.edit',$contract->id)}}" type="button"--}}
 {{--                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>--}}
 {{--                                                </div>--}}
 
-                                            </div>
-                                        </td>
+{{--                                            </div>--}}
+{{--                                        </td>--}}
                                     </tr>
                                 @endforeach
 

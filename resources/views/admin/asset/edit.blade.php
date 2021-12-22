@@ -69,56 +69,56 @@
             @method("PATCH")
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Title</label>
+                    <label for="exampleInputEmail1">Title <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{$asset->title}}">
                     @error('title')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Price per fraction (Ethereum)</label>
+                    <label for="exampleInputPassword1">Price per fraction (Ethereum) <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="price" placeholder="Price" value="{{$asset->price}}" >
                     @error('price')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Bio</label>
+                    <label for="exampleInputPassword1">Bio <span class="text-danger">*</span></label>
                     <textarea type="text" class="form-control" name="bio" placeholder="Bio" >{{$asset->bio}}</textarea>
                     @error('bio')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Ownership Percentage</label>
+                    <label for="exampleInputPassword1">Ownership Percentage <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="ownership_percentage" placeholder="Ownership Percentage" value="{{$asset->ownership_percentage}}">
                     @error('ownership_percentage')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Commission Percentage</label>
+                    <label for="exampleInputPassword1">Commission Percentage <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage" value="{{$asset->commission_percentage}}" >
                     @error('commission_percentage')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Royalties Percentage</label>
+                    <label for="exampleInputPassword1">Royalties Percentage <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="royalties_percentage" placeholder="Royalties Percentage" value="{{$asset->royalties_percentage}}">
                     @error('royalties_percentage')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Total Fractions</label>
+                    <label for="exampleInputPassword1">Total Fractions <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="total_fractions" placeholder="Total Fractions" value="{{$asset->total_fractions}}">
                     @error('total_fractions')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Sold Fractions</label>
+                    <label for="exampleInputPassword1">Sold Fractions <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="sold_fractions" placeholder="Sold Fractions" value="{{$asset->sold_fractions}}">
                     @error('sold_fractions')
                     <small class="text-danger">{{$message}}</small>
@@ -152,7 +152,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Category</label>
+                    <label for="exampleInputPassword1">Category <span class="text-danger">*</span></label>
                     <select name="category_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($categories as $category)
@@ -165,7 +165,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Gallery</label>
+                    <label for="exampleInputPassword1">Gallery <span class="text-danger">*</span></label>
                     <select name="creator_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($galleries as $gallery)
@@ -178,7 +178,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Artist</label>
+                    <label for="exampleInputPassword1">Artist <span class="text-danger">*</span></label>
                     <select name="artist_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($artists as $artist)

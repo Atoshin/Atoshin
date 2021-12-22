@@ -49,7 +49,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label for="exampleInputEmail1">Email address <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="email" value="{{$admin->email}}" placeholder="Enter email">
                     @error('email')
                     <small class="text-danger">
@@ -58,7 +58,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Username</label>
+                    <label for="exampleInputPassword1">Username <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="username" value="{{$admin->username}}" placeholder="Username">
                     @error('username')
                     <small class="text-danger">

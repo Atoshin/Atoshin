@@ -49,7 +49,7 @@
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Title</label>
+                    <label >Title <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="title" placeholder="title" value="{{old('title')}}">
                     @error('title')
                     <small class="text-danger">

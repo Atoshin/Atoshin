@@ -11,7 +11,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
+                    <label for="exampleInputEmail1">Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="name" value="{{$gallery->name}}" placeholder="Name">
                     @error('name')
                     <small class="text-danger">
@@ -20,7 +20,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Bio</label>
+                    <label for="exampleInputPassword1">Bio <span class="text-danger">*</span></label>
                     <textarea type="text" class="form-control" name="bio" value="{{$gallery->bio}}" placeholder="Bio">{{$gallery->bio}}</textarea>
                     @error('bio')
                     <small class="text-danger">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Summary</label>
+                    <label for="exampleInputPassword1">Summary <span class="text-danger">*</span></label>
                     <textarea type="text" class="form-control" name="summary" value="{{$gallery->summary}}" placeholder="Bio">{{$gallery->summary}}</textarea>
                     @error('summary')
                     <small class="text-danger">
@@ -41,7 +41,7 @@
 
 
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Wallet Address</label>
+                    <label for="exampleInputPassword1">Wallet Address <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="wallet_address" value="{{$gallery->wallet ? $gallery->wallet->wallet_address : ''}}" placeholder="Wallet Address">
                     @error('wallet_address')
                     <small class="text-danger">
