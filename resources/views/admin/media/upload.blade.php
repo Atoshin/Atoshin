@@ -38,7 +38,12 @@
 {{--            @elseif($type == \App\Models\Asset::class)--}}
 {{--                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>--}}
 {{--            @endif--}}
+
+            @if($type == \App\Models\Contract::class)
+                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+            @else
                 <a class="btn btn-primary" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
+            @endif
         </div>
 
     </div>
