@@ -25,6 +25,8 @@ class CreateArtistsTable extends Migration
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('linkedin')->nullable();
+            $table->integer('order')->nullable();
+            $table->boolean('homepage')->default(false);
             $table->timestamps();
         });
     }

@@ -145,10 +145,9 @@
                                 @if(count($asset->medias)>1)
                                     @foreach($asset->medias as $media)
                                         @if($media->main==false)
-                                            <img style="margin-top: 20px; margin-right: 20px"
-                                                 src="{{asset($media->path)}}"
-                                                 alt=""
-                                                 width="100" height="100"/>
+                                            <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}" >
+                                                <img  src="{{asset($media->path)}}" class="mx-2 mb-2" alt="white sample" width="100" height="100"/>
+                                            </a>
                                         @endif
                                     @endforeach
                                 @else

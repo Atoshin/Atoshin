@@ -196,14 +196,25 @@
                             </div>
                             <div>
                                 @if(count($gallery->medias)>1)
-                                    @foreach($gallery->medias as $media)
-                                        @if($media->main==false)
-                                            <img style="margin-top: 20px; margin-right: 20px"
-                                                 src="{{asset($media->path)}}"
-                                                 alt=""
-                                                 width="100" height="100"/>
-                                        @endif
-                                    @endforeach
+                                    <div class="row">
+                                        @foreach($gallery->medias as $media)
+                                            @if($media->main==false)
+
+
+{{--                                                        <div class="col-sm-2">--}}
+{{--                                                            <a  target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}" >--}}
+{{--                                                                <img src="{{asset($media->path)}}" class="img-fluid mb-2" alt="white sample" width="100" height="100"/>--}}
+{{--                                                            </a>--}}
+{{--                                                        </div>--}}
+                                                        <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}" >
+                                                            <img  src="{{asset($media->path)}}" class="mx-2 mb-2" alt="white sample" width="100" height="100"/>
+                                                        </a>
+
+
+                                            @endif
+                                        @endforeach
+                                    </div>
+
                                 @else
                                     <ul style="list-style-type: none">
                                         <li>
@@ -263,10 +274,21 @@
                         </div>
 
                     </div>
+{{--                    @foreach($gallery->medias as $media)--}}
+{{--                    <div class="filter-container p-0 row">--}}
+{{--                        <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">--}}
+{{--                            <a href="{{'http://127.0.0.1:8000/'.$media->path}}" data-toggle="lightbox" data-title="sample 1 - white" >--}}
+{{--                                <img src="{{asset($media->path)}}" class=" mb-2" alt="white sample" width="100" height="100"/>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    @endforeach--}}
 
 
                     @endsection
                     @section('scripts')
+{{--                        <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>--}}
+{{--                        <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>--}}
                         <script>
                             $(document).ready(function () {
                                 var map = L.map('map', {
@@ -287,5 +309,22 @@
                                 const mainMarker = L.marker([{{$gallery->location ? $gallery->location->lat : 35.6892}}, {{$gallery->location ? $gallery->location->long : 51.3890}}], {draggable: false}).addTo(map);
                             })
                         </script>
+{{--                        <script>--}}
+{{--                            $(function () {--}}
+{{--                                $(document).on('click', '[data-toggle="lightbox"]', function(event) {--}}
+{{--                                    event.preventDefault();--}}
+{{--                                    $(this).ekkoLightbox({--}}
+{{--                                        alwaysShowClose: true--}}
+{{--                                    });--}}
+{{--                                });--}}
+
+{{--                                $('.filter-container').filterizr({gutterPixels: 3});--}}
+{{--                                $('.btn[data-filter]').on('click', function() {--}}
+{{--                                    $('.btn[data-filter]').removeClass('active');--}}
+{{--                                    $(this).addClass('active');--}}
+{{--                                });--}}
+{{--                            })--}}
+{{--                        </script>--}}
+
 
 @endsection

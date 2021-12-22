@@ -18,7 +18,7 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        $artists =Artist::query()->orderBy("created_at","desc")->get();
+        $artists = Artist::query()->orderBy("created_at", "desc")->get();
         return view('admin.artist.index', compact('artists'));
     }
 
@@ -35,86 +35,115 @@ class ArtistController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(storeArtist $request)
     {
-        $artist = Artist::query()->create([
-            'full_name' => $request->full_name,
-            'avatar' => $request->avatar,
-            'bio' => $request->bio,
-            'summary' => $request->summary,
-            'website' => $request->website,
-            'youtube' => $request->youtube,
-            'instagram' => $request->instagram,
-            'twitter' => $request->twitter,
-            'facebook' => $request->facebook,
-            'linkedin' => $request->linkedin,
-        ]);
+        if ($request->homepage == 'on') {
+            $artist = Artist::query()->create([
+                'full_name' => $request->full_name,
+                'avatar' => $request->avatar,
+                'bio' => $request->bio,
+                'summary' => $request->summary,
+                'website' => $request->website,
+                'youtube' => $request->youtube,
+                'instagram' => $request->instagram,
+                'twitter' => $request->twitter,
+                'facebook' => $request->facebook,
+                'linkedin' => $request->linkedin,
+                'order' => $request->order,
+                'homepage' => true,
+
+            ]);
+        } else {
+            $artist = Artist::query()->create([
+                'full_name' => $request->full_name,
+                'avatar' => $request->avatar,
+                'bio' => $request->bio,
+                'summary' => $request->summary,
+                'website' => $request->website,
+                'youtube' => $request->youtube,
+                'instagram' => $request->instagram,
+                'twitter' => $request->twitter,
+                'facebook' => $request->facebook,
+                'linkedin' => $request->linkedin,
+                'order' => $request->order,
+                'homepage' => false
+            ]);
+        }
 
 
-        return redirect()->route('upload.page.main',['type'=>Artist::class,'id'=>$artist->id]);
+        return redirect()->route('upload.page.main', ['type' => Artist::class, 'id' => $artist->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        $artist=Artist::with('medias','news','assets', 'videoLinks')->find($id);
-        return view('admin.artist.show',compact('artist'));
+        $artist = Artist::with('medias', 'news', 'assets', 'videoLinks')->find($id);
+        return view('admin.artist.show', compact('artist'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $artist =Artist::find($id);
+        $artist = Artist::find($id);
 
-        return view('admin.artist.edit', compact( 'artist'));
+        return view('admin.artist.edit', compact('artist'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(updateArtist $request, $id)
     {
-        $artist =Artist::find($id);
-        $artist->full_name=$request->full_name;
-        $artist->avatar=$request->avatar;
-        $artist->bio=$request->bio;
-        $artist->summary=$request->summary;
-        $artist->website=$request->website;
-        $artist->youtube=$request->youtube;
-        $artist->instagram=$request->instagram;
-        $artist->twitter=$request->twitter;
-        $artist->facebook=$request->facebook;
-        $artist->linkedin=$request->linkedin;
-        $artist->save();
+        {
+            $artist = Artist::find($id);
+            $artist->full_name = $request->full_name;
+            $artist->avatar = $request->avatar;
+            $artist->bio = $request->bio;
+            $artist->summary = $request->summary;
+            $artist->website = $request->website;
+            $artist->youtube = $request->youtube;
+            $artist->instagram = $request->instagram;
+            $artist->twitter = $request->twitter;
+            $artist->facebook = $request->facebook;
+            $artist->linkedin = $request->linkedin;
+            $artist->order = $request->order;
+            if ($request->homepage == 'on') {
+                $artist->homepage = true;
+            } else {
+                $artist->homepage = false;
+            }
+            $artist->save();
+        }
+
         return redirect()->route('artists.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $artist =Artist::find($id);
+        $artist = Artist::find($id);
         $artist->delete();
         \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();

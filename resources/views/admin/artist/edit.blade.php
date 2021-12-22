@@ -94,10 +94,27 @@
                     </small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Order(0-9)</label>
+                    <input type="text" class="form-control" name="order" value="{{$artist->order}}" placeholder="order">
+                    @error('order')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
 
                 <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist avatar</a>
                 <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist photos</a>
+                <div style="margin-top: 15px">
+                    <input type="checkbox"
+                           @if($artist->homepage==true) checked
+                           @endif
+                           name="homepage" id="is_default">
+                    <label for="exampleInputEmail1">Show this artist in Home page</label>
+                </div>
             </div>
+
             <!-- /.card-body -->
 
             <div class="card-footer">

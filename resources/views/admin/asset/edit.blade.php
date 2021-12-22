@@ -126,14 +126,14 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Start Date</label>
-                    <input type="date" class="form-control" name="start_date" placeholder="Start Date" value="{{$asset->start_date->format('Y-m-d')}}">
+                    <input type="date" class="form-control" name="start_date" placeholder="Start Date" value="{{$asset->start_date ? $asset->start_date->format('Y-m-d'): ' '}}">
                     @error('start_date')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">End Date</label>
-                    <input type="date" class="form-control" name="end_date" placeholder="End Date" value="{{$asset->end_date->format('Y-m-d')}}">
+                    <input type="date" class="form-control" name="end_date" placeholder="End Date" value="{{$asset->end_date ? $asset->end_date->format('Y-m-d'): ''}}">
                     @error('end_date')
                     <small class="text-danger">{{$message}}</small>
                     @enderror

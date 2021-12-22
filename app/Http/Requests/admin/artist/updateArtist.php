@@ -24,7 +24,7 @@ class updateArtist extends FormRequest
             'instagram'=>'url|nullable',
             'linkedin'=>'url|nullable',
             'youtube'=>'url|nullable',
-
+            'order'=>'regex:/^([0-9]{1})$/|nullable'
         ];
     }
 }

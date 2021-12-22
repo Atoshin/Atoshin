@@ -152,8 +152,25 @@
                     </small>
                     @enderror
                 </div>
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1">Order(0-9)</label>
+                    <input type="text" class="form-control" name="order" placeholder="Order" value="{{old('order')}}">
+                    @error('order')
+                    <small class="text-danger">
+                        {{$message}}
+                    </small>
+                    @enderror
+                </div>
+
+                    <div style="margin-top: 15px">
+                        <input type="checkbox" name="homepage" id="is_default">
+                        <label for="exampleInputEmail1">Show this artist in Home page</label>
+                    </div>
+
 
             </div>
+
             <!-- /.card-body -->
 
             <div class="card-footer">
