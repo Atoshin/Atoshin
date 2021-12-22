@@ -10,7 +10,13 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Video links</h3>
+            <h3 class="card-title">Video links
+                @if($type == "App\Models\Gallery")
+                    @if(count($video_links->where('is_default',true)->where('video_linkable_id',$id)->where('video_linkable_type',$type))==0)
+                        <p>*Please add a gallery video for home page.</p>
+                    @endif
+                @endif
+            </h3>
         </div>
         <div class="form-group">
             {{--            <label for="contract ">Video links</label>--}}
@@ -90,8 +96,12 @@
                     <a class="btn btn-primary"
                        href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
                 @else
-                    <a class="btn btn-primary"
-                       href="{{route('galleries.index')}}">Submit</a>
+                    @if(count($video_links->where('is_default',true)->where('video_linkable_id',$id)->where('video_linkable_type',$type))>0)
+                        <a class="btn btn-primary"
+                           href="{{route('galleries.index')}}">Submit</a>
+                    @else
+                        <p>Please add a gallery video for home page.</p>
+                    @endif
                 @endif
             @elseif($type == "App\Models\Artist")
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.edit')
