@@ -59,6 +59,7 @@ class GalleryController extends Controller
                 'twitter' => $request->twitter,
                 'facebook' => $request->facebook,
                 'linkedin' => $request->linkedin,
+                'status' => $request->status,
             ]);
             Wallet::query()->create([
                 'wallet_address' => $request->wallet_address,
@@ -117,6 +118,7 @@ class GalleryController extends Controller
         $gallery->twitter = $request->twitter;
         $gallery->facebook = $request->facebook;
         $gallery->linkedin = $request->linkedin;
+        $gallery->status = $request->status;
         $wallet = $gallery->wallet;
         if ($wallet) {
             $wallet->wallet_address = $request->wallet_address;

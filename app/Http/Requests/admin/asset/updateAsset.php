@@ -29,7 +29,7 @@ class updateAsset extends FormRequest
             'artist_id'=>'required',
             'category_id'=>'required',
             'creation'=>'date|nullable',
-            'order'=>'regex:/([0-4]{1})$/|unique:assets|nullable'
+            'order'=>'regex:/([0-4]{1})$/|nullable'
         ];
     }
 }

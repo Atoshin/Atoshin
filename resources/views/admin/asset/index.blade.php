@@ -132,65 +132,74 @@
     <script src="{{asset('admin/js/pdfmake/pdfmake.min.js')}}"></script>
     <script src="{{asset('admin/js/pdfmake/vfs_fonts.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,"ordering": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
             //     "paging": true,
             //     "lengthChange": false,
             //     "searching": false,
-            //     "ordering": true,
+            //     "ordering": false,
             //     "info": true,
             //     "autoWidth": false,
             //     "responsive": true,
             // });
         });
     </script>
-{{--    <script>--}}
+    {{--    <script>--}}
 
-{{--        $(".delete-icon").on("click", function () {--}}
-{{--            var AssetId = $(this).data('id');--}}
-{{--            $("#delete-form").attr("action", "/assets/" + AssetId)--}}
-{{--        });--}}
+    {{--        $(".delete-icon").on("click", function () {--}}
+    {{--            var ArtistId = $(this).data('id');--}}
+    {{--            $("#delete-form").attr("action", "/artists/" + ArtistId)--}}
+    {{--        });--}}
 
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        function deleteModal(element) {--}}
-{{--            var AssetID = $(element).data('id');--}}
-{{--            document.getElementById('delete-form').action = `/assets/${AssetID}`;--}}
-{{--            Swal.fire({--}}
-{{--                icon: 'warning',--}}
-{{--                title: 'Do you want to delete this asset?',--}}
-{{--                showCancelButton: true,--}}
-{{--                showConfirmButton: true,--}}
-{{--                confirmButtonText: `yes`,--}}
-{{--                cancelButtonText: `no`,--}}
-{{--                confirmButtonColor: '#22303d',--}}
-{{--            }).then((result) => {--}}
-{{--                /* Read more about isConfirmed, isDenied below */--}}
-{{--                if (result.value) {--}}
-{{--                    $("#delete-form").submit();--}}
-{{--                } else if (result.dismiss === 'cancel') {--}}
-{{--                    Swal.fire({--}}
-{{--                        title: 'the removal request was canceled',--}}
-{{--                        icon: 'info',--}}
-{{--                        confirmButtonText: 'ok',--}}
-{{--                        confirmButtonColor: '#22303d'--}}
+    {{--    </script>--}}
+    {{--    <script>--}}
+    {{--        function deleteModal(element) {--}}
+    {{--            var ArtistID = $(element).data('id');--}}
+    {{--            document.getElementById('delete-form').action = `/artists/${ArtistID}`;--}}
+    {{--            Swal.fire({--}}
+    {{--                icon: 'warning',--}}
+    {{--                title: 'Do you want to delete this artist?',--}}
+    {{--                showCancelButton: true,--}}
+    {{--                showConfirmButton: true,--}}
+    {{--                confirmButtonText: `yes`,--}}
+    {{--                cancelButtonText: `no`,--}}
+    {{--                confirmButtonColor: '#22303d',--}}
+    {{--            }).then((result) => {--}}
+    {{--                /* Read more about isConfirmed, isDenied below */--}}
+    {{--                if (result.value) {--}}
+    {{--                    $("#delete-form").submit();--}}
+    {{--                } else if (result.dismiss === 'cancel') {--}}
+    {{--                    Swal.fire({--}}
+    {{--                        title: 'the removal request was canceled',--}}
+    {{--                        icon: 'info',--}}
+    {{--                        confirmButtonText: 'ok',--}}
+    {{--                        confirmButtonColor: '#22303d'--}}
+    {{--                    });--}}
+
+    {{--                }--}}
+    {{--            })--}}
+    {{--        }--}}
+    {{--    </script>--}}
 
 
-{{--                    });--}}
-
-{{--                }--}}
-{{--            })--}}
-{{--        }--}}
-{{--    </script>--}}
 
 @endsection
+
+
+
+
+
+
+
+
 
 
 
