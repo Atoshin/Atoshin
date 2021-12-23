@@ -24,7 +24,7 @@
                     <div class="col-sm-6">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>Lat</label>
+                            <label>Lat <span class="text-danger">*</span></label>
                             <input type="text" id="lat" class="form-control" value="{{$location ? $location->lat : ''}}"
                                    name="lat" placeholder="Lat">
                             @error('lat')
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Long</label>
+                            <label>Long <span class="text-danger">*</span></label>
                             <input type="text" id="long" class="form-control" name="long"
                                    value="{{$location ? $location->long : ''}}"
                                    placeholder="Long">
@@ -48,14 +48,14 @@
                     <div class="col-sm-6">
                         <!-- textarea -->
                         <div class="form-group">
-                            <label>Address</label>
+                            <label>Address <span class="text-danger">*</span></label>
 
                             <textarea class="form-control" rows="3" name="address"
                                       placeholder="Address">{{$location ? $location->address : ''}}</textarea>
                             @error('address')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
-                            <label>Telephone</label>
+                            <label>Telephone <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" rows="3" name="telephone"
                                    value="{{$location ? $location->telephone : ''}}"
                                       placeholder="Telephone">

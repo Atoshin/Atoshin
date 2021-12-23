@@ -22,7 +22,7 @@
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Contract Number</label>
+                    <label >Contract Number <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="contract_number" placeholder="Contract Number">
                     @error('contract_number')
                         <small class="text-danger">{{$message}}</small>
@@ -40,7 +40,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary">Next</button>
 {{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
             </div>
         </form>

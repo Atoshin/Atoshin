@@ -11,7 +11,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Link</label>
+                    <label for="exampleInputEmail1">Link <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="link" value="{{$video->link}}" placeholder="Link">
                     @error('link')
                     <small class="text-danger">
