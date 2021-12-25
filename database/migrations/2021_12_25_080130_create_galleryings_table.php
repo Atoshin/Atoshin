@@ -15,12 +15,12 @@ class CreateGalleryingsTable extends Migration
     {
         Schema::create('galleryings', function (Blueprint $table) {
                 $table->id();
-                $table->string('full-name');
+                $table->string('full_name');
                 $table->string('title')->nullable();
                 $table->string('email')->nullable();
                 $table->string('telephone')->nullable();
                 $table->boolean('is-owner')->default(false);
-            $table->unsignedBigInteger('gallery_id');
+            $table->unsignedBigInteger('gallery_id')->nullable();
                 $table->timestamps();
             $table->foreign('gallery_id')
                 ->references('id')

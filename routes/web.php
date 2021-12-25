@@ -34,6 +34,11 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
     Route::resource('admins', \App\Http\Controllers\AdminController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('artists', \App\Http\Controllers\ArtistController::class);
+    Route::resource('gallerying', \App\Http\Controllers\GalleryingController::class);
+    Route::get('gallerying/index/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'indexgallerying'])->name('index.gallerying');
+    Route::post('gallerying/store/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'storegallerying'])->name('store.gallerying');
+    Route::get('gallerying/create/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'creategallerying'])->name('create.gallerying');
+
 
     //region galleries
     Route::resource('galleries', \App\Http\Controllers\GalleryController::class);
