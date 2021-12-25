@@ -17,5 +17,9 @@
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.45.0",
         "sass-loader": "^12.4.0"
+    },
+    "dependencies": {
+        "ethers": "^5.5.2",
+        "web3": "^1.6.1"
     }
 }

@@ -18,6 +18,9 @@
                     <div class="card-header">
                         <a href="{{route('contracts.create',$asset_id)}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add contract</a>
+                        <button onclick="connectWallet(event)" class="btn btn-success mr-2 float-right"><i
+                                class="fa fa-link mr-2 "></i>Mint asset contracts
+                        </button>
                         <h3 class="card-title">Contract</h3>
 
                     </div>
@@ -79,7 +82,7 @@
                 <!-- /.col -->
             </div>
 
-            <!-- /.row -->
+        <!-- /.row -->
         </div>
 
     </section>
@@ -105,7 +108,20 @@
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript">
+    </script>
+    <script>
 
+        async function connectWallet(e) {
+            e.preventDefault()
+            if (window.ethereum) {
+                const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+                await provider.send("eth_requestAccounts", []);
+                const signer = provider.getSigner();
+                const address = await signer.getAddress();
+            }
+        }
+    </script>
     <script>
         $(function () {
             $("#example1").DataTable({
