@@ -23,7 +23,7 @@ class updateAsset extends FormRequest
             'royalties_percentage'=>'required|numeric',
             'total_fractions'=>'numeric',
             'sold_fractions'=>'numeric',
-            'end_date'=>'date|nullable',
+            'end_date'=>'date|nullable|after_or_equal:start_date',
             'start_date'=>'date|nullable',
             'creator_id'=>'required',
             'artist_id'=>'required',
