@@ -40,13 +40,24 @@ class GalleryingController extends Controller
      */
     public function storegallerying(storeGallerying $request, $gallery_id)
     {
+        if ($request->is_owner == 'on') {
         Gallerying::query()->create([
             'gallery_id'=>$gallery_id,
             'full_name' => $request->full_name,
             'title' => $request->title,
             'email' => $request->email,
             'telephone' => $request->telephone,
-            ]);
+            'is_owner' => true,
+            ]);}
+        else {
+            Gallerying::query()->create([
+                'gallery_id'=>$gallery_id,
+                'full_name' => $request->full_name,
+                'title' => $request->title,
+                'email' => $request->email,
+                'telephone' => $request->telephone,
+                'is_owner' => false,         ]);
+        }
               return redirect()->route('index.gallerying',$gallery_id);
     }
 
@@ -89,6 +100,11 @@ class GalleryingController extends Controller
         $gallerying->title=$request->title;
         $gallerying->email=$request->email;
         $gallerying->telephone=$request->telephone;
+        if ($request->is_owner == 'on') {
+            $gallerying->is_owner = true;
+        } else {
+            $gallerying->is_owner = false;
+        }
         $gallerying->save();
         return redirect()->route('index.gallerying', $gallerying->gallery_id);
     }

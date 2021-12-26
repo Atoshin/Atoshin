@@ -47,6 +47,13 @@
                     </small>
                     @enderror
                 </div>
+                <div style="margin-top: 15px">
+                    <input type="checkbox"
+                           @if($gallerying->is_owner==true) checked
+                           @endif
+                           name="is_owner" id="is_default">
+                    <label for="exampleInputEmail1">is-owner</label>
+                </div>
                 {{--                <div class="form-group">--}}
                 {{--                    <label for="exampleInputPassword1">Password</label>--}}
                 {{--                    <input type="password" class="form-control" name="password" value="{{$admin->password}}" placeholder="Password">--}}

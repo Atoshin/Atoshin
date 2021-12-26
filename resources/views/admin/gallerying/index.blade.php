@@ -31,6 +31,7 @@
                                 <th>Title</th>
                                 <th>Email</th>
                                 <th>Telephone</th>
+                                <th>is-owner</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -67,6 +68,13 @@
                                             {{$gallerying->telephone}}
                                         @else
                                             <span>-</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($gallerying->is_owner==true)
+                                            <p>Yes</p>
+                                        @else
+                                        <p>No</p>
                                         @endif
                                     </td>
 

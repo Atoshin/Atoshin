@@ -47,13 +47,17 @@
                     </small>
                     @enderror
                 </div>
-
+                <div style="margin-top: 15px">
+                    <input type="checkbox" name="is_owner" id="is_default">
+                    <label for="exampleInputEmail1">is-owner</label>
+                </div>
 
                 {{--                <div class="form-check">--}}
                 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
                 {{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
                 {{--                </div>--}}
             </div>
+
             <!-- /.card-body -->
 
             <div class="card-footer">
