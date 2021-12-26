@@ -3,7 +3,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('admin.dashboard')}}" class="brand-link">
-        <img src="{{asset('admin/dist/img/Atoshinlogo.png')}}" alt="Atoshin Logo" class="brand-image" style="opacity: .8">
+        <img src="{{asset('admin/dist/img/Atoshinlogo.svg')}}" alt="Atoshin Logo" class="brand-image" style="opacity: .8">
 {{--        <span class="brand-text font-weight-light">Atoshin</span>--}}
     </a>
 
