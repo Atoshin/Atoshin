@@ -87,6 +87,13 @@
                                                 <a href="{{route('gallerying.edit',$gallerying->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
+                                            <div class="m-1">
+                                                                                                <button type="button"
+                                                                                                        onclick="deleteModal(this)"
+                                                                                                        data-id="{{$gallerying->id}}"
+                                                                                                        class="btn btn-danger "><i class="fa fa-trash "></i>delete
+                                                                                                </button>
+                                                                                            </div>
                                         </div>
                                             {{--                                            <div class="m-1">--}}
                                             {{--                                                <button type="button"--}}
@@ -117,10 +124,10 @@
         </div>
         <!-- /.row -->
 
-        {{--        <form action="" id="delete-form" method="POST">--}}
-        {{--            @method('delete')--}}
-        {{--            @csrf--}}
-        {{--        </form>--}}
+                <form action="" id="delete-form" method="POST">
+                    @method('delete')
+                    @csrf
+                </form>
 
     </section>
 
@@ -158,42 +165,42 @@
             // });
         });
     </script>
-    {{--    <script>--}}
+        <script>
 
-    {{--        $(".delete-icon").on("click", function () {--}}
-    {{--            var ArtistId = $(this).data('id');--}}
-    {{--            $("#delete-form").attr("action", "/artists/" + ArtistId)--}}
-    {{--        });--}}
+            $(".delete-icon").on("click", function () {
+                var GalleryingId = $(this).data('id');
+                $("#delete-form").attr("action", "/gallerying/" + GalleryingId)
+            });
 
-    {{--    </script>--}}
-    {{--    <script>--}}
-    {{--        function deleteModal(element) {--}}
-    {{--            var ArtistID = $(element).data('id');--}}
-    {{--            document.getElementById('delete-form').action = `/artists/${ArtistID}`;--}}
-    {{--            Swal.fire({--}}
-    {{--                icon: 'warning',--}}
-    {{--                title: 'Do you want to delete this artist?',--}}
-    {{--                showCancelButton: true,--}}
-    {{--                showConfirmButton: true,--}}
-    {{--                confirmButtonText: `yes`,--}}
-    {{--                cancelButtonText: `no`,--}}
-    {{--                confirmButtonColor: '#22303d',--}}
-    {{--            }).then((result) => {--}}
-    {{--                /* Read more about isConfirmed, isDenied below */--}}
-    {{--                if (result.value) {--}}
-    {{--                    $("#delete-form").submit();--}}
-    {{--                } else if (result.dismiss === 'cancel') {--}}
-    {{--                    Swal.fire({--}}
-    {{--                        title: 'the removal request was canceled',--}}
-    {{--                        icon: 'info',--}}
-    {{--                        confirmButtonText: 'ok',--}}
-    {{--                        confirmButtonColor: '#22303d'--}}
-    {{--                    });--}}
+        </script>
+        <script>
+            function deleteModal(element) {
+                var GalleryingID = $(element).data('id');
+                document.getElementById('delete-form').action = `/gallerying/${GalleryingID}`;
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Do you want to delete this manager?',
+                    showCancelButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: `yes`,
+                    cancelButtonText: `no`,
+                    confirmButtonColor: '#22303d',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.value) {
+                        $("#delete-form").submit();
+                    } else if (result.dismiss === 'cancel') {
+                        Swal.fire({
+                            title: 'the removal request was canceled',
+                            icon: 'info',
+                            confirmButtonText: 'ok',
+                            confirmButtonColor: '#22303d'
+                        });
 
-    {{--                }--}}
-    {{--            })--}}
-    {{--        }--}}
-    {{--    </script>--}}
+                    }
+                })
+            }
+        </script>
 
 
 
