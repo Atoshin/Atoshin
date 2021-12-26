@@ -125,7 +125,7 @@ class AssetController extends Controller
         $asset->status = $request->status;
         $asset->save();
 
-        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('assets.index');
 
     }
 

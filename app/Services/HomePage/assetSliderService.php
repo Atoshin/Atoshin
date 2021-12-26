@@ -12,7 +12,7 @@ class assetSliderService
     {
         try
         {
-            $asset = Asset::query()->with('medias')->take($number_of_assets)->get();
+            $asset = Asset::query()->with('medias')->where('order','<=',$number_of_assets)->get();
             return $asset;
         }
         catch (\Exception $e)
