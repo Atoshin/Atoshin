@@ -66,7 +66,7 @@
                                             </div>
                                             <div class="m-1">
                                                 <a href="{{route('index.gallerying', $gallery->id)}}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> Manager </a>
+                                                   class="btn btn-light "> <i class="fa fa-location-arrow "></i> Manager </a>
                                             </div>
                                         </div>
 

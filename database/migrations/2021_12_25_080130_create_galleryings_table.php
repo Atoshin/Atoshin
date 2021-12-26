@@ -19,7 +19,7 @@ class CreateGalleryingsTable extends Migration
                 $table->string('title')->nullable();
                 $table->string('email')->nullable();
                 $table->string('telephone')->nullable();
-                $table->boolean('is-owner')->default(false);
+                $table->boolean('is_owner')->default(false);
             $table->unsignedBigInteger('gallery_id')->nullable();
                 $table->timestamps();
             $table->foreign('gallery_id')

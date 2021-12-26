@@ -46,12 +46,12 @@
 
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
                                     <td>{{$asset->status}}</td>
-                                    @if($asset->order)
-                                    <td>{{$asset->order}}</td>
+
+                                    <td> @if($asset->order)
+                                        {{$asset->order}}
                                     @else
                                         <span>-</span>
-                                    @endif
-
+                                        @endif</td>
 
                                     <td>
 
