@@ -18,9 +18,9 @@ class ContractController extends Controller
      */
     public function index($asset_id)
     {
-        $contracts = Contract::query()->where('asset_id',$asset_id)->orderBy("created_at","desc")->get();
+        $contracts = Contract::query()->where('asset_id', $asset_id)->orderBy("created_at", "desc")->get();
         $asset = Asset::find($asset_id);
-        return view('admin.contract.index',['contracts' => $contracts,'asset_id'=>$asset_id,'asset'=>$asset]);
+        return view('admin.contract.index', compact('contracts', 'asset_id', 'asset'));
     }
 
     /**
@@ -30,32 +30,32 @@ class ContractController extends Controller
      */
     public function create($asset_id)
     {
-        return view('admin.contract.create',compact('asset_id'));
+        return view('admin.contract.create', compact('asset_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(storeContract $request)
     {
         $contract = Contract::query()->create([
-            'hash'=>'nothing',
-            'contract_number'=>$request->contract_number,
-            'asset_id'=>$request->asset_id
+            'hash' => 'nothing',
+            'contract_number' => $request->contract_number,
+            'asset_id' => $request->asset_id
         ]);
 
 
-        return redirect()->route('upload.page',['type'=>Contract::class,'id'=>$contract->id]);
+        return redirect()->route('upload.page', ['type' => Contract::class, 'id' => $contract->id]);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,7 +66,7 @@ class ContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,8 +77,8 @@ class ContractController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -89,7 +89,7 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
@@ -100,21 +100,21 @@ class ContractController extends Controller
     public function uploadFile(Request $request)
     {
         $file = $request->file('file');
-        $fileName = time().'.'.$file->extension();
+        $fileName = time() . '.' . $file->extension();
         $uploadFolder = 'file';
         $file->store($uploadFolder, 'public');
         $media = Media::query()->create([
-            'ipfs_hash'=>'NOTHING',
-            'mime_type'=>$file->getClientMimeType(),
-            'path'=>$file->path(),
-            'mediable_type'=>Contract::class,
-            'mediable_id'=> 500000
+            'ipfs_hash' => 'NOTHING',
+            'mime_type' => $file->getClientMimeType(),
+            'path' => $file->path(),
+            'mediable_type' => Contract::class,
+            'mediable_id' => 500000
 
         ]);
 
         return response()->json([
-            'success'=>$fileName,
-            'media_id'=>$media->id
+            'success' => $fileName,
+            'media_id' => $media->id
         ]);
     }
 }

@@ -25,7 +25,7 @@ Route::prefix('v1')->group(function () {
     Route::get('homepage/material', [\App\Http\Controllers\Api\HomePageController::class, 'gethomePageMaterial'])->name('homepage');
     Route::post('assets/{type}/{asset_id}/media/upload', [\App\Http\Controllers\Api\MediaController::class, 'upload']);
     Route::post('wallets/store', [\App\Http\Controllers\Api\WalletController::class, 'storeWallet']);
-
+    Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
 });
 
 

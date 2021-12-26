@@ -24,7 +24,7 @@ class MediaController extends Controller
         $path = $file->store($uploadFolder, 'public');
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
-        if($mediable_type == Asset::class)
+        if($mediable_type == Asset::class or $mediable_type == Contract::class)
         {
             $response = Http::attach(
                 'attachment', file_get_contents($request->file('file')), $fileName
