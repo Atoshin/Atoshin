@@ -34,4 +34,8 @@ class Gallery extends Model
     {
         return $this->morphMany(VideoLink::class, 'video_linkable');
     }
+    public function gallerymanager()
+    {
+        return $this->hasMany(Gallerying::class,'gallery_id');
+    }
 }
