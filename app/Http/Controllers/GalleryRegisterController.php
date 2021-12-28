@@ -45,11 +45,11 @@ class GalleryRegisterController extends Controller
 
             $manager = Gallerying::query()->create([
                 'gallery_id'=>$gallery->id,
-                'full-name' => $request->full_name,
+                'full_name' => $request->full_name,
                 'title' => $request->title,
                 'email' => $request->rep_email,
                 'telephone' => $request->rep_telephone,
-                'is-owner' => $request->is_owner == 'on' ? true : false
+                'is_owner' => $request->is_owner == 'on' ? true : false
             ]);
 
 

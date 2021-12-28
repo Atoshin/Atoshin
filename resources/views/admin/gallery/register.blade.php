@@ -21,7 +21,7 @@
 
                 <h1 class="text-white my-4"></h1>
 
-                <div class="card" style="border-radius: 15px;">
+                <div class="card " style="">
                     <div class="card-body">
                         <form action="{{route('gallery.register')}}" method="POST" enctype="multipart/form-data">
                             @csrf

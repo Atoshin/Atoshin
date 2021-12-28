@@ -13,17 +13,19 @@
 <section class="vh-100">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-9 mt-4 ">
+            <div class="col-xl-9 mt-4 text-center ">
                 <img src="{{asset('admin/dist/img/Atoshinlogo.png')}}" alt="Atoshin Logo" class="mt-4" width="400"
-                     height="100" style="filter: brightness(0) invert(1);">
+                     height="100" style="filter: brightness(0) invert(1); margin: auto; ">
 
                 <h1 class="text-white my-4"></h1>
 
-                <div class="card" style="border-radius: 15px;">
-                    <div class="card-body">
+                <div class="" style="border-radius: 15px;">
+                    <div class="card-body text-center text-light">
                         <h1>Thank You!</h1>
-                        <p></p>
-
+                        <hr style="display: block; height: 1px;
+    border: 0; border-top: 1px solid #ccc;
+    margin: 1em 0; padding: 0;" >
+                        <a href="#" class="text-light" style="text-decoration: underline">HomePage</a>
 
 
                     </div>
