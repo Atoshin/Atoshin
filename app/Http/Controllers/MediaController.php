@@ -18,8 +18,12 @@ class MediaController extends Controller
 {
     public function uploadFile(Request $request,$mediable_type,$mediable_id)
     {
-
-
+        if($mediable_type == Contract::class)
+        {
+            $validator = Validator::make($request->all(), [
+                'file' => 'required'
+            ]);
+        }
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
         $uploadFolder = 'file';

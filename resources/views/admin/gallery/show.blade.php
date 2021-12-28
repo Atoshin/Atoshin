@@ -49,7 +49,13 @@
                     <div class="row invoice-info">
                         <div class="col-sm-4 invoice-col">
                             <address>
-                                <div class="mb-1"><b>Wallet Address:</b> {{$gallery->wallet->wallet_address}}<br>
+                                <div class="mb-1">
+                                    <b>Wallet Address:</b>
+                                    @if($gallery->wallet)
+                                    {{$gallery->wallet->wallet_address}}<br>
+                                    @else
+                                    -
+                                    @endif
                                 </div>
                             </address>
                         </div>
@@ -198,12 +204,12 @@
                                 @if(count($gallery->medias)>1)
                                     <div class="row">
                                         @foreach($gallery->medias as $media)
-                                            @if($media->main==false)
+                                            @if($media ->main==false)
 
 
 {{--                                                        <div class="col-sm-2">--}}
-{{--                                                            <a  target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}" >--}}
-{{--                                                                <img src="{{asset($media->path)}}" class="img-fluid mb-2" alt="white sample" width="100" height="100"/>--}}
+{{--                                                            <a  target="_blank" href="{{'http://127.0.0.1:8000/'.$media ?? ''->path}}" >--}}
+{{--                                                                <img src="{{asset($media ?? ''->path)}}" class="img-fluid mb-2" alt="white sample" width="100" height="100"/>--}}
 {{--                                                            </a>--}}
 {{--                                                        </div>--}}
                                                         <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}" >
@@ -274,11 +280,11 @@
                         </div>
 
                     </div>
-{{--                    @foreach($gallery->medias as $media)--}}
+{{--                    @foreach($gallery->medias as $media ?? '')--}}
 {{--                    <div class="filter-container p-0 row">--}}
 {{--                        <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">--}}
-{{--                            <a href="{{'http://127.0.0.1:8000/'.$media->path}}" data-toggle="lightbox" data-title="sample 1 - white" >--}}
-{{--                                <img src="{{asset($media->path)}}" class=" mb-2" alt="white sample" width="100" height="100"/>--}}
+{{--                            <a href="{{'http://127.0.0.1:8000/'.$media ?? ''->path}}" data-toggle="lightbox" data-title="sample 1 - white" >--}}
+{{--                                <img src="{{asset($media ?? ''->path)}}" class=" mb-2" alt="white sample" width="100" height="100"/>--}}
 {{--                            </a>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
