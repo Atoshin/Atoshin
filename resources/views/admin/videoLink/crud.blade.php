@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div>
-                                <label for="exampleInputEmail1">Link <span class="text-danger">*</span></label>
+                                <label for="exampleInputEmail1">Link</label>
                                 <textarea type="text" class="form-control" name="link"
                                           placeholder="Link">{{old('link')}}</textarea>
                                 {{--                            <input type="text" class="form-control" name="link" placeholder="Link" value="{{old('link')}}">--}}
