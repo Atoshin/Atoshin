@@ -162,7 +162,7 @@
 
                                                 <img src="{{asset($asset->medias->where('main',true)->first()->path)}}" alt="" width="100"
                                                      height="100">
-                                                {{'http://127.0.0.1:8000/'.$media->path}}
+{{--                                                {{'http://127.0.0.1:8000/'.$media->path}}--}}
                                             <li>
                                                 <b>Title:</b>
                                                 <a href="{{route('assets.show',$asset->id)}}">
