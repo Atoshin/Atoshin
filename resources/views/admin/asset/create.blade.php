@@ -156,7 +156,10 @@
                     <select name="category_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($categories as $category)
-                            <option value="{{$category->id}}" >{{$category->title}}</option>
+                            <option @if(old('category_id')==$category->id)
+                                selected
+                                    @endif
+                                    value="{{$category->id}}" >{{$category->title}}</option>
                         @endforeach
                     </select>
                     @error('category_id')
@@ -169,7 +172,10 @@
                     <select name="creator_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($galleries as $gallery)
-                            <option value="{{$gallery->id}}" >{{$gallery->name}}</option>
+                            <option @if(old('creator_id')==$gallery->id)
+                                    selected
+                                    @endif
+                                    value="{{$gallery->id}}" >{{$gallery->name}}</option>
                         @endforeach
                     </select>
                     @error('creator_id')
@@ -183,7 +189,10 @@
                     <select name="artist_id" class="form-control" id="">
                         <option value="" selected disabled>select</option>
                         @foreach($artists as $artist)
-                            <option value="{{$artist->id}}" >{{$artist->full_name}}</option>
+                            <option @if(old('artist_id')==$artist->id)
+                                    selected
+                                    @endif
+                                value="{{$artist->id}}" >{{$artist->full_name}}</option>
                         @endforeach
                     </select>
                     @error('artist_id')
@@ -211,7 +220,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Date of Creation</label>
-                    <input type="date" class="form-control" name="creation" placeholder="Date of creation" value="{{old('date of creation')}}">
+                    <input type="date" class="form-control" name="creation" placeholder="Date of creation" value="{{old('creation')}}">
                     @error('creation')
                     <small class="text-danger">
                         {{$message}}

@@ -45,6 +45,7 @@
                                 <tr>
 
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
+
                                     <td>{{$asset->status}}</td>
 
                                     <td> @if($asset->order)
