@@ -104,6 +104,7 @@ class AssetController extends Controller
      */
     public function update(updateAsset $request, $id)
     {
+
         $asset=Asset::query()->findOrFail($id);
         $asset->title = $request->title;
         $asset->bio = $request->bio;
