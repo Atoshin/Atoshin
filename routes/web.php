@@ -17,13 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//auth routes
 Route::get('login/page',[\App\Http\Controllers\Auth\LoginController::class,'loginPage'])->name('login.page');
 Route::post('login/process',[\App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+//end
+
+//gallery register
+Route::get('gallery/register/page', [\App\Http\Controllers\GalleryRegisterController::class,'registerPage'])->name('gallery.register.page');
+Route::post('gallery/register', [\App\Http\Controllers\GalleryRegisterController::class,'register'])->name('gallery.register');
+Route::get('gallery/register/success', [\App\Http\Controllers\GalleryRegisterController::class,'successPage'])->name('gallery.register.success');
+//end
 
 //Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');
@@ -35,9 +42,11 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('artists', \App\Http\Controllers\ArtistController::class);
     Route::resource('gallerying', \App\Http\Controllers\GalleryingController::class);
+
     Route::get('gallerying/index/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'indexgallerying'])->name('index.gallerying');
     Route::post('gallerying/store/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'storegallerying'])->name('store.gallerying');
     Route::get('gallerying/create/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'creategallerying'])->name('create.gallerying');
+
 
 
     //region galleries

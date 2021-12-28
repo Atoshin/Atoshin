@@ -14,4 +14,10 @@ class VideoLink extends Model
     {
         return $this->morphTo();
     }
+
+    public function media()
+    {
+        return $this->morphOne(Media::class, 'mediable');
+    }
+
 }

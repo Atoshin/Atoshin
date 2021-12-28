@@ -13,7 +13,8 @@ class galleryService
     {
         try
         {
-            $gallery = Gallery::query()->where('id',$gallery_id)->first();
+
+            $gallery = Gallery::query()->with(['medias','videoLinks'])->where('id',$gallery_id)->first();
             return $gallery;
         }
         catch (\Exception $e)

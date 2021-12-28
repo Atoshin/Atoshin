@@ -29,7 +29,7 @@
                                 <th>Photo</th>
                                 <th>Name</th>
                                 <th>path</th>
-                                <th>homepage</th>
+
                                 <th>show in homepage</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -45,13 +45,7 @@
                                     <td><a target="_blank" href="#">{{substr($media->path,13,50)}}</a></td>
                                     <td>{{$media->path}}</td>
                                     {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
-                                    <td>
-                                        @if($media->homepage_picture)
-                                            Yes
-                                        @else
-                                            No
-                                        @endif
-                                    </td>
+
                                     <td>
                                         <form action="{{route('homepage.media',$media->id)}}" method="post">
                                             @csrf

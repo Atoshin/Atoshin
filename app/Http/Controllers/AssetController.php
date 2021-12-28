@@ -104,6 +104,7 @@ class AssetController extends Controller
      */
     public function update(updateAsset $request, $id)
     {
+
         $asset=Asset::query()->findOrFail($id);
         $asset->title = $request->title;
         $asset->bio = $request->bio;
@@ -125,7 +126,7 @@ class AssetController extends Controller
         $asset->status = $request->status;
         $asset->save();
 
-        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('assets.index');
 
     }
 

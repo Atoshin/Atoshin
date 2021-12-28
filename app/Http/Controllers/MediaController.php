@@ -12,11 +12,13 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MediaController extends Controller
 {
     public function uploadFile(Request $request,$mediable_type,$mediable_id)
     {
+
 
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
@@ -77,6 +79,9 @@ class MediaController extends Controller
 
     public function uploadMainFile(Request $request,$mediable_type,$mediable_id)
     {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
         $uploadFolder = 'file';
@@ -121,6 +126,7 @@ class MediaController extends Controller
 
     public function uploadFileEdit(Request $request,$mediable_type,$mediable_id)
     {
+
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
         $uploadFolder = 'file';
@@ -179,6 +185,9 @@ class MediaController extends Controller
 
     public function uploadMainFileEdit(Request $request,$mediable_type,$mediable_id)
     {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
         $file = $request->file('file');
         $fileName = time().'.'.$file->extension();
         $uploadFolder = 'file';
