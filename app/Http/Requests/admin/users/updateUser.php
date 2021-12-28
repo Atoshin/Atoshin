@@ -15,7 +15,7 @@ class updateUser extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'nullable|unique:users|email',
+            'email'=>'required|email',
             'username'=>'required|min:4',
             'bio'=>'required|max:1000',
             'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/'
