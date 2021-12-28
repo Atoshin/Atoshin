@@ -23,7 +23,7 @@
                 <div>
                     <label for="exampleInputEmail1">Title <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{old('title')}}">
-                    @error('link')
+                    @error('title')
                     <small class="text-danger">
                         {{$message}}
                     </small>

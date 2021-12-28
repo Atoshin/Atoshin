@@ -24,7 +24,7 @@
             @elseif($type == \App\Models\User::class)
                 <label for="contract ">Upload User Avatar  <span class="text-danger">*</span></label>
             @elseif($type == \App\Models\Asset::class)
-                <label for="contract ">Upload Asset Main Picture</label>
+                <label for="contract ">Upload Asset Main Picture <span class="text-danger">*</span></label>
             @endif
 
             <div class="dropzone">
