@@ -16,7 +16,7 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('hash');
+            $table->string('hash')->nullable();
             $table->string('contract_number');
             $table->unsignedBigInteger('asset_id');
 
