@@ -93,8 +93,16 @@
             @if($type == "App\Models\Gallery")
                 {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
-                    <a class="btn btn-primary"
-                       href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
+{{--                    <a class="btn btn-primary"--}}
+{{--                       href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>--}}
+
+
+                    @if(count($video_links->where('is_default',true)->where('video_linkable_id',$id)->where('video_linkable_type',$type))>0)
+                        <a class="btn btn-primary"
+                           href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
+                    @else
+                        <p>Please add a gallery video for home page.</p>
+                    @endif
                 @else
                     @if(count($video_links->where('is_default',true)->where('video_linkable_id',$id)->where('video_linkable_type',$type))>0)
                         <a class="btn btn-primary"
