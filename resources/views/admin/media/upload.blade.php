@@ -40,7 +40,11 @@
 {{--            @endif--}}
 
             @if($type == \App\Models\Contract::class)
-                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+                @php
+                $contract = \App\Models\Contract::query()->find($id);
+                $asset = $contract->asset;
+                @endphp
+                <a class="btn btn-primary" href="{{route('contracts.index', $asset->id)}}">Submit</a>
             @else
                 <a class="btn btn-primary" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
             @endif

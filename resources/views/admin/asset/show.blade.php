@@ -57,12 +57,8 @@
                                     @endif
                                 </div>
                                 <div class="mb-1"><b>creator:</b> <a style="color: white;text-decoration-line: underline"
-                                                                     href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a><br>
-                                </div>
-
-{{--                                <div class="mb-1"><b>Sold Fractions:</b> {{$asset->sold_fractions}}<br></div>--}}
-
-
+                                                                     href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a>
+                                    </div>
                                 {{--                Email: info@almasaeedstudio.com--}}
                             </address>
                         </div>
@@ -86,14 +82,17 @@
                                 <div class="mb-1">
                                     <b> Size:</b>
                                     @if($asset->size)
-                                        {{$asset->size}}<br></div>
+                                        {{$asset->size}}<br>
                                 @else
                                     <span>-</span>
                                 @endif
+                                </div>
+                                <div class="mb-1">
                                 <b>Artist:</b><a style="color: white;text-decoration-line: underline"
                                                  href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a><br>
 
-                                {{--                Email: john.doe@example.com--}}
+
+                                </div>
                             </address>
                         </div>
                         <!-- /.col -->
