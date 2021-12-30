@@ -37,13 +37,13 @@
 
         <div class="card-footer">
             @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
             @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary d-none"  id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
             @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary" href="{{route('users.index')}}">Next</a>
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
             @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
             @endif
         </div>
 
@@ -88,8 +88,14 @@
             },
             success: function(file, response)
             {
-
+                console.log('hi')
+                console.log(response)
+                document.getElementById('submitButton').classList.remove('d-none')
+                // const classes = button.classList;
+                // const dNoneIdx = classes.indexOf('d-none')
+                // classes.splice(dNoneIdx, 1)
                 mediaIds.push(response.media_id)
+
             },
 
         });
