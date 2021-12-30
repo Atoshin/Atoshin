@@ -28,8 +28,10 @@
 
                             <div class="row align-items-center pt-4 pb-3">
                                 <div class="col-md-3 ps-5">
+                                    <div class="row">
+                                        <h6 class="mb-0">Gallery name</h6><span class="text-danger">*</span>
+                                    </div>
 
-                                    <h6 class="mb-0">Gallery name</h6>
 
                                 </div>
                                 <div class="col-md-9 pe-5">
@@ -141,8 +143,10 @@
 
                             <div class="row align-items-center py-3">
                                 <div class="col-md-3 ps-5">
+                                    <div class="row">
+                                        <h6 class="mb-0">Full Name</h6><span class="text-danger">*</span>
+                                    </div>
 
-                                    <h6 class="mb-0">Full Name</h6>
 
                                 </div>
                                 <div class="col-md-9 pe-5">
@@ -160,8 +164,11 @@
 
                             <div class="row align-items-center py-3">
                                 <div class="col-md-3 ps-5">
+                                    <div class="row">
+                                        <h6 class="mb-0">Title</h6>
+                                        <span class="text-danger">*</span>
+                                    </div>
 
-                                    <h6 class="mb-0">Title</h6>
 
                                 </div>
                                 <div class="col-md-9 pe-5">
@@ -179,8 +186,11 @@
 
                             <div class="row align-items-center py-3">
                                 <div class="col-md-3 ps-5">
+                                    <div class="row">
+                                        <h6 class="mb-0">Telephone</h6>
+                                        <span class="text-danger">*</span>
+                                    </div>
 
-                                    <h6 class="mb-0">Telephone</h6>
 
                                 </div>
                                 <div class="col-md-9 pe-5">

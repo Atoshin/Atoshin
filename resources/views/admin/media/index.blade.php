@@ -39,10 +39,15 @@
                             @foreach($medias as $media)
                                 <tr>
                                     <td>
-                                        <img src="{{asset($media->path)}}" class="avatar" alt="" width="100"
-                                             height="100"/>
+                                        <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}">
+
+                                            <img src="{{asset($media->path)}}" class="avatar" alt="" width="100"
+                                                 height="100"/>
+
+                                        </a>
+
                                     </td>
-                                    <td><a target="_blank" href="#">{{substr($media->path,13,50)}}</a></td>
+                                    <td><a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}">{{substr($media->path,13,50)}}</a></td>
                                     <td>{{$media->path}}</td>
                                     {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
 

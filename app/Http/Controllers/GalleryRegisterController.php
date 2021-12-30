@@ -66,7 +66,7 @@ class GalleryRegisterController extends Controller
                     'path'=> 'storage/' . $path,
                     'mediable_type'=>Gallery::class,
                     'mediable_id'=> $gallery->id,
-                    'main'=>true
+                    'main'=>false
 
                 ]);
             }

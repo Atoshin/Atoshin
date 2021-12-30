@@ -20,8 +20,8 @@ class MediaController extends Controller
     {
         if($mediable_type == Contract::class)
         {
-            $validator = Validator::make($request->all(), [
-                'file' => 'required'
+            $request->validate([
+                'file'=>'required'
             ]);
         }
         $file = $request->file('file');
