@@ -49,7 +49,7 @@
                 </div>
                 <div style="margin-top: 15px">
                     <input type="checkbox" name="is_owner" id="is_default">
-                    <label for="exampleInputEmail1">is-owner</label>
+                    <label for="exampleInputEmail1">This entity owns the gallery</label>
                 </div>
 
                 {{--                <div class="form-check">--}}
