@@ -38,8 +38,6 @@ class GalleryRegisterController extends Controller
             $location = Location::query()->create([
                 'gallery_id' => $gallery->id,
                 'address' => $request->address,
-                'lat'=> 12.1235,
-                'long'=>13.12154,
                 'telephone' => $request->telephone,
             ]);
 

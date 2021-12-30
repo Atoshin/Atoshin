@@ -15,11 +15,11 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->double('lat');
-            $table->double('long');
-            $table->string('address');
-            $table->string('telephone');
-            $table->unsignedBigInteger('gallery_id');
+            $table->double('lat')->nullable();
+            $table->double('long')->nullable();
+            $table->string('address')->nullable();
+            $table->string('telephone')->nullable();
+            $table->unsignedBigInteger('gallery_id')->nullable();
             $table->timestamps();
 
             $table->foreign('gallery_id')
