@@ -10,10 +10,14 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
+                @if($gallery->medias->where('mediable_type',\App\Models\Gallery::class)->where('mediable_id',$gallery->id)->where('main',true)->first())
                 <div class="col-1">
+
                     <img src="{{asset($gallery->medias->where('mediable_type',\App\Models\Gallery::class)->where('mediable_id',$gallery->id)->where('main',true)->first()->path)}}" class="avatar" alt="" width="100"
                          height="100"/>
+
                 </div>
+                @endif
                 {{--            <div class="row mb-2" >--}}
                 <div class="col-sm-6">
                     <h1>{{$gallery->name}}</h1>
@@ -201,7 +205,7 @@
                                 <b>Pictures</b>
                             </div>
                             <div>
-                                @if(count($gallery->medias)>1)
+                                @if(count($gallery->medias)>=1)
                                     <div class="row">
                                         @foreach($gallery->medias as $media)
                                             @if($media ->main==false)
