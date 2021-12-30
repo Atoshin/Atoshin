@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
     Route::post('assets/{type}/{asset_id}/media/upload', [\App\Http\Controllers\Api\MediaController::class, 'upload']);
     Route::post('wallets/store', [\App\Http\Controllers\Api\WalletController::class, 'storeWallet']);
     Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
+    Route::get('asset/{id}/show', [\App\Http\Controllers\Api\ShowAssetController::class, 'show']);
 });
 
 
@@ -33,3 +34,4 @@ Route::fallback(function () {
     return response()->json([
         'message' => 'Resource Not Found.'], 404);
 });
+
