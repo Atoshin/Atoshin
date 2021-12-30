@@ -318,7 +318,10 @@
                                 }, 400);
                                 const mainMarker = L.marker([{{$gallery->location ? $gallery->location->lat : 35.6892}}, {{$gallery->location ? $gallery->location->long : 51.3890}}], {draggable: false}).addTo(map);
                             })
+
                         </script>
+                </div>
+
 {{--                        <script>--}}
 {{--                            $(function () {--}}
 {{--                                $(document).on('click', '[data-toggle="lightbox"]', function(event) {--}}

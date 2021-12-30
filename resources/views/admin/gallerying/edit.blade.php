@@ -52,7 +52,7 @@
                            @if($gallerying->is_owner==true) checked
                            @endif
                            name="is_owner" id="is_default">
-                    <label for="exampleInputEmail1">is-owner</label>
+                    <label for="exampleInputEmail1">This entity owns the gallery</label>
                 </div>
                 {{--                <div class="form-group">--}}
                 {{--                    <label for="exampleInputPassword1">Password</label>--}}
