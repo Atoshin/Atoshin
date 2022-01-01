@@ -53,6 +53,9 @@ class ArtistController extends Controller
                 'facebook' => $request->facebook,
                 'linkedin' => $request->linkedin,
                 'order' => $request->order,
+                'world_ranking' => $request->world_ranking,
+                'iran_ranking' => $request->iran_ranking,
+                'ranking_link' => $request->ranking_link,
                 'homepage' => true,
 
             ]);
@@ -69,6 +72,9 @@ class ArtistController extends Controller
                 'facebook' => $request->facebook,
                 'linkedin' => $request->linkedin,
                 'order' => $request->order,
+                'world_ranking' => $request->world_ranking,
+                'iran_ranking' => $request->iran_ranking,
+                'ranking_link' => $request->ranking_link,
                 'homepage' => false
             ]);
         }
@@ -124,6 +130,9 @@ class ArtistController extends Controller
             $artist->facebook = $request->facebook;
             $artist->linkedin = $request->linkedin;
             $artist->order = $request->order;
+            $artist->world_ranking = $request->world_ranking;
+              $artist-> iran_ranking= $request->iran_ranking;
+               $artist-> ranking_link=$request->ranking_link;
             if ($request->homepage == 'on') {
                 $artist->homepage = true;
             } else {

@@ -153,6 +153,36 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="exampleInputPassword1">World Ranking</label>
+                    <input type="text" class="form-control" name="world_ranking" placeholder="World Ranking" value="{{old('world_ranking')}}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Iran Ranking</label>
+                    <input type="text" class="form-control" name="iran_ranking" placeholder="Iran Ranking" value="{{old('iran_ranking')}}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Ranking Link</label>
+                    <input type="text" class="form-control" name="ranking_link" placeholder="Ranking Link" value="{{old('ranking_link')}}">
+                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label for="exampleInputPassword1">Linkedin</label>--}}
+{{--                    <input type="text" class="form-control" name="linkedin" placeholder="Linkedin" value="{{old('linkedin')}}">--}}
+{{--                    @error('linkedin')--}}
+{{--                    <small class="text-danger">--}}
+{{--                        {{$message}}--}}
+{{--                    </small>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
+{{--                <div class="form-group">--}}
+{{--                    <label for="exampleInputPassword1">Linkedin</label>--}}
+{{--                    <input type="text" class="form-control" name="linkedin" placeholder="Linkedin" value="{{old('linkedin')}}">--}}
+{{--                    @error('linkedin')--}}
+{{--                    <small class="text-danger">--}}
+{{--                        {{$message}}--}}
+{{--                    </small>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
+                <div class="form-group">
 
                     <label for="exampleInputEmail1">Order(0-9)</label>
                     <input type="text" class="form-control" name="order" placeholder="Order" value="{{old('order')}}">

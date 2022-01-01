@@ -24,6 +24,7 @@ class storeArtist extends FormRequest
             'instagram'=>'url|nullable',
             'linkedin'=>'url|nullable',
             'youtube'=>'url|nullable',
+            'ranking_link'=>'url|nullable',
             'order'=>'regex:/^([0-9]{1})$/|unique:artists|nullable'
         ];
     }

@@ -26,6 +26,9 @@ class CreateArtistsTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('linkedin')->nullable();
             $table->integer('order')->nullable();
+            $table->string('world_ranking')->nullable();
+            $table->string('iran_ranking')->nullable();
+            $table->string('ranking_link')->nullable();
             $table->boolean('homepage')->default(false);
             $table->timestamps();
         });
