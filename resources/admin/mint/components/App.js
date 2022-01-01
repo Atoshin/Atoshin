@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ethers} from "ethers";
 import axios from 'axios';
 import {create as IPFSHttpClient} from 'ipfs-http-client';
@@ -8,56 +8,79 @@ import Market from '../../../artifacts/contracts/Market.sol/NFTMarket.json';
 const client = IPFSHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 export default function App() {
+    const [contractData, setContractData] = useState({
+        asset: {},
+        contracts: []
+    })
+
+
+    useEffect(() => {
+        const getContractData = async () => {
+            const assetId = document.getElementById('mint-button').getAttribute("data-assetId")
+            const response = await axios.get(`/api/v1/asset/${assetId}/contracts`)
+            setContractData(response.data)
+        }
+        getContractData()
+    }, [])
 
     const mint = async (e) => {
-        const assetId = document.getElementById('mint-button').getAttribute("data-assetId")
-        const response = await axios.get(`/api/v1/asset/${assetId}/contracts`)
-        const contracts = response.data.contracts
-        const asset = response.data.asset
-        const addresses = response.data.addresses
+        e.preventDefault();
+        const contracts = contractData.contracts
+        const asset = contractData.asset
+        const addresses = contractData.data.addresses
         const urls = []
-        for (let i = 0; i < contracts.length; i++) {
-            const data = JSON.stringify({
-                name: asset.title,
-                description: asset.bio.replace(/<\/?[^>]+(>|$)/g, ""),
-                image: `https://ipfs.infura.io/ipfs/${contracts[i].media.hash}`,
-                assetImage: `https://ipfs.infura.io/ipfs/${asset.medias[0].ipfs_hash}`
-            })
-            try {
-                const added = await client.add(data)
-                urls.push(`https://ipfs.infura.io/ipfs/${added.path}`)
-            } catch (e) {
-                console.error(e)
+        try {
+            for (let i = 0; i < contracts.length; i++) {
+                if (contracts[i].hash || contracts[i].hash !== 'nothing') {
+                    urls.push(`https://ipfs.infura.io/ipfs/${contracts[i].hash}`)
+                } else {
+                    const data = JSON.stringify({
+                        name: asset.title,
+                        description: asset.bio.replace(/<\/?[^>]+(>|$)/g, ""),
+                        image: `https://ipfs.infura.io/ipfs/${contracts[i].media.ipfs_hash}`,
+                        assetImage: `https://ipfs.infura.io/ipfs/${asset.medias[0].ipfs_hash}`
+                    })
+                    const added = await client.add(data)
+                    urls.push(`https://ipfs.infura.io/ipfs/${added.path}`)
+                    await axios.post(`/api/v1/contract/${contracts[i].id}/ipfs-hash`, {
+                        'ipfs-hash': added.path
+                    })
+                }
             }
+            createSale(urls, addresses, asset)
+        } catch (e) {
+            console.error(e)
         }
-        createSale(urls, addresses, asset)
     }
 
     const createSale = async (urls, addresses, asset) => {
         if (window.ethereum) {
-            const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-            await provider.send("eth_requestAccounts", []);
-            const signer = provider.getSigner();
-            const address = await signer.getAddress();
+            if (urls.length) {
+                const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+                await provider.send("eth_requestAccounts", []);
+                const signer = provider.getSigner();
 
+                let contract = new ethers.Contract(addresses.NFT, NFT.abi, signer)
+                let transaction = await contract.createTokens(urls)
+                let tx = await transaction.wait()
+                let event = tx.events[0]
+                let value = await event.args[2]
 
-            let contract = new ethers.Contract(addresses.NFT, NFT.abi, signer)
-            let transaction = await contract.createTokens(urls)
-            let tx = await transaction.wait()
-            let event = tx.events[0]
-            let value = event.args[2]
-            let tokenId = value.toNumber()
-
-            contract = new ethers.Contract(addresses.Market, Market.abi, signer)
-
-            const price = ethers.utils.parseUnits(formInput.price, 'ether')
-
+                await axios.post(`/asset/${asset.id}/mint-record`, {
+                    'mint-records': {
+                        previousTokenId: value,
+                        mintedContractsLength: urls.length,
+                        signerWalletAddress: signer.getAddress()
+                    }
+                })
+            }
         } else {
             window.open('https://metamask.io/download', '_blank')
         }
     }
 
-    return <button onClick={mint} className="btn btn-success mr-2 float-right">
+    return <button disabled={contractData.asset.total_fractions !== contractData.contracts.length} onClick={mint}
+                   className="btn btn-success mr-2 float-right">
         <i className="fa fa-link mr-2 "/>
         Mint contracts
     </button>

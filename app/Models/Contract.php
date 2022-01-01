@@ -20,4 +20,9 @@ class Contract extends Model
     {
         return $this->morphOne(Media::class, 'mediable');
     }
+
+    public function minted()
+    {
+        return $this->hasOne(Minted::class);
+    }
 }

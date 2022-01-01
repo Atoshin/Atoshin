@@ -112,9 +112,9 @@ contract NFTMarket is ReentrancyGuard {
     /* Creates the sale of a marketplace item */
     /* Transfers ownership of the item, as well as funds between parties */
     function createMarketSale(address nftContract, uint256 itemId)
-    public
-    payable
-    nonReentrant
+        public
+        payable
+        nonReentrant
     {
         uint256 price = idToMarketItem[itemId].price;
         uint256 tokenId = idToMarketItem[itemId].tokenId;

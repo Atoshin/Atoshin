@@ -24,7 +24,7 @@ class MediaController extends Controller
         $path = $file->store($uploadFolder, 'public');
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
-        if ($mediable_type == Asset::class) {
+        if ($mediable_type == Asset::class or $mediable_type == Contract::class) {
             $response = Http::attach(
                 'attachment', file_get_contents($request->file('file')), $fileName
             )->post('https://ipfs.infura.io:5001/api/v0/add');
@@ -35,20 +35,6 @@ class MediaController extends Controller
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id
 
-            ]);
-        } elseif ($mediable_type == Contract::class) {
-            $response = Http::attach(
-                'attachment', file_get_contents($request->file('file')), $fileName
-            )->post('https://ipfs.infura.io:5001/api/v0/add');
-            $contract = Contract::query()->find($mediable_id);
-            $contract->hash = $response->json()['Hash'];
-            $contract->save();
-            Media::query()->create([
-                'ipfs_hash' => $response->json()['Hash'],
-                'mime_type' => $file->getClientMimeType(),
-                'path' => 'storage/' . $path,
-                'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id
             ]);
         } else {
 

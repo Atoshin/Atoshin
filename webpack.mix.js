@@ -20,5 +20,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/admin/leaflet', 'public/admin/leaflet')
     .copy('resources/LoginTemplate', 'public/loginTemplate')
     .css('resources/admin/dist/css/adminlte.min.css', 'public/admin/dist/css')
-    .js("resources/admin/mint/app.js", "public/admin/mint").react();
+    .js("resources/admin/mint/app.js", "public/admin/mint").react()
+    .js("resources/admin/mint/single/app.js", "public/admin/mint/single").react();
 

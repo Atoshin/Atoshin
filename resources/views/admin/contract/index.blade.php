@@ -37,7 +37,9 @@
                                 <th>Hash</th>
                                 <th>Asset</th>
                                 <th>created at</th>
-
+                                <th>Minted At</th>
+                                <th>Signer Wallet Address</th>
+                                {{--                                <th>Single Mint</th>--}}
                             </tr>
                             </thead>
                             <tbody>
@@ -56,6 +58,17 @@
                                     <td>
                                         {{$contract->created_at}}
                                     </td>
+                                    <td>
+                                        {{$contract->minted ? $contract->minted->created_at : ''}}
+                                    </td>
+                                    <td>
+                                        {{$contract->minted ? $contract->minted->wallet->wallet_address : ''}}
+                                    </td>
+                                    {{--                                    <td>--}}
+                                    {{--                                        @if(!$contract->minted)--}}
+                                    {{--                                            <div data-contractId="{{$contract->id}}" id="single-mint"></div>--}}
+                                    {{--                                        @endif--}}
+                                    {{--                                    </td>--}}
                                     {{--                                        <td>--}}
                                     {{--                                            --}}{{--<a href="#" class="text-muted">--}}
                                     {{--                                            --}}{{--<i class="fas fa-search"></i>--}}
@@ -108,6 +121,7 @@
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
     <script src="{{asset('admin/mint/app.js')}}"></script>
+    <script src="{{asset('admin/mint/single/app.js')}}"></script>
     <script>
         $(function () {
             $("#example1").DataTable({

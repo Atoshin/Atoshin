@@ -1,9 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
+    "/admin/mint/app.js": "/admin/mint/app.js",
+    "/admin/mint/single/app.js": "/admin/mint/single/app.js",
     "/admin/dist/css/adminlte.min.css": "/admin/dist/css/adminlte.min.css",
     "/css/app.css": "/css/app.css",
     "/admin/dist/img/AdminLTELogo.png": "/admin/dist/img/AdminLTELogo.png",
     "/admin/dist/img/Atoshinlogo.png": "/admin/dist/img/Atoshinlogo.png",
+    "/admin/dist/img/Atoshinlogo.svg": "/admin/dist/img/Atoshinlogo.svg",
     "/admin/dist/img/avatar.png": "/admin/dist/img/avatar.png",
     "/admin/dist/img/avatar2.png": "/admin/dist/img/avatar2.png",
     "/admin/dist/img/avatar3.png": "/admin/dist/img/avatar3.png",

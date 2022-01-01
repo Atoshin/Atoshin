@@ -1,27 +1,19 @@
 const hre = require("hardhat");
 const fs = require('fs');
-const path = require("path")
 
 async function main() {
-    let nftMarketAddress;
-    try {
-        const data = fs.readFileSync(path.resolve(__dirname, "../.env"), 'utf8')
-        nftMarketAddress = data.slice(23, 65)
-    } catch (err) {
-        console.error(err)
-    }
-    // const NFTMarket = await hre.ethers.getContractFactory("NFTMarket");
-    // const nftMarket = await NFTMarket.deploy();
-    // await nftMarket.deployed();
-    // console.log("nftMarket deployed to:", nftMarket.address);
+    const NFTMarket = await hre.ethers.getContractFactory("NFTMarket");
+    const nftMarket = await NFTMarket.deploy();
+    await nftMarket.deployed();
+    console.log("nftMarket deployed to:", nftMarket.address);
 
     const NFT = await hre.ethers.getContractFactory("NFT");
-    const nft = await NFT.deploy(nftMarketAddress);
+    const nft = await NFT.deploy(nftMarket.address);
     await nft.deployed();
     console.log("nft deployed to:", nft.address);
 
     let config = `
-  export const nftMarketAddress = "${nftMarketAddress}"
+  export const nftMarketAddress = "${nftMarket.address}"
   export const nftAddress = "${nft.address}"
   `
 

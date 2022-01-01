@@ -28,6 +28,7 @@ contract NFT is ERC721URIStorage {
 
 
     function createTokens(string[] memory tokenURIs) public returns (uint) {
+        uint prevId = _tokenIds.current();
         for (uint256 i = 0; i < tokenURIs.length; i++) {
             _tokenIds.increment();
             uint256 newItemId = _tokenIds.current();
@@ -37,6 +38,6 @@ contract NFT is ERC721URIStorage {
             setApprovalForAll(contractAddress, true);
         }
 
-        return _tokenIds.current();
+        return prevId;
     }
 }
