@@ -163,10 +163,10 @@
                     @enderror
                 </div>
 
-                    <div style="margin-top: 15px">
-                        <input type="checkbox" name="homepage" id="is_default">
-                        <label for="exampleInputEmail1">Show this artist in Home page</label>
-                    </div>
+{{--                    <div style="margin-top: 15px">--}}
+{{--                        <input type="checkbox" name="homepage" id="is_default">--}}
+{{--                        <label for="exampleInputEmail1">Show this artist in Home page</label>--}}
+{{--                    </div>--}}
 
 
             </div>

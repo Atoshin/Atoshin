@@ -31,6 +31,10 @@
                                 <th>
                                     Status
                                 </th>
+                                <th>Artist</th>
+                                <th>
+                                    Gallery
+                                </th>
                                 <th>Order</th>
                                 {{--                                <th>sold_fractions</th>--}}
                                 {{--                                <th>start_date</th>--}}
@@ -47,8 +51,14 @@
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
 
                                     <td>{{$asset->status}}</td>
+                                    <td><a style="color: white;text-decoration-line: underline"
+                                           href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a></td>
+                                    <td>
+                                        <a style="color: white;text-decoration-line: underline"
+                                           href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a>
+                                    </td>
 
-                                    <td> @if($asset->order)
+                                    <td> @if($asset->order!==null)
                                         {{$asset->order}}
                                     @else
                                         <span>-</span>

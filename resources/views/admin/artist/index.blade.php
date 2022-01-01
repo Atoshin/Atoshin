@@ -28,6 +28,7 @@
                             <thead>
                             <tr>
                                 <th> Full Name</th>
+                                <th> Order</th>
                                 <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
@@ -39,6 +40,14 @@
 
 
                                     <td><a href="{{route('artists.show',$artist->id)}}">{{$artist->full_name}}</a></td>
+                                    <td>
+                                        @if($artist->order!==null)
+                                            {{$artist->order}}
+                                        @else
+                                            <span>-</span>
+                                        @endif</td>
+
+
 
                                     {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 
