@@ -27,6 +27,9 @@ Route::prefix('v1')->group(function () {
     Route::post('wallets/store', [\App\Http\Controllers\Api\WalletController::class, 'storeWallet']);
     Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
     Route::get('asset/{id}/show', [\App\Http\Controllers\Api\ShowAssetController::class, 'show']);
+    Route::get('user/{id}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
+    Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
+    Route::get('gallery/{id}/show', [\App\Http\Controllers\Api\ShowGalleryController::class, 'show']);
 });
 
 
