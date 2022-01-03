@@ -2,20 +2,20 @@
 @section('styles')
     <style>
         .avatar {
-            border-radius: 50%;
-            margin: 0.5em;
+            /*border-radius: 50%;*/
+            /*margin: 0.5em;*/
         }
     </style>
 @endsection
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row mb-2" style="display: block">
                 <div class="col-1">
-                    <img src="{{asset($asset->medias->where('mediable_type',\App\Models\Asset::class)->where('mediable_id',$asset->id)->where('main',true)->first()->path)}}" class="avatar" alt="" width="100"
-                         height="100"/>
+                    <img src="{{asset($asset->medias->where('mediable_type',\App\Models\Asset::class)->where('mediable_id',$asset->id)->where('main',true)->first()->path)}}" class="avatar" alt="" width="350"
+                         height="350"/>
                 </div>
-                <div class="col-sm-6 py-4">
+                <div class="col-sm-6">
                     <h1>{{$asset->title}}</h1>
                 </div>
             </div>
