@@ -32,7 +32,7 @@ class CreateAssetsTable extends Migration
             $table->unsignedBigInteger('artist_id');
             $table->string('material')->nullable();
             $table->string('size')->nullable();
-            $table->date('creation')->nullable();
+            $table->integer('creation')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')

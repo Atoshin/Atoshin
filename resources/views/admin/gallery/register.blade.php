@@ -30,7 +30,7 @@
                             <div class="row align-items-center pt-4 pb-3">
                                 <div class="col-md-3 ps-5">
                                     <div class="row">
-                                        <h6 class="mb-0">Gallery name</h6><span class="text-danger">*</span>
+                                        <h6 class="mb-0">Gallery name <span class="text-danger">*</span></h6>
                                     </div>
 
 
@@ -50,7 +50,7 @@
                             <div class="row align-items-center py-3">
                                 <div class="col-md-3 ps-5">
 
-                                    <h6 class="mb-0">Gallery Description</h6>
+                                    <h6 class="mb-0">Gallery Description<span class="text-danger">*</span></h6>
 
                                 </div>
                                 <div class="col-md-9 pe-5">
@@ -88,7 +88,8 @@
                             <div class="row align-items-center py-3">
                                 <div class="col-md-3 ps-5">
 
-                                    <h6 class="mb-0">Gallery Address</h6>
+                                    <h6 class="mb-0">Gallery Address <span class="text-danger">*</span> </h6>
+
 
                                 </div>
                                 <div class="col-md-9 pe-5">
@@ -107,7 +108,7 @@
                             <div class="row align-items-center py-3">
                                 <div class="col-md-3 ps-5">
 
-                                    <h6 class="mb-0">Telephone</h6>
+                                    <h6 class="mb-0">Telephone <span class="text-danger">*</span></h6>
 
                                 </div>
                                 <div class="col-md-9 pe-5">

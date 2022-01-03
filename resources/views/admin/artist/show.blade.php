@@ -73,6 +73,13 @@
                                 @else
                                     <span>-</span>
                                 @endif
+                                <div class="mb-1">
+                                    <b> World Ranking:</b>
+                                    @if($artist->world_ranking)
+                                        {{$artist->world_ranking}}<br></div>
+                                @else
+                                    <span>-</span>
+                                @endif
                                 {{--                                <div class="mb-1"><b>Youtube:</b>--}}
                                 {{--                                    @if($artist->youtube)--}}
 
@@ -103,6 +110,13 @@
                                         <a
                                             href="{{$artist->linkedin}}">{{substr($artist->linkedin,0,25) . '...'}}</a>
                                 </div>
+                                @else
+                                    <span>-</span>
+                                @endif
+                                <div class="mb-1">
+                                    <b> Iran Ranking:</b>
+                                    @if($artist->iran_ranking)
+                                        {{$artist->iran_ranking}}<br></div>
                                 @else
                                     <span>-</span>
                                 @endif
@@ -151,6 +165,16 @@
                                 @else
                                     <span>-</span>
                                 @endif
+                                <div class="mb-1"><b> Ranking Link :</b>
+
+                                    @if($artist->ranking_link)
+                                        <a href="{{$artist->ranking_link}}">{{substr($artist->ranking_link,0,25) . '...'}}</a>
+                                </div>
+
+                                @else
+                                    <span>-</span>
+                                @endif
+
                             </address>
                         </div>
                     </div>
