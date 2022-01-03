@@ -21,10 +21,12 @@ class GalleryRegisterController extends Controller
     {
         $validator = $request->validate([
             'name'=>'required',
-            'bio'=>'nullable|max:3000',
+            'bio'=>'required|max:3000',
             'title'=>'required',
             'full_name'=>'required',
-            'rep_telephone'=>'required'
+            'rep_telephone'=>'required',
+            'telephone'=>'required',
+            'address'=>'required',
         ]);
 
         DB::transaction(function () use ($request, &$gallery){
