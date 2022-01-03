@@ -17,7 +17,7 @@ class updateAdmin extends FormRequest
         return [
             'email'=>'required|email',
             'username'=>'required|min:4',
-            'password'=>'required'
+
         ];
     }
 
