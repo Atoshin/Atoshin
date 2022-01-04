@@ -46,7 +46,7 @@
                 @endphp
                 <a class="btn btn-primary" href="{{route('contracts.index', $asset->id)}}">Submit</a>
             @else
-                <a class="btn btn-primary" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary" id="submitButton" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
             @endif
         </div>
 
@@ -62,6 +62,7 @@
 
     <script>
         const mediaIds = []
+        let counter = 0;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile',['mediable_type' => $type, 'mediable_id' => $id])}}",
@@ -81,12 +82,22 @@
             },
             init: function () {
 
-
             },
             success: function(file, response)
             {
-
                 mediaIds.push(response.media_id)
+                counter++;
+
+                var submitButton = document.querySelector("#submitButton");
+                myDropzone = this;
+                submitButton.addEventListener("click", function (e) {
+                    if (counter < 4) {
+                        e.preventDefault();
+                        alert("Not enough files!");
+                    }
+
+                });
+
             },
 
         });

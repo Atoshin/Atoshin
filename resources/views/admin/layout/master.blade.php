@@ -29,18 +29,7 @@
 
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if(Session::has('message'))
-        <script type="text/javascript">
-            Swal.fire({
-                target: 'body',
-                icon: '{{Session::has('icon') ? Session::get('icon') : 'success'}}',
-                title: '{{Session::get('message')}}',
-                showConfirmButton: false,
-                timer: 3000,
-            })
-        </script>
 
-    @endif
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -82,6 +71,19 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('admin/dist/js/pages/dashboard2.js')}}"></script>
 <script src="{{asset('admin/leaflet/leaflet.js')}}"></script>
+
+@if(\Illuminate\Support\Facades\Session::has('message'))
+    <script type="text/javascript">
+        Swal.fire({
+            target: 'body',
+            icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+            title: '{{\Illuminate\Support\Facades\Session::get('message')}}',
+            showConfirmButton: false,
+            timer: 100000,
+        })
+    </script>
+
+@endif
 
 @yield('scripts')
 
