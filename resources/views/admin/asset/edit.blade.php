@@ -76,8 +76,8 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Price per fraction (Ethereum) <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="price" placeholder="Price" value="{{$asset->price}}" >
+                    <label for="exampleInputPassword1">Total Price(Dollar) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="price" placeholder="Total Price(Dollar)" value="{{$asset->price}}" >
                     @error('price')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
