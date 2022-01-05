@@ -7,6 +7,9 @@ use App\Models\Artist;
 use App\Models\Asset;
 use App\Models\Contract;
 use App\Models\Media;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -14,19 +17,25 @@ class ContractController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
     public function index($asset_id)
     {
+        $NFTpath = resource_path() . "/artifacts/contracts/NFT.sol/NFT.json";
+        $NFTjson = json_decode(file_get_contents($NFTpath), true);
+        $NFTabi = $NFTjson['abi'];
+        $MarketPath = resource_path() . "/artifacts/contracts/Market.sol/NFTMarket.json";
+        $MarketJson = json_decode(file_get_contents($MarketPath), true);
+        $MarketAbi = $MarketJson['abi'];
         $contracts = Contract::query()->where('asset_id', $asset_id)->orderBy("created_at", "desc")->get();
         $asset = Asset::find($asset_id);
-        return view('admin.contract.index', compact('contracts', 'asset_id', 'asset'));
+        return view('admin.contract.index', compact('contracts', 'asset_id', 'asset', 'NFTabi', 'MarketAbi'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create($asset_id)
     {
@@ -42,7 +51,7 @@ class ContractController extends Controller
     public function store(storeContract $request)
     {
         $contract = Contract::query()->create([
-            'hash' => 'nothing',
+            'hash' => null,
             'contract_number' => $request->contract_number,
             'asset_id' => $request->asset_id
         ]);

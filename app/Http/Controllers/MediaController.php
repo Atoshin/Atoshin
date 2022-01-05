@@ -41,8 +41,6 @@ class MediaController extends Controller
                 'mediable_id' => $mediable_id
 
             ]);
-
-
         } else {
 
             $media = Media::query()->create([

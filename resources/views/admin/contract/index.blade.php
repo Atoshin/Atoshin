@@ -19,9 +19,7 @@
                         <a href="{{route('contracts.create',$asset_id)}}" type="button"
                            class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add contract</a>
-                        <button onclick="connectWallet(event)" class="btn btn-success mr-2 float-right"><i
-                                class="fa fa-link mr-2 "></i>Mint asset contracts
-                        </button>
+                        <div id="mint-button" data-assetId="{{$asset_id}}"></div>
                         <h3 class="card-title">Contract</h3>
 
                     </div>
@@ -39,7 +37,9 @@
                                 <th>Hash</th>
                                 <th>Asset</th>
                                 <th>created at</th>
-
+                                <th>Minted At</th>
+                                <th>Signer Wallet Address</th>
+                                <th>Operations</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -57,6 +57,17 @@
                                     </td>
                                     <td>
                                         {{$contract->created_at}}
+                                    </td>
+                                    <td>
+                                        {{$contract->minted ? $contract->minted->created_at : ''}}
+                                    </td>
+                                    <td>
+                                        {{$contract->minted ? $contract->minted->wallet->wallet_address : ''}}
+                                    </td>
+                                    <td>
+                                        @if(!$contract->minted)
+                                            <div data-contractId="{{$contract->id}}" id="single-mint"></div>
+                                        @endif
                                     </td>
                                     {{--                                        <td>--}}
                                     {{--                                            --}}{{--<a href="#" class="text-muted">--}}
@@ -109,13 +120,8 @@
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript"></script>
-
-    <script>
-        async function connectWallet(e) {
-            window.location.replace('http://localhost:3000/minting/0x5FC8d32690cc91D4c39d9d3abcBD16989F875707/{{$asset_id}}')
-        }
-    </script>
+    <script src="{{asset('admin/mint/app.js')}}"></script>
+    <script src="{{asset('admin/mint/single/app.js')}}"></script>
     <script>
         $(function () {
             $("#example1").DataTable({

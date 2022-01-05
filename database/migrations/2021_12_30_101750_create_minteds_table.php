@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContractsTable extends Migration
+class CreateMintedsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateContractsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contracts', function (Blueprint $table) {
+        Schema::create('minteds', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('contract_id');
+            $table->unsignedBigInteger('token_id');
             $table->timestamps();
-            $table->string('hash')->nullable();
-            $table->string('contract_number');
-            $table->unsignedBigInteger('asset_id');
 
-            $table->foreign('asset_id')
+            $table->foreign('contract_id')
                 ->references('id')
-                ->on('assets')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->on('contracts')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -35,6 +34,6 @@ class CreateContractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('minteds');
     }
 }
