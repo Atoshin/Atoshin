@@ -8,31 +8,62 @@ use App\Models\Contract;
 use App\Models\Minted;
 use App\Models\Wallet;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getContract($id)
+    {
+        try {
+            $contract = Contract::query()->where('id', $id)->with('media')->first();
+            $asset = $contract->asset->load('medias');
+            if ($contract->minted) {
+                return response()->json([
+                    'message' => 'contract already minted'
+                ], 400);
+            } else {
+                return response()->json([
+                    'asset' => $asset,
+                    'contract' => $contract,
+                    'addresses' => [
+                        'NFT' => env('NFT_CONTRACT_ADDRESS'),
+                        'Market' => env('MARKET_CONTRACT_ADDRESS')
+                    ]
+                ]);
+            }
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => $exception
+            ], 500);
+        }
+    }
+
+    /**
+     * @param Asset $asset
+     * @return JsonResponse
+     */
     public function getContracts(Asset $asset)
     {
         $contracts = Contract::query()->where('asset_id', $asset->id)->with('media')->get();
         $asset = Asset::query()->where('id', $asset->id)->with('medias')->first();
-        $errs = [];
+        $notMinted = [];
         foreach ($contracts as $contract) {
-            if (!$contract->hash) {
-                array_push($errs, "contract number: $contract->contract_number has no hash. please check before minting!");
+            if (!$contract->minted) {
+                array_push($notMinted, $contract);
             }
         }
 
-        if (count($errs) > 0) {
-            return response()->json([
-                'data' => $errs
-            ], 400);
-        }
 
         return response()->json([
             'asset' => $asset,
-            'contracts' => $contracts,
+            'contracts' => $notMinted,
             'addresses' => [
                 'NFT' => env('NFT_CONTRACT_ADDRESS'),
                 'Market' => env('MARKET_CONTRACT_ADDRESS')
@@ -41,6 +72,11 @@ class AssetController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @param Contract $contract
+     * @return JsonResponse
+     */
     public function setIpfsHash(Request $request, Contract $contract)
     {
         $request->validate([
@@ -60,12 +96,17 @@ class AssetController extends Controller
         }
     }
 
-    public function setMintRecord(Request $request, Asset $asset)
+    /**
+     * @param Request $request
+     * @param Asset $asset
+     * @return JsonResponse
+     */
+    public function setAssetMintRecord(Request $request, Asset $asset)
     {
         $request->validate([
             'previousTokenId' => 'required|numeric',
             'mintedContractsLength' => 'required|numeric',
-            'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}'
+            'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
         ]);
         try {
             if ($request->mintedContractsLength == $asset->contracts->count()) {
@@ -95,6 +136,37 @@ class AssetController extends Controller
             return response()->json([
                 "message" => $exception
             ], 400);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param Contract $contract
+     * @return JsonResponse
+     */
+    public function setContractMintRecord(Request $request, Contract $contract)
+    {
+        $request->validate([
+            'tokenId' => 'required|numeric',
+            'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
+        ]);
+        try {
+            DB::transaction(function () use ($contract, $request) {
+                $rec = Minted::query()->create([
+                    'contract_id' => $contract->id,
+                    'token_id' => $request->tokenId,
+                ]);
+                Wallet::query()->create([
+                    'wallet_address' => $request->signerWalletAddress,
+                    'walletable_id' => $rec->id,
+                    'walletable_type' => Minted::class
+                ]);
+            });
+            return response()->json([
+                'message' => 'records stored successfully'
+            ]);
+        } catch (Exception $exception) {
+            return response()->json(["message" => $exception], 400);
         }
     }
 }

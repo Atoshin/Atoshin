@@ -3,7 +3,6 @@ import {ethers} from "ethers";
 import axios from 'axios';
 import {create as IPFSHttpClient} from 'ipfs-http-client';
 import NFT from '../../../artifacts/contracts/NFT.sol/NFT.json';
-import Market from '../../../artifacts/contracts/Market.sol/NFTMarket.json';
 
 const client = IPFSHttpClient('https://ipfs.infura.io:5001/api/v0')
 
@@ -27,11 +26,11 @@ export default function App() {
         e.preventDefault();
         const contracts = contractData.contracts
         const asset = contractData.asset
-        const addresses = contractData.data.addresses
+        const addresses = contractData.addresses
         const urls = []
         try {
             for (let i = 0; i < contracts.length; i++) {
-                if (contracts[i].hash || contracts[i].hash !== 'nothing') {
+                if (!!contracts[i].hash) {
                     urls.push(`https://ipfs.infura.io/ipfs/${contracts[i].hash}`)
                 } else {
                     const data = JSON.stringify({
@@ -65,14 +64,14 @@ export default function App() {
                 let tx = await transaction.wait()
                 let event = tx.events[0]
                 let value = await event.args[2]
+                const address = await signer.getAddress();
 
-                await axios.post(`/asset/${asset.id}/mint-record`, {
-                    'mint-records': {
-                        previousTokenId: value,
-                        mintedContractsLength: urls.length,
-                        signerWalletAddress: signer.getAddress()
-                    }
+                await axios.post(`/api/v1/asset/${asset.id}/mint-record`, {
+                    previousTokenId: value.toNumber(),
+                    mintedContractsLength: urls.length,
+                    signerWalletAddress: address
                 })
+                window.location.reload()
             }
         } else {
             window.open('https://metamask.io/download', '_blank')
