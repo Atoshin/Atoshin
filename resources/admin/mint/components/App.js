@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ethers} from "ethers";
 import axios from 'axios';
-import {create as IPFSHttpClient} from 'ipfs-http-client';
+import {create as ipfsClient} from 'ipfs-http-client';
 import NFT from '../../../artifacts/contracts/NFT.sol/NFT.json';
 
-const client = IPFSHttpClient('https://ipfs.infura.io:5001/api/v0')
-
+let client;
 export default function App() {
     const [contractData, setContractData] = useState({
         asset: {},
@@ -18,6 +17,15 @@ export default function App() {
             const assetId = document.getElementById('mint-button').getAttribute("data-assetId")
             const response = await axios.get(`/api/v1/asset/${assetId}/contracts`)
             setContractData(response.data)
+            const auth = 'Basic ' + Buffer.from(response.data.keys.projectId + ":" + response.data.keys.projectSecret).toString('base64')
+            client = ipfsClient({
+                host: 'ipfs.infura.io',
+                port: 5001,
+                protocol: 'https',
+                headers: {
+                    authorization: auth
+                }
+            })
         }
         getContractData()
     }, [])

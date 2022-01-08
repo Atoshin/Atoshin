@@ -29,7 +29,20 @@ class MediaController extends Controller
         $path = $file->store($uploadFolder, 'public');
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
-        if ($mediable_type == Asset::class or $mediable_type == Contract::class) {
+        if ($mediable_type == Contract::class) {
+            $response = Http::attach(
+                'attachment', file_get_contents($request->file('file')), $fileName
+            )->post('https://ipfs.infura.io:5001/api/v0/add');
+            $media = Media::query()->create([
+                'ipfs_hash' => $response->json()['Hash'],
+                'mime_type' => $file->getClientMimeType(),
+                'path' => 'storage/' . $path,
+                'mediable_type' => $mediable_type,
+                'mediable_id' => $mediable_id
+            ]);
+
+            return redirect()->back();
+        } elseif ($mediable_type == Asset::class) {
             $response = Http::attach(
                 'attachment', file_get_contents($request->file('file')), $fileName
             )->post('https://ipfs.infura.io:5001/api/v0/add');
@@ -301,10 +314,9 @@ class MediaController extends Controller
         if ($media->homeapage_picture == true) {
             $homepage_medias = Media::query()->where('main', false)->where('mediable_type', $media->mediable_type)
                 ->where('mediable_id', $media->mediable_id)->where('homeapage_picture', true)->get();
-            if(count($homepage_medias) <= 4)
-            {
+            if (count($homepage_medias) <= 4) {
 //                \request()->session()->flash('message', 'please choose another photo for homepage before removing this media from the homepage');
-                return redirect()->back()->with(['message'=> 'please choose another media for homepage before removing this media from the homepage','icon'=>'warning']);
+                return redirect()->back()->with(['message' => 'please choose another media for homepage before removing this media from the homepage', 'icon' => 'warning']);
             }
             $media->homeapage_picture = false;
         } else {

@@ -32,7 +32,7 @@ Route::post('gallery/register', [\App\Http\Controllers\GalleryRegisterController
 Route::get('gallery/register/success', [\App\Http\Controllers\GalleryRegisterController::class,'successPage'])->name('gallery.register.success');
 //end
 
-Route::middleware('auth:admin')->group(function () {
+//Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');
 
     Route::get('admin/dashboard', [\App\Http\Controllers\AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
@@ -116,5 +116,5 @@ Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class
         return redirect()->route($route,$arguments);
     })->name('redirect.with.arguments');
     //end
-});
+//});
 

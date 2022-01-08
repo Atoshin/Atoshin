@@ -35,6 +35,7 @@
                             <tr>
                                 <th>Contract Number</th>
                                 <th>Hash</th>
+                                <th>Image</th>
                                 <th>Asset</th>
                                 <th>created at</th>
                                 <th>Minted At</th>
@@ -51,6 +52,9 @@
                                     </td>
                                     <td>
                                         {{$contract->hash}}
+                                    </td>
+                                    <td>
+                                        <img src="https://ipfs.infura.io/ipfs/{{$contract->hash}}" alt="">
                                     </td>
                                     <td>
                                         {{$contract->asset->title}}
