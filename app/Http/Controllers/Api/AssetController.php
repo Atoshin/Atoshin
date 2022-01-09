@@ -35,6 +35,10 @@ class AssetController extends Controller
                     'addresses' => [
                         'NFT' => env('NFT_CONTRACT_ADDRESS'),
                         'Market' => env('MARKET_CONTRACT_ADDRESS')
+                    ],
+                    'keys' => [
+                        'projectId' => env('IPFS_PROJECT_ID'),
+                        'projectSecret' => env('IPFS_PROJECT_SECRET')
                     ]
                 ]);
             }
@@ -67,6 +71,10 @@ class AssetController extends Controller
             'addresses' => [
                 'NFT' => env('NFT_CONTRACT_ADDRESS'),
                 'Market' => env('MARKET_CONTRACT_ADDRESS')
+            ],
+            'keys' => [
+                'projectId' => env('IPFS_PROJECT_ID'),
+                'projectSecret' => env('IPFS_PROJECT_SECRET')
             ]
         ]);
     }
