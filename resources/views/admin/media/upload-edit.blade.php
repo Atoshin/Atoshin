@@ -56,7 +56,7 @@
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.update',['mediable_type' => $type, 'mediable_id' => $id])}}",
             autoDiscover: false,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            acceptedFiles: ".jpeg,.jpg,.png",
             addRemoveLinks: true,
             maxFiles: 10,
             maxFilesize: 3,
