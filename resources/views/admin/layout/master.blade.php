@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/leaflet/leaflet.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @yield('styles')
 
     <style>
@@ -65,6 +65,8 @@
 <script src="{{asset('admin/js/jquery-mapael/maps/usa_states.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('admin/js/chart.js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 <!-- AdminLTE for demo purposes -->
 {{--<script src="dist/js/demo.js"></script>--}}

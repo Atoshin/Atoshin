@@ -2,18 +2,18 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Add Category</h3>
+            <h3 class="card-title">Add Permission</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"  id="myform"   action="{{route('categories.store')}}">
+        <form method="post"  id="myform"   action="{{route('permissions.store')}}">
             @csrf
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="title" placeholder="title" value="{{old('title')}}">
-                    @error('title')
+                    <label >Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="name" placeholder="name" value="{{old('name')}}">
+                    @error('name')
                     <small class="text-danger">
                         {{$message}}
                     </small>
@@ -36,7 +36,7 @@
 
             <div class="card-footer">
                 <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
-{{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
+                {{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
             </div>
         </form>
     </div>

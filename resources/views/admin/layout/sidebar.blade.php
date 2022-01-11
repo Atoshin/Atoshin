@@ -67,7 +67,18 @@
                         <p>admins</p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="{{route('permissions.index')}}" class="nav-link">
+                        <i class="fas fa-lock nav-icon"></i>
+                        <p>permission</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('roles.index')}}" class="nav-link">
+                        <i class="fas fa-user-circle nav-icon"></i>
+                        <p>role</p>
+                    </a>
+                </li>
 
             </ul>
 
