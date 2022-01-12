@@ -32,26 +32,33 @@ Route::post('gallery/register', [\App\Http\Controllers\GalleryRegisterController
 Route::get('gallery/register/success', [\App\Http\Controllers\GalleryRegisterController::class,'successPage'])->name('gallery.register.success');
 //end
 
-//Route::middleware('auth:admin')->group(function () {
+Route::middleware('auth:admin')->group(function () {
+
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');
 
     Route::get('admin/dashboard', [\App\Http\Controllers\AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::middleware('permission:manage categories')->group(function () {
+        Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    });
+
     Route::resource('admins', \App\Http\Controllers\AdminController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('artists', \App\Http\Controllers\ArtistController::class);
     Route::resource('gallerying', \App\Http\Controllers\GalleryingController::class);
+
+    //roles and permissions region
     Route::resource('roles', \App\Http\Controllers\RoleController::class);
     Route::resource('permissions', \App\Http\Controllers\PermissionController::class);
+    Route::get('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class,'rolepermissionpage'])->name('role.permission.page');
+    Route::post('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class,'storePermissions'])->name('role.permissions.store');
+    Route::get('admin/{admin}/roles/page', [\App\Http\Controllers\RoleController::class,'adminrolespage'])->name('admin.roles.page');
+    Route::post('admin/{admin}/roles', [\App\Http\Controllers\RoleController::class,'storeadminroles'])->name('admin.roles.store');
+    //end
 
     Route::get('gallerying/index/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'indexgallerying'])->name('index.gallerying');
     Route::post('gallerying/store/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'storegallerying'])->name('store.gallerying');
     Route::get('gallerying/create/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'creategallerying'])->name('create.gallerying');
-    Route::get('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class,'rolepermissionpage'])->name('role.permission.page');
-    Route::post('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class,'storePermissions'])->name('role.permissions.store');
-
-
 
 
     //region galleries
@@ -65,7 +72,7 @@ Route::get('gallery/register/success', [\App\Http\Controllers\GalleryRegisterCon
     Route::get('media/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
     Route::post('upload/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFile' ])->name('uploadFile.main');
     Route::get('media/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPageMain'])->name('upload.page.main');
-Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class,'homepage'])->name('homepage.media');
+    Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class,'homepage'])->name('homepage.media');
     Route::post('upload/edit/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFileEdit' ])->name('uploadFile.update');
     Route::get('media/edit/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPage'])->name('upload.page.edit');
     Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
@@ -112,7 +119,7 @@ Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class
     Route::delete('video/link/{id}/destroy',[\App\Http\Controllers\VideoLinkController::class,'destroy'])->name('videos.destroy');
 
 
-//redirect region
+    //redirect region
     Route::get('redirect/{route}',function ($route) {
         return redirect()->route($route);
     })->name('redirect');
@@ -121,5 +128,5 @@ Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class
         return redirect()->route($route,$arguments);
     })->name('redirect.with.arguments');
     //end
-//});
+});
 

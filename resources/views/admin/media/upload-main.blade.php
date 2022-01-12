@@ -59,6 +59,7 @@
 
     <script>
         const mediaIds = []
+        var maxImageWidth = 1000, maxImageHeight = 1000;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.main',['mediable_type' => $type, 'mediable_id' => $id])}}",
@@ -81,22 +82,25 @@
                 this.on("removedfile", function (file) {
                     console.log(file)
                 });
-
-
-
-
+                this.on("thumbnail", function(file) {
+                    if (file.width <= (3/2 * file.height) ) {
+                        file.rejectDimensions()
+                    }
+                    else {
+                        file.acceptDimensions();
+                    }
+                });
             },
             success: function(file, response)
             {
-                console.log('hi')
-                console.log(response)
                 document.getElementById('submitButton').classList.remove('d-none')
-                // const classes = button.classList;
-                // const dNoneIdx = classes.indexOf('d-none')
-                // classes.splice(dNoneIdx, 1)
                 mediaIds.push(response.media_id)
 
             },
+            accept: function(file, done) {
+                file.acceptDimensions = done;
+                file.rejectDimensions = function() { done("Image width or height too big."); };
+            }
 
         });
     </script>

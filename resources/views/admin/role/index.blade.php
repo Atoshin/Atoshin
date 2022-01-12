@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="m-1">
                                                 <a href="{{route('role.permission.page',$role)}}" type="button"
-                                                   class="btn btn-warning "> <i class="fa fa-lock "></i> permission </a>
+                                                   class="btn btn-warning "> <i class="fa fa-lock "></i> permissions </a>
                                             </div>
                                         </div>
                                     </td>

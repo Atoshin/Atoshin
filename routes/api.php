@@ -37,6 +37,7 @@ Route::prefix('v1')->group(function () {
     Route::post('contract/{contract}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setContractMintRecord']);
 
 
+    Route::get('marketplace', [\App\Http\Controllers\Api\MarketPlaceController::class, 'getAssets']);
 });
 
 
@@ -44,4 +45,6 @@ Route::fallback(function () {
     return response()->json([
         'message' => 'Resource Not Found.'], 404);
 });
+
+
 

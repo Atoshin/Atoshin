@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -103,8 +104,8 @@ class RoleController extends Controller
     {
 
         $permissions = Permission::all();
-
-        return view('admin.rolepermission.create', compact('permissions', 'role'));
+        $role_permissions = $role->getPermissionNames()->toArray();
+        return view('admin.rolepermission.create', compact('permissions', 'role','role_permissions'));
 
     }
 
@@ -117,13 +118,33 @@ class RoleController extends Controller
             'permissions' => 'array',
             'permissions.#' => 'exists:permissions,id',
         ]);
-
-        foreach ($request->permissions as $permission)
+        if ($request->permissions)
         {
-            $role->givePermissionTo($permission);
+            foreach ($request->permissions as $permission)
+            {
+                $role->givePermissionTo($permission);
+            }
         }
+
 
 
         return redirect()->route('roles.index')->with('message', 'Accepted successfully');
     }
+
+    public function adminrolespage(Admin $admin)
+    {
+        $admin_roles = $admin->getRoleNames()->toArray();
+
+        $roles = Role::all();
+        return view('admin.admin.role',compact('admin','roles','admin_roles'));
+    }
+
+    public function storeadminroles(Admin $admin,Request $request)
+    {
+        $admin->syncRoles($request->roles);
+        return redirect()->route('admins.index');
+    }
+
+
+
 }

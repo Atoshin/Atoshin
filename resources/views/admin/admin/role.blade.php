@@ -6,15 +6,15 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"  id="myform"   action="{{route('role.permissions.store',$role->id)}}">
+        <form method="post"  id="myform"   action="{{route('admin.roles.store',$admin)}}">
             @csrf
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Permissions<span class="text-danger">*</span></label>
-                    <select class="js-example-basic-multiple form-control" name="permissions[]" multiple="multiple">
-                        @foreach($permissions as $permission)
-                        <option @if(in_array($permission->name,$role_permissions)) selected @endif value="{{$permission->id}}">{{$permission->name}}</option>
+                    <label >Roles<span class="text-danger">*</span></label>
+                    <select class="js-example-basic-multiple form-control" name="roles[]" multiple="multiple">
+                        @foreach($roles as $role)
+                            <option @if(in_array($role->name,$admin_roles)) selected @endif value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -38,11 +38,11 @@
         });
 
     </script>
-<script>
-    $(document).ready(function() {
-        $('.js-example-basic-multiple').select2();
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 
 
 @endsection
