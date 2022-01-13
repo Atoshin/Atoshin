@@ -27,58 +27,70 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                @can('manage galleries')
                 <li class="nav-item">
                     <a href="{{route('galleries.index')}}" class="nav-link">
                         <i class="fa fa-building nav-icon"></i>
                         <p>Galleries</p>
                     </a>
                 </li>
+                @endcan
+                @can('manage artists')
                 <li class="nav-item">
                     <a href="{{route('artists.index')}}" class="nav-link">
                         <i class="fa fa-palette nav-icon"></i>
                         <p>Artists</p>
                     </a>
                 </li>
-
+                @endcan
+                @can('manage assets')
                 <li class="nav-item">
                     <a href="{{route('assets.index')}}" class="nav-link">
                         <i class="fas fa-paint-brush nav-icon"></i>
                         <p>Assets</p>
                     </a>
                 </li>
-
+                @endcan
+                @can('manage categories')
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
                     <a href="{{route('categories.index')}}" class="nav-link">
                         <i class="fa fa-cubes nav-icon"></i>
                         <p>Categories</p>
                     </a>
                 </li>
-
+                @endcan
+                @can('manage users')
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
                     <a href="{{route('users.index')}}" class="nav-link">
                         <i class="fa fa-user nav-icon"></i>
                         <p>Users</p>
                     </a>
                 </li>
-
+                @endcan
+                @can('manage admins')
                 <li class="nav-item">
                     <a href="{{route('admins.index')}}" class="nav-link">
                         <i class="fas fa-certificate nav-icon"></i>
                         <p>Admins</p>
                     </a>
                 </li>
+                @endcan
+                @can('manage roles')
                 <li class="nav-item">
                     <a href="{{route('roles.index')}}" class="nav-link">
                         <i class="fas fa-user-circle nav-icon"></i>
                         <p>Roles</p>
                     </a>
                 </li>
+                @endcan
+                @can('manage permissions')
                 <li class="nav-item">
                     <a href="{{route('permissions.index')}}" class="nav-link">
                         <i class="fas fa-lock nav-icon"></i>
                         <p>Permissions</p>
                     </a>
                 </li>
+                @endcan
 
 
             </ul>

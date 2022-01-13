@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -118,6 +119,12 @@ class RoleController extends Controller
             'permissions' => 'array',
             'permissions.#' => 'exists:permissions,id',
         ]);
+
+        foreach ($role->getPermissionNames() as $permissionName)
+        {
+            $role->revokePermissionTo($permissionName);
+        }
+
         if ($request->permissions)
         {
             foreach ($request->permissions as $permission)
@@ -128,11 +135,13 @@ class RoleController extends Controller
 
 
 
+
         return redirect()->route('roles.index')->with('message', 'Accepted successfully');
     }
 
     public function adminrolespage(Admin $admin)
     {
+
         $admin_roles = $admin->getRoleNames()->toArray();
 
         $roles = Role::all();
