@@ -17,16 +17,7 @@
         </div>
 
         <div class="form-group">
-            @if($type == \App\Models\Gallery::class)
-                <label for="contract ">Upload Gallery Logo  <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\Artist::class)
-                <label for="contract ">Upload Artist Avatar  <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\User::class)
-                <label for="contract ">Upload User Avatar  <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\Asset::class)
-                <label for="contract ">Upload Asset Main Picture <span class="text-danger">*</span></label>
-            @endif
-
+                <label for="contract ">Upload Gallery Large Picture<span class="text-danger">*</span></label>
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
@@ -36,15 +27,7 @@
         </div>
 
         <div class="card-footer">
-            @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
-            @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary d-none"  id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
-            @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
-            @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
-            @endif
+            <a class="btn btn-primary d-none" id="submitButton" href="{{route('videoLink.index', ['type'=>\App\Models\Gallery::class ,'id'=>$gallery_id])}}">Next</a>
         </div>
 
     </div>
@@ -59,10 +42,10 @@
 
     <script>
         const mediaIds = []
-        var maxImageWidth = 1000, maxImageHeight = 1000;
+        var maxImageWidth = 1120, maxImageHeight = 460;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
-            url: "{{route('uploadFile.main',['mediable_type' => $type, 'mediable_id' => $id])}}",
+            url: "{{route('uploadFile.gallery.large',['gallery_id' => $gallery_id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png",
             // addRemoveLinks: true,
@@ -83,7 +66,7 @@
                     console.log(file)
                 });
                 this.on("thumbnail", function(file) {
-                    if (file.width === 3/2 * file.height ) {
+                    if (file.width !== maxImageWidth && file.height !== maxImageHeight ) {
                         file.rejectDimensions()
                     }
                     else {

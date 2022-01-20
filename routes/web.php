@@ -127,7 +127,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('media/index/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'index'])->name('media.index');
     Route::delete('media/delete/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'deleteMain'])->name('media.main.delete');
     Route::delete('media/delete/{type}/{id}',[\App\Http\Controllers\MediaController::class,'delete'])->name('media.delete');
-
+    Route::get('media/upload/page/gallery/large/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureUploadPage'])->name('upload.page.gallery.large');
+    Route::post('upload/gallery/large/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePicture' ])->name('uploadFile.gallery.large');
     //end
 
     //video link

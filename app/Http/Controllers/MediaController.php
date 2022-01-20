@@ -326,5 +326,36 @@ class MediaController extends Controller
         return redirect()->back();
     }
 
+    public function galleryLargePictureUploadPage($gallery_id)
+    {
+        return view('admin.media.upload-gallery-large-picture',compact('gallery_id'));
+    }
+
+    public function uploadGalleryLargePicture(Request $request,$gallery_id)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
+        $file = $request->file('file');
+        $fileName = time() . '.' . $file->extension();
+        $uploadFolder = 'file';
+        $path = $file->store($uploadFolder, 'public');
+
+        $media = Media::query()->create([
+                'ipfs_hash' => 'nothing',
+                'mime_type' => $file->getClientMimeType(),
+                'path' => 'storage/' . $path,
+                'mediable_type' => Gallery::class,
+                'mediable_id' => $gallery_id,
+                'main' => false
+
+            ]);
+
+
+        return response()->json([
+            'message' => 'File Uploaded Successfully',
+        ], 200);
+    }
+
 
 }
