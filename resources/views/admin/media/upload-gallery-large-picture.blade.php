@@ -17,7 +17,8 @@
         </div>
 
         <div class="form-group">
-                <label for="contract ">Upload Gallery Large Picture<span class="text-danger">*</span></label>
+                <label for="contract ">Upload Gallery Large Picture (size:1120x460)<span class="text-danger">*</span></label>
+
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf

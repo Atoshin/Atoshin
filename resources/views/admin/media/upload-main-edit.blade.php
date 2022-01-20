@@ -18,13 +18,13 @@
 
         <div class="form-group">
             @if($type == \App\Models\Gallery::class)
-                <label for="contract ">Upload Gallery Logo</label>
+                <label for="contract ">Upload Gallery Logo (size: 1200x800-1800x1200-2400x1600-900x600)</label>
             @elseif($type == \App\Models\Artist::class)
-                <label for="contract ">Upload Artist Avatar</label>
+                <label for="contract ">Upload Artist Avatar (size: 1200x800-1800x1200-2400x1600-900x600)</label>
             @elseif($type == \App\Models\User::class)
-                <label for="contract ">Upload User Avatar</label>
+                <label for="contract ">Upload User Avatar (size: 1200x800-1800x1200-2400x1600-900x600)</label>
             @elseif($type == \App\Models\Asset::class)
-                <label for="contract ">Upload Asset Main Picture</label>
+                <label for="contract ">Upload Asset Main Picture (size: 1200x800-1800x1200-2400x1600-900x600)</label>
             @endif
 
             <div class="dropzone">

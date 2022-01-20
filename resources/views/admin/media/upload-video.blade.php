@@ -13,19 +13,12 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">upload Media</h3>
+            <h3 class="card-title">upload Video Picture</h3>
         </div>
 
         <div class="form-group">
-            @if($type == \App\Models\Gallery::class)
-                <label for="contract ">Upload Gallery Logo (size: 1200x800-1800x1200-2400x1600-900x600)  <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\Artist::class)
-                    <label for="contract ">Upload Artist Avatar (size: 1200x800-1800x1200-2400x1600-900x600) <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\User::class)
-                <label for="contract ">Upload User Avatar (size: 1200x800-1800x1200-2400x1600-900x600) <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\Asset::class)
-                <label for="contract ">Upload Asset Main Picture (size: 1200x800-1800x1200-2400x1600-900x600)<span class="text-danger">*</span></label>
-            @endif
+                <label for="contract ">Upload video picture (size: 1200x800-1800x1200-2400x1600-900x600)  <span class="text-danger">*</span></label>
+
 
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
@@ -36,15 +29,8 @@
         </div>
 
         <div class="card-footer">
-            @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
-            @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary d-none"  id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
-            @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
-            @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
-            @endif
+            <a class="btn btn-primary d-none" id="submitButton" href="{{route('videoLink.index',['type'=>\App\Models\Gallery::class,'id'=>$gallery_id])}}">Next</a>
+
         </div>
 
 
@@ -63,7 +49,7 @@
         var maxImageWidth = 1000, maxImageHeight = 1000;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
-            url: "{{route('uploadFile.main',['mediable_type' => $type, 'mediable_id' => $id])}}",
+            url: "{{route('uploadFile.video',['mediable_type' => $type, 'mediable_id' => $id,'gallery_id'=>$gallery_id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png",
             // addRemoveLinks: true,
@@ -84,7 +70,7 @@
                     console.log(file)
                 });
                 this.on("thumbnail", function(file) {
-                    if (file.width === 3/2 * file.height ) {
+                    if (file.width <= (3/2 * file.height) ) {
                         file.rejectDimensions()
                     }
                     else {

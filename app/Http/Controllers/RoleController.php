@@ -150,7 +150,11 @@ class RoleController extends Controller
 
     public function storeadminroles(Admin $admin,Request $request)
     {
+
         $admin->syncRoles($request->roles);
+
+
+//        $admin->syncPermissions($request->permissions);
         return redirect()->route('admins.index');
     }
 

@@ -4,6 +4,14 @@
         .avatar {
             border-radius: 50%;
         }
+        .vid-container{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px
+        ;
+        }
+
+
     </style>
 @endsection
 @section('content')
@@ -11,12 +19,14 @@
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
                 @if($gallery->medias->where('mediable_type',\App\Models\Gallery::class)->where('mediable_id',$gallery->id)->where('main',true)->first())
-                <div class="col-1">
+                    <div class="col-1">
 
-                    <img src="{{asset($gallery->medias->where('mediable_type',\App\Models\Gallery::class)->where('mediable_id',$gallery->id)->where('main',true)->first()->path)}}" class="avatar" alt="" width="100"
-                         height="100"/>
+                        <img
+                            src="{{asset($gallery->medias->where('mediable_type',\App\Models\Gallery::class)->where('mediable_id',$gallery->id)->where('main',true)->first()->path)}}"
+                            class="avatar" alt="" width="100"
+                            height="100"/>
 
-                </div>
+                    </div>
                 @endif
                 {{--            <div class="row mb-2" >--}}
                 <div class="col-sm-6">
@@ -56,9 +66,9 @@
                                 <div class="mb-1">
                                     <b>Wallet Address:</b>
                                     @if($gallery->wallet)
-                                    {{$gallery->wallet->wallet_address}}<br>
+                                        {{$gallery->wallet->wallet_address}}<br>
                                     @else
-                                    -
+                                        -
                                     @endif
                                 </div>
                             </address>
@@ -68,17 +78,15 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                {{--                                <div class="mb-1"> <b>Wallet Address:</b>  {{$gallery->wallet->wallet_address}}<br></div>--}}
 
                             </address>
                         </div>
-                        <!-- /.col -->
+
 
                     </div>
 
                     <div class="row invoice-info">
                         <div class="col-sm-6 invoice-col">
-                            {{--      <div class="mb-1"><b>Bio:</b> {{$asset->bio}}</div>--}}
                             <address>
                                 <div class="mb-1"><b>Website:</b>
                                     @if($gallery->website)
@@ -105,8 +113,6 @@
                                 @else
                                     <span>-</span>
                                 @endif
-
-                                {{--                Email: info@almasaeedstudio.com--}}
                             </address>
                         </div>
                         <!-- /.col -->
@@ -140,24 +146,10 @@
                                     <span>-</span>
                                 @endif
                                 <div class="mb-1"><b> Status:</b> {{$gallery->status}}<br></div>
-
-
-                                {{--                                <div class="mb-1"> <b> Royalties Percentage:</b>  {{$asset->royalties_percentage}} <br></div>--}}
-                                {{--                                <div class="mb-1">  <b> Start Date:</b> {{$asset->start_date}}<br></div>--}}
-                                {{--                                <div class="mb-1">  <b> End Date:</b> {{$asset->end_date}}<br></div>--}}
-                                {{--                Email: john.doe@example.com--}}
                             </address>
 
 
                         </div>
-                        <!-- /.col -->
-                    {{--                        <div class="col-sm-4 invoice-col">--}}
-                    {{--                            <div class="mb-1"> <b>creator:</b> {{$asset->gallery->name}}<br></div>--}}
-                    {{--                            <div class="mb-1"> <b>category:</b> {{$asset->category->title}}<br></div>--}}
-                    {{--                            <b>Artist:</b> {{$asset->artist->full_name}}<br>--}}
-                    {{--                            --}}{{--            <b>Account:</b> 968-34567--}}
-                    {{--                        </div>--}}
-                    <!-- /.col -->
                     </div>
 
                     <div class="row m-4 pb-3" style="border-top:2px solid whitesmoke">
@@ -170,9 +162,10 @@
                                     @foreach($gallery->assets as $asset)
                                         <ul>
 
-                                                <img src="{{asset($asset->medias->where('main',true)->first()->path)}}" alt="" width="100"
-                                                     height="100">
-{{--                                                {{'http://127.0.0.1:8000/'.$media->path}}--}}
+                                            <img src="{{asset($asset->medias->where('main',true)->first()->path)}}"
+                                                 alt="" width="100"
+                                                 height="100">
+                                            {{--                                                {{'http://127.0.0.1:8000/'.$media->path}}--}}
                                             <li>
                                                 <b>Title:</b>
                                                 <a href="{{route('assets.show',$asset->id)}}">
@@ -199,7 +192,6 @@
                     </div>
                     <div class="row m-4 pb-3"
                          style="border-top:2px solid whitesmoke;">
-                        {{--                        <div>--}}
                         <div>
                             <div>
                                 <b>Pictures</b>
@@ -209,16 +201,10 @@
                                     <div class="row">
                                         @foreach($gallery->medias as $media)
                                             @if($media ->main==false)
-
-
-{{--                                                        <div class="col-sm-2">--}}
-{{--                                                            <a  target="_blank" href="{{'http://127.0.0.1:8000/'.$media ?? ''->path}}" >--}}
-{{--                                                                <img src="{{asset($media ?? ''->path)}}" class="img-fluid mb-2" alt="white sample" width="100" height="100"/>--}}
-{{--                                                            </a>--}}
-{{--                                                        </div>--}}
-                                                        <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}" >
-                                                            <img  src="{{asset($media->path)}}" class="mx-2 mb-2" alt="white sample" width="100" height="100"/>
-                                                        </a>
+                                                <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}">
+                                                    <img src="{{asset($media->path)}}" class="mx-2 mb-2"
+                                                         alt="white sample" width="100" height="100"/>
+                                                </a>
 
 
                                             @endif
@@ -244,10 +230,19 @@
                                 <b>Videos</b>
                             </div>
                             <div>
+
                                 @if(count($gallery->videoLinks)>0)
                                     @foreach($gallery->videoLinks as $videoLink)
-                                        {!! ($videoLink->link) !!}
-                                    @endforeach
+                                        <div class="vid-container">
+                                            @if($videoLink->is_default)
+
+                                                <a target="_blank"
+                                                   href="{{'http://127.0.0.1:8000/'.$videoLink->media->path}}">
+                                                    Homepage's Video</a>
+                                            @endif
+                                            {!! ($videoLink->link) !!}
+                                        </div>
+                                        @endforeach
                                 @else
                                     <ul style="list-style-type: none">
                                         <li>
@@ -260,10 +255,6 @@
                         </div>
                     </div>
 
-
-                    {{--                    <div>--}}
-                    {{--                        <h5>Location:</h5>--}}
-                    {{--                    </div>--}}
                     <div style="display: flex; flex-direction: row">
                         <div class="col-sm-6 map" id="map"
                              style="height: 500px; margin-bottom: 20px; margin-left: 20px">
@@ -284,21 +275,8 @@
                         </div>
 
                     </div>
-{{--                    @foreach($gallery->medias as $media ?? '')--}}
-{{--                    <div class="filter-container p-0 row">--}}
-{{--                        <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">--}}
-{{--                            <a href="{{'http://127.0.0.1:8000/'.$media ?? ''->path}}" data-toggle="lightbox" data-title="sample 1 - white" >--}}
-{{--                                <img src="{{asset($media ?? ''->path)}}" class=" mb-2" alt="white sample" width="100" height="100"/>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    @endforeach--}}
-
-
                     @endsection
                     @section('scripts')
-{{--                        <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>--}}
-{{--                        <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>--}}
                         <script>
                             $(document).ready(function () {
                                 var map = L.map('map', {
@@ -321,23 +299,4 @@
 
                         </script>
                 </div>
-
-{{--                        <script>--}}
-{{--                            $(function () {--}}
-{{--                                $(document).on('click', '[data-toggle="lightbox"]', function(event) {--}}
-{{--                                    event.preventDefault();--}}
-{{--                                    $(this).ekkoLightbox({--}}
-{{--                                        alwaysShowClose: true--}}
-{{--                                    });--}}
-{{--                                });--}}
-
-{{--                                $('.filter-container').filterizr({gutterPixels: 3});--}}
-{{--                                $('.btn[data-filter]').on('click', function() {--}}
-{{--                                    $('.btn[data-filter]').removeClass('active');--}}
-{{--                                    $(this).addClass('active');--}}
-{{--                                });--}}
-{{--                            })--}}
-{{--                        </script>--}}
-
-
 @endsection

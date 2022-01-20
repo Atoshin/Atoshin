@@ -17,7 +17,7 @@
         </div>
 
         <div class="form-group">
-            <label for="contract ">Upload Media</label>
+            <label for="contract ">Upload Media (size: 1200x800-1800x1200-2400x1600-900x600)</label>
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf

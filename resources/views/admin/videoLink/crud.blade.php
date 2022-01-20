@@ -1,11 +1,21 @@
 @extends('admin.layout.master')
+{{--@section('styles')--}}
+{{--    <style>--}}
+{{--        /*.youtube > iframe{*/--}}
+{{--        /*    width: 300px;*/--}}
+{{--        /*    height: 150px;*/--}}
+{{--        /*}*/--}}
+{{--    </style>--}}
+{{--@endsection--}}
 @section('styles')
-    <style>
-        /*.youtube > iframe{*/
-        /*    width: 300px;*/
-        /*    height: 150px;*/
-        /*}*/
-    </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+        type="text/css"
+    />
+
+
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -20,7 +30,7 @@
         </div>
         <div class="form-group">
             {{--            <label for="contract ">Video links</label>--}}
-            <div class="dropzone">
+            <div class="">
                 <form action="{{route('videoLink.store', ['type' => $type, 'id' => $id])}}" method="post">
                     @csrf
                     <div class="card-body">
@@ -41,7 +51,9 @@
                                     <input type="checkbox" name="is_default" id="is_default">
                                     <label for="exampleInputEmail1">Show this video in Home page</label>
                                 </div>
+
                             @endif
+
                         </div>
                     </div>
                     <div class="card-footer">
@@ -49,6 +61,8 @@
                     </div>
 
                 </form>
+
+
             </div>
         </div>
         <div class="card-body">
@@ -79,6 +93,10 @@
                                             class="fa fa-trash "></i>delete
                                     </button>
                                 </div>
+                                @if($videoLink->is_default == true)
+                                <a class="btn btn-primary"
+                                   href="{{route('upload.page.video' , ['type'=>\App\Models\VideoLink::class,'id'=>$videoLink->id,'gallery_id'=>$id])}}">upload video picture</a>
+                                @endif
                                 @if($videoLink->is_default == true)
                                     <i class="fa fa-crown" style="color: #CC8D1D"></i>
                                 @endif
@@ -165,4 +183,11 @@
             })
         }
     </script>
+
+
+
+
+
+
+
 @endsection

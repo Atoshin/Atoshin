@@ -8,8 +8,10 @@ use App\Models\Contract;
 use App\Models\Gallery;
 use App\Models\Media;
 use App\Models\User;
+use App\Models\VideoLink;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -355,6 +357,49 @@ class MediaController extends Controller
         return response()->json([
             'message' => 'File Uploaded Successfully',
         ], 200);
+    }
+
+    public function uploadvideoFile(Request $request, $mediable_type, $mediable_id,$gallery_id)
+    {
+        $gallery=Gallery::find($gallery_id);
+        $video_link = VideoLink::query()->where('video_linkable_id',$gallery->id)
+            ->where('video_linkable_type',Gallery::class)->where('is_default',true)->first();
+
+        if ($video_link->media)
+        {
+            Storage::delete(\asset(substr($video_link->media->path, 13, 50)));
+            $video_link->media->delete();
+        }
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
+        $file = $request->file('file');
+        $fileName = time() . '.' . $file->extension();
+        $uploadFolder = 'file';
+        $path = $file->store($uploadFolder, 'public');
+
+//        $path = Storage::putFile('public/' . $path, $request->file('file'));
+
+            $media = Media::query()->create([
+                'ipfs_hash' =>'nothing',
+                'mime_type' => $file->getClientMimeType(),
+                'path' => 'storage/' . $path,
+                'mediable_type' => $mediable_type,
+                'mediable_id' => $mediable_id,
+                'main' => false,
+                'video' => true
+
+            ]);
+
+        return response()->json([
+            'message' => 'File Uploaded Successfully',
+        ], 200);
+    }
+
+    public function uploadvideoPage($type,$id,$gallery_id)
+    {
+        return view('admin.media.upload-video', compact('type', 'id','gallery_id'));
     }
 
 

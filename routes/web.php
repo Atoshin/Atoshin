@@ -38,7 +38,7 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('admin/dashboard', [\App\Http\Controllers\AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 
-    Route::middleware('permission:manage categories')->group(function () {
+    Route::group(['middleware' => ['permission:manage categories']], function () {
         Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     });
 
@@ -127,6 +127,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('media/index/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'index'])->name('media.index');
     Route::delete('media/delete/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'deleteMain'])->name('media.main.delete');
     Route::delete('media/delete/{type}/{id}',[\App\Http\Controllers\MediaController::class,'delete'])->name('media.delete');
+    Route::post('upload/video/{mediable_type}/{mediable_id}/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadvideoFile' ])->name('uploadFile.video');
+    Route::get('upload/video/page/{type}/{id}/{gallery_id}',[\App\Http\Controllers\MediaController::class,'uploadvideoPage'])->name('upload.page.video');
+
     Route::get('media/upload/page/gallery/large/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureUploadPage'])->name('upload.page.gallery.large');
     Route::post('upload/gallery/large/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePicture' ])->name('uploadFile.gallery.large');
     //end
