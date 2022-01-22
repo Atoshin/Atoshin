@@ -217,6 +217,7 @@ class MediaController extends Controller
             return view('admin.media.upload-edit', compact('type', 'id', 'entity'));
         } else {
             $entity = $type::query()->with('medias')->where('id', $id)->first();
+
             return view('admin.media.upload-edit', compact('type', 'id', 'entity'));
         }
 
@@ -290,15 +291,14 @@ class MediaController extends Controller
         ]);
     }
 
-    public function delete($type, $id)
+    public function delete($media_id)
     {
-        $media = Media::where('mediable_type', $type)->where('mediable_id', $id)->first();
+        $media = Media::find($media_id);
         Storage::delete(\asset(substr($media->path, 13, 50)));
         $media->delete();
         return Response()->json([
             'message' => 'deleted_successfully',
-            'type' => $type,
-            'id' => $id
+
         ]);
     }
 

@@ -83,14 +83,17 @@
                 });
 
 
+
                 this.on("removedfile", function (file) {
+                    console.log(file)
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': "{{ csrf_token() }}"
                         }
                     });
+
                     $.ajax({
-                        url: "{{route('media.delete',['type'=>$type,'id'=>$id])}}",
+                        url: `/media/delete/${file.id}`,
                         method: "delete",
                         success: function (res) {
                             console.log(res)
@@ -101,15 +104,20 @@
 
                 @foreach($entity->medias as $index=>$file)
                 @if(!$file->main)
-                let mockFile{{$index}} = {name: "{{substr($file->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($file->path,8,54))}}"};
+                let mockFile{{$index}} = {id: {{$file->id}}, name: "{{substr($file->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($file->path,8,54))}}"};
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile{{$index}});
                 thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset(  $file->path)}}");
+                mediaIds.push({{$file->id}});
                 @endif
                 @endforeach
+
 
             },
             success: function(file, response)
             {
+                {{--let thisDropzone = this;--}}
+                {{--thisDropzone.options.addedfile.call(thisDropzone, file);--}}
+                {{--thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset($file->path)}}");--}}
                 counter++;
                 mediaIds.push(response.media_id)
             },
