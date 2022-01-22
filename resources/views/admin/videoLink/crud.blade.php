@@ -107,7 +107,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
+        <div class="card-footer d-none" id="submitButton" >
             @if($type == "App\Models\Gallery")
                 {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
@@ -182,6 +182,22 @@
                 }
             })
         }
+    </script>
+
+    <script>
+        let flag = false;
+        @foreach($video_links as $video_link)
+            @if($video_link->is_default)
+                @if($video_link->media)
+                    flag = true
+                @endif
+            @endif
+        @endforeach
+        if(flag === true)
+        {
+            document.getElementById('submitButton').classList.remove('d-none')
+        }
+
     </script>
 
 

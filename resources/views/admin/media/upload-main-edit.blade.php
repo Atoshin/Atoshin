@@ -35,18 +35,18 @@
             </div>
         </div>
 
-        <div class="card-footer">
+        <div class="card-footer " >
             @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary"
+                <a id="submitButton" class="btn btn-primary"
                    href="{{route('galleries.index')}}">Submit</a>
             @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary"
+                <a  id="submitButton" class="btn btn-primary"
                    href="{{route('artists.index')}}">Submit</a>
             @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary"
+                <a id="submitButton" class="btn btn-primary"
                    href="{{route('users.index')}}">Submit</a>
             @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary"
+                <a id="submitButton" class="btn btn-primary"
                    href="{{route('assets.index')}}">Submit</a>
             @endif
         </div>
@@ -63,6 +63,7 @@
 
     <script>
         const mediaIds = []
+        let counter = 0;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.main.update',['mediable_type' => $type, 'mediable_id' => $id])}}",
@@ -82,6 +83,16 @@
             },
             init: function () {
                 let thisDropzone = this;
+
+                var submitButton = document.querySelector("#submitButton");
+                myDropzone = this;
+                submitButton.addEventListener("click", function (e) {
+                    if (counter < 1) {
+                        e.preventDefault();
+                        alert("Not enough files!");
+                    }
+
+                });
 
                 this.on("removedfile", function (file) {
                     $.ajaxSetup({
@@ -122,8 +133,10 @@
 
             },
             success: function (file, response) {
-
+                counter++;
                 mediaIds.push(response.media_id)
+
+
             },
 
         });

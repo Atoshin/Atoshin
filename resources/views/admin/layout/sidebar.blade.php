@@ -17,7 +17,7 @@
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
                     <a href="#" class="nav-link">
                         <i class="fa fa-user nav-icon"></i>
-{{--                        <p>{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->username}}</p>--}}
+                        <p>{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->username}}</p>
                     </a>
                 </li>
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">

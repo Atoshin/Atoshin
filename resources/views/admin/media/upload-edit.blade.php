@@ -28,15 +28,15 @@
 
         <div class="card-footer">
             @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>
             @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>
+                <a  id="submitButton" class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>
             @elseif($type == \App\Models\User::class)
-                <a class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>
+                <a  id="submitButton" class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>
             @elseif($type == \App\Models\Contract::class)
-                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
             @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
             @endif
         </div>
 
@@ -52,6 +52,7 @@
 
     <script>
         const mediaIds = []
+        let counter = 4;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.update',['mediable_type' => $type, 'mediable_id' => $id])}}",
@@ -71,6 +72,17 @@
             },
             init: function () {
                 let thisDropzone = this;
+
+                var submitButton = document.querySelector("#submitButton");
+                submitButton.addEventListener("click", function (e) {
+                    if (counter < 4) {
+                        e.preventDefault();
+                        alert("Not enough files!");
+                    }
+
+                });
+
+
                 this.on("removedfile", function (file) {
                     $.ajaxSetup({
                         headers: {
@@ -84,6 +96,7 @@
                             console.log(res)
                         }
                     })
+                    counter--;
                 });
 
                 @foreach($entity->medias as $index=>$file)
@@ -97,7 +110,7 @@
             },
             success: function(file, response)
             {
-
+                counter++;
                 mediaIds.push(response.media_id)
             },
 

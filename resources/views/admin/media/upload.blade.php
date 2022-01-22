@@ -83,7 +83,14 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             init: function () {
-
+                this.on("thumbnail", function(file) {
+                    if (file.width === 3/2 * file.height ) {
+                        file.rejectDimensions()
+                    }
+                    else {
+                        file.acceptDimensions();
+                    }
+                });
             },
             success: function(file, response)
             {
@@ -101,6 +108,11 @@
                 });
 
             },
+
+            accept: function(file, done) {
+                file.acceptDimensions = done;
+                file.rejectDimensions = function() { done("Image width or height too big."); };
+            }
 
         });
     </script>
