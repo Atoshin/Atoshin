@@ -107,7 +107,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer d-none" id="submitButton" >
+        <div @if($type == "App\Models\Gallery") class="card-footer d-none" id="submitButton"@else class="card-footer" @endif >
             @if($type == "App\Models\Gallery")
                 {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')

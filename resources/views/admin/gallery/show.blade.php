@@ -196,6 +196,7 @@
                             <div>
                                 <b>Pictures</b>
                             </div>
+
                             <div>
                                 @if(count($gallery->medias)>=1)
                                     <div class="row">
