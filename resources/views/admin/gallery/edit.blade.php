@@ -118,6 +118,7 @@
                 <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}">edit gallery logo</a>
                 <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}">edit gallery photos</a>
                 <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}">edit gallery videos</a>
+                <a  class="btn btn-primary" href="{{route('upload.gallery.large.picture.edit',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}">edit gallery large pictures</a>
 {{--                <div class="form-check">--}}
 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
 {{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
