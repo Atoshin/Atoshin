@@ -63,7 +63,7 @@
 
     <script>
         const mediaIds = []
-        let counter = 0;
+        let counter = 1;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.main.update',['mediable_type' => $type, 'mediable_id' => $id])}}",
@@ -101,22 +101,24 @@
                         }
                     });
                     $.ajax({
-                        url: "{{route('media.main.delete',['type'=>$type,'id'=>$id])}}",
+                        url: `/media/delete/main/${file.id}`,
                         method: "delete",
                         success: function (res) {
                             console.log(res)
                         }
                     })
+                    counter--;
                 });
                 @if($type != \App\Models\User::class)
                 @if($entity->medias->where('main',true)->first() != null)
                 let mockFile = {
+                    id:"{{$entity->medias->where('main',true)->first()->id}}",
                     name: "{{substr($entity->medias->where('main',true)->first()->path,13,50)}}",
                     size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($entity->medias->where('main',true)->first()->path,8,54))}}"
                 };
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile);
                 thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset(  $entity->medias->where('main',true)->first()->path)}}");
-
+                console.log(mockFile)
                 @endif
                 @else
 

@@ -125,7 +125,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
     Route::get('media/edit/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPageMain'])->name('upload.page.main.edit');
     Route::get('media/index/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'index'])->name('media.index');
-    Route::delete('media/delete/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'deleteMain'])->name('media.main.delete');
+    Route::delete('media/delete/main/{media_id}',[\App\Http\Controllers\MediaController::class,'deleteMain'])->name('media.main.delete');
     Route::delete('media/delete/{media_id}',[\App\Http\Controllers\MediaController::class,'delete'])->name('media.delete');
     Route::post('upload/video/{mediable_type}/{mediable_id}/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadvideoFile' ])->name('uploadFile.video');
     Route::get('upload/video/page/{type}/{id}/{gallery_id}',[\App\Http\Controllers\MediaController::class,'uploadvideoPage'])->name('upload.page.video');

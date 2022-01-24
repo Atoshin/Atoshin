@@ -278,16 +278,14 @@ class MediaController extends Controller
 
     }
 
-    public function deleteMain($type, $id)
+    public function deleteMain($media_id)
     {
 
-        $media = Media::where('mediable_type', $type)->where('mediable_id', $id)->where('main', true)->first();
+        $media = Media::where('id', $media_id)->where('main', true)->first();
         Storage::delete(\asset(substr($media->path, 13, 50)));
         $media->delete();
         return Response()->json([
             'message' => 'deleted_successfully',
-            'type' => $type,
-            'id' => $id
         ]);
     }
 

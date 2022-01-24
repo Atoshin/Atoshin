@@ -52,7 +52,8 @@
 
     <script>
         const mediaIds = []
-        let counter = 4;
+        let counter = {{$entity->medias->where('main',false)->count()}};
+        console.log(counter);
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.update',['mediable_type' => $type, 'mediable_id' => $id])}}",
@@ -100,6 +101,7 @@
                         }
                     })
                     counter--;
+                    console.log(counter)
                 });
 
                 @foreach($entity->medias as $index=>$file)
@@ -119,6 +121,7 @@
                 {{--thisDropzone.options.addedfile.call(thisDropzone, file);--}}
                 {{--thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset($file->path)}}");--}}
                 counter++;
+                console.log(counter)
                 mediaIds.push(response.media_id)
             },
 
