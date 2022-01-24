@@ -132,6 +132,9 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('media/upload/page/gallery/large/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureUploadPage'])->name('upload.page.gallery.large');
     Route::post('upload/gallery/large/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePicture' ])->name('uploadFile.gallery.large');
+
+    Route::get('media/upload/page/gallery/large/edit/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureEditUploadPage'])->name('upload.gallery.large.picture.edit');
+    Route::post('upload/gallery/large/edit/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePictureEdit' ])->name('uploadFile.gallery.large.edit');
     //end
 
     //video link

@@ -333,6 +333,7 @@ class MediaController extends Controller
 
     public function uploadGalleryLargePicture(Request $request,$gallery_id)
     {
+
         $validator = Validator::make($request->all(), [
             'file' => 'required'
         ]);
@@ -347,7 +348,7 @@ class MediaController extends Controller
                 'path' => 'storage/' . $path,
                 'mediable_type' => Gallery::class,
                 'mediable_id' => $gallery_id,
-                'main' => false
+                'gallery_large_picture' => true
 
             ]);
 
@@ -398,6 +399,17 @@ class MediaController extends Controller
     public function uploadvideoPage($type,$id,$gallery_id)
     {
         return view('admin.media.upload-video', compact('type', 'id','gallery_id'));
+    }
+
+    public function galleryLargePictureEditUploadPage($gallery_id)
+    {
+        $gallery = Gallery::find($gallery_id);
+        return view('admin.media.upload-gallery-large-picture-edit',compact('gallery_id','gallery'));
+    }
+
+    public function uploadGalleryLargePictureEdit($gallery_id)
+    {
+
     }
 
 
