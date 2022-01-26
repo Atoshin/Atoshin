@@ -47,7 +47,7 @@
 
     <script>
         const mediaIds = []
-        let counter = 0;
+        let counter = 1;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.gallery.large.edit',['gallery_id' => $gallery_id])}}",
