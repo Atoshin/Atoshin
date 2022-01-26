@@ -10,6 +10,11 @@
             margin-bottom: 10px
         ;
         }
+        .large-picture-container{
+            display: flex;
+            flex-direction: column;
+
+        }
 
 
     </style>
@@ -190,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row m-4 pb-3"
+                    <div class="row m-4"
                          style="border-top:2px solid whitesmoke;">
                         <div>
                             <div>
@@ -201,13 +206,20 @@
                                 @if(count($gallery->medias)>=1)
                                     <div class="row">
                                         @foreach($gallery->medias as $media)
-                                            @if($media ->main==false)
+                                            @if($media ->main==false && $media->gallery_large_picture==false)
                                                 <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}">
                                                     <img src="{{asset($media->path)}}" class="mx-2 mb-2"
                                                          alt="white sample" width="100" height="100"/>
                                                 </a>
+                                            @elseif($media->gallery_large_picture==true)
+                                                <div class="large-picture-container">
 
-
+                                                <a target="_blank" href="{{'http://127.0.0.1:8000/'.$media->path}}">
+                                                    <img src="{{asset($media->path)}}" class="mx-2"
+                                                         alt="white sample" width="100" height="100"/>
+                                                </a>
+                                                <p class="mx-2" >Large Picture</p>
+                                                </div>
                                             @endif
                                         @endforeach
                                     </div>

@@ -50,7 +50,7 @@
         let counter = 0;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
-            url: "{{route('uploadFile.gallery.large',['gallery_id' => $gallery_id])}}",
+            url: "{{route('uploadFile.gallery.large.edit',['gallery_id' => $gallery_id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png",
             addRemoveLinks: true,
@@ -93,14 +93,14 @@
                     })
                 });
 
-{{--                @if($gallery->medias->where('gallery_large_picture',true)->first() != null)--}}
+                @if($gallery->medias->where('gallery_large_picture',true)->first() != null)
                 let mockFile = {
                     name: "{{substr($gallery->medias->where('gallery_large_picture',true)->first()->path,13,50)}}",
                     size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($gallery->medias->where('gallery_large_picture',true)->first()->path,8,54))}}"
                 };
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile);
                 thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset(  $gallery->medias->where('gallery_large_picture',true)->first()->path)}}");
-{{--                @endif--}}
+                @endif
 
 
 
