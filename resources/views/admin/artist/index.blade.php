@@ -75,6 +75,12 @@
                                                    class="btn btn-info "> <i class="fa fa-file-contract "></i> media
                                                 </a>
                                             </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('auctions.index', $artist->id) }}" type="button"
+                                                   class="btn btn-secondary "> <i class="fa fa-dollar-sign"></i> Auction
+                                                </a>
+                                            </div>
+
                                         </div>
 
 

@@ -10,10 +10,10 @@ class ShowAssetController extends Controller
 {
     public function show($id)
     {
-        $asset= showAssetService::getAsset($id);
+        $asset = showAssetService::getAsset($id);
         return response()->json([
-            'message'=>'asset retrieved successfully',
-            'asset'=>$asset
+            'message' => 'asset retrieved successfully',
+            'asset' => $asset
         ]);
-  }
+    }
 }

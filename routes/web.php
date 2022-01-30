@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.dashboard');
 });
 //auth routes
 Route::get('login/page',[\App\Http\Controllers\Auth\LoginController::class,'loginPage'])->name('login.page');
@@ -141,7 +141,14 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('video/link/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'store'])->name('videoLink.store');
     Route::get('video/links/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'index'])->name('videoLink.index');
     Route::delete('video/link/{id}/destroy',[\App\Http\Controllers\VideoLinkController::class,'destroy'])->name('videos.destroy');
-
+//auction
+    Route::get('auctions/{artist_id}', [\App\Http\Controllers\AuctionsController::class, 'index'])->name('auctions.index');
+    Route::get('auctions/{artist_id}/create', [\App\Http\Controllers\AuctionsController::class, 'create'])->name('auctions.create');
+    Route::post('auctions/{artist_id}/store', [\App\Http\Controllers\AuctionsController::class, 'store'])->name('auctions.store');
+    Route::get('auctions/{auction_id}/show', [\App\Http\Controllers\AuctionsController::class, 'show'])->name('auctions.show');
+    Route::patch('auctions/{auction_id}/update',[\App\Http\Controllers\AuctionsController::class,'update'])->name('auctions.update');
+    Route::get('auctions/{auction_id}/edit',[\App\Http\Controllers\AuctionsController::class,'edit'])->name('auctions.edit');
+    Route::delete('auctions/{auction_id}/destroy',[\App\Http\Controllers\AuctionsController::class,'destroy'])->name('auctions.destroy');
 
     //redirect region
     Route::get('redirect/{route}',function ($route) {
