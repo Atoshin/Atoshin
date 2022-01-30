@@ -14,7 +14,7 @@ class galleryService
         try
         {
 
-            $gallery = Gallery::query()->with(['medias','videoLinks.media'])->where('id',$gallery_id)->first();
+            $gallery = Gallery::query()->with(['medias','videoLinks'])->where('id',$gallery_id)->where('status','published')->first();
             return $gallery;
         }
         catch (\Exception $e)

@@ -13,7 +13,7 @@ class marketPlaceService
     {
         try
         {
-            $assets = Asset::query()->with(['artist','medias','gallery'])->get();
+            $assets = Asset::query()->with(['artist','medias','gallery'])->where('status','published')->get();
             return $assets;
         }
         catch (\Exception $e)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use App\Models\Asset;
+use App\Models\Auction;
 use App\Models\Contract;
 use App\Models\Gallery;
 use App\Models\Media;
@@ -105,6 +106,11 @@ class MediaController extends Controller
 
     public function uploadPageMain($type, $id)
     {
+        if($type == Auction::class)
+        {
+            $artist_id = Auction::find($id)->artist_id;
+            return view('admin.media.upload-main', compact('type', 'id','artist_id'));
+        }
         return view('admin.media.upload-main', compact('type', 'id'));
     }
 

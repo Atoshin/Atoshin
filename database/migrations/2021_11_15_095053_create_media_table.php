@@ -23,7 +23,7 @@ class CreateMediaTable extends Migration
             $table->boolean('gallery_large_picture')->default(false);
             $table->string('path');
             $table->string('mime_type');
-            $table->boolean('video')->default(false);
+
 
             $table->timestamps();
         });
