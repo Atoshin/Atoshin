@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
     use HasFactory;
-    protected $guarded = [];
-    protected $dates = ['start_date','end_date'];
+    use \Eloquence\Behaviours\CamelCasing;
 
+    protected $guarded = [];
+    protected $dates = ['start_date', 'end_date'];
+    protected $appends = ['artist_name'];
 
     public function videos()
     {
@@ -41,8 +43,14 @@ class Asset extends Model
     {
         return $this->hasMany(Contract::class);
     }
+
     public function videoLinks()
     {
         return $this->morphMany(VideoLink::class, 'video_linkable');
+    }
+
+    public function getArtistNameAttribute()
+    {
+        return $this->artist->full_name;
     }
 }

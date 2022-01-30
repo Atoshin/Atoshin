@@ -14,15 +14,13 @@ class MarketPlaceController extends Controller
         try {
             $assets = marketPlaceService::getAssets();
             return response()->json([
-                'message'=>'assets_retrieved successfully',
-                'assets'=>$assets
+                'message' => 'assets_retrieved successfully',
+                'assets' => $assets
             ]);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
-                'message'=>'an error occured',
-                'error'=> $e
+                'message' => 'an error occured',
+                'error' => $e
             ]);
         }
 

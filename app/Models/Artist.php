@@ -9,6 +9,8 @@ class Artist extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $appends = ['avatar_url'];
+    use \Eloquence\Behaviours\CamelCasing;
 
     public function assets()
     {
@@ -28,5 +30,10 @@ class Artist extends Model
     public function videoLinks()
     {
         return $this->morphMany(VideoLink::class, 'video_linkable');
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return env('APP_URL') . '/' . $this->avatar;
     }
 }

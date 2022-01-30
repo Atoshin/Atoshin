@@ -14,7 +14,7 @@ class showGalleryService
     {
         try
         {
-            $gallery = Gallery::query()->with(['medias','location','assets','videoLinks'])->where("id",$gallery_id)->first();
+            $gallery = Gallery::query()->with(['medias','location','assets.medias','videoLinks'])->where("id",$gallery_id)->first();
             return $gallery;
         }
         catch (\Exception $e)
