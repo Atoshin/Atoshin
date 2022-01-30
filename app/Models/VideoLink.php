@@ -9,6 +9,7 @@ class VideoLink extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    use \Eloquence\Behaviours\CamelCasing;
 
     public function videoLinkable()
     {

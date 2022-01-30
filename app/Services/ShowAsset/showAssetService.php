@@ -13,7 +13,7 @@ class showAssetService
     {
         try
         {
-            $asset = Asset::query()->with(['medias','artist','gallery','videoLinks'])->where("id",$asset_id)->first();
+            $asset = Asset::query()->with(['medias','artist','gallery','videoLinks.media'])->where("id",$asset_id)->first();
             return $asset;
         }
         catch (\Exception $e)
