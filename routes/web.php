@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('admin.dashboard');
 });
 //auth routes
 Route::get('login/page',[\App\Http\Controllers\Auth\LoginController::class,'loginPage'])->name('login.page');

@@ -10,10 +10,10 @@ class ShowArtistController extends Controller
 {
     public function show($id)
     {
-        $artist= showArtistService::getArtist($id);
+        $artist = showArtistService::getArtist($id);
         return response()->json([
-            'message'=>'asset retrieved successfully',
-            'artist'=>$artist
+            'message' => 'artist retrieved successfully',
+            'artist' => $artist
         ]);
     }
 }
