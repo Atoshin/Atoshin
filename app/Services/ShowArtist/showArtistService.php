@@ -13,7 +13,7 @@ class showArtistService
     {
         try
         {
-            $artist = Artist::query()->with(['news','medias','assets','auctions'])->where("id",$artist_id)->first();
+            $artist = Artist::query()->with(['news','medias','assets','auctions','assets.medias'])->where("id",$artist_id)->first();
             return $artist;
         }
         catch (\Exception $e)
