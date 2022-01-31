@@ -13,15 +13,13 @@ class ArtistsListController extends Controller
         try {
             $artists = ArtistsListPageService::getArtists();
             return response()->json([
-                'message'=>'artists_retrieved successfully',
-                'assets'=>$artists
+                'message' => 'artists_retrieved successfully',
+                'artists' => $artists
             ]);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return response()->json([
-                'message'=>'an error occured',
-                'error'=> $e
+                'message' => 'an error occured',
+                'error' => $e
             ]);
         }
     }
