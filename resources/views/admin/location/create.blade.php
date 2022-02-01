@@ -11,7 +11,11 @@
 {{--            <a href="" type="button" class="btn btn-success mr-2 float-right"> <i--}}
 {{--                    class="fa fa-plus mr-2 "></i> Add Address </a>--}}
             {{--                        <h3 class="card-title">{{$gallery->}}</h3>--}}
-            <h3 class="card-title card-blue">Location</h3>
+            <a href="{{route('galleries.index')}}" type="button"
+               class="btn btn-primary mr-2 float-right"> <i
+                    class="fa fa-palette mr-2 "></i> Gallery Table</a>
+            <h3 class="card-title card-blue">Location for {{$gallery->name}}</h3>
+
         </div>
 
         <!-- /.card-header -->

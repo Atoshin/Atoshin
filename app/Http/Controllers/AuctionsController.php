@@ -29,8 +29,6 @@ class AuctionsController extends Controller
             'creation_date'=>$request->creation_date,
             'auction_date'=>$request->auction_date,
             'sold_price'=>$request->sold_price,
-            'hammer_price'=>$request->hammer_price,
-            'estimated_price'=>$request->estimated_price,
             'size'=>$request->size,
             'material'=>$request->material
         ]);
@@ -57,8 +55,6 @@ class AuctionsController extends Controller
         $auctions->creation_date= $request->creation_date;
         $auctions->auction_date= $request->auction_date;
         $auctions->sold_price= $request->sold_price;
-        $auctions->hammer_price= $request->hammer_price;
-        $auctions->estimated_price= $request->estimated_price;
         $auctions->size= $request->size;
         $auctions->material= $request->material;
         $auctions->save();

@@ -19,6 +19,7 @@
                 <div class="card col-sm-12">
                     <div class="card-header">
 
+
                         <h3 class="card-title">Media</h3>
                     </div>
                     <!-- /.card-header -->

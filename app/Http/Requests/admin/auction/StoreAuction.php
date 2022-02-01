@@ -24,15 +24,10 @@ class StoreAuction extends FormRequest
     public function rules()
     {
         return [
-            'asset_name'=>'required',
             'auction_name'=>'required',
-            'size'=>'required',
-            'material'=>'required',
-            'creation_date'=>'required',
-            'auction_date'=>'required|date',
-            'sold_price'=>'required|numeric',
-            'estimated_price'=>'required|numeric',
-            'hammer_price'=>'required|numeric',
+            'asset_name'=>'required'
+
+
 
         ];
     }

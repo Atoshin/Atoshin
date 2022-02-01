@@ -50,9 +50,25 @@
                         <div class="col-sm-4 invoice-col">
                             {{--      <div class="mb-1"><b>Bio:</b> {{$asset->bio}}</div>--}}
                             <address>
-                                <div class="mb-1">   <b>size:</b>  {{$auction->size}}</div>
-                                {{--                795 Folsom Ave, Suite 600<br>--}}
-                                <div class="mb-1">   <b>material:</b>  {{$auction->material}}<br></div>
+                                <div class="mb-1"><b>size:</b>
+                                    @if($auction->size)
+
+                                    {{$auction->size}}<br>
+                                </div>
+                                @else
+                                    <span>-</span>
+                                @endif
+
+                      {{--                795 Folsom Ave, Suite 600<br>--}}
+
+                                <div class="mb-1">   <b>material:</b>
+                                        @if($auction->material)
+
+                                            {{$auction->material}}<br>
+                                    </div>
+                                    @else
+                                        <span>-</span>
+                                @endif
 
 
                                 {{--                Email: info@almasaeedstudio.com--}}
@@ -63,8 +79,25 @@
 
                             <address>
                                 {{--                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>--}}
-                                <div class="mb-1"> <b>creation-date:</b>  {{$auction->creation_date}} <br></div>
-                                <div class="mb-1"> <b>auction-date:</b>  {{$auction->auction_date}} <br></div>
+                                <div class="mb-1">   <b>Creation Date:</b>
+                                    @if($auction->creation_date)
+
+                                        {{$auction->creation_date}}<br>
+                                </div>
+                                @else
+                                    <span>-</span>
+                                @endif
+
+
+                                <div class="mb-1">   <b>Auction Date:</b>
+                                    @if($auction->auction_date)
+
+                                        {{$auction->auction_date}}<br>
+                                </div>
+                                @else
+                                    <span>-</span>
+                                @endif
+
 
 
                             </address>
@@ -72,11 +105,16 @@
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                {{--                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>--}}
-                                <div class="mb-1"> <b>sold-price:</b>  {{$auction->sold_price}} <br></div>
-                                <div class="mb-1"> <b>estimated-price:</b>  {{$auction->estimated_price}} <br></div>
-                                <div class="mb-1"> <b>hammer-price:</b>  {{$auction->hammer_price}} <br></div>
 
+                                <div class="mb-1">   <b>Sold Price:</b>
+                                    @if($auction->sold_price)
+
+                                        {{$auction->sold_price}}<br>
+                                </div>
+                                @else
+                                    <span>-</span>
+                                @endif
+                                {{--                                <div class="mb-1">   <b>Username:</b>  {{$user->username}}<br></div>--}}
 
                             </address>
                         </div>
