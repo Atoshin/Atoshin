@@ -17,13 +17,11 @@ class CreateAuctionsTable extends Migration
 
             $table->string('material')->nullable();
             $table->string('size')->nullable();
-            $table->integer('creation_date')->nullable();
+            $table->string('creation_date')->nullable();
             $table->string('asset_name')->nullable();
             $table->string('auction_name')->nullable();
-            $table->date('auction_date')->nullable();
+            $table->string('auction_date')->nullable();
             $table->string('sold_price')->nullable();
-            $table->string('estimated_price')->nullable();
-            $table->string('hammer_price')->nullable();
             $table->unsignedBigInteger('artist_id');
 
             $table->foreign('artist_id')

@@ -20,7 +20,10 @@
                     <div class="card-header">
                         <a href="{{route('create.gallerying',$gallery_id)}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add Manager</a>
-                        <h3 class="card-title">Artist</h3>
+                        <a href="{{route('galleries.index')}}" type="button"
+                           class="btn btn-primary mr-2 float-right"> <i
+                                class="fa fa-palette mr-2 "></i> Gallery Table</a>
+                        <h3 class="card-title">Manager for {{$gallery->name}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

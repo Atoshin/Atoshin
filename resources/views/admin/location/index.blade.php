@@ -21,6 +21,7 @@
                     <div class="card-header">
                         <a href="{{route('locations.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add Location</a>
+
                         <h3 class="card-title">Location</h3>
                     </div>
                     <!-- /.card-header -->

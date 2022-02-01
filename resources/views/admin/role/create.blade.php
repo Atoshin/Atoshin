@@ -2,6 +2,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
+
             <h3 class="card-title">Add Role</h3>
         </div>
         <!-- /.card-header -->

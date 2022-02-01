@@ -21,7 +21,12 @@
                         <a href="{{route('news.create', $artist_id)}}" type="button"
                            class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add News</a>
-                        <h3 class="card-title">News</h3>
+
+
+                        <a href="{{route('artists.index')}}" type="button"
+                           class="btn btn-primary mr-2 float-right"> <i
+                                class="fa fa-palette mr-2 "></i> Artist Table</a>
+                        <h3 class="card-title">News for {{$artist->full_name}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

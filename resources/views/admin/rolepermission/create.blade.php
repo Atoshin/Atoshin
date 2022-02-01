@@ -2,7 +2,11 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Add Role</h3>
+            <a href="{{route('roles.index')}}" type="button"
+               class="btn btn-success  mr-2 float-right"> <i
+                    class="fa fa-user-circle mr-2 "></i> Role Table</a>
+
+            <h3 class="card-title">Add Permissions</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -11,7 +15,7 @@
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Permissions<span class="text-danger">*</span></label>
+                    <label >Permissions for {{$role->name}}<span class="text-danger">*</span></label>
                     <select class="js-example-basic-multiple form-control" name="permissions[]" multiple="multiple">
                         @foreach($permissions as $permission)
                         <option @if(in_array($permission->name,$role_permissions)) selected @endif value="{{$permission->id}}">{{$permission->name}}</option>

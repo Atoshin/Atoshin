@@ -31,7 +31,7 @@ class LocationController extends Controller
     {
         $gallery = Gallery::query()->find($gallery_id);
         $location = $gallery->location;
-        return view('admin.location.create', compact('gallery_id', 'location'));
+        return view('admin.location.create', compact('gallery_id', 'location','gallery'));
     }
 
     /**

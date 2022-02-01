@@ -2,6 +2,9 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
+            <a href="{{route('admins.index')}}" type="button"
+               class="btn btn-success mr-2 float-right"> <i
+                    class="fa fa-certificate mr-2 "></i> Admin Table</a>
             <h3 class="card-title">Add Role</h3>
         </div>
         <!-- /.card-header -->
@@ -11,7 +14,7 @@
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Roles<span class="text-danger">*</span></label>
+                    <label >Roles for {{$admin->username}}<span class="text-danger">*</span></label>
                     <select class="js-example-basic-multiple form-control" name="roles[]" multiple="multiple">
                         @foreach($roles as $role)
                             <option @if(in_array($role->name,$admin_roles)) selected @endif value="{{$role->id}}">{{$role->name}}</option>
