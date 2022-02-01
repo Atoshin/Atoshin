@@ -37,7 +37,10 @@ Route::prefix('v1')->group(function () {
     Route::post('contract/{contract}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setContractMintRecord']);
 
 
+
     Route::get('marketplace', [\App\Http\Controllers\Api\MarketPlaceController::class, 'getAssets']);
+    Route::get('artists', [\App\Http\Controllers\Api\ArtistsListController::class, 'getArtists']);
+    Route::get('galleries', [\App\Http\Controllers\Api\GalleriesListController::class, 'getGalleries']);
 });
 
 

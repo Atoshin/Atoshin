@@ -44,6 +44,8 @@
                 <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
             @elseif($type == \App\Models\Asset::class)
                 <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
+            @elseif($type == \App\Models\Auction::class)
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('artists.index',['artist_id'=>$artist_id])}}">Next</a>
             @endif
         </div>
 

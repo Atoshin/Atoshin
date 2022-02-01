@@ -6,6 +6,7 @@ use App\Http\Requests\admin\auction\StoreAuction;
 use App\Http\Requests\admin\auction\UpdateAuction;
 use App\Models\Artist;
 use App\Models\Auction;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 
 class AuctionsController extends Controller
@@ -22,7 +23,7 @@ class AuctionsController extends Controller
     }
     public function store(StoreAuction $request , $artist_id)
     {
-        Auction::query()->create([
+        $auction = Auction::query()->create([
             'artist_id'=>$artist_id,
             'asset_name'=>$request->asset_name,
             'auction_name'=>$request->auction_name,
@@ -33,7 +34,7 @@ class AuctionsController extends Controller
             'material'=>$request->material
         ]);
 
-        return redirect()->route('auctions.index',$artist_id);
+        return redirect()->route('upload.page.main',['type'=>Auction::class,'id'=>$auction->id]);
     }
     public function show($auction_id)
     {

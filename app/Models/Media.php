@@ -9,7 +9,7 @@ class Media extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $appends = ['url'];
+    protected $appends = ['url', 'size'];
     use \Eloquence\Behaviours\CamelCasing;
 
     public function mediable()
@@ -19,5 +19,14 @@ class Media extends Model
     public function getUrlAttribute()
     {
         return env('APP_URL') . '/' . $this->path;
+    }
+
+    public function getSizeAttribute()
+    {
+        $data = getimagesize($this->path);
+        return [
+            'width' => $data[0],
+            'height' => $data[1]
+        ];
     }
 }
