@@ -18,6 +18,7 @@
                     <div class="card-header">
                         <a href="{{route('roles.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add role</a>
+
                         <h3 class="card-title">Role</h3>
                     </div>
 

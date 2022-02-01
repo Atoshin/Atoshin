@@ -48,7 +48,7 @@
             @elseif($type == \App\Models\Gallery::class)
                 <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page.gallery.large', $id)}}">Submit</a>
             @else
-                <a class="btn btn-primary dark-none" id="submitButton" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}">Next</a>
             @endif
         </div>
 
@@ -91,12 +91,6 @@
                         file.acceptDimensions();
                     }
                 });
-            },
-            success: function(file, response)
-            {
-                document.getElementById('submitButton').classList.remove('d-none')
-                mediaIds.push(response.media_id)
-                counter++;
 
                 var submitButton = document.querySelector("#submitButton");
                 myDropzone = this;
@@ -106,6 +100,13 @@
                         alert("Not enough files!");
                     }
                 });
+            },
+            success: function(file, response)
+            {
+                document.getElementById('submitButton').classList.remove('d-none')
+                mediaIds.push(response.media_id)
+                counter++;
+
             },
 
 

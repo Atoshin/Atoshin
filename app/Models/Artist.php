@@ -32,8 +32,15 @@ class Artist extends Model
         return $this->morphMany(VideoLink::class, 'video_linkable');
     }
 
+    public function auctions()
+    {
+        return $this->hasMany(Auction::class);
+    }
+
     public function getAvatarUrlAttribute()
     {
         return env('APP_URL') . '/' . $this->avatar;
     }
+
+
 }

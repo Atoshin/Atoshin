@@ -18,7 +18,8 @@
                     <div class="card-header">
                         <a href="{{route('permissions.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add permission</a>
-                        <h3 class="card-title">Permission</h3>
+
+                        <h3 class="card-title">Permission for </h3>
                     </div>
 
                 {{--                    <div class="card col-sm-12">--}}
