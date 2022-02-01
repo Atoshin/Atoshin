@@ -9,6 +9,7 @@ class Auction extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    use \Eloquence\Behaviours\CamelCasing;
     public function media()
     {
         return $this->morphOne(Media::class, 'mediable');
