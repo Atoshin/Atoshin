@@ -25,6 +25,7 @@
 
                 </form>
             </div>
+            <div class="bg bg-danger" id="error"></div>
         </div>
 
         <div class="card-footer">
@@ -44,12 +45,13 @@
     <script>
         const mediaIds = []
         var maxImageWidth = 1120, maxImageHeight = 460;
+        let counter = 0;
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.gallery.large',['gallery_id' => $gallery_id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png",
-            // addRemoveLinks: true,
+            addRemoveLinks: true,
             maxFiles: 1,
             maxFilesize: 3,
             // dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
@@ -63,12 +65,36 @@
             },
             init: function () {
                 let thisDropzone = this;
+
+                submitButton.addEventListener("click", function (e) {
+                    if (counter < 1) {
+                        e.preventDefault();
+                        alert("Not enough files!");
+                    }
+                });
+
                 this.on("removedfile", function (file) {
-                    console.log(file)
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        }
+                    });
+
+                    $.ajax({
+                        url: `/media/delete/${file.id}`,
+                        method: "delete",
+                        success: function (res) {
+                            console.log(res)
+                        }
+                    })
+                    counter--;
+                    console.log(counter)
                 });
                 this.on("thumbnail", function(file) {
                     if (file.width !== maxImageWidth && file.height !== maxImageHeight ) {
                         file.rejectDimensions()
+                        counter++;
+                        console.log(counter);
                     }
                     else {
                         file.acceptDimensions();
@@ -78,8 +104,20 @@
             success: function(file, response)
             {
                 document.getElementById('submitButton').classList.remove('d-none')
+                counter++;
+
                 mediaIds.push(response.media_id)
 
+            },
+            error: function(file, message, xhr) {
+                const error = document.querySelector('#error');
+                error.innerHTML = ' <h3>an error occured your file will be deleted from the dropzone shortly </h3>';
+                setTimeout(() => {
+                    $(file.previewElement).remove();
+                    console.log(counter);
+                    error.innerHTML = '';
+                    location.reload();
+                }, 5000)
             },
             accept: function(file, done) {
                 file.acceptDimensions = done;

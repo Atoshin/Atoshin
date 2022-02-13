@@ -57,7 +57,7 @@ class UserController extends Controller
                 'walletable_type' => 'App\Models\User'
             ]);
         });
-        return redirect()->route('upload.page.main',['type'=>User::class,'id'=>$user->id]);
+        return redirect()->route('upload.page',['type'=>User::class,'id'=>$user->id]);
     }
 
     /**

@@ -38,16 +38,16 @@
         <div class="card-footer " >
             @if($type == \App\Models\Gallery::class)
                 <a id="submitButton" class="btn btn-primary"
-                   href="{{route('galleries.index')}}">Submit</a>
+                   href="{{route('galleries.edit',$id)}}">Submit</a>
             @elseif($type == \App\Models\Artist::class)
                 <a  id="submitButton" class="btn btn-primary"
-                   href="{{route('artists.index')}}">Submit</a>
+                   href="{{route('artists.edit',$id)}}">Submit</a>
             @elseif($type == \App\Models\User::class)
                 <a id="submitButton" class="btn btn-primary"
-                   href="{{route('users.index')}}">Submit</a>
+                   href="{{route('users.edit',$id)}}">Submit</a>
             @elseif($type == \App\Models\Asset::class)
                 <a id="submitButton" class="btn btn-primary"
-                   href="{{route('assets.index')}}">Submit</a>
+                   href="{{route('assets.edit',$id)}}">Submit</a>
             @endif
         </div>
 
