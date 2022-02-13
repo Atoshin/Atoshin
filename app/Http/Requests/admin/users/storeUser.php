@@ -16,9 +16,7 @@ storeUser extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'nullable|unique:users|email',
-            'username'=>'required|min:4',
-            'bio'=>'required|max:1000',
+//            'email'=>'email',
             'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/'
 
 

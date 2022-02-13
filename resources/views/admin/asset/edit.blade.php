@@ -208,7 +208,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Date of Creation</label>
-                    <input type="number" class="form-control" name="creation" value="{{$asset->creation}}" placeholder="Date of Creation">
+                    <input type="text" class="form-control" name="creation" value="{{$asset->creation}}" placeholder="Date of Creation">
                     @error('creation')
                     <small class="text-danger">
                         {{$message}}

@@ -220,7 +220,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Date of Creation</label>
-                    <input type="number" class="form-control" name="creation" placeholder="Date of creation" value="{{old('creation')}}">
+                    <input type="text" class="form-control" name="creation" placeholder="Date of creation" value="{{old('creation')}}">
                     @error('creation')
                     <small class="text-danger">
                         {{$message}}

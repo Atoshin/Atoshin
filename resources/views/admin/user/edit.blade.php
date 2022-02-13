@@ -29,7 +29,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Email <span class="text-danger">*</span></label>
+                    <label for="exampleInputPassword1">Email</label>
                     <input type="text" class="form-control" name="email" value="{{$user->email}}" placeholder="Email">
                     @error('email')
                     <small class="text-danger">
@@ -38,7 +38,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Username <span class="text-danger">*</span></label>
+                    <label for="exampleInputPassword1">Username</label>
                     <input type="text" class="form-control" name="username" value="{{$user->username}}" placeholder="Username">
                     @error('username')
                     <small class="text-danger">
@@ -47,7 +47,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Bio <span class="text-danger">*</span></label>
+                    <label for="exampleInputPassword1">Bio</label>
                     <textarea type="text" class="form-control" name="bio" value="{{$user->bio}}" placeholder="Bio">{{$user->bio}}</textarea>
                     @error('bio')
                     <small class="text-danger">
