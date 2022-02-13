@@ -27,9 +27,9 @@ class GalleryingController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function creategallerying ($gallery_id, $gallery)
+    public function creategallerying ($gallery_id)
     {
-        return view('admin.gallerying.create',compact('gallery_id','gallery'));
+        return view('admin.gallerying.create',compact('gallery_id'));
     }
 
     /**

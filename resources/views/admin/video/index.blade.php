@@ -19,10 +19,10 @@
                     <div class="card-header">
                         <a href="{{route('videos.create', $asset_id)}}" type="button" class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add Video </a>
-                        <a href="{{route('rols.index')}}" type="button"
+                        <a href="{{route('assets.index',$asset_id)}}" type="button"
                            class="btn btn-primary mr-2 float-right"> <i
                                 class="fa fa-paint-brush mr-2 "></i> Asset Table</a>
-                        <h3 class="card-title">Video for {{$rols->title}}</h3>
+                        <h3 class="card-title">Video for {{$asset->title}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

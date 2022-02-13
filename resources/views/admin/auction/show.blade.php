@@ -109,7 +109,7 @@
                                 <div class="mb-1">   <b>Sold Price:</b>
                                     @if($auction->sold_price)
 
-                                        {{$auction->sold_price}}<br>
+                                        {{$auction->sold_price  }}<br>
                                 </div>
                                 @else
                                     <span>-</span>
