@@ -28,15 +28,19 @@
 
         <div class="card-footer">
             @if($type == \App\Models\Gallery::class)
-                <a id="submitButton" class="btn btn-primary" href="{{route('redirect','galleries.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary"
+                   href="{{route('galleries.edit',$id)}}">Submit</a>
             @elseif($type == \App\Models\Artist::class)
-                <a  id="submitButton" class="btn btn-primary" href="{{route('redirect','artists.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary"
+                   href="{{route('artists.edit',$id)}}">Submit</a>
             @elseif($type == \App\Models\User::class)
-                <a  id="submitButton" class="btn btn-primary" href="{{route('redirect','users.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary"
+                   href="{{route('users.edit',$id)}}">Submit</a>
             @elseif($type == \App\Models\Contract::class)
                 <a id="submitButton" class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
             @elseif($type == \App\Models\Asset::class)
-                <a id="submitButton" class="btn btn-primary" href="{{route('redirect','assets.index')}}">Submit</a>
+                <a id="submitButton" class="btn btn-primary"
+                   href="{{route('assets.edit',$id)}}">Submit</a>
             @endif
         </div>
 
@@ -105,7 +109,7 @@
                 });
 
                 @foreach($entity->medias as $index=>$file)
-                @if(!$file->main)
+                @if(!$file->main && !$file->gallery_large_picture)
                 let mockFile{{$index}} = {id: {{$file->id}}, name: "{{substr($file->path,13,50)}}", size: "{{\Illuminate\Support\Facades\Storage::size('public/'.substr($file->path,8,54))}}"};
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile{{$index}});
                 thisDropzone.options.thumbnail.call(thisDropzone, mockFile{{$index}}, "{{asset(  $file->path)}}");

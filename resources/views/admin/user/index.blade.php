@@ -63,6 +63,12 @@
                                                         class="fa fa-trash "></i>delete
                                                 </button>
                                             </div>
+
+                                            <div class="m-1">
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\User::class,'id'=>$user->id]) }}" type="button"
+                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
+                                                </a>
+                                            </div>
                                         </div>
 
 

@@ -31,7 +31,7 @@
         <div class="card-footer " >
 
                 <a id="submitButton" class="btn btn-primary"
-                   href="{{route('galleries.index')}}">Submit</a>
+                   href="{{route('galleries.edit',$gallery_id)}}">Submit</a>
 
         </div>
 
@@ -47,7 +47,7 @@
 
     <script>
         const mediaIds = []
-        let counter = 1;
+        let counter = {{$gallery->medias()->where('gallery_large_picture',true)->count()}};
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
             url: "{{route('uploadFile.gallery.large.edit',['gallery_id' => $gallery_id])}}",
