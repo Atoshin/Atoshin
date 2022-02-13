@@ -18,11 +18,19 @@ class WalletController extends Controller
         $userWallet = $request->walletAddress;
         try {
             //check if this user has signed in before
-            if (Wallet::query()->where('wallet_address', $userWallet)->first()) {
-                return response()->json([
-                    'message' => 'user already has wallet',
-                    'data' => true
-                ], 200);
+            $wallet = Wallet::query()->where('wallet_address', $userWallet)->first();
+            if ($wallet) {
+                if ($wallet->user->signatures->where('type', 'login')->first()) {
+                    return response()->json([
+                        'message' => 'user already has wallet and signature',
+                        'data' => true
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'message' => 'user has no signature',
+                        'data' => true
+                    ], 409);
+                }
             } else {
                 //create a new user and attach the wallet to that user
                 $user = User::query()->create([
@@ -36,13 +44,8 @@ class WalletController extends Controller
                 return response()->json([
                     'message' => 'create new user and wallet successful',
                     'data' => true
-                ], 200);
+                ], 201);
             }
-        } catch (ModelNotFoundException $exception) {
-            return response()->json([
-                'message' => 'module not found',
-                'data' => false
-            ], 404);
         } catch (Exception $exception) {
             return response()->json([
                 'message' => 'Something went wrong',
