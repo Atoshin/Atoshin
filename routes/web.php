@@ -159,5 +159,7 @@ Route::middleware('auth:admin')->group(function () {
         return redirect()->route($route,$arguments);
     })->name('redirect.with.arguments');
     //end
+//newsletter
+    Route::resource('newsletters', \App\Http\Controllers\NewsLetterController::class);
 });
 

@@ -1,21 +1,19 @@
 @extends('admin.layout.master')
 @section('content')
-
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Edit Category</h3>
+            <h3 class="card-title">Add Email</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post"  id="myform"  action="{{route('categories.update', $category->id)}}">
-            @method('patch')
+        <form method="post"  id="myform"   action="{{route('newsletters.store')}}">
             @csrf
             <div class="card-body">
 
                 <div class="form-group">
-                    <label >Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="title" placeholder="title" value="{{$category->title}}">
-                    @error('title')
+                    <label >Email <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="email" placeholder="email" value="{{old('email')}}">
+                    @error('email')
                     <small class="text-danger">
                         {{$message}}
                     </small>
@@ -38,7 +36,7 @@
 
             <div class="card-footer">
                 <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
-{{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
+                {{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
             </div>
         </form>
     </div>
