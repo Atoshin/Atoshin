@@ -71,7 +71,7 @@
                                                 </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{ route('media.index',['type'=>\App\Models\Artist::class,'id'=>$artist->id]) }}" type="button"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id]) }}" type="button"
                                                    class="btn btn-info "> <i class="fa fa-file-contract "></i> media
                                                 </a>
                                             </div>

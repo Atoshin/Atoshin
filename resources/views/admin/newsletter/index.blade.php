@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Gallery Table</h1>
+                    <h1>NewsLetter Table</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -18,55 +18,45 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('galleries.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
-                                class="fa fa-plus mr-2 "></i> Add Gallery</a>
-                        <h3 class="card-title">Gallery</h3>
+                        <a href="{{route('newsletters.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add Email</a>
+                        <h3 class="card-title">Emails</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Operations</th>
+                                <th>Email</th>
+                                <th>Operation</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
 
                             <tbody>
-                            @foreach($galleries as $gallery)
+                            @foreach($newsletters as $newsletter)
                                 <tr>
 
-                                    <td><a href="{{route('galleries.show',$gallery->id)}}">{{$gallery->name}}</a></td>
-                                    <td>{{$gallery->status}}</td>
-{{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
+
+                                    <td>
+                                      {{$newsletter->email}}
+
+                                    </td>
+
+
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
-                                                <a href="{{route('galleries.edit',$gallery->id)}}" type="button"
+                                                <a href="{{route('newsletters.edit',$newsletter->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-{{--                                            <div class="m-1">--}}
-{{--                                                <button type="button"--}}
-{{--                                                        onclick="deleteModal(this)"--}}
-{{--                                                        data-id="{{$gallery->id}}"--}}
-{{--                                                        class="btn btn-danger "><i--}}
-{{--                                                        class="fa fa-trash "></i>delete--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
                                             <div class="m-1">
-                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
-                                            </div>
-                                            <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id]) }}" type="button"
-                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
-                                                </a>
-                                            </div>
-                                            <div class="m-1">
-                                                <a href="{{route('index.gallerying', $gallery->id)}}" type="button"
-                                                   class="btn btn-light "> <i class="fa fa-location-arrow "></i> Manager </a>
+                                                <button type="button"
+                                                        onclick="deleteModal(this)"
+                                                        data-id="{{$newsletter->id}}"
+                                                        class="btn btn-danger "><i
+                                                        class="fa fa-trash "></i>delete
+                                                </button>
                                             </div>
                                         </div>
 
@@ -86,7 +76,7 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-        </div>
+
         <form action="" id="delete-form" method="POST">
             @method('delete')
             @csrf
@@ -131,18 +121,18 @@
     <script>
 
         $(".delete-icon").on("click", function () {
-            var GalleryId = $(this).data('id');
-            $("#delete-form").attr("action", "/users/" + GalleryId)
+            var NewsLetterId = $(this).data('id');
+            $("#delete-form").attr("action", "/newsletters/" + NewsLetterId)
         });
 
     </script>
     <script>
         function deleteModal(element) {
-            var GalleryID = $(element).data('id');
-            document.getElementById('delete-form').action = `/galleries/${GalleryID}`;
+            var NewsLetterID = $(element).data('id');
+            document.getElementById('delete-form').action = `/newsletters/${NewsLetterID}`;
             Swal.fire({
                 icon: 'warning',
-                title: 'Do you want to delete this Gallery?',
+                title: 'Do you want to delete this Email?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 confirmButtonText: `yes`,

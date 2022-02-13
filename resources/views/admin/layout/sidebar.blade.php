@@ -67,6 +67,14 @@
                     </a>
                 </li>
                 @endcan
+                @can('manage newsletter')
+                    <li class="nav-item" style="border-bottom: white 0.7px solid;">
+                        <a href="{{route('newsletters.index')}}" class="nav-link">
+                            <i class="fa fa-newspaper nav-icon"></i>
+                            <p>NewsLetter</p>
+                        </a>
+                    </li>
+                @endcan
                 @can('manage admins')
                 <li class="nav-item">
                     <a href="{{route('admins.index')}}" class="nav-link">
@@ -91,6 +99,7 @@
                     </a>
                 </li>
                 @endcan
+
 
 
             </ul>

@@ -65,7 +65,7 @@ class AssetController extends Controller
             'order'=>$request->order,
             'status'=>$request->status,
         ]);
-        return redirect()->route('upload.page.main',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
     }
 
     /**

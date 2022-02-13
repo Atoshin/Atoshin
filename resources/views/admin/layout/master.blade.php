@@ -80,6 +80,7 @@
             target: 'body',
             icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
             title: '{{\Illuminate\Support\Facades\Session::get('message')}}',
+            showCancelButton: true,
             showConfirmButton: false,
             timer: 100000,
         })
