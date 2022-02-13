@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Signature extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
+    protected $hidden = [
+        'hash',
+        'user_id',
+    ];
+
 
     public function user()
     {

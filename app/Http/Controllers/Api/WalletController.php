@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\wallet\storeWallet;
+use App\Models\Signature;
 use App\Models\User;
 use App\Models\Wallet;
 use Exception;
 use http\Env\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WalletController extends Controller
 {
@@ -20,6 +22,7 @@ class WalletController extends Controller
             //check if this user has signed in before
             $wallet = Wallet::query()->where('wallet_address', $userWallet)->first();
             if ($wallet) {
+                //check if user has signature
                 if ($wallet->user->signatures->where('type', 'login')->first()) {
                     return response()->json([
                         'message' => 'user already has wallet and signature',
@@ -46,6 +49,34 @@ class WalletController extends Controller
                     'data' => true
                 ], 201);
             }
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'data' => false
+            ], 500);
+        }
+    }
+
+    public function storeSignature(Request $request)
+    {
+        $request->validate([
+            'signature' => 'required|string|regex:/0x[a-fA-F0-9]{130}/',
+            'walletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
+        ]);
+
+        try {
+            $wallet = Wallet::query()->where('wallet_address', $request->walletAddress)->first();
+            $user = $wallet->user;
+            Signature::query()->create([
+                'type' => 'login',
+                'hash' => $request->signature,
+                'user_id' => $user->id
+            ]);
+
+            return response()->json([
+                'message' => 'stored signature',
+                'data' => true
+            ]);
         } catch (Exception $exception) {
             return response()->json([
                 'message' => 'Something went wrong',
