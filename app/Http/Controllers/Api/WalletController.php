@@ -23,7 +23,8 @@ class WalletController extends Controller
             $wallet = Wallet::query()->where('wallet_address', $userWallet)->first();
             if ($wallet) {
                 //check if user has signature
-                if ($wallet->user->signatures->where('type', 'login')->first()) {
+                $user = User::query()->find($wallet->walletable_id);
+                if ($user->signatures->where('type', 'login')->first()) {
                     return response()->json([
                         'message' => 'user already has wallet and signature',
                         'data' => true
@@ -31,7 +32,7 @@ class WalletController extends Controller
                 } else {
                     return response()->json([
                         'message' => 'user has no signature',
-                        'data' => true
+                        'data' => false
                     ], 409);
                 }
             } else {
@@ -46,13 +47,13 @@ class WalletController extends Controller
                 ]);
                 return response()->json([
                     'message' => 'create new user and wallet successful',
-                    'data' => true
+                    'data' => false
                 ], 201);
             }
         } catch (Exception $exception) {
             return response()->json([
                 'message' => 'Something went wrong',
-                'data' => false
+                'data' => true
             ], 500);
         }
     }
@@ -66,7 +67,7 @@ class WalletController extends Controller
 
         try {
             $wallet = Wallet::query()->where('wallet_address', $request->walletAddress)->first();
-            $user = $wallet->user;
+            $user = User::query()->find($wallet->walletable_id);
             Signature::query()->create([
                 'type' => 'login',
                 'hash' => $request->signature,
