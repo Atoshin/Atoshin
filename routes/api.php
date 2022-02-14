@@ -24,9 +24,13 @@ Route::prefix('v1')->group(function () {
 
     Route::get('homepage/material', [\App\Http\Controllers\Api\HomePageController::class, 'gethomePageMaterial'])->name('homepage');
     Route::post('assets/{type}/{asset_id}/media/upload', [\App\Http\Controllers\Api\MediaController::class, 'upload']);
+    Route::post('wallets/store/signature', [\App\Http\Controllers\Api\WalletController::class, 'storeSignature']);
     Route::post('wallets/store', [\App\Http\Controllers\Api\WalletController::class, 'storeWallet']);
     Route::get('asset/{id}/show', [\App\Http\Controllers\Api\ShowAssetController::class, 'show']);
-    Route::get('user/{address}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
+    Route::middleware('authorize_metamask')->group(function () {
+        Route::get('user/{address}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
+    });
+
     Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
     Route::get('gallery/{id}/show', [\App\Http\Controllers\Api\ShowGalleryController::class, 'show']);
 
@@ -35,7 +39,6 @@ Route::prefix('v1')->group(function () {
     Route::post('contract/{contract}/ipfs-hash', [\App\Http\Controllers\Api\AssetController::class, 'setIpfsHash']);
     Route::post('asset/{asset}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setAssetMintRecord']);
     Route::post('contract/{contract}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setContractMintRecord']);
-
 
 
     Route::get('marketplace', [\App\Http\Controllers\Api\MarketPlaceController::class, 'getAssets']);
