@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
     Route::post('wallets/store/signature', [\App\Http\Controllers\Api\WalletController::class, 'storeSignature']);
     Route::post('wallets/store', [\App\Http\Controllers\Api\WalletController::class, 'storeWallet']);
     Route::get('asset/{id}/show', [\App\Http\Controllers\Api\ShowAssetController::class, 'show']);
+
     Route::middleware('authorize_metamask')->group(function () {
         Route::get('user/{address}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
     });
