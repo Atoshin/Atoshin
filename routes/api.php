@@ -45,6 +45,8 @@ Route::prefix('v1')->group(function () {
     Route::get('marketplace', [\App\Http\Controllers\Api\MarketPlaceController::class, 'getAssets']);
     Route::get('artists', [\App\Http\Controllers\Api\ArtistsListController::class, 'getArtists']);
     Route::get('galleries', [\App\Http\Controllers\Api\GalleriesListController::class, 'getGalleries']);
+
+    Route::post('newsletters', [\App\Http\Controllers\Api\NewslettersController::class, 'submit']);
 });
 
 
