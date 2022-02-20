@@ -142,4 +142,12 @@ class AssetController extends Controller
         $asset->delete();
         return redirect()->back();
     }
+
+    public function changeStatus(Request $request, Asset $asset)
+    {
+        $asset->status = $request->status;
+        $asset->save();
+
+        return redirect()->back();
+    }
 }

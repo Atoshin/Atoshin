@@ -104,16 +104,16 @@
                     </small>
                     @enderror
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Status</label>
-                    <select name="status" class="form-control" id="">
-                        <option @if($gallery->status=='unpublished') selected @endif value="unpublished">unpublished</option>
-                        <option @if($gallery->status=='published') selected @endif value="published">published</option>
-                    </select>
-                    @error('status')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label for="exampleInputPassword1">Status</label>--}}
+{{--                    <select name="status" class="form-control" id="">--}}
+{{--                        <option @if($gallery->status=='unpublished') selected @endif value="unpublished">unpublished</option>--}}
+{{--                        <option @if($gallery->status=='published') selected @endif value="published">published</option>--}}
+{{--                    </select>--}}
+{{--                    @error('status')--}}
+{{--                    <small class="text-danger">{{$message}}</small>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
 
                 <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}">edit gallery logo</a>
                 <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}">edit gallery photos</a>

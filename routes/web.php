@@ -87,12 +87,14 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('galleries', \App\Http\Controllers\GalleryController::class);
         Route::get('locations/{gallery_id}/create', [\App\Http\Controllers\LocationController::class, 'create'])->name('locations.create');
         Route::post('locations/{gallery_id}/store', [\App\Http\Controllers\LocationController::class, 'store'])->name('locations.store');
+        Route::post('gallery/change-status/{gallery}', [\App\Http\Controllers\GalleryController::class, 'changeStatus'])->name('change.gallery.status');
         //end
     });
 
     Route::middleware('permission:manage assets')->group(function () {
         //region assets
         Route::resource('assets', \App\Http\Controllers\AssetController::class);
+        Route::post('asset/change-status/{asset}', [\App\Http\Controllers\AssetController::class, 'changeStatus'])->name('asset.change.status');
         //end
 
         //contracts region

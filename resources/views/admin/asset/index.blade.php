@@ -50,57 +50,65 @@
 
                                     <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
 
-                                    <td>{{$asset->status}}</td>
+                                    <td>
+                                        <form action="{{route('asset.change.status', $asset->id)}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="status"
+                                                   value="{{$asset->status == 'published' ? "unpublished" : 'published'}}">
+                                            <button type="submit"
+                                                    class="btn {{$asset->status == 'published' ? "btn-primary" : "btn-danger"}}">
+                                                {{$asset->status}}
+                                            </button>
+                                        </form>
+                                    </td>
                                     <td><a style="color: white;text-decoration-line: underline"
-                                           href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a></td>
+                                           href="{{route('artists.show', $asset->artist)}}">{{$asset->artist->full_name}}</a>
+                                    </td>
                                     <td>
                                         <a style="color: white;text-decoration-line: underline"
                                            href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a>
                                     </td>
 
                                     <td> @if($asset->order!==null)
-                                        {{$asset->order}}
-                                    @else
-                                        <span>-</span>
+                                            {{$asset->order}}
+                                        @else
+                                            <span>-</span>
                                         @endif</td>
 
                                     <td>
 
                                         <div class="row">
-                                                <div class="m-1">
-                                                    <a href="{{route('assets.edit',$asset->id)}}" type="button"
-                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
-                                                </div>
-{{--                                                <div class="m-1">--}}
-{{--                                                    <button type="button"--}}
-{{--                                                            onclick="deleteModal(this)"--}}
-{{--                                                            data-id="{{$asset->id}}"--}}
-{{--                                                            class="btn btn-danger delete-icon"><i--}}
-{{--                                                            class="fa fa-trash mr-2"></i>delete--}}
-{{--                                                    </button>--}}
-{{--                                                </div>--}}
-
-
-
-
-                                                <div class="m-1">
-                                                    <a href="{{ route('videos.index', $asset->id) }}" type="button"
-                                                       class="btn btn-success "> <i class="fa fa-video "></i> videos
-                                                    </a>
-                                                </div>
-                                                <div class="m-1">
-                                                    <a href="{{ route('contracts.index', $asset->id) }}" type="button"
-                                                       class="btn btn-warning "> <i class="fa fa-file-contract "></i> contracts
-                                                    </a>
-                                                </div>
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$asset->id]) }}" type="button"
+                                                <a href="{{route('assets.edit',$asset->id)}}" type="button"
+                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                            </div>
+                                            {{--                                                <div class="m-1">--}}
+                                            {{--                                                    <button type="button"--}}
+                                            {{--                                                            onclick="deleteModal(this)"--}}
+                                            {{--                                                            data-id="{{$asset->id}}"--}}
+                                            {{--                                                            class="btn btn-danger delete-icon"><i--}}
+                                            {{--                                                            class="fa fa-trash mr-2"></i>delete--}}
+                                            {{--                                                    </button>--}}
+                                            {{--                                                </div>--}}
+
+
+                                            <div class="m-1">
+                                                <a href="{{ route('videos.index', $asset->id) }}" type="button"
+                                                   class="btn btn-success "> <i class="fa fa-video "></i> videos
+                                                </a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('contracts.index', $asset->id) }}" type="button"
+                                                   class="btn btn-warning "> <i class="fa fa-file-contract "></i>
+                                                    contracts
+                                                </a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$asset->id]) }}"
+                                                   type="button"
                                                    class="btn btn-info "> <i class="fa fa-file-contract "></i> media
                                                 </a>
                                             </div>
-
-
-
 
 
                                         </div>
@@ -121,10 +129,10 @@
         </div>
         <!-- /.row -->
 
-{{--        <form action="" id="delete-form" method="POST">--}}
-{{--            @method('delete')--}}
-{{--            @csrf--}}
-{{--        </form>--}}
+        {{--        <form action="" id="delete-form" method="POST">--}}
+        {{--            @method('delete')--}}
+        {{--            @csrf--}}
+        {{--        </form>--}}
 
     </section>
 
