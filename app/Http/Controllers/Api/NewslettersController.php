@@ -12,7 +12,7 @@ class NewslettersController extends Controller
     public function submit(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email'
+            'email' => 'required|string|email|unique:newsletters,email'
         ]);
         $token = $request->header('Authorization');
         if ($token) {
