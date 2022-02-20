@@ -43,8 +43,11 @@
                                     <td>
                                         <form action="{{route('change.gallery.status', $gallery->id)}}" method="post">
                                             @csrf
-                                            <input type="hidden" name="status" value="{{$gallery->status == 'published' ? "unpublished" : 'published'}}">
-                                            <button class="btn {{$gallery->status == 'published' ? "btn-primary" : "btn-danger"}} btn-primary" type="submit">{{$gallery->status}}</button>
+                                            <input type="hidden" name="status"
+                                                   value="{{$gallery->status == 'published' ? "unpublished" : 'published'}}">
+                                            <button
+                                                class="btn {{$gallery->status == 'published' ? "btn-primary" : "btn-danger"}} btn-primary"
+                                                type="submit">{{$gallery->status}}</button>
                                         </form>
                                     </td>
                                     {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
@@ -77,6 +80,12 @@
                                                 <a href="{{route('index.gallerying', $gallery->id)}}" type="button"
                                                    class="btn btn-light "> <i class="fa fa-location-arrow "></i> Manager
                                                 </a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{env('FRONTEND_URL') . '/art-center/' . $gallery->id}}"
+                                                   type="button"
+                                                   class="btn btn-danger"> <i class="fa fa-file "></i>
+                                                    show </a>
                                             </div>
                                         </div>
 

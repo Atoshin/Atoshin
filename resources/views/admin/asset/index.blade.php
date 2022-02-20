@@ -109,6 +109,11 @@
                                                    class="btn btn-info "> <i class="fa fa-file-contract "></i> media
                                                 </a>
                                             </div>
+                                            <div class="m-1">
+                                                <a href="{{env('FRONTEND_URL') . '/show-asset/' . $asset->id}}" type="button"
+                                                   class="btn btn-danger" > <i class="fa fa-file "></i>
+                                                    show </a>
+                                            </div>
 
 
                                         </div>
