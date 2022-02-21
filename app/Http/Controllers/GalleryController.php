@@ -94,7 +94,7 @@ class GalleryController extends Controller
      */
     public function edit($id)
     {
-        $gallery = Gallery::find($id);
+        $gallery = Gallery::query()->find($id);
 
         return view('admin.gallery.edit', compact('gallery'));
     }
@@ -108,7 +108,7 @@ class GalleryController extends Controller
      */
     public function update(updategallery $request, $id)
     {
-        $gallery = Gallery::find($id);
+        $gallery = Gallery::query()->find($id);
         $gallery->name = $request->name;
         $gallery->bio = $request->bio;
         $gallery->summary = $request->summary;
@@ -143,7 +143,7 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        $gallery = Gallery::find($id);
+        $gallery = Gallery::query()->find($id);
         $wallet = $gallery->wallet;
         if ($wallet) {
             $wallet->delete();
