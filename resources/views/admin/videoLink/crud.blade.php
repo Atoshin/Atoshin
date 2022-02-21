@@ -107,27 +107,20 @@
                 </tbody>
             </table>
         </div>
-        <div @if($type == "App\Models\Gallery") class="card-footer d-none" id="submitButton"@else class="card-footer" @endif >
+        <div  class="card-footer " id="submitButton" >
             @if($type == "App\Models\Gallery")
                 {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
-{{--                    <a class="btn btn-primary"--}}
-{{--                       href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>--}}
 
-
-                    @if(count($video_links->where('is_default',true)->where('video_linkable_id',$id)->where('video_linkable_type',$type))>0)
                         <a class="btn btn-primary"
                            href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
-                    @else
-                        <p>Please add a gallery video for home page.</p>
-                    @endif
+
                 @else
-                    @if(count($video_links->where('is_default',true)->where('video_linkable_id',$id)->where('video_linkable_type',$type))>0)
+
                         <a class="btn btn-primary"
                            href="{{route('galleries.index')}}">Submit</a>
-                    @else
-                        <p>Please add a gallery video for home page.</p>
-                    @endif
+
+
                 @endif
             @elseif($type == "App\Models\Artist")
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.edit')
@@ -184,30 +177,18 @@
         }
     </script>
 
-    <script>
-        let flag = false;
-        @foreach($video_links as $video_link)
-            @if($video_link->is_default)
-                @if($video_link->media)
-                    flag = true
-                @endif
-            @endif
-        @endforeach
-        if(flag === true)
-        {
-            document.getElementById('submitButton').classList.remove('d-none')
-        }
-
-    </script>
-
-    <script>
-        
-    </script>
-
-
-
-
-
-
-
+{{--    <script>--}}
+{{--        let flag = false;--}}
+{{--        @foreach($video_links as $video_link)--}}
+{{--            @if($video_link->is_default)--}}
+{{--                @if($video_link->media)--}}
+{{--                    flag = true--}}
+{{--                @endif--}}
+{{--            @endif--}}
+{{--        @endforeach--}}
+{{--        if(flag === true)--}}
+{{--        {--}}
+{{--            document.getElementById('submitButton').classList.remove('d-none')--}}
+{{--        }--}}
+{{--    </script>--}}
 @endsection

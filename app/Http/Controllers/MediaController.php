@@ -21,6 +21,7 @@ class MediaController extends Controller
 {
     public function uploadFile(Request $request, $mediable_type, $mediable_id)
     {
+
         if ($mediable_type == Contract::class) {
             $request->validate([
                 'file' => 'required'
@@ -30,6 +31,7 @@ class MediaController extends Controller
         $fileName = time() . '.' . $file->extension();
         $uploadFolder = 'file';
         $path = $file->store($uploadFolder, 'public');
+
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
         if ($mediable_type == Contract::class) {
@@ -54,7 +56,8 @@ class MediaController extends Controller
                 'mime_type' => $file->getClientMimeType(),
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id
+                'mediable_id' => $mediable_id,
+
 
             ]);
         } else {
@@ -64,9 +67,12 @@ class MediaController extends Controller
                 'mime_type' => $file->getClientMimeType(),
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id
+                'mediable_id' => $mediable_id,
+
 
             ]);
+
+
 
         }
 
@@ -94,6 +100,7 @@ class MediaController extends Controller
 
     public function uploadPage($type, $id)
     {
+
         if($type == User::class)
         {
             $entity = $type::query()->with('media')->where('id', $id)->first();
@@ -339,17 +346,10 @@ class MediaController extends Controller
         $media = Media::query()->find($id);
 
         if ($media->homeapage_picture == true) {
-            $homepage_medias = Media::query()->where('main', false)->where('mediable_type', $media->mediable_type)
-                ->where('mediable_id', $media->mediable_id)->where('homeapage_picture', true)->get();
-            if (count($homepage_medias) <= 4) {
-                return redirect()->back()->with(['message' => 'please choose another media for homepage before removing this media from the homepage', 'icon' => 'warning']);
-            }
-
-
 
             $media->homeapage_picture = false;
         } else {
-            if($media->main or $media->gallery_large_picture)
+            if($media->main or $media->gallery_large_picture )
             {
                 $media->main = false;
                 $media->gallery_large_picture = false;
@@ -367,9 +367,13 @@ class MediaController extends Controller
         if ($media->main == false) {
             $main_medias = Media::query()->where('mediable_type', $media->mediable_type)
                 ->where('mediable_id', $media->mediable_id)->where('main', true)->get();
-            if (count($main_medias) >= 1) {
-//                \request()->session()->flash('message', 'please choose another photo for homepage before removing this media from the homepage');
-                return redirect()->back()->with(['message' => 'you cannot choose more than one main media', 'icon' => 'warning']);
+
+            if(count($main_medias) >= 1) {
+                foreach($main_medias as $main_media)
+                {
+                    $main_media->main = false;
+                    $main_media->save();
+                }
             }
 
             if($media->homeapage_picture or $media->gallery_large_picture)
@@ -396,8 +400,12 @@ class MediaController extends Controller
         if ($media->gallery_large_picture == false) {
 
             if (count($large_medias) >= 1) {
-//                \request()->session()->flash('message', 'please choose another photo for homepage before removing this media from the homepage');
-                return redirect()->back()->with(['message' => 'you cannot choose more than one large picture for the gallery', 'icon' => 'warning']);
+                foreach($large_medias as $large_media)
+                {
+                    $large_media->gallery_large_picture = false;
+                    $large_media->save();
+
+                }
             }
 
             if($media->homeapage_picture or $media->main)

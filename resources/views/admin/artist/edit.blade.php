@@ -124,8 +124,7 @@
                     @enderror
                 </div>
 
-                <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist avatar</a>
-                <a  class="btn btn-primary" href="{{route('upload.page.edit',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist photos</a>
+
                 <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist videos</a>
 {{--                <div style="margin-top: 15px">--}}
 {{--                    <input type="checkbox"--}}

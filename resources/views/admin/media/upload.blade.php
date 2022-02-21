@@ -21,9 +21,12 @@
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
+
                 </form>
             </div>
-            <div class="bg bg-danger" id="error"></div>
+            <div class="alert alert-danger d-none" id="error">
+
+            </div>
         </div>
 
         <div class="card-footer">
@@ -38,9 +41,9 @@
 
                     <div class="card col-sm-12">
                         <div class="card-header">
-
-
-                            <h3 class="card-title">Media</h3>
+                            <h2 class="card-title"><b>Media</b></h2>
+                            <br>
+                            <h6 class="text-warning">please note that each media cannot be either main, homepage picture or gallery large picture at the same time. </h6>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -169,14 +172,25 @@
                 <button class="btn btn-primary " id="submitButton"
                         onclick="checkCheckboxes(event, '{{route('users.index')}}')">Next
                 </button>
-            @elseif($type== \App\Models\Gallery::class)
-                <button class="btn btn-primary " id="submitButton"
-                        onclick="checkCheckboxes(event, '{{route('users.index')}}')">Next
-                </button>
             @else
-                <button class="btn btn-primary " id="submitButton"
-                        onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">Next
-                </button>
+                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.index')
+                    <button class="btn btn-primary " id="submitButton"
+                            onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                    </button>
+                @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'assets.index')
+                    <button class="btn btn-primary " id="submitButton"
+                            onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                    </button>
+                @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.index')
+                    <button class="btn btn-primary " id="submitButton"
+                            onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                    </button>
+                @else
+                    <button class="btn btn-primary " id="submitButton"
+                            onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                    </button>
+                @endif
+
             @endif
 
         </div>
@@ -248,6 +262,7 @@
             success: function (file, response) {
                 const tbody = $('#medias-table');
                 const media = response.medias[response.medias.length - 1]
+
 
                 @if($type == \App\Models\Gallery::class)
 
@@ -402,12 +417,13 @@
 
             error: function (file, message, xhr) {
                 const error = document.querySelector('#error');
-                error.innerHTML = ' <h3>an error occured. your file will be deleted from the dropzone shortly </h3>';
+                error.classList.remove('d-none');
+                error.innerHTML = `<strong>Error!</strong> ${message}`;
                 setTimeout(() => {
                     $(file.previewElement).remove();
                     error.innerHTML = '';
                     location.reload();
-                }, 3000)
+                }, 4000)
             }
             ,
             accept: function (file, done) {
@@ -425,7 +441,7 @@
 
             const rows = document.getElementById('medias-table').children;
             console.log(rows[0].children)
-            // location.replace(href);
+            location.replace(href);
         }
     </script>
     <!-- DataTables  & Plugins -->
