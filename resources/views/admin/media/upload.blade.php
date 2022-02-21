@@ -51,7 +51,7 @@
                                     <th>Photo</th>
                                     <th>Name</th>
 
-                                    @if($type != \App\Models\User::class)
+                                    @if($type == \App\Models\Gallery::class)
                                     <th>show in homepage</th>
                                     @endif
                                     <th>main</th>
@@ -79,7 +79,7 @@
                                         </td>
 
                                         {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
-                                        @if($type != \App\Models\User::class)
+                                        @if($type == \App\Models\Gallery::class)
                                         <td>
 
                                             <form action="{{route('homepage.media',$media->id)}}" method="post">
@@ -167,6 +167,10 @@
                 @endphp
                 <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
             @elseif($type == \App\Models\User::class)
+                <button class="btn btn-primary " id="submitButton"
+                        onclick="checkCheckboxes(event, '{{route('users.index')}}')">Next
+                </button>
+            @elseif($type== \App\Models\Gallery::class)
                 <button class="btn btn-primary " id="submitButton"
                         onclick="checkCheckboxes(event, '{{route('users.index')}}')">Next
                 </button>
@@ -363,19 +367,7 @@
                            href="{{env('APP_URL')}}/${media.path}">${media.path.slice(13, 57)}</a>
                     </td>
 
-                    <td>
-                        <form action="{{env('APP_URL')}}/media/home/page/${media.id}" method="post">
-                            @csrf
-                <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input"
 
-                       id="customSwitch-${media.id}"
-                                   onchange="submitForm(event)"/>
-                            <label class="custom-control-label"
-                                   for="customSwitch-${media.id}"></label>
-                            </div>
-                        </form>
-                    </td>
                     <td>
                         <form action="{{env('APP_URL')}}/media/main/${media.id}" method="post">
                            @csrf
@@ -432,9 +424,9 @@
     <script>
         function checkCheckboxes(event, href) {
 
-            const rows = $("#medias-table").children
-            console.log(rows)
-            location.replace(href);
+            const rows = document.getElementById('medias-table').children;
+            console.log(rows[0].children)
+            // location.replace(href);
         }
     </script>
     <!-- DataTables  & Plugins -->

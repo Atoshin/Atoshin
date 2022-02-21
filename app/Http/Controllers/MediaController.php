@@ -344,20 +344,17 @@ class MediaController extends Controller
             if (count($homepage_medias) <= 4) {
                 return redirect()->back()->with(['message' => 'please choose another media for homepage before removing this media from the homepage', 'icon' => 'warning']);
             }
+
+
+
             $media->homeapage_picture = false;
         } else {
-            if($media->main)
+            if($media->main or $media->gallery_large_picture)
             {
-                return redirect()->back()->with(['message' => 'you cannot show the main media in the homepage ', 'icon' => 'warning']);
+                $media->main = false;
+                $media->gallery_large_picture = false;
             }
-            if($media->gallery_large_picture)
-            {
-                return redirect()->back()->with(['message' => 'you cannot show the gallery large media in the homepage ', 'icon' => 'warning']);
-            }
-
             $media->homeapage_picture = true;
-
-
         }
         $media->save();
         return redirect()->back();
@@ -374,18 +371,15 @@ class MediaController extends Controller
 //                \request()->session()->flash('message', 'please choose another photo for homepage before removing this media from the homepage');
                 return redirect()->back()->with(['message' => 'you cannot choose more than one main media', 'icon' => 'warning']);
             }
-            if ($media->homeapage_picture)
-            {
-                return redirect()->back()->with(['message' => 'you cannot set homepage media as main', 'icon' => 'warning']);
-            }
 
-            if ($media->gallery_large_picture)
+            if($media->homeapage_picture or $media->gallery_large_picture)
             {
-                return redirect()->back()->with(['message' => 'you cannot set gallery large picture as main', 'icon' => 'warning']);
+                $media->homeapage_picture = false;
+                $media->gallery_large_picture = false;
             }
-
             $media->main = true;
         } else {
+
             $media->main = false;
         }
         $media->save();
@@ -406,16 +400,11 @@ class MediaController extends Controller
                 return redirect()->back()->with(['message' => 'you cannot choose more than one large picture for the gallery', 'icon' => 'warning']);
             }
 
-            if($media->homeapage_picture)
+            if($media->homeapage_picture or $media->main)
             {
-                return redirect()->back()->with(['message' => 'you cannot show gallery large picture in homepage', 'icon' => 'warning']);
+                $media->homeapage_picture = false;
+                $media->main = false;
             }
-
-            if($media->main)
-            {
-                return redirect()->back()->with(['message' => 'you cannot set main media as gallery large picture', 'icon' => 'warning']);
-            }
-
             $media->gallery_large_picture = true;
         } else {
             $media->gallery_large_picture = false;
