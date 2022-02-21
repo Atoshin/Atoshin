@@ -30,6 +30,8 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('authorize_metamask')->group(function () {
         Route::get('user/{address}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
+        Route::get('contract/info', [\App\Http\Controllers\Api\ContractsController::class, 'show']);
+        Route::patch('user/{address}/update', [\App\Http\Controllers\Api\ProfileController::class, 'update']);
     });
 
     Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
