@@ -24,18 +24,13 @@ class ProfileController extends Controller
             'firstName' => 'required|string',
             'lastName' => 'required|string',
             'email' => 'required|email|string',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,svg|max:4096'
+            'avatar' => 'required|string'
         ]);
-        $avatar = $request->file('avatar');
-        $uploadFolder = 'media/' . $avatar->getClientMimeType();
-        $path = $avatar->store($uploadFolder);
-
-
         $user = showUserService::getUser($address);
         $user->first_name = $request->firstName;
         $user->last_name = $request->lastName;
         $user->email = $request->email;
-        $user->avatar = $path;
+        $user->avatar = $request->avatar;
         $user->save();
 
     }
