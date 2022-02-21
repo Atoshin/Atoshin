@@ -72,6 +72,21 @@ class MediaController extends Controller
             'message' => 'File Uploaded Successfully',
             'response' => $uploadedFileResponse
         ], 200);
+    }
 
+
+    public function uploadFile(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,svg|max:4096'
+        ]);
+        $file = $request->file('file');
+        $uploadFolder = 'file';
+        $path = $file->store($uploadFolder, 'public');
+
+        return response()->json([
+            'message' => 'file upload successful',
+            'path' => $path
+        ]);
     }
 }

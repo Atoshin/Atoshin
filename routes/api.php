@@ -34,6 +34,8 @@ Route::prefix('v1')->group(function () {
         Route::patch('user/{address}/update', [\App\Http\Controllers\Api\ProfileController::class, 'update']);
 //    });
 
+    Route::post('file', [\App\Http\Controllers\Api\MediaController::class, 'uploadFile']);
+
     Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
     Route::get('gallery/{id}/show', [\App\Http\Controllers\Api\ShowGalleryController::class, 'show']);
 
