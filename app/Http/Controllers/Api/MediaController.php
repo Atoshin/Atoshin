@@ -86,7 +86,7 @@ class MediaController extends Controller
 
         return response()->json([
             'message' => 'file upload successful',
-            'path' => $path
+            'path' => '/storage/' . $path
         ]);
     }
 }
