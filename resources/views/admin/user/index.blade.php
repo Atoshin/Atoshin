@@ -30,7 +30,6 @@
                                 <th>UserName</th>
                                 <th>Wallet address</th>
                                 <th>Operation</th>
-                                {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
 

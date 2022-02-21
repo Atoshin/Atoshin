@@ -18,7 +18,8 @@
 
                 <div class="card col-sm-12">
                     <div class="card-header">
-                        <a href="{{route('galleries.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                        <a href="{{route('galleries.create')}}" type="button" class="btn btn-success mr-2 float-right">
+                            <i
                                 class="fa fa-plus mr-2 "></i> Add Gallery</a>
                         <h3 class="card-title">Gallery</h3>
                     </div>
@@ -39,34 +40,52 @@
                                 <tr>
 
                                     <td><a href="{{route('galleries.show',$gallery->id)}}">{{$gallery->name}}</a></td>
-                                    <td>{{$gallery->status}}</td>
-{{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
+                                    <td>
+                                        <form action="{{route('change.gallery.status', $gallery->id)}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="status"
+                                                   value="{{$gallery->status == 'published' ? "unpublished" : 'published'}}">
+                                            <button
+                                                class="btn {{$gallery->status == 'published' ? "btn-primary" : "btn-danger"}} btn-primary"
+                                                type="submit">{{$gallery->status}}</button>
+                                        </form>
+                                    </td>
+                                    {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
                                                 <a href="{{route('galleries.edit',$gallery->id)}}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
-{{--                                            <div class="m-1">--}}
-{{--                                                <button type="button"--}}
-{{--                                                        onclick="deleteModal(this)"--}}
-{{--                                                        data-id="{{$gallery->id}}"--}}
-{{--                                                        class="btn btn-danger "><i--}}
-{{--                                                        class="fa fa-trash "></i>delete--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
+                                            {{--                                            <div class="m-1">--}}
+                                            {{--                                                <button type="button"--}}
+                                            {{--                                                        onclick="deleteModal(this)"--}}
+                                            {{--                                                        data-id="{{$gallery->id}}"--}}
+                                            {{--                                                        class="btn btn-danger "><i--}}
+                                            {{--                                                        class="fa fa-trash "></i>delete--}}
+                                            {{--                                                </button>--}}
+                                            {{--                                            </div>--}}
                                             <div class="m-1">
                                                 <a href="{{route('locations.create', $gallery->id)}}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i> location </a>
+                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i>
+                                                    location </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id]) }}" type="button"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id]) }}"
+                                                   type="button"
                                                    class="btn btn-info "> <i class="fa fa-file-contract "></i> media
                                                 </a>
                                             </div>
                                             <div class="m-1">
                                                 <a href="{{route('index.gallerying', $gallery->id)}}" type="button"
-                                                   class="btn btn-light "> <i class="fa fa-location-arrow "></i> Manager </a>
+                                                   class="btn btn-light "> <i class="fa fa-location-arrow "></i> Manager
+                                                </a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{env('FRONTEND_URL') . '/art-center/' . $gallery->id}}"
+                                                   type="button"
+                                                   class="btn btn-danger"> <i class="fa fa-file "></i>
+                                                    show </a>
                                             </div>
                                         </div>
 

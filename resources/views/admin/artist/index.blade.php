@@ -80,6 +80,11 @@
                                                    class="btn btn-secondary "> <i class="fa fa-dollar-sign"></i> Auction
                                                 </a>
                                             </div>
+                                            <div class="m-1">
+                                                <a href="{{env('FRONTEND_URL') . '/artists/' . str_replace(' ', '-', strtolower($artist->full_name)) . '/' . $artist->id}}" type="button"
+                                                   class="btn btn-danger "> <i class="fa fa-file "></i>
+                                                    show </a>
+                                            </div>
 
                                         </div>
 

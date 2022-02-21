@@ -9,6 +9,11 @@ class Gallery extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public static function find($id)
+    {
+    }
+
     use \Eloquence\Behaviours\CamelCasing;
 
     public function assets()

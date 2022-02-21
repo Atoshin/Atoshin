@@ -26,7 +26,8 @@ class GalleryController extends Controller
     public function index()
     {
         $galleries = Gallery::query()->orderBy("created_at", "desc")->get();
-        return view('admin.gallery.index', compact('galleries'));
+
+        return view('admin.gallery.index', compact('galleries',));
     }
 
     /**
@@ -47,7 +48,7 @@ class GalleryController extends Controller
      */
     public function store(storeGallery $request)
     {
-        DB::transaction(function () use ($request, &$gallery){
+        DB::transaction(function () use ($request, &$gallery) {
             $gallery = Gallery::query()->create([
                 'name' => $request->name,
                 'bio' => $request->bio,
@@ -59,7 +60,7 @@ class GalleryController extends Controller
                 'twitter' => $request->twitter,
                 'facebook' => $request->facebook,
                 'linkedin' => $request->linkedin,
-                'status' => $request->status,
+//                'status' => $request->status,
             ]);
             Wallet::query()->create([
                 'wallet_address' => $request->wallet_address,
@@ -68,7 +69,7 @@ class GalleryController extends Controller
             ]);
         });
 
-        return redirect()->route('upload.page',['type'=>Gallery::class,'id'=>$gallery->id]);
+        return redirect()->route('upload.page', ['type' => Gallery::class, 'id' => $gallery->id]);
     }
 
     /**
@@ -80,7 +81,7 @@ class GalleryController extends Controller
     public function show($id)
     {
 
-    $gallery=Gallery::with('medias','assets','videoLinks')->find($id);
+        $gallery = Gallery::with('medias', 'assets', 'videoLinks')->find($id);
 
         return view('admin.gallery.show', compact('gallery'));
     }
@@ -110,7 +111,7 @@ class GalleryController extends Controller
         $gallery = Gallery::find($id);
         $gallery->name = $request->name;
         $gallery->bio = $request->bio;
-        $gallery->summary=$request->summary;
+        $gallery->summary = $request->summary;
         $gallery->avatar = $request->avatar;
         $gallery->website = $request->website;
         $gallery->youtube = $request->youtube;
@@ -118,7 +119,7 @@ class GalleryController extends Controller
         $gallery->twitter = $request->twitter;
         $gallery->facebook = $request->facebook;
         $gallery->linkedin = $request->linkedin;
-        $gallery->status = $request->status;
+//        $gallery->status = $request->status;
         $wallet = $gallery->wallet;
         if ($wallet) {
             $wallet->wallet_address = $request->wallet_address;
@@ -149,6 +150,15 @@ class GalleryController extends Controller
         }
         $gallery->delete();
         \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
+    }
+
+
+    public function changeStatus(Request $request, Gallery $gallery)
+    {
+        $gallery->status = $request->status;
+        $gallery->save();
+
         return redirect()->back();
     }
 }

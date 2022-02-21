@@ -21,7 +21,6 @@
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
-
                 </form>
             </div>
             <div class="bg bg-danger" id="error"></div>
