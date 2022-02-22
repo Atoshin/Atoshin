@@ -66,7 +66,7 @@ class User extends Authenticatable
         return $this->morphOne(Wallet::class, 'walletable');
     }
 
-    public function getAvatarAttribute()
+    public function getAvatarUrlAttribute()
     {
         return env('APP_URL') . '/' . $this->avatar;
     }
