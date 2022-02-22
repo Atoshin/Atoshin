@@ -69,6 +69,6 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        return env('APP_URL') . '/' . $this->avatar;
+        return env('APP_URL') . $this->avatar;
     }
 }
