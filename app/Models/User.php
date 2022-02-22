@@ -36,6 +36,7 @@ class User extends Authenticatable
         'remember_token',
         'email'
     ];
+    protected $appends = ['avatar_url'];
 
     /**
      * The attributes that should be cast.
