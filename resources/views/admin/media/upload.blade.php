@@ -43,7 +43,8 @@
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
                             <br>
-                            <h6 class="text-warning">please note that each media cannot be either main, homepage picture or gallery large picture at the same time. </h6>
+                            <h6 class="text-warning">please note that each media cannot be either main, homepage picture
+                                or gallery large picture at the same time. </h6>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -54,7 +55,7 @@
                                     <th>Name</th>
 
                                     @if($type == \App\Models\Gallery::class)
-                                    <th>show in homepage</th>
+                                        <th>show in homepage</th>
                                     @endif
                                     <th>main</th>
                                     @if($type == App\Models\Gallery::class)
@@ -65,7 +66,7 @@
                                 </thead>
 
                                 <tbody id="medias-table">
-                                @foreach($medias->sortByDesc('created_at') as $media)
+                                @foreach($medias->sortByDesc('created_at') as $index=>$media)
                                     <tr>
                                         <td>
                                             <a target="_blank" href="{{env('APP_URL'). '/'.$media->path}}">
@@ -82,21 +83,21 @@
 
                                         {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
                                         @if($type == \App\Models\Gallery::class)
-                                        <td>
+                                            <td>
 
-                                            <form action="{{route('homepage.media',$media->id)}}" method="post">
-                                                @csrf
+                                                <form action="{{route('homepage.media',$media->id)}}" method="post">
+                                                    @csrf
 
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                           @if($media->homeapage_picture == true) checked
-                                                           @endif id="customSwitch-{{$media->id}}"
-                                                           onchange="submitForm(event)">
-                                                    <label class="custom-control-label"
-                                                           for="customSwitch-{{$media->id}}"></label>
-                                                </div>
-                                            </form>
-                                        </td>
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                               @if($media->homeapage_picture == true) checked
+                                                               @endif id="customSwitch-{{$index}}"
+                                                               onchange="submitForm(event)">
+                                                        <label class="custom-control-label"
+                                                               for="customSwitch-{{$index}}"></label>
+                                                    </div>
+                                                </form>
+                                            </td>
                                         @endif
 
                                         <td>
@@ -105,10 +106,10 @@
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" class="custom-control-input"
                                                            @if($media->main == true) checked
-                                                           @endif id="mainSwitch-{{$media->id}}"
+                                                           @endif id="mainSwitch-{{$index}}"
                                                            onchange="submitForm(event)">
                                                     <label class="custom-control-label"
-                                                           for="mainSwitch-{{$media->id}}"></label>
+                                                           for="mainSwitch-{{$index}}"></label>
                                                 </div>
                                             </form>
                                         </td>
@@ -120,10 +121,10 @@
                                                     <div class="custom-control custom-switch">
                                                         <input type="checkbox" class="custom-control-input"
                                                                @if($media->gallery_large_picture == true) checked
-                                                               @endif id="largeSwitch-{{$media->id}}"
+                                                               @endif id="largeSwitch-{{$index}}"
                                                                onchange="submitForm(event)">
                                                         <label class="custom-control-label"
-                                                               for="largeSwitch-{{$media->id}}"></label>
+                                                               for="largeSwitch-{{$index}}"></label>
                                                     </div>
                                                 </form>
                                             </td>
@@ -175,19 +176,23 @@
             @else
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.index')
                     <button class="btn btn-primary " id="submitButton"
-                            onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                            onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">
+                        Next
                     </button>
                 @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'assets.index')
                     <button class="btn btn-primary " id="submitButton"
-                            onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                            onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">
+                        Next
                     </button>
                 @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.index')
                     <button class="btn btn-primary " id="submitButton"
-                            onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                            onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">
+                        Next
                     </button>
                 @else
                     <button class="btn btn-primary " id="submitButton"
-                            onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">Next
+                            onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">
+                        Next
                     </button>
                 @endif
 
@@ -423,27 +428,125 @@
                     $(file.previewElement).remove();
                     error.innerHTML = '';
                     location.reload();
-                }, 4000)
+                }, 200000)
             }
             ,
             accept: function (file, done) {
                 file.acceptDimensions = done;
                 file.rejectDimensions = function () {
-                    done("Image width or height too big.");
+                    done("width to height ration of medias should be 3:2.");
                 };
             }
 
         });
     </script>
 
+    @if($type == \App\Models\Gallery::class)
     <script>
         function checkCheckboxes(event, href) {
 
+            let error_messages = [];
+            let main_checkeds = [];
+            let homepage_picture_checkeds = [];
+            let gallery_large_checkeds = [];
             const rows = document.getElementById('medias-table').children;
-            console.log(rows[0].children)
-            location.replace(href);
+            for (let i = 0; i < rows.length; i++) {
+                const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
+                const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
+                const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
+                if (main_checked) {
+                    main_checkeds.push(main_checked)
+                }
+                if (homepage_checked) {
+                    homepage_picture_checkeds.push(homepage_checked)
+                }
+                if (large_checked) {
+                    gallery_large_checkeds.push(large_checked)
+                }
+            }
+
+            if(main_checkeds.length === 0)
+            {
+                error_messages.push('at least one main media should be selected');
+            }
+            if(homepage_picture_checkeds.length < 4)
+            {
+                error_messages.push('at least 4 homepage pictures should be selected')
+            }
+            if(gallery_large_checkeds.length === 0)
+            {
+                error_messages.push('at least one gallery large picture should be selected')
+            }
+
+            if(error_messages.length === 0)
+            {
+                location.replace(href);
+            }
+            else{
+                console.log(error_messages)
+                event.preventDefault();
+                Swal.fire({
+                    html:  `<ul class="text-left">
+                                ${(error_messages.map( (msg) => `<li>${msg} </li>`)).join(' ')}
+                    <ul/>`,
+                    target: 'body',
+                    icon: 'error',
+                    title: 'the following errrors occured:',
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    timer: 100000,
+                })
+            }
+
         }
     </script>
+    @else
+        <script>
+            function checkCheckboxes(event, href) {
+
+                let error_messages = [];
+                let main_checkeds = [];
+                const rows = document.getElementById('medias-table').children;
+                for (let i = 0; i < rows.length; i++) {
+                    const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
+
+                    if (main_checked) {
+                        main_checkeds.push(main_checked)
+                    }
+
+                }
+
+                if(main_checkeds.length === 0)
+                {
+                    error_messages.push('at least one main media should be selected');
+                }
+
+                if(error_messages.length === 0)
+                {
+                    location.replace(href);
+                }
+                else{
+                    event.preventDefault();
+                    Swal.fire({
+                        html:  `<ul class="text-left">
+                                ${(error_messages.map( (msg) => `<li>${msg} </li>`)).join(' ')}
+                    <ul/>`,
+                        target: 'body',
+                        icon: 'error',
+                        title: 'the following errrors occured:',
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    })
+                }
+
+            }
+        </script>
+
+    @endif
+
+
+
     <!-- DataTables  & Plugins -->
     <script src="{{asset('admin/js/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>

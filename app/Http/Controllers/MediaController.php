@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class MediaController extends Controller
 {
@@ -31,7 +32,8 @@ class MediaController extends Controller
         $fileName = time() . '.' . $file->extension();
         $uploadFolder = 'file';
         $path = $file->store($uploadFolder, 'public');
-
+        $height = Image::make($file)->height();
+        $width = Image::make($file)->width();
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
         if ($mediable_type == Contract::class) {
@@ -57,6 +59,8 @@ class MediaController extends Controller
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id,
+                'width'=>$width,
+                'height'=>$height
 
 
             ]);
@@ -68,6 +72,8 @@ class MediaController extends Controller
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id,
+                'width'=>$width,
+                'height'=>$height
 
 
             ]);
@@ -398,6 +404,11 @@ class MediaController extends Controller
             ->where('mediable_id', $media->mediable_id)->where('gallery_large_picture', true)->get();
 
         if ($media->gallery_large_picture == false) {
+
+            if($media->width != '1120' or $media->height != '460')
+            {
+                return redirect()->back()->with(['message'=>'the size of gallery large picture should be 1120x460','icon'=>'error']);
+            }
 
             if (count($large_medias) >= 1) {
                 foreach($large_medias as $large_media)
