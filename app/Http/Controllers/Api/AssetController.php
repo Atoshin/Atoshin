@@ -177,4 +177,10 @@ class AssetController extends Controller
             return response()->json(["message" => $exception], 400);
         }
     }
+
+
+    public function info()
+    {
+
+    }
 }

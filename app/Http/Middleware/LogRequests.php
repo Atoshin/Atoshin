@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Http\Middleware;
+
 use Closure;
 use Illuminate\Support\Facades\Log;
+
 class LogRequests
 {
     public function handle($request, Closure $next)
@@ -9,19 +12,23 @@ class LogRequests
         $request->start = microtime(true);
         return $next($request);
     }
+
     public function terminate($request, $response)
     {
         $request->end = microtime(true);
-        $this->log($request,$response);
+        $this->log($request, $response);
     }
-    protected function log($request,$response)
+
+    protected function log($request, $response)
     {
         $duration = $request->end - $request->start;
         $url = $request->fullUrl();
         $method = $request->getMethod();
         $ip = $request->getClientIp();
-        $log = "{$ip}: {$method}@{$url} - {$duration}ms \n".
-            "Request : {[$request->all()]} \n".
+        $token = $request->header('Authorization');
+        $log = "{$ip}: {$method}@{$url} - {$duration}ms \n" .
+            "token: $token \n" .
+            "Request : {[$request->all()]} \n" .
             "Response : {$response->getContent()} \n";
         Log::info($log);
     }

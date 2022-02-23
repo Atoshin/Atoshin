@@ -44,8 +44,8 @@ export default function App() {
                     const data = JSON.stringify({
                         name: asset.title,
                         description: asset.bio.replace(/<\/?[^>]+(>|$)/g, ""),
-                        image: `https://ipfs.infura.io/ipfs/${contracts[i].media.ipfs_hash}`,
-                        assetImage: `https://ipfs.infura.io/ipfs/${asset.medias[0].ipfs_hash}`
+                        image: `https://ipfs.infura.io/ipfs/${contracts[i].media.ipfsHash}`,
+                        assetImage: `https://ipfs.infura.io/ipfs/${asset.medias[0].ipfsHash}`
                     })
                     const added = await client.add(data)
                     urls.push(`https://ipfs.infura.io/ipfs/${added.path}`)
@@ -86,7 +86,7 @@ export default function App() {
         }
     }
 
-    return <button disabled={contractData.asset.total_fractions !== contractData.contracts.length} onClick={mint}
+    return <button disabled={contractData.asset.totalFractions !== contractData.contracts.length} onClick={mint}
                    className="btn btn-success mr-2 float-right">
         <i className="fa fa-link mr-2 "/>
         Mint contracts

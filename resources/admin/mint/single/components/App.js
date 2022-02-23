@@ -34,8 +34,8 @@ export default function App() {
                 const data = JSON.stringify({
                     name: asset.title,
                     description: asset.bio.replace(/<\/?[^>]+(>|$)/g, ""),
-                    image: `https://ipfs.infura.io/ipfs/${contract.media.ipfs_hash}`,
-                    assetImage: `https://ipfs.infura.io/ipfs/${asset.medias[0].ipfs_hash}`
+                    image: `https://ipfs.infura.io/ipfs/${contract.media.ipfsHash}`,
+                    assetImage: `https://ipfs.infura.io/ipfs/${asset.medias[0].ipfsHash}`
                 })
                 const added = await client.add(data)
                 url = `${added.path}`

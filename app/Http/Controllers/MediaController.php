@@ -73,7 +73,6 @@ class MediaController extends Controller
             ]);
 
 
-
         }
 
 
@@ -101,17 +100,14 @@ class MediaController extends Controller
     public function uploadPage($type, $id)
     {
 
-        if($type == User::class)
-        {
+        if ($type == User::class or $type == Contract::class) {
             $entity = $type::query()->with('media')->where('id', $id)->first();
-        }
-        else
-        {
+        } else {
             $entity = $type::query()->with('medias')->where('id', $id)->first();
         }
 
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->get();
-        return view('admin.media.upload', compact('type', 'id','entity','medias'));
+        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias'));
     }
 
     public function destroy($id)
@@ -124,10 +120,9 @@ class MediaController extends Controller
 
     public function uploadPageMain($type, $id)
     {
-        if($type == Auction::class)
-        {
+        if ($type == Auction::class) {
             $artist_id = Auction::find($id)->artist_id;
-            return view('admin.media.upload-main', compact('type', 'id','artist_id'));
+            return view('admin.media.upload-main', compact('type', 'id', 'artist_id'));
         }
         return view('admin.media.upload-main', compact('type', 'id'));
     }
@@ -336,7 +331,7 @@ class MediaController extends Controller
     {
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->where('main', false)->get();
         return response()->json([
-            'medias'=>$medias
+            'medias' => $medias
         ]);
 
     }
@@ -349,8 +344,7 @@ class MediaController extends Controller
 
             $media->homeapage_picture = false;
         } else {
-            if($media->main or $media->gallery_large_picture )
-            {
+            if ($media->main or $media->gallery_large_picture) {
                 $media->main = false;
                 $media->gallery_large_picture = false;
             }
@@ -368,16 +362,14 @@ class MediaController extends Controller
             $main_medias = Media::query()->where('mediable_type', $media->mediable_type)
                 ->where('mediable_id', $media->mediable_id)->where('main', true)->get();
 
-            if(count($main_medias) >= 1) {
-                foreach($main_medias as $main_media)
-                {
+            if (count($main_medias) >= 1) {
+                foreach ($main_medias as $main_media) {
                     $main_media->main = false;
                     $main_media->save();
                 }
             }
 
-            if($media->homeapage_picture or $media->gallery_large_picture)
-            {
+            if ($media->homeapage_picture or $media->gallery_large_picture) {
                 $media->homeapage_picture = false;
                 $media->gallery_large_picture = false;
             }
@@ -400,16 +392,14 @@ class MediaController extends Controller
         if ($media->gallery_large_picture == false) {
 
             if (count($large_medias) >= 1) {
-                foreach($large_medias as $large_media)
-                {
+                foreach ($large_medias as $large_media) {
                     $large_media->gallery_large_picture = false;
                     $large_media->save();
 
                 }
             }
 
-            if($media->homeapage_picture or $media->main)
-            {
+            if ($media->homeapage_picture or $media->main) {
                 $media->homeapage_picture = false;
                 $media->main = false;
             }
@@ -422,13 +412,12 @@ class MediaController extends Controller
     }
 
 
-
     public function galleryLargePictureUploadPage($gallery_id)
     {
-        return view('admin.media.upload-gallery-large-picture',compact('gallery_id'));
+        return view('admin.media.upload-gallery-large-picture', compact('gallery_id'));
     }
 
-    public function uploadGalleryLargePicture(Request $request,$gallery_id)
+    public function uploadGalleryLargePicture(Request $request, $gallery_id)
     {
 
         $validator = Validator::make($request->all(), [
@@ -440,14 +429,14 @@ class MediaController extends Controller
         $path = $file->store($uploadFolder, 'public');
 
         $media = Media::query()->create([
-                'ipfs_hash' => 'nothing',
-                'mime_type' => $file->getClientMimeType(),
-                'path' => 'storage/' . $path,
-                'mediable_type' => Gallery::class,
-                'mediable_id' => $gallery_id,
-                'gallery_large_picture' => true
+            'ipfs_hash' => 'nothing',
+            'mime_type' => $file->getClientMimeType(),
+            'path' => 'storage/' . $path,
+            'mediable_type' => Gallery::class,
+            'mediable_id' => $gallery_id,
+            'gallery_large_picture' => true
 
-            ]);
+        ]);
 
 
         return response()->json([
@@ -455,13 +444,12 @@ class MediaController extends Controller
         ], 200);
     }
 
-    public function uploadvideoFile(Request $request, $mediable_type, $mediable_id,$gallery_id)
+    public function uploadvideoFile(Request $request, $mediable_type, $mediable_id, $gallery_id)
     {
-        $gallery=Gallery::find($gallery_id);
-        $video_link = VideoLink::query()->where('video_linkable_id',$gallery_id)->where('video_linkable_type',Gallery::class)->where('is_default',true)->first();
+        $gallery = Gallery::find($gallery_id);
+        $video_link = VideoLink::query()->where('video_linkable_id', $gallery_id)->where('video_linkable_type', Gallery::class)->where('is_default', true)->first();
 
-        if ($video_link->media)
-        {
+        if ($video_link->media) {
             Storage::delete(\asset(substr($video_link->media->path, 13, 50)));
             $video_link->media->delete();
         }
@@ -476,43 +464,41 @@ class MediaController extends Controller
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
 
-            $media = Media::query()->create([
-                'ipfs_hash' =>'nothing',
-                'mime_type' => $file->getClientMimeType(),
-                'path' => 'storage/' . $path,
-                'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id,
-                'main' => false,
-                'video' => true
+        $media = Media::query()->create([
+            'ipfs_hash' => 'nothing',
+            'mime_type' => $file->getClientMimeType(),
+            'path' => 'storage/' . $path,
+            'mediable_type' => $mediable_type,
+            'mediable_id' => $mediable_id,
+            'main' => false,
+            'video' => true
 
-            ]);
+        ]);
 
         return response()->json([
             'message' => 'File Uploaded Successfully',
         ], 200);
     }
 
-    public function uploadvideoPage($type,$id,$gallery_id)
+    public function uploadvideoPage($type, $id, $gallery_id)
     {
         $gallery = Gallery::query()->find($gallery_id);
-        $videoLink = $gallery->videoLinks->where('is_default',true)->first();
-        return view('admin.media.upload-video', compact('type', 'id','gallery_id','gallery','videoLink'));
+        $videoLink = $gallery->videoLinks->where('is_default', true)->first();
+        return view('admin.media.upload-video', compact('type', 'id', 'gallery_id', 'gallery', 'videoLink'));
     }
 
     public function galleryLargePictureEditUploadPage($gallery_id)
     {
         $gallery = Gallery::find($gallery_id);
-        return view('admin.media.upload-gallery-large-picture-edit',compact('gallery_id','gallery'));
+        return view('admin.media.upload-gallery-large-picture-edit', compact('gallery_id', 'gallery'));
     }
 
-    public function uploadGalleryLargePictureEdit(Request $request,$gallery_id)
+    public function uploadGalleryLargePictureEdit(Request $request, $gallery_id)
     {
-        $gallery=Gallery::find($gallery_id);
-        $larges = $gallery->medias()->where('gallery_large_picture',true)->get();
-        if ($larges)
-        {
-            foreach ($larges as $large)
-            {
+        $gallery = Gallery::find($gallery_id);
+        $larges = $gallery->medias()->where('gallery_large_picture', true)->get();
+        if ($larges) {
+            foreach ($larges as $large) {
                 Storage::delete(\asset(substr($large->path, 13, 50)));
                 $large->delete();
             }
@@ -529,14 +515,14 @@ class MediaController extends Controller
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
 
         $media = Media::query()->create([
-            'ipfs_hash' =>'nothing',
+            'ipfs_hash' => 'nothing',
             'mime_type' => $file->getClientMimeType(),
             'path' => 'storage/' . $path,
             'mediable_type' => Gallery::class,
             'mediable_id' => $gallery_id,
             'main' => false,
             'video' => false,
-            'gallery_large_picture'=>true
+            'gallery_large_picture' => true
 
         ]);
 
