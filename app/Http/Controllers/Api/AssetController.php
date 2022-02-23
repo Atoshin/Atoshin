@@ -179,8 +179,47 @@ class AssetController extends Controller
     }
 
 
-    public function info()
+    public function info(Request $request, Asset $asset)
     {
+        $count = Contract::query()->where('asset_id', $asset->id)->whereHas('minted', function ($minted) {
+            $minted->where('status', 'unsold');
+        })->count();
 
+        $request->validate([
+            'amount' => "required|numeric|min:1|max:$count"
+        ]);
+
+        $contracts = Contract::query()->where('asset_id', $asset->id)->whereHas('minted', function ($minted) {
+            $minted->where('status', 'unsold');
+        })->take($request->amount)->get();
+
+        foreach ($contracts as $contract) {
+            $minted = $contract->minted;
+            $minted->status = 'suspended';
+            $minted->save();
+        }
+        $creatorAddress = $asset->gallery->wallet->wallet_address;
+
+        $NFTpath = resource_path() . "/artifacts/contracts/NFT.sol/NFT.json";
+        $NFTjson = json_decode(file_get_contents($NFTpath), true);
+        $NFTabi = $NFTjson['abi'];
+        $MarketPath = resource_path() . "/artifacts/contracts/Market.sol/NFTMarket.json";
+        $MarketJson = json_decode(file_get_contents($MarketPath), true);
+        $MarketAbi = $MarketJson['abi'];
+
+
+        return response()->json([
+            'contracts' => $contracts,
+            'NFT' => [
+                'address' => env('NFT_CONTRACT_ADDRESS'),
+                'abi' => $NFTabi
+            ],
+            'Market' => [
+                'address' => env('MARKET_CONTRACT_ADDRESS'),
+                'abi' => $MarketAbi
+            ],
+            'creatorAddress' => $creatorAddress,
+            'totalFractions' => $asset->total_fractions,
+        ]);
     }
 }
