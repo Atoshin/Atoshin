@@ -13,9 +13,9 @@ contract NFTMarket is ReentrancyGuard {
     Counters.Counter private _itemsSold;
 
     address payable owner;
-    address private interactor;
+    //    address private interactor = 0x9b638D9b79a7374403adc93Ae1A78acAE8655e98;
     uint256 listingPrice = 0.025 ether;
-    uint256 commissionFee = 0;
+    uint256 commissionFee = 15;
 
     constructor() {
         owner = payable(msg.sender);
@@ -50,16 +50,16 @@ contract NFTMarket is ReentrancyGuard {
     );
 
     /* Returns the listing price of the contract */
-    function getListingPrice() public view returns (uint256) {
-        return listingPrice;
-    }
+    //    function getListingPrice() public view returns (uint256) {
+    //        return listingPrice;
+    //    }
 
     function getCommissionFee() public view returns (uint256) {
         return commissionFee;
     }
 
     function setCommissionFee(uint256 newFee) public {
-        require(msg.sender == interactor, "Wallet address not valid");
+        require(msg.sender == owner, "Wallet address not valid");
         commissionFee = newFee;
     }
 
@@ -69,7 +69,8 @@ contract NFTMarket is ReentrancyGuard {
         uint256 tokenId,
         uint256 price,
         uint256 royaltyPercentage,
-        uint256 totalFractions
+        uint256 totalFractions,
+        address creator
     ) public payable nonReentrant {
         require(price > 0, "Price must be at least 1 wei");
         // require(
@@ -84,8 +85,8 @@ contract NFTMarket is ReentrancyGuard {
             itemId,
             nftContract,
             tokenId,
+            payable(creator),
             payable(msg.sender),
-            payable(address(0)),
             price,
             royaltyPercentage,
             false,
@@ -112,9 +113,9 @@ contract NFTMarket is ReentrancyGuard {
     /* Creates the sale of a marketplace item */
     /* Transfers ownership of the item, as well as funds between parties */
     function createMarketSale(address nftContract, uint256 itemId)
-        public
-        payable
-        nonReentrant
+    public
+    payable
+    nonReentrant
     {
         uint256 price = idToMarketItem[itemId].price;
         uint256 tokenId = idToMarketItem[itemId].tokenId;

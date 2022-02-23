@@ -30,7 +30,15 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('authorize_metamask')->group(function () {
         Route::get('user/{address}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
+        Route::get('contract/info', [\App\Http\Controllers\Api\ContractsController::class, 'show']);
+        Route::patch('user/{address}/update', [\App\Http\Controllers\Api\ProfileController::class, 'update']);
+
+        //region buy procedure
+        Route::get('asset/information/{asset}', [\App\Http\Controllers\Api\AssetController::class, 'info']);
+        //endregion
     });
+
+    Route::post('file', [\App\Http\Controllers\Api\MediaController::class, 'uploadFile']);
 
     Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
     Route::get('gallery/{id}/show', [\App\Http\Controllers\Api\ShowGalleryController::class, 'show']);

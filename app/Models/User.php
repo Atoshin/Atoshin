@@ -36,6 +36,7 @@ class User extends Authenticatable
         'remember_token',
         'email'
     ];
+    protected $appends = ['avatar_url'];
 
     /**
      * The attributes that should be cast.
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function wallet()
     {
         return $this->morphOne(Wallet::class, 'walletable');
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return env('APP_URL') . $this->avatar;
     }
 }
