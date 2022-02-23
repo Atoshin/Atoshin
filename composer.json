@@ -12,6 +12,7 @@
         "enyo/dropzone": "^5.9",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
+        "intervention/image": "^2.7",
         "kirkbushell/eloquence": "^8.0",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
