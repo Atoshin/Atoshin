@@ -123,7 +123,7 @@ class AssetController extends Controller
 
                     $response = Http::get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
                     $ethUsdPrice = $response->collect()['USD'];
-                    $asset->eth_price = $ethUsdPrice;
+                    $asset->eth_price_per_fraction = $ethUsdPrice / $asset->contracts->count();
                     $asset->save();
 
                     foreach ($asset->contracts as $idx => $contract) {
