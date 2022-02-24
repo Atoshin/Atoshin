@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class AssetController extends Controller
 {
@@ -119,6 +120,12 @@ class AssetController extends Controller
         try {
             if ($request->mintedContractsLength == $asset->contracts->count()) {
                 DB::transaction(function () use ($asset, $request) {
+
+                    $response = Http::get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
+                    $ethUsdPrice = $response->collect()['USD'];
+                    $asset->eth_price = $ethUsdPrice;
+                    $asset->save();
+
                     foreach ($asset->contracts as $idx => $contract) {
                         $rec = Minted::query()->create([
                             'contract_id' => $contract->id,
