@@ -219,7 +219,7 @@ class AssetController extends Controller
             'contracts' => $contracts,
             'NFT' => [
                 'address' => env('NFT_CONTRACT_ADDRESS'),
-                'abi' => $NFTabi
+//                'abi' => $NFTabi
             ],
             'Market' => [
                 'address' => env('MARKET_CONTRACT_ADDRESS'),
@@ -227,6 +227,7 @@ class AssetController extends Controller
             ],
             'creatorAddress' => $creatorAddress,
             'totalFractions' => $asset->total_fractions,
+            'ppf' => $asset->eth_price_per_fraction
         ]);
     }
 }

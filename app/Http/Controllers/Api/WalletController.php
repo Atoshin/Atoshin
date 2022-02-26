@@ -62,16 +62,17 @@ class WalletController extends Controller
     {
         $request->validate([
             'signature' => 'required|string|regex:/0x[a-fA-F0-9]{130}/',
-            'walletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
+            'walletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/',
+            'type' => 'string|'
         ]);
 
         try {
             $wallet = Wallet::query()->where('wallet_address', $request->walletAddress)->first();
             $user = User::query()->find($wallet->walletable_id);
             Signature::query()->create([
-                'type' => 'login',
+                'type' => $request->type ? 'buy' : 'login',
                 'hash' => $request->signature,
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]);
 
             return response()->json([
