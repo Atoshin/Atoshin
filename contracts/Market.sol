@@ -111,8 +111,8 @@ contract NFTMarket is ReentrancyGuard {
             IERC721(nftContract).transferFrom(address(this), msg.sender, tokenIds[i]);
         }
 
-        payable(creator).transfer((msg.value) - ((msg.value * commissionFee / 100) + (msg.value * royaltyPercentage / 100)));
-        payable(owner).transfer(((msg.value * commissionFee / 100) + (msg.value * royaltyPercentage / 100)));
+        payable(creator).transfer((msg.value) - ((msg.value * commissionFee / 100) + ((msg.value * royaltyPercentage / 100) / 2)));
+        payable(owner).transfer(((msg.value * commissionFee / 100) + ((msg.value * royaltyPercentage / 100) / 2)));
     }
 
 
