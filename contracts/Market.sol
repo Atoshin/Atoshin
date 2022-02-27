@@ -75,10 +75,7 @@ contract NFTMarket is ReentrancyGuard {
         uint256[] memory mintedAts
     ) public payable nonReentrant {
         require(price > 0, "Price must be at least 1 wei");
-        require(
-            msg.value == price * tokenIds.length,
-            "Price must be equal to item value"
-        );
+        require(msg.value == price * tokenIds.length, "Price must be equal to item value");
 
         for (uint256 i = 0; i < tokenIds.length; i++) {
             _itemIds.increment();
@@ -110,11 +107,11 @@ contract NFTMarket is ReentrancyGuard {
                 totalFractions
             );
 
-            IERC721(nftContract).transferFrom(msg.sender, address(this), tokenIds[i]);
+            //            IERC721(nftContract).transferFrom(msg.sender, address(this), tokenIds[i]);
             IERC721(nftContract).transferFrom(address(this), msg.sender, tokenIds[i]);
         }
 
-        payable(artworkOwner).transfer((msg.value) - ((msg.value * commissionFee / 100) + (msg.value * royaltyPercentage / 100)));
+        payable(creator).transfer((msg.value) - ((msg.value * commissionFee / 100) + (msg.value * royaltyPercentage / 100)));
         payable(owner).transfer(((msg.value * commissionFee / 100) + (msg.value * royaltyPercentage / 100)));
     }
 

@@ -63,7 +63,7 @@ class WalletController extends Controller
         $request->validate([
             'signature' => 'required|string|regex:/0x[a-fA-F0-9]{130}/',
             'walletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/',
-            'type' => 'string|'
+            'type' => 'boolean'
         ]);
 
         try {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Minted extends Model
 {
     use HasFactory;
+    use \Eloquence\Behaviours\CamelCasing;
 
     protected $guarded = [];
 

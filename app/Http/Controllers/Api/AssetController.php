@@ -217,9 +217,8 @@ class AssetController extends Controller
 
         return response()->json([
             'contracts' => $contracts,
-            'royaltyPercentage' => $asset->royalties_percentage,
+                'royaltyPercentage' => $asset->royalties_percentage,
             'totalFractions' => $asset->total_fractions,
-            'creator' => $asset->gallery->wallet->wallet_address,
             'NFT' => [
                 'address' => env('NFT_CONTRACT_ADDRESS'),
             ],
@@ -227,7 +226,7 @@ class AssetController extends Controller
                 'address' => env('MARKET_CONTRACT_ADDRESS'),
                 'abi' => $MarketAbi
             ],
-            'creatorAddress' => $creatorAddress,
+            'creator' => $creatorAddress,
             'ppf' => $asset->eth_price_per_fraction
         ]);
     }
