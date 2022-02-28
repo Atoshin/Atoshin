@@ -35,6 +35,11 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
+//        if( 2*$width != 3*$height)
+//        {
+//            return redirect()->back()->with(['message'=>'the dimensions ratio must be 3:2','icon'=>'error']);
+//        }
+
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
         if ($mediable_type == Contract::class) {
             $response = Http::attach(

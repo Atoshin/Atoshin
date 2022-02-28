@@ -140,13 +140,16 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('media/upload/page/gallery/large/edit/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureEditUploadPage'])->name('upload.gallery.large.picture.edit');
     Route::post('upload/gallery/large/edit/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePictureEdit' ])->name('uploadFile.gallery.large.edit');
+
+    Route::get('crop/page',[\App\Http\Controllers\CropController::class,'cropPage'])->name('crop');
+
     //end
 
     //video link
     Route::post('video/link/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'store'])->name('videoLink.store');
     Route::get('video/links/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'index'])->name('videoLink.index');
     Route::delete('video/link/{id}/destroy',[\App\Http\Controllers\VideoLinkController::class,'destroy'])->name('videos.destroy');
-//auction
+    //auction
     Route::get('auctions/{artist_id}', [\App\Http\Controllers\AuctionsController::class, 'index'])->name('auctions.index');
     Route::get('auctions/{artist_id}/create', [\App\Http\Controllers\AuctionsController::class, 'create'])->name('auctions.create');
     Route::post('auctions/{artist_id}/store', [\App\Http\Controllers\AuctionsController::class, 'store'])->name('auctions.store');
