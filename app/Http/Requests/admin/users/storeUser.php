@@ -17,7 +17,9 @@ storeUser extends FormRequest
     {
         return [
 //            'email'=>'email',
-            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/'
+            'wallet_address'=>'required|string|regex:/0x[a-fA-F0-9]{40}/',
+            'email'=>'nullable|unique:users',
+            'username'=>'nullable|unique:users'
 
 
         ];

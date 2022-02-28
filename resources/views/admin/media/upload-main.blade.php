@@ -30,8 +30,11 @@
         </div>
 
         <div class="card-footer">
+            @if($type == \App\Models\Contract::class)
                 <a class="btn btn-primary d-none" id="submitButton" href="{{route('assets.index')}}">Next</a>
-
+            @elseif($type == \App\Models\User::class)
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
+            @endif
         </div>
 
 
