@@ -301,7 +301,7 @@
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
-                     id="mainSwitch-{media.id}"
+                     id="mainSwitch-${media.id}"
                      onchange="submitForm(event)">
                 <label class="custom-control-label"
                     for="mainSwitch-${media.id}"></label>
@@ -393,15 +393,17 @@
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
-                     id="mainSwitch-{media.id}"
+                     id="mainSwitch-${media.id}"
                      onchange="submitForm(event)">
                 <label class="custom-control-label"
-                    for="mainSwitch-${media.id}}"></label>
+                    for="mainSwitch-${media.id}"></label>
                             </div>
                         </form>
                     </td>
 
-                    <td>
+
+
+                                            <td>
                                                  <div class="m-1">
                                                      <button type="button"
                                                              onclick="deleteModal(this)"
@@ -411,8 +413,6 @@
                                                      </button>
                                                  </div>
                                              </td>
-
-
                 </tr>`)
 
                 @endif
@@ -428,7 +428,7 @@
                     $(file.previewElement).remove();
                     error.innerHTML = '';
                     location.reload();
-                }, 200000)
+                }, 5000)
             }
             ,
             accept: function (file, done) {
