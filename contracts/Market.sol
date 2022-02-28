@@ -64,51 +64,57 @@ contract NFTMarket is ReentrancyGuard {
     }
 
     /* Places an item for sale on the marketplace */
-    function createMarketItem(
+    function createMarketItems(
         address nftContract,
-        uint256 tokenId,
+        uint256[] memory tokenIds,
         uint256 price,
         uint256 royaltyPercentage,
         uint256 totalFractions,
-        address creator
+        address creator,
+        address artworkOwner,
+        uint256[] memory mintedAts
     ) public payable nonReentrant {
         require(price > 0, "Price must be at least 1 wei");
-        // require(
-        //     msg.value == listingPrice,
-        //     "Price must be equal to listing price"
-        // );
+        require(msg.value == price * tokenIds.length, "Price must be equal to item value");
 
-        _itemIds.increment();
-        uint256 itemId = _itemIds.current();
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            _itemIds.increment();
+            uint256 itemId = _itemIds.current();
+            _itemsSold.increment();
+            idToMarketItem[itemId] = MarketItem(
+                itemId,
+                nftContract,
+                tokenIds[i],
+                payable(creator),
+                payable(artworkOwner),
+                price,
+                royaltyPercentage,
+                true,
+                mintedAts[i],
+                totalFractions
+            );
 
-        idToMarketItem[itemId] = MarketItem(
-            itemId,
-            nftContract,
-            tokenId,
-            payable(creator),
-            payable(msg.sender),
-            price,
-            royaltyPercentage,
-            false,
-            block.timestamp,
-            totalFractions
-        );
+            emit MarketItemCreated(
+                itemId,
+                nftContract,
+                tokenIds[i],
+                creator,
+                artworkOwner,
+                price,
+                royaltyPercentage,
+                true,
+                mintedAts[i],
+                totalFractions
+            );
 
-        IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
+            //            IERC721(nftContract).transferFrom(msg.sender, address(this), tokenIds[i]);
+            IERC721(nftContract).transferFrom(address(this), msg.sender, tokenIds[i]);
+        }
 
-        emit MarketItemCreated(
-            itemId,
-            nftContract,
-            tokenId,
-            msg.sender,
-            address(0),
-            price,
-            royaltyPercentage,
-            false,
-            block.timestamp,
-            totalFractions
-        );
+        payable(creator).transfer((msg.value) - ((msg.value * commissionFee / 100) + ((msg.value * royaltyPercentage / 100) / 2)));
+        payable(owner).transfer(((msg.value * commissionFee / 100) + ((msg.value * royaltyPercentage / 100) / 2)));
     }
+
 
     /* Creates the sale of a marketplace item */
     /* Transfers ownership of the item, as well as funds between parties */

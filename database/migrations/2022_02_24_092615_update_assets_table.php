@@ -14,7 +14,7 @@ class UpdateAssetsTable extends Migration
     public function up()
     {
         Schema::table('assets', function (Blueprint $table) {
-            $table->integer('eth_price_per_fraction')->nullable();
+            $table->string('eth_price_per_fraction')->nullable();
         });
     }
 
