@@ -129,7 +129,7 @@ class AssetController extends Controller
                     foreach ($asset->contracts as $idx => $contract) {
                         $rec = Minted::query()->create([
                             'contract_id' => $contract->id,
-                            'token_id' => $request->previousTokenId + ($idx + 1),
+                            'token_id' => $request->previousTokenId + ($idx),
                         ]);
                         Wallet::query()->create([
                             'wallet_address' => $request->signerWalletAddress,
