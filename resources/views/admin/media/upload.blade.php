@@ -19,13 +19,14 @@
         <div class="form-group">
             <label for="contract ">Upload Media (size: 1200x800-1800x1200-2400x1600-900x600)</label>
             <div class="dropzone">
+
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
 
                 </form>
             </div>
-            <div class="alert alert-danger d-none" id="error">
-
+            <div class="alert alert-danger d-none m-3" id="error">
+                <i class="fa fa-warning"></i>
             </div>
         </div>
 
@@ -57,7 +58,13 @@
                                     @if($type == \App\Models\Gallery::class)
                                         <th>show in homepage</th>
                                     @endif
+                                    @if($type == \App\Models\Gallery::class)
+                                        <th>Logo</th>
+                                    @elseif($type == \App\Models\Artist::class)
+                                        <th>Avatar</th>
+                                    @else
                                     <th>main</th>
+                                    @endif
                                     @if($type == App\Models\Gallery::class)
                                         <th>gallery large picture</th>
                                     @endif
@@ -239,11 +246,6 @@
 
                 this.on("thumbnail", function (file) {
 
-                    if (file.width === 3 / 2 * file.height) {
-                        file.rejectDimensions()
-                    } else {
-                        file.acceptDimensions();
-                    }
                 });
 
                 this.on("removedfile", function (file) {
@@ -265,6 +267,19 @@
 
             },
             success: function (file, response) {
+                if(response.error)
+                {
+                    const error = document.querySelector('#error');
+                    error.classList.remove('d-none');
+                    error.innerHTML = `<strong>Error!</strong> the media dimension ratio must be 3:2`;
+                    setTimeout(() => {
+                        $(file.previewElement).remove();
+                        error.classList.add('d-none');
+                        error.innerHTML = '';
+
+                    }, 5000)
+                }
+                console.log(response.error)
                 const tbody = $('#medias-table');
                 const media = response.medias[response.medias.length - 1]
 
@@ -431,12 +446,12 @@
                 }, 5000)
             }
             ,
-            accept: function (file, done) {
-                file.acceptDimensions = done;
-                file.rejectDimensions = function () {
-                    done("width to height ration of medias should be 3:2.");
-                };
-            }
+            // accept: function (file, done) {
+            //     // file.acceptDimensions = done;
+            //     // file.rejectDimensions = function () {
+            //     //     done("width to height ration of medias should be 3:2.");
+            //     // };
+            // }
 
         });
     </script>
@@ -469,9 +484,9 @@
             {
                 error_messages.push('at least one main media should be selected');
             }
-            if(homepage_picture_checkeds.length < 4)
+            if(homepage_picture_checkeds.length < 1 || homepage_picture_checkeds.length >1)
             {
-                error_messages.push('at least 4 homepage pictures should be selected')
+                error_messages.push('exactly one homepage media should be selected')
             }
             if(gallery_large_checkeds.length === 0)
             {
