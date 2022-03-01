@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use App\Models\Contract;
 use App\Models\Minted;
+use App\Models\Signature;
+use App\Models\Transaction;
+use App\Models\User;
 use App\Models\Wallet;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -130,6 +133,7 @@ class AssetController extends Controller
                         $rec = Minted::query()->create([
                             'contract_id' => $contract->id,
                             'token_id' => $request->previousTokenId + ($idx),
+                            'txn_hash' => $request->txnHash
                         ]);
                         Wallet::query()->create([
                             'wallet_address' => $request->signerWalletAddress,
@@ -207,9 +211,9 @@ class AssetController extends Controller
         }
         $creatorAddress = $asset->gallery->wallet->wallet_address;
 
-        $NFTpath = resource_path() . "/artifacts/contracts/NFT.sol/NFT.json";
-        $NFTjson = json_decode(file_get_contents($NFTpath), true);
-        $NFTabi = $NFTjson['abi'];
+//        $NFTpath = resource_path() . "/artifacts/contracts/NFT.sol/NFT.json";
+//        $NFTjson = json_decode(file_get_contents($NFTpath), true);
+//        $NFTabi = $NFTjson['abi'];
         $MarketPath = resource_path() . "/artifacts/contracts/Market.sol/NFTMarket.json";
         $MarketJson = json_decode(file_get_contents($MarketPath), true);
         $MarketAbi = $MarketJson['abi'];
@@ -217,7 +221,7 @@ class AssetController extends Controller
 
         return response()->json([
             'contracts' => $contracts,
-                'royaltyPercentage' => $asset->royalties_percentage,
+            'royaltyPercentage' => $asset->royalties_percentage,
             'totalFractions' => $asset->total_fractions,
             'NFT' => [
                 'address' => env('NFT_CONTRACT_ADDRESS'),
@@ -228,6 +232,36 @@ class AssetController extends Controller
             ],
             'creator' => $creatorAddress,
             'ppf' => $asset->eth_price_per_fraction
+        ]);
+    }
+
+    public function submitInfo(Request $request, Asset $asset)
+    {
+        $request->validate([
+            'txnHash' => 'required|string|regex:/0x[a-fA-F0-9]{64}/g',
+            'mintedIds' => 'required|array|min:1',
+            'txnStatus' => 'required|in:sold,unsold'
+        ]);
+
+        $token = $request->header('Authorization');
+        $token = Signature::query()->where('hash', $token)->first();
+
+        DB::transaction(function () use ($request, $token, $asset) {
+            Transaction::query()->create([
+                'txn_hash' => $request->txnHash,
+                'transactable_type' => User::class,
+                'transactable_id' => $token->user->id
+            ]);
+            $asset->soldFractions = $asset->soldFractions + count($request->mintedIds);
+            foreach ($request->mintedIds as $mintedId) {
+                $minted = Minted::query()->find($mintedId);
+                $minted->status = $request->txnStatus;
+                $minted->save();
+            }
+        });
+
+        return response()->json([
+            'message' => 'transaction record submitted successfully'
         ]);
     }
 }

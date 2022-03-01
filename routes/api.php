@@ -34,6 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::patch('user/{address}/update', [\App\Http\Controllers\Api\ProfileController::class, 'update']);
         //region buy procedure
         Route::post('asset/information/{asset}', [\App\Http\Controllers\Api\AssetController::class, 'info']);
+        Route::patch('asset/information/{asset}', [\App\Http\Controllers\Api\AssetController::class, 'submitInfo']);
         //endregion
 //    });
 
