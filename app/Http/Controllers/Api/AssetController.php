@@ -118,7 +118,8 @@ class AssetController extends Controller
         $request->validate([
             'previousTokenId' => 'required|numeric',
             'mintedContractsLength' => 'required|numeric',
-            'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
+            'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/',
+            'txnHash' => 'required|string|regex:/0x[a-fA-F0-9]{64}/',
         ]);
         try {
             if ($request->mintedContractsLength == $asset->contracts->count()) {
@@ -166,6 +167,7 @@ class AssetController extends Controller
     public function setContractMintRecord(Request $request, Contract $contract)
     {
         $request->validate([
+            'txnHash' => 'required|string|regex:/0x[a-fA-F0-9]{64}/',
             'tokenId' => 'required|numeric',
             'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/'
         ]);
@@ -174,6 +176,7 @@ class AssetController extends Controller
                 $rec = Minted::query()->create([
                     'contract_id' => $contract->id,
                     'token_id' => $request->tokenId,
+                    'txn_hash' => $request->txnHash
                 ]);
                 Wallet::query()->create([
                     'wallet_address' => $request->signerWalletAddress,
@@ -238,7 +241,7 @@ class AssetController extends Controller
     public function submitInfo(Request $request, Asset $asset)
     {
         $request->validate([
-            'txnHash' => 'required|string|regex:/0x[a-fA-F0-9]{64}/g',
+            'txnHash' => 'required|string|regex:/0x[a-fA-F0-9]{64}/',
             'mintedIds' => 'required|array|min:1',
             'txnStatus' => 'required|in:sold,unsold'
         ]);
