@@ -38,15 +38,13 @@ class MediaController extends Controller
 
         if( 2*$width != 3*$height)
         {
-            if($width == '1120' && $height== '460')
+            if($width != '1120' && $height!= '460')
             {
-                $large_flag = true;
-            }
-            else{
                 return response()->json([
                     'error' => 'size_error'
                 ]);
             }
+
         }
 
         if ($mediable_type == Contract::class) {
