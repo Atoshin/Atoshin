@@ -29,6 +29,7 @@
 
                 </form>
             </div>
+            <div class="alert alert-danger d-none" id="error"></div>
 
 
         </div>
@@ -269,6 +270,7 @@
 
             },
             success: function (file, response) {
+                console.log(response.error);
                 if(response.error)
                 {
                     const error = document.querySelector('#error');
