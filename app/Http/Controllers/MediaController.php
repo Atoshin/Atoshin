@@ -28,6 +28,7 @@ class MediaController extends Controller
                 'file' => 'required'
             ]);
         }
+        $large_flag = false;
         $file = $request->file('file');
         $fileName = time() . '.' . $file->extension();
         $uploadFolder = 'file';
@@ -35,7 +36,19 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-//        $path = Storage::putFile('public/' . $path, $request->file('file'));
+        if( 2*$width != 3*$height)
+        {
+            if($width == '1120' && $height== '460')
+            {
+                $large_flag = true;
+            }
+            else{
+                return response()->json([
+                    'error' => 'size_error'
+                ]);
+            }
+        }
+
         if ($mediable_type == Contract::class) {
             $response = Http::attach(
                 'attachment', file_get_contents($request->file('file')), $fileName
@@ -73,29 +86,13 @@ class MediaController extends Controller
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id,
                 'width'=>$width,
-                'height'=>$height
-
+                'height'=>$height,
+                'gallery_large_picture'=> $large_flag
 
             ]);
 
 
         }
-
-
-//        $entity = $mediable_type::query()->find($mediable_id);
-//        $homepage_medias = $entity->medias()->where('main', false)->where('homeapage_picture', true)->get();
-//        $not_homepage_medias = $entity->medias()->where('main', false)->where('homeapage_picture', false)->get();
-//        if (count($homepage_medias) < 4) {
-//            $counter = 4 - count($homepage_medias);
-//            foreach ($not_homepage_medias as $media) {
-//                while ($counter <= 4) {
-//                    $media->homeapage_picture = true;
-//                    $media->save();
-//                    $counter++;
-//                }
-//
-//            }
-//        }
 
         $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
         return response()->json([
@@ -350,6 +347,16 @@ class MediaController extends Controller
 
             $media->homeapage_picture = false;
         } else {
+            $homeapge_medias = Media::query()->where('mediable_type', $media->mediable_type)
+                ->where('mediable_id', $media->mediable_id)->where('homeapage_picture', true)->get();
+
+            if (count($homeapge_medias) >= 1) {
+                foreach ($homeapge_medias as $homepage_media) {
+                    $homepage_media->homeapage_picture = false;
+                    $homepage_media->save();
+                }
+            }
+
             if ($media->main or $media->gallery_large_picture) {
                 $media->main = false;
                 $media->gallery_large_picture = false;

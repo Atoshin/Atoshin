@@ -17,15 +17,8 @@
         </div>
 
         <div class="form-group">
-            @if($type == \App\Models\Gallery::class)
-                <label for="contract ">Upload Gallery Logo (size: 1200x800-1800x1200-2400x1600-900x600)  <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\Artist::class)
-                    <label for="contract ">Upload Artist Avatar (size: 1200x800-1800x1200-2400x1600-900x600) <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\User::class)
-                <label for="contract ">Upload User Avatar (size: 1200x800-1800x1200-2400x1600-900x600) <span class="text-danger">*</span></label>
-            @elseif($type == \App\Models\Asset::class)
-                <label for="contract ">Upload Asset Main Picture (size: 1200x800-1800x1200-2400x1600-900x600)<span class="text-danger">*</span></label>
-            @endif
+                <label for="contract ">Upload Contract  <span class="text-danger">*</span></label>
+
 
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">
@@ -37,16 +30,10 @@
         </div>
 
         <div class="card-footer">
-            @if($type == \App\Models\Gallery::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id])}}">Next</a>
-            @elseif($type == \App\Models\Artist::class)
-                <a class="btn btn-primary d-none"  id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$id])}}">Next</a>
+            @if($type == \App\Models\Contract::class)
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('assets.index')}}">Next</a>
             @elseif($type == \App\Models\User::class)
                 <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
-            @elseif($type == \App\Models\Asset::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$id])}}">Next</a>
-            @elseif($type == \App\Models\Auction::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('artists.index',['artist_id'=>$artist_id])}}">Next</a>
             @endif
         </div>
 

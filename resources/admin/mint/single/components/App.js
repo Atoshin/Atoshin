@@ -63,8 +63,9 @@ export default function App() {
                 let event = tx.events[0]
                 let value = await event.args[2]
                 const address = await signer.getAddress();
-
+                const txnHash = tx.transactionHash
                 await axios.post(`/api/v1/contract/${ipfsContract.id}/mint-record`, {
+                    txnHash,
                     tokenId: value.toNumber(),
                     signerWalletAddress: address
                 })

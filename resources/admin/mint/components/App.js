@@ -70,11 +70,13 @@ export default function App() {
                 let contract = new ethers.Contract(addresses.NFT, NFT.abi, signer)
                 let transaction = await contract.createTokens(urls)
                 let tx = await transaction.wait()
+                const txnHash = tx.transactionHash
                 let event = tx.events[0]
                 let value = await event.args[2]
                 const address = await signer.getAddress();
 
                 await axios.post(`/api/v1/asset/${asset.id}/mint-record`, {
+                    txnHash,
                     previousTokenId: value.toNumber(),
                     mintedContractsLength: urls.length,
                     signerWalletAddress: address
