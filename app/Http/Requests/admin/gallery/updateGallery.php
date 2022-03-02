@@ -25,6 +25,11 @@ class updateGallery extends FormRequest
             'instagram'=>'url|nullable',
             'linkedin'=>'url|nullable',
             'youtube'=>'url|nullable',
+            'order'=>'regex:/^([0-9]{1})$/|unique:galleries|nullable',
+            'lat' => 'required|numeric',
+            'long' => 'required|numeric',
+            'address' => 'required|string',
+            'telephone' => 'required|string'
 
         ];
     }

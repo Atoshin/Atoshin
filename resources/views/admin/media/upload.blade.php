@@ -185,11 +185,13 @@
                             onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
+
                 @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'assets.index')
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
+
                 @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.index')
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">

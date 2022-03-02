@@ -99,6 +99,14 @@
                     </a>
                 </li>
                 @endcan
+                @can('manage setting')
+                    <li class="nav-item">
+                        <a href="{{route('setting.index')}}" class="nav-link">
+                            <i class="fas fa-wrench nav-icon"></i>
+                            <p>Setting</p>
+                        </a>
+                    </li>
+                @endcan
 
 
 

@@ -30,7 +30,9 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
+                                <th>Order</th>
                                 <th>Operations</th>
+                                <th>Related</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -50,12 +52,19 @@
                                                 type="submit">{{$gallery->status}}</button>
                                         </form>
                                     </td>
+                                    <td>
+                                        @if($gallery->order!==null)
+                                            {{$gallery->order}}
+                                        @else
+                                            <span>-</span>
+                                        @endif</td>
+
                                     {{--                                    <td>{{$gallery->wallet ? $gallery->wallet->wallet_address : '-'}}</td>--}}
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
                                                 <a href="{{route('galleries.edit',$gallery->id)}}" type="button"
-                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> Edit </a>
                                             </div>
                                             {{--                                            <div class="m-1">--}}
                                             {{--                                                <button type="button"--}}
@@ -65,33 +74,41 @@
                                             {{--                                                        class="fa fa-trash "></i>delete--}}
                                             {{--                                                </button>--}}
                                             {{--                                            </div>--}}
-                                            <div class="m-1">
-                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i>
-                                                    location </a>
-                                            </div>
+                                            {{--                                            <div class="m-1">--}}
+                                            {{--                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"--}}
+                                            {{--                                                   class="btn btn-success "> <i class="fa fa-location-arrow "></i>--}}
+                                            {{--                                                    location </a>--}}
+                                            {{--                                            </div>--}}
                                             <div class="m-1">
                                                 <a href="{{ route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id]) }}"
                                                    type="button"
-                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
+                                                   class="btn btn-primary "> <i class="fa fa-file-contract "></i> Edit
+                                                    media
                                                 </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{route('index.gallerying', $gallery->id)}}" type="button"
-                                                   class="btn btn-light "> <i class="fa fa-location-arrow "></i> Manager
-                                                </a>
+                                                <a class="btn btn-primary"
+                                                   href="{{route('videoLink.index',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id])}}"><i
+                                                        class="fa fa-video "></i>
+                                                    Edit gallery videos</a>
                                             </div>
                                             <div class="m-1">
                                                 <a href="{{env('FRONTEND_URL') . '/art-center/' . $gallery->id}}"
                                                    type="button"
                                                    class="btn btn-danger"> <i class="fa fa-file "></i>
-                                                    show </a>
+                                                    Show </a>
                                             </div>
                                         </div>
 
 
                                     </td>
-
+                                    <td>
+                                        <div class="m-1">
+                                            <a href="{{route('index.gallerying', $gallery->id)}}" type="button"
+                                               class="btn btn-success "> <i class="fa fa-location-arrow "></i> Manager
+                                            </a>
+                                        </div>
+                                    </td>
 
                                 </tr>
                             @endforeach

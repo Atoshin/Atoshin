@@ -25,6 +25,7 @@ class CreateGalleriesTable extends Migration
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('linkedin')->nullable();
+            $table->integer('order')->nullable();
             $table->enum('status', ['published','unpublished'])->default('unpublished');
 //            $table->string('owner_name')->nullable();
             $table->timestamps();

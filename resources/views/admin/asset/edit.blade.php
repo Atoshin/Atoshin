@@ -14,56 +14,56 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="title" placeholder="Title" value="{{$asset->title}}">
+                    <input type="text" {{$isMinted ? 'disabled' : ''}} class="form-control" name="title" placeholder="Title" value="{{$asset->title}}">
                     @error('title')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Total Price(Dollar) <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="price" placeholder="Total Price(Dollar)" value="{{$asset->price}}" >
+                    <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="price" placeholder="Total Price(Dollar)" value="{{$asset->price}}" >
                     @error('price')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Bio <span class="text-danger">*</span></label>
-                    <textarea type="text" class="form-control" name="bio" placeholder="Bio" >{{$asset->bio}}</textarea>
+                    <textarea type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="bio" placeholder="Bio" >{{$asset->bio}}</textarea>
                     @error('bio')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Ownership Percentage <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="ownership_percentage" placeholder="Ownership Percentage" value="{{$asset->ownership_percentage}}">
+                    <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="ownership_percentage" placeholder="Ownership Percentage" value="{{$asset->ownership_percentage}}">
                     @error('ownership_percentage')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Commission Percentage <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage" value="{{$asset->commission_percentage}}" >
-                    @error('commission_percentage')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label for="exampleInputPassword1">Commission Percentage <span class="text-danger">*</span></label>--}}
+{{--                    <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="commission_percentage" placeholder="Commission Percentage" value="{{$asset->commission_percentage}}" >--}}
+{{--                    @error('commission_percentage')--}}
+{{--                    <small class="text-danger">{{$message}}</small>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
                 <div class="form-group">
                     <label for="exampleInputPassword1">Royalties Percentage <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="royalties_percentage" placeholder="Royalties Percentage" value="{{$asset->royalties_percentage}}">
+                    <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="royalties_percentage" placeholder="Royalties Percentage" value="{{$asset->royalties_percentage}}">
                     @error('royalties_percentage')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Total Fractions <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="total_fractions" placeholder="Total Fractions" value="{{$asset->total_fractions}}">
+                    <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="total_fractions" placeholder="Total Fractions" value="{{$asset->total_fractions}}">
                     @error('total_fractions')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Sold Fractions <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="sold_fractions" placeholder="Sold Fractions" value="{{$asset->sold_fractions}}">
+                    <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="sold_fractions" placeholder="Sold Fractions" value="{{$asset->sold_fractions}}">
                     @error('sold_fractions')
                     <small class="text-danger">{{$message}}</small>
                     @enderror
@@ -84,16 +84,16 @@
                 </div>
 
 {{--                <div class="form-group">--}}
-{{--                    <label for="exampleInputPassword1">Status</label>--}}
-{{--                    <select name="status" class="form-control" id="">--}}
-{{--                        <option @if($asset->status=='unpublished') selected @endif value="unpublished">unpublished</option>--}}
-{{--                        <option @if($asset->status=='published') selected @endif value="published">published</option>--}}
+                {{--                    <label for="exampleInputPassword1">Status</label>--}}
+                {{--                    <select name="status" class="form-control" id="">--}}
+                {{--                        <option @if($asset->status=='unpublished') selected @endif value="unpublished">unpublished</option>--}}
+                {{--                        <option @if($asset->status=='published') selected @endif value="published">published</option>--}}
 
-{{--                    </select>--}}
-{{--                    @error('status')--}}
-{{--                    <small class="text-danger">{{$message}}</small>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
+                {{--                    </select>--}}
+                {{--                    @error('status')--}}
+                {{--                    <small class="text-danger">{{$message}}</small>--}}
+                {{--                    @enderror--}}
+                {{--                </div>--}}
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">Category <span class="text-danger">*</span></label>
@@ -170,7 +170,7 @@
                 </div>
 
 
-                <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset videos</a>
+{{--                <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}">edit asset videos</a>--}}
 
             </div>
             <!-- /.card-body -->

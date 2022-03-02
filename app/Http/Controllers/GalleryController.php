@@ -8,9 +8,11 @@ use App\Http\Requests\admin\users\updateUser;
 use App\Http\Traits\MediaTrait;
 use App\Models\Contract;
 use App\Models\Gallery;
+use App\Models\Location;
 use App\Models\VideoLink;
 use App\Models\Wallet;
 use App\Models\Media;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +23,7 @@ class GalleryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -33,7 +35,7 @@ class GalleryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -60,7 +62,15 @@ class GalleryController extends Controller
                 'twitter' => $request->twitter,
                 'facebook' => $request->facebook,
                 'linkedin' => $request->linkedin,
+                'order' => $request->order,
 //                'status' => $request->status,
+            ]);
+            Location::query()->create([
+                'lat' => $request->lat,
+                'long' => $request->long,
+                'address' => $request->address,
+                'telephone' => $request->telephone,
+                'gallery_id' => $gallery->id
             ]);
             Wallet::query()->create([
                 'wallet_address' => $request->wallet_address,
@@ -76,7 +86,7 @@ class GalleryController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -90,13 +100,13 @@ class GalleryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
         $gallery = Gallery::query()->find($id);
-
-        return view('admin.gallery.edit', compact('gallery'));
+        $location = $gallery->location;
+        return view('admin.gallery.edit', compact('gallery', 'location'));
     }
 
     /**
@@ -119,8 +129,25 @@ class GalleryController extends Controller
         $gallery->twitter = $request->twitter;
         $gallery->facebook = $request->facebook;
         $gallery->linkedin = $request->linkedin;
+        $gallery->order = $request->order;
 //        $gallery->status = $request->status;
         $wallet = $gallery->wallet;
+        $location = $gallery->location;
+        if ($location) {
+            $location->lat = $request->lat;
+            $location->long = $request->long;
+            $location->address = $request->address;
+            $location->telephone = $request->telephone;
+            $location->save();
+        } else {
+            Location::query()->create([
+                'lat' => $request->lat,
+                'long' => $request->long,
+                'address' => $request->address,
+                'telephone' => $request->telephone,
+                'gallery_id' => $gallery->id
+            ]);
+        }
         if ($wallet) {
             $wallet->wallet_address = $request->wallet_address;
             $wallet->save();

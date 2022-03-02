@@ -23,7 +23,7 @@
                         <a href="{{route('galleries.index')}}" type="button"
                            class="btn btn-primary mr-2 float-right"> <i
                                 class="fa fa-palette mr-2 "></i> Gallery Table</a>
-                        <h3 class="card-title">Manager for {{$gallery->name}}</h3>
+                        <h3 class="card-title">Manager</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
