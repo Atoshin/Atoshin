@@ -24,11 +24,11 @@ class HomePageController extends Controller
         {
             $number_of_assets = \request()->number_of_assets;
             $number_of_artists = \request()->number_of_artists;
-            $gallery_id = \request()->gallery_id;
+
 
             $artists = artistListService::getArtists($number_of_artists);
             $assets = assetSliderService::getSlideMaterial($number_of_assets);
-            $gallery = galleryService::getGallery($gallery_id);
+            $gallery = galleryService::getGallery();
 
             return response()->json([
                 'message' => 'getting_the_home_page_material_was_successful',

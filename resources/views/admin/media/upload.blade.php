@@ -6,6 +6,7 @@
         href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
         type="text/css"
     />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 @endsection
@@ -16,8 +17,11 @@
             <h3 class="card-title">upload Media </h3>
         </div>
 
-        <div class="form-group">
-            <label for="contract ">Upload Media (size: 1200x800-1800x1200-2400x1600-900x600)</label>
+        <div class="form-group m-1">
+            <div class="m-1">
+                <label for="contract ">Upload Media (size: 1200x800-1800x1200-2400x1600-900x600)</label>
+            </div>
+
             <div class="dropzone">
 
                 <form action="" method="post" enctype="multipart/form-data">
@@ -25,21 +29,16 @@
 
                 </form>
             </div>
-            <div class="alert alert-danger d-none m-3" id="error">
-                <i class="fa fa-warning"></i>
-            </div>
-        </div>
-
-        <div class="card-footer">
 
 
         </div>
+
+
 
 
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-
                     <div class="card col-sm-12">
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
@@ -223,6 +222,7 @@
 
         // Dropzone has been added as a global variable.
         const dropzone = new Dropzone("div.dropzone", {
+            dictDefaultMessage: "Put your custom message here",
             url: "{{route('uploadFile',['mediable_type' => $type, 'mediable_id' => $id])}}",
             autoDiscover: false,
             acceptedFiles: ".jpeg,.jpg,.png",
@@ -271,7 +271,7 @@
                 {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
-                    error.innerHTML = `<strong>Error!</strong> the media dimension ratio must be 3:2`;
+                    error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">the media dimension ratio must be 3:2</span></div>`;
                     setTimeout(() => {
                         $(file.previewElement).remove();
                         error.classList.add('d-none');
@@ -438,11 +438,11 @@
             error: function (file, message, xhr) {
                 const error = document.querySelector('#error');
                 error.classList.remove('d-none');
-                error.innerHTML = `<strong>Error!</strong> ${message}`;
+                error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">${message}</span></div>`;
                 setTimeout(() => {
                     $(file.previewElement).remove();
                     error.innerHTML = '';
-                    location.reload();
+                    error.classList.add('d-none')
                 }, 5000)
             }
             ,
@@ -579,6 +579,7 @@
     <script>
         $(function () {
             $("#example1").DataTable({
+                autoHeight: true,
                 "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
