@@ -211,20 +211,7 @@ class MediaController extends Controller
 
         }
 
-        $entity = $mediable_type::query()->find($mediable_id);
-        $homepage_medias = $entity->medias()->where('main', false)->where('homeapage_picture', true)->get();
-        $not_homepage_medias = $entity->medias()->where('main', false)->where('homeapage_picture', false)->get();
-        if (count($homepage_medias) < 4) {
-            $counter = 4 - count($homepage_medias);
-            foreach ($not_homepage_medias as $media) {
-                while ($counter <= 4) {
-                    $media->homeapage_picture = true;
-                    $media->save();
-                    $counter++;
-                }
 
-            }
-        }
 
 
         return response()->json([
