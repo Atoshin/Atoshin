@@ -50,7 +50,7 @@ class AssetController extends Controller
             'bio' => $request->bio,
             'price' => $request->price,
             'ownership_percentage' => $request->ownership_percentage,
-            'commission_percentage' => $request->commission_percentage,
+//            'commission_percentage' => $request->commission_percentage,
             'royalties_percentage' => $request->royalties_percentage,
             'total_fractions' => $request->total_fractions,
             'sold_fractions' => $request->sold_fractions,
@@ -117,7 +117,7 @@ class AssetController extends Controller
         $asset->bio = $request->bio;
         $asset->price = $request->price;
         $asset->ownership_percentage = $request->ownership_percentage;
-        $asset->commission_percentage = $request->commission_percentage;
+//        $asset->commission_percentage = $request->commission_percentage;
         $asset->royalties_percentage = $request->royalties_percentage;
         $asset->total_fractions = $request->total_fractions;
         $asset->sold_fractions = $request->sold_fractions;

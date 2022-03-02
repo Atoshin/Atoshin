@@ -20,7 +20,7 @@ class storeAsset extends FormRequest
                 'price'=>'required',
                 'bio'=>'required|max:1024',
                 'ownership_percentage'=>'required|numeric',
-                'commission_percentage'=>'required|numeric',
+//                'commission_percentage'=>'required|numeric',
                 'royalties_percentage'=>'required|numeric',
                 'total_fractions'=>'required|numeric',
                 'sold_fractions'=>'numeric',

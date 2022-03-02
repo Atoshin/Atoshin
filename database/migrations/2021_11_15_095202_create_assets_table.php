@@ -19,7 +19,7 @@ class CreateAssetsTable extends Migration
             $table->longText('bio')->nullable();
             $table->string('price')->nullable();
             $table->integer('ownership_percentage')->default(40);
-            $table->integer('commission_percentage');
+//            $table->integer('commission_percentage');
             $table->integer('royalties_percentage');
             $table->integer('order')->nullable();
             $table->integer('total_fractions')->default(100);

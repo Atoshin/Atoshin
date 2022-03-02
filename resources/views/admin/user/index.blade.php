@@ -55,6 +55,11 @@
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
                                             <div class="m-1">
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\User::class,'id'=>$user->id]) }}" type="button"
+                                                   class="btn btn-primary "> <i class="fa fa-film "></i> Edit media
+                                                </a>
+                                            </div>
+                                            <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
                                                         data-id="{{$user->id}}"
@@ -63,11 +68,6 @@
                                                 </button>
                                             </div>
 
-                                            <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\User::class,'id'=>$user->id]) }}" type="button"
-                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
-                                                </a>
-                                            </div>
                                         </div>
 
 
