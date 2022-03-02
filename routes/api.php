@@ -28,15 +28,15 @@ Route::prefix('v1')->group(function () {
     Route::post('wallets/store', [\App\Http\Controllers\Api\WalletController::class, 'storeWallet']);
     Route::get('asset/{id}/show', [\App\Http\Controllers\Api\ShowAssetController::class, 'show']);
 
-//    Route::middleware('authorize_metamask')->group(function () {
+    Route::middleware('authorize_metamask')->group(function () {
         Route::get('user/{address}/show', [\App\Http\Controllers\Api\ProfileController::class, 'show']);
         Route::get('contract/info', [\App\Http\Controllers\Api\ContractsController::class, 'show']);
         Route::patch('user/{address}/update', [\App\Http\Controllers\Api\ProfileController::class, 'update']);
         //region buy procedure
         Route::post('asset/information/{asset}', [\App\Http\Controllers\Api\AssetController::class, 'info']);
-        Route::patch('asset/information/{asset}', [\App\Http\Controllers\Api\AssetController::class, 'submitInfo']);
+        Route::post('asset/submit-information/{asset}', [\App\Http\Controllers\Api\AssetController::class, 'submitInfo']);
         //endregion
-//    });
+    });
 
 
     Route::post('file', [\App\Http\Controllers\Api\MediaController::class, 'uploadFile']);

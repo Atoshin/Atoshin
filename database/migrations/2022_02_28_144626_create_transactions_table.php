@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->string('txn_hash');
             $table->string('transactable_type')->nullable();
             $table->unsignedBigInteger('transactable_id')->nullable();
+            $table->integer('token_quantity')->nullable();
             $table->timestamps();
         });
     }

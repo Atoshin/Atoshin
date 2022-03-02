@@ -17,6 +17,11 @@ class Minted extends Model
         return $this->belongsTo(Contract::class);
     }
 
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'txn_id');
+    }
+
     public function wallet()
     {
         return $this->morphOne(Wallet::class, 'walletable');

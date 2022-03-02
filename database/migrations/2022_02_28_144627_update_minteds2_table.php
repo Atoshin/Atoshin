@@ -15,6 +15,11 @@ class UpdateMinteds2Table extends Migration
     {
         Schema::table('minteds', function (Blueprint $table) {
             $table->string('txn_hash')->nullable();
+
+            $table->unsignedBigInteger('txn_id')->nullable();
+            $table->foreign('txn_id')
+                ->references('id')
+                ->on('transactions');
         });
     }
 
@@ -27,6 +32,7 @@ class UpdateMinteds2Table extends Migration
     {
         Schema::table('minteds', function (Blueprint $table) {
             $table->removeColumn('txn_hash');
+            $table->removeColumn('txn_id');
         });
     }
 }
