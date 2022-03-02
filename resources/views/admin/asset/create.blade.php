@@ -40,13 +40,13 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Commission Percentage <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage" value="{{old('commission_percentage')}}">
-                    @error('commission_percentage')
-                    <small class="text-danger">{{$message}}</small>
-                    @enderror
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label for="exampleInputPassword1">Commission Percentage <span class="text-danger">*</span></label>--}}
+{{--                    <input type="text" class="form-control" name="commission_percentage" placeholder="Commission Percentage" value="{{old('commission_percentage')}}">--}}
+{{--                    @error('commission_percentage')--}}
+{{--                    <small class="text-danger">{{$message}}</small>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
                 <div class="form-group">
                     <label for="exampleInputPassword1">Royalties Percentage <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="royalties_percentage" placeholder="Royalties Percentage" value="{{old('royalties_percentage')}}">

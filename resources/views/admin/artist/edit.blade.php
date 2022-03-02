@@ -125,7 +125,7 @@
                 </div>
 
 
-                <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist videos</a>
+{{--                <a  class="btn btn-primary" href="{{route('videoLink.index',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}">edit artist videos</a>--}}
 {{--                <div style="margin-top: 15px">--}}
 {{--                    <input type="checkbox"--}}
 {{--                           @if($artist->homepage==true) checked--}}

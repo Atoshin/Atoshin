@@ -20,7 +20,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset:: query()->orderBy("created_at","desc")->get();
+        $assets = Asset:: query()->orderBy("created_at", "desc")->get();
         return view('admin.asset.index', compact('assets'));
     }
 
@@ -34,55 +34,55 @@ class AssetController extends Controller
         $categories = Category::all();
         $galleries = Gallery::all();
         $artists = Artist::all();
-        return  view('admin.asset.create',compact('categories','galleries','artists'));
+        return view('admin.asset.create', compact('categories', 'galleries', 'artists'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(storeAsset $request)
     {
         $asset = Asset::query()->create([
-            'title'=>$request->title,
-            'bio'=> $request->bio,
-            'price'=>$request->price,
-            'ownership_percentage'=>$request->ownership_percentage,
-            'commission_percentage'=>$request->commission_percentage,
-            'royalties_percentage'=>$request->royalties_percentage,
-            'total_fractions'=>$request->total_fractions,
-            'sold_fractions'=>$request->sold_fractions,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'category_id'=>$request->category_id,
-            'creator_id'=>$request->creator_id,
-            'artist_id'=>$request->artist_id,
-            'creation'=>$request->creation,
-            'size'=>$request->size,
-            'material'=>$request->material,
-            'order'=>$request->order,
+            'title' => $request->title,
+            'bio' => $request->bio,
+            'price' => $request->price,
+            'ownership_percentage' => $request->ownership_percentage,
+            'commission_percentage' => $request->commission_percentage,
+            'royalties_percentage' => $request->royalties_percentage,
+            'total_fractions' => $request->total_fractions,
+            'sold_fractions' => $request->sold_fractions,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'category_id' => $request->category_id,
+            'creator_id' => $request->creator_id,
+            'artist_id' => $request->artist_id,
+            'creation' => $request->creation,
+            'size' => $request->size,
+            'material' => $request->material,
+            'order' => $request->order,
         ]);
-        return redirect()->route('upload.page',['type'=>Asset::class,'id'=>$asset->id]);
+        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        $asset=Asset::with(['medias','videos', 'videoLinks'])->find($id);
-        return view('admin.asset.show',compact('asset'));
+        $asset = Asset::with(['medias', 'videos', 'videoLinks'])->find($id);
+        return view('admin.asset.show', compact('asset'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
@@ -90,21 +90,29 @@ class AssetController extends Controller
         $categories = Category::all();
         $galleries = Gallery::all();
         $artists = Artist::all();
-        $asset= Asset::query()->find($id);
-        return  view('admin.asset.edit',compact('categories','galleries','artists','asset'));
+        $asset = Asset::query()->find($id);
+
+        $minteds = [];
+        foreach ($asset->contracts as $contract){
+            array_push($minteds, $contract->minted);
+        }
+
+        $isMinted = count($minteds) > 0;
+
+        return view('admin.asset.edit', compact('categories', 'galleries', 'artists', 'asset', 'isMinted'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(updateAsset $request, $id)
     {
 
-        $asset=Asset::query()->findOrFail($id);
+        $asset = Asset::query()->findOrFail($id);
         $asset->title = $request->title;
         $asset->bio = $request->bio;
         $asset->price = $request->price;
@@ -131,7 +139,7 @@ class AssetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)

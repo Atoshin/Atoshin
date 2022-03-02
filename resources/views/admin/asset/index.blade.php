@@ -41,6 +41,7 @@
                                 {{--                                <th>end_date</th>--}}
                                 {{--                                <th>status</th>--}}
                                 <th>Operations</th>
+                                <th>Related</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -80,7 +81,7 @@
                                         <div class="row">
                                             <div class="m-1">
                                                 <a href="{{route('assets.edit',$asset->id)}}" type="button"
-                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> Edit </a>
                                             </div>
                                             {{--                                                <div class="m-1">--}}
                                             {{--                                                    <button type="button"--}}
@@ -91,34 +92,44 @@
                                             {{--                                                    </button>--}}
                                             {{--                                                </div>--}}
 
-
-                                            <div class="m-1">
-                                                <a href="{{ route('videos.index', $asset->id) }}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-video "></i> videos
-                                                </a>
-                                            </div>
-                                            <div class="m-1">
-                                                <a href="{{ route('contracts.index', $asset->id) }}" type="button"
-                                                   class="btn btn-warning "> <i class="fa fa-file-contract "></i>
-                                                    contracts
-                                                </a>
-                                            </div>
                                             <div class="m-1">
                                                 <a href="{{ route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$asset->id]) }}"
                                                    type="button"
-                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
+                                                   class="btn btn-primary "> <i class="fa fa-file-contract "></i> Edit
+                                                    media
                                                 </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{env('FRONTEND_URL') . '/show-asset/' . $asset->id}}" type="button"
-                                                   class="btn btn-danger" > <i class="fa fa-file "></i>
-                                                    show </a>
+                                                <a class="btn btn-primary"
+                                                   href="{{route('videoLink.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}"><i class="fa fa-video"></i> Edit
+                                                    asset videos</a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{env('FRONTEND_URL') . '/show-asset/' . $asset->id}}"
+                                                   type="button"
+                                                   class="btn btn-danger"> <i class="fa fa-file "></i>
+                                                    Show </a>
                                             </div>
 
 
                                         </div>
 
 
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="m-1">
+                                                <a href="{{ route('videos.index', $asset->id) }}" type="button"
+                                                   class="btn btn-success "> <i class="fa fa-video "></i> Live videos
+                                                </a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('contracts.index', $asset->id) }}" type="button"
+                                                   class="btn btn-warning "> <i class="fa fa-file-contract "></i>
+                                                    Contracts
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
 
                                 </tr>

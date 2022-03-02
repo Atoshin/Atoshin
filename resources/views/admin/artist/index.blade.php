@@ -30,6 +30,7 @@
                                 <th> Full Name</th>
                                 <th> Order</th>
                                 <th>Operation</th>
+                                <th>Related</th>
                                 {{--                                <th>operations</th>--}}
                             </tr>
                             </thead>
@@ -48,47 +49,62 @@
                                         @endif</td>
 
 
-
                                     {{--                                    <td>{{$user->wallet ? $user->wallet->wallet_address : ''}}</td>--}}
 
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
                                                 <a href="{{route('artists.edit',$artist->id)}}" type="button"
-                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                   class="btn btn-primary "> <i class="fa fa-edit "></i> Edit </a>
                                             </div>
-{{--                                            <div class="m-1">--}}
-{{--                                                <button type="button"--}}
-{{--                                                        onclick="deleteModal(this)"--}}
-{{--                                                        data-id="{{$artist->id}}"--}}
-{{--                                                        class="btn btn-danger "><i--}}
-{{--                                                        class="fa fa-trash "></i>delete--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
+                                            {{--                                            <div class="m-1">--}}
+                                            {{--                                                <button type="button"--}}
+                                            {{--                                                        onclick="deleteModal(this)"--}}
+                                            {{--                                                        data-id="{{$artist->id}}"--}}
+                                            {{--                                                        class="btn btn-danger "><i--}}
+                                            {{--                                                        class="fa fa-trash "></i>delete--}}
+                                            {{--                                                </button>--}}
+                                            {{--                                            </div>--}}
+
                                             <div class="m-1">
-                                                <a href="{{ route('news.index', $artist->id) }}" type="button"
-                                                   class="btn btn-success "> <i class="fa fa-newspaper "></i> News
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id]) }}"
+                                                   type="button"
+                                                   class="btn btn-primary "> <i class="fa fa-file-contract "></i> Edit
+                                                    media
                                                 </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id]) }}" type="button"
-                                                   class="btn btn-info "> <i class="fa fa-file-contract "></i> media
-                                                </a>
+                                                <a class="btn btn-primary"
+                                                   href="{{route('videoLink.index',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}"><i class="fa fa-video"></i> Edit
+                                                    artist videos</a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{ route('auctions.index', $artist->id) }}" type="button"
-                                                   class="btn btn-secondary "> <i class="fa fa-dollar-sign"></i> Auction
-                                                </a>
-                                            </div>
-                                            <div class="m-1">
-                                                <a href="{{env('FRONTEND_URL') . '/artists/' . str_replace(' ', '-', strtolower($artist->full_name)) . '/' . $artist->id}}" type="button"
+                                                <a href="{{env('FRONTEND_URL') . '/artists/' . str_replace(' ', '-', strtolower($artist->full_name)) . '/' . $artist->id}}"
+                                                   type="button"
                                                    class="btn btn-danger "> <i class="fa fa-file "></i>
-                                                    show </a>
+                                                    Show </a>
                                             </div>
 
                                         </div>
 
 
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="m-1">
+                                                <a href="{{ route('news.index', $artist->id) }}" type="button"
+                                                   class="btn btn-success "> <i class="fa fa-newspaper "></i> News
+                                                    <span class="badge badge-danger">{{$artist->news->count()}}</span>
+                                                </a>
+                                            </div>
+                                            <div class="m-1">
+                                                <a href="{{ route('auctions.index', $artist->id) }}" type="button"
+                                                   class="btn btn-success "> <i class="fa fa-dollar-sign"></i> Auction
+                                                    <span
+                                                        class="badge badge-danger">{{$artist->auctions->count()}}</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
 
 
@@ -105,10 +121,10 @@
         </div>
         <!-- /.row -->
 
-{{--        <form action="" id="delete-form" method="POST">--}}
-{{--            @method('delete')--}}
-{{--            @csrf--}}
-{{--        </form>--}}
+        {{--        <form action="" id="delete-form" method="POST">--}}
+        {{--            @method('delete')--}}
+        {{--            @csrf--}}
+        {{--        </form>--}}
 
     </section>
 
@@ -146,42 +162,42 @@
             // });
         });
     </script>
-{{--    <script>--}}
+    {{--    <script>--}}
 
-{{--        $(".delete-icon").on("click", function () {--}}
-{{--            var ArtistId = $(this).data('id');--}}
-{{--            $("#delete-form").attr("action", "/artists/" + ArtistId)--}}
-{{--        });--}}
+    {{--        $(".delete-icon").on("click", function () {--}}
+    {{--            var ArtistId = $(this).data('id');--}}
+    {{--            $("#delete-form").attr("action", "/artists/" + ArtistId)--}}
+    {{--        });--}}
 
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        function deleteModal(element) {--}}
-{{--            var ArtistID = $(element).data('id');--}}
-{{--            document.getElementById('delete-form').action = `/artists/${ArtistID}`;--}}
-{{--            Swal.fire({--}}
-{{--                icon: 'warning',--}}
-{{--                title: 'Do you want to delete this artist?',--}}
-{{--                showCancelButton: true,--}}
-{{--                showConfirmButton: true,--}}
-{{--                confirmButtonText: `yes`,--}}
-{{--                cancelButtonText: `no`,--}}
-{{--                confirmButtonColor: '#22303d',--}}
-{{--            }).then((result) => {--}}
-{{--                /* Read more about isConfirmed, isDenied below */--}}
-{{--                if (result.value) {--}}
-{{--                    $("#delete-form").submit();--}}
-{{--                } else if (result.dismiss === 'cancel') {--}}
-{{--                    Swal.fire({--}}
-{{--                        title: 'the removal request was canceled',--}}
-{{--                        icon: 'info',--}}
-{{--                        confirmButtonText: 'ok',--}}
-{{--                        confirmButtonColor: '#22303d'--}}
-{{--                    });--}}
+    {{--    </script>--}}
+    {{--    <script>--}}
+    {{--        function deleteModal(element) {--}}
+    {{--            var ArtistID = $(element).data('id');--}}
+    {{--            document.getElementById('delete-form').action = `/artists/${ArtistID}`;--}}
+    {{--            Swal.fire({--}}
+    {{--                icon: 'warning',--}}
+    {{--                title: 'Do you want to delete this artist?',--}}
+    {{--                showCancelButton: true,--}}
+    {{--                showConfirmButton: true,--}}
+    {{--                confirmButtonText: `yes`,--}}
+    {{--                cancelButtonText: `no`,--}}
+    {{--                confirmButtonColor: '#22303d',--}}
+    {{--            }).then((result) => {--}}
+    {{--                /* Read more about isConfirmed, isDenied below */--}}
+    {{--                if (result.value) {--}}
+    {{--                    $("#delete-form").submit();--}}
+    {{--                } else if (result.dismiss === 'cancel') {--}}
+    {{--                    Swal.fire({--}}
+    {{--                        title: 'the removal request was canceled',--}}
+    {{--                        icon: 'info',--}}
+    {{--                        confirmButtonText: 'ok',--}}
+    {{--                        confirmButtonColor: '#22303d'--}}
+    {{--                    });--}}
 
-{{--                }--}}
-{{--            })--}}
-{{--        }--}}
-{{--    </script>--}}
+    {{--                }--}}
+    {{--            })--}}
+    {{--        }--}}
+    {{--    </script>--}}
 
 
 

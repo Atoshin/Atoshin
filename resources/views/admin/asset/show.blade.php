@@ -47,7 +47,7 @@
                                 <div class="mb-1"><b>Price:</b> {{$asset->price}}<br></div>
                                 {{--                795 Folsom Ave, Suite 600<br>--}}
                                 <div class="mb-1"><b>category:</b> {{$asset->category->title}}<br></div>
-                                <div class="mb-1"><b> Commission percentage:</b> {{$asset->commission_percentage}}<br>
+{{--                                <div class="mb-1"><b> Commission percentage:</b> {{$asset->commission_percentage}}<br>--}}
                                     <div class="mb-1">
                                         <b> Creation:</b>
                                         @if($asset->creation)

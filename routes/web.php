@@ -37,6 +37,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logoutAdmin'])->name('logout');
 
     Route::get('admin/dashboard', [\App\Http\Controllers\AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('admin/setting', [\App\Http\Controllers\SettingController::class, 'setting'])->name('setting.index');
 
     Route::group(['middleware' => ['permission:manage categories']], function () {
         Route::resource('categories', \App\Http\Controllers\CategoryController::class);
@@ -166,5 +167,13 @@ Route::middleware('auth:admin')->group(function () {
     //end
 //newsletter
     Route::resource('newsletters', \App\Http\Controllers\NewsLetterController::class);
+    //landing
+    Route::resource('landings', \App\Http\Controllers\LandingController::class)->only([
+        'update', 'edit', 'store'
+    ]);
+    Route::resource('commissions', \App\Http\Controllers\CommissionController::class)->only([
+         'create'
+    ]);
+
 });
 
