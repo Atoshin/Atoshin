@@ -34,7 +34,11 @@
 
         <div class="card-footer">
             @if($type == \App\Models\Contract::class)
-                <a class="btn btn-primary d-none" id="submitButton" href="{{route('assets.index')}}">Next</a>
+                @php
+                $contract = \App\Models\Contract::query()->find($id);
+                $asset = $contract->asset;
+                @endphp
+                <a class="btn btn-primary d-none" id="submitButton" href="{{route('contracts.index', $asset->id)}}">Next</a>
             @elseif($type == \App\Models\User::class)
                 <a class="btn btn-primary d-none" id="submitButton" href="{{route('users.index')}}">Next</a>
             @endif

@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function transaction()
     {
-        return $this->morphOne(Transaction::class, 'transactable');
+        return $this->morphMany(Transaction::class, 'transactable');
     }
 
     public function wallet()
