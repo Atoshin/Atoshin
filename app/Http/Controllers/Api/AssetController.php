@@ -127,7 +127,7 @@ class AssetController extends Controller
 
                     $response = Http::get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
                     $ethUsdPrice = $response->collect()['USD'];
-                    $asset->eth_price_per_fraction = $ethUsdPrice / $asset->contracts->count();
+                    $asset->eth_price_per_fraction = (($asset->price / $ethUsdPrice) / $asset->contracts->count());
                     $asset->save();
 
                     foreach ($asset->contracts as $idx => $contract) {
@@ -250,15 +250,18 @@ class AssetController extends Controller
         $token = Signature::query()->where('hash', $token)->first();
 
         DB::transaction(function () use ($request, $token, $asset) {
-            Transaction::query()->create([
+            $txn = Transaction::query()->create([
                 'txn_hash' => $request->txnHash,
                 'transactable_type' => User::class,
-                'transactable_id' => $token->user->id
+                'transactable_id' => $token->user->id,
+                'token_quantity' => count($request->mintedIds),
             ]);
             $asset->soldFractions = $asset->soldFractions + count($request->mintedIds);
+            $asset->save();
             foreach ($request->mintedIds as $mintedId) {
                 $minted = Minted::query()->find($mintedId);
                 $minted->status = $request->txnStatus;
+                $minted->txn_id = $txn->id;
                 $minted->save();
             }
         });
