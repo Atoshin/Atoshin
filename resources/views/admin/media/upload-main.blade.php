@@ -17,8 +17,11 @@
         </div>
 
         <div class="form-group">
+            @if($type == \App\Models\Contract::class)
                 <label for="contract ">Upload Contract  <span class="text-danger">*</span></label>
-
+            @elseif($type == \App\Models\User::class)
+                <label for="contract ">Upload User Avatar  <span class="text-danger">*</span></label>
+            @endif
 
             <div class="dropzone">
                 <form action="" method="post" enctype="multipart/form-data">

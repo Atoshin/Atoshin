@@ -62,6 +62,7 @@
                                         <th>Logo</th>
                                     @elseif($type == \App\Models\Artist::class)
                                         <th>Avatar</th>
+                                    @elseif($type == \App\Models\User::class)
                                     @else
                                     <th>main</th>
                                     @endif
@@ -107,6 +108,7 @@
                                             </td>
                                         @endif
 
+                                        @if($type!=\App\Models\User::class)
                                         <td>
                                             <form action="{{route('main.media',$media->id)}}" method="post">
                                                 @csrf
@@ -120,6 +122,7 @@
                                                 </div>
                                             </form>
                                         </td>
+                                        @endif
 
                                         @if($type == \App\Models\Gallery::class)
                                             <td>
@@ -270,8 +273,24 @@
 
             },
             success: function (file, response) {
-                console.log(response.error);
-                if(response.error)
+                if(response.error == 'exceeded_media_number_limit_user')
+                {
+                    const error = document.querySelector('#error');
+                    error.classList.remove('d-none');
+                    error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as user Avatar</span></div>`;
+                    setTimeout(() => {
+                        $(file.previewElement).remove();
+                        error.classList.add('d-none');
+                        error.innerHTML = '';
+
+                    }, 5000)
+                }
+
+
+
+
+                @if($type != \App\Models\User::class)
+                if(response.error == 'size_error')
                 {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
@@ -283,6 +302,7 @@
 
                     }, 5000)
                 }
+                @endif
                 console.log(response.error)
                 const tbody = $('#medias-table');
                 const media = response.medias[response.medias.length - 1]
@@ -366,19 +386,7 @@
                     </td>
 
 
-                    <td>
-                        <form action="{{env('APP_URL')}}/media/main/${media.id}" method="post">
-                           @csrf
-                <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input"
 
-                     id="mainSwitch-{media.id}"
-                     onchange="submitForm(event)">
-                <label class="custom-control-label"
-                    for="mainSwitch-${media.id}}"></label>
-                            </div>
-                        </form>
-                    </td>
 
                     <td>
                                                  <div class="m-1">
