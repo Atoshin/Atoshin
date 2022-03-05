@@ -40,7 +40,9 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
-                <button type="submit" id="btnSubmit" class="btn btn-primary">Next</button>
+
+                <button
+                    type="submit" id="btnSubmit" class="btn btn-primary">Next</button>
 {{--                <button type="submit" class="btn btn-default float-right">Cancel</button>--}}
             </div>
         </form>

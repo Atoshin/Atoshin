@@ -113,12 +113,12 @@
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
 
                         <a class="btn btn-primary"
-                           href="{{route('galleries.edit' , ['gallery'=>$id])}}">Submit</a>
+                           href="{{route('galleries.edit' , ['gallery'=>$id])}}" id="submitbtn">Submit</a>
 
                 @else
 
                         <a class="btn btn-primary"
-                           href="{{route('galleries.index')}}">Submit</a>
+                           href="{{route('galleries.index')}}" id="submitbtn">Submit</a>
 
 
                 @endif
@@ -175,6 +175,35 @@
                 }
             })
         }
+    </script>
+    <script>
+        const btn =document.getElementById('submitbtn')
+        btn.addEventListener('click',(event)=>{
+            @foreach($video_links as $videolink)
+            @if($videolink->is_default==true)
+            @if($videolink->media==null)
+                event.preventDefault()
+            Swal.fire({
+                target: 'body',
+                icon: 'error',
+                title: 'Homepage Video Link must have exactly one Media',
+                showCancelButton: false,
+                showConfirmButton: true,
+                timer: 100000,
+            })
+            @endif
+            @endif
+            @endforeach
+
+
+        })
+
+
+
+
+
+
+
     </script>
 
 {{--    <script>--}}

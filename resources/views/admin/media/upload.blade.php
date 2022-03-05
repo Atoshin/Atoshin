@@ -44,8 +44,11 @@
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
                             <br>
-                            <h6 class="text-warning">please note that each media cannot be either main, homepage picture
-                                or gallery large picture at the same time. </h6>
+                            @if($type == \App\Models\Gallery::class)
+                                <h6 class="text-warning">please note that each media cannot be either main, homepage picture
+                                    or gallery large picture at the same time. </h6>
+                           @endif()
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -62,7 +65,7 @@
                                         <th>Logo</th>
                                     @elseif($type == \App\Models\Artist::class)
                                         <th>Avatar</th>
-                                    @elseif($type == \App\Models\User::class)
+                                    @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class)
                                     @else
                                     <th>main</th>
                                     @endif
@@ -108,7 +111,7 @@
                                             </td>
                                         @endif
 
-                                        @if($type!=\App\Models\User::class)
+                                        @if($type!=\App\Models\User::class and $type != \App\Models\Auction::class)
                                         <td>
                                             <form action="{{route('main.media',$media->id)}}" method="post">
                                                 @csrf
@@ -180,11 +183,9 @@
                 @endphp
                 <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
             @elseif($type == \App\Models\User::class)
-                <button class="btn btn-primary " id="submitButton"
-                        onclick="checkCheckboxes(event, '{{route('users.index')}}')">Next
-                </button>
+                <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
             @else
-                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.index')
+                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.index' )
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
@@ -273,11 +274,15 @@
 
             },
             success: function (file, response) {
-                if(response.error == 'exceeded_media_number_limit_user')
+                if(response.error == 'exceeded_media_number_limit')
                 {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
+                    @if($type == \App\Models\User::class)
                     error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as user Avatar</span></div>`;
+                    @elseif($type == \App\Models\Auction::class)
+                        error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as Auction media</span></div>`;
+                    @endif
                     setTimeout(() => {
                         $(file.previewElement).remove();
                         error.classList.add('d-none');
@@ -289,7 +294,7 @@
 
 
 
-                @if($type != \App\Models\User::class)
+                @if($type != \App\Models\User::class and $type != \App\Models\Auction::class)
                 if(response.error == 'size_error')
                 {
                     const error = document.querySelector('#error');
@@ -373,7 +378,7 @@
                                              </td>
                 </tr>`)
 
-                @elseif($type == \App\Models\User::class)
+                @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class)
                 tbody.prepend(`<tr>
                     <td>
                         <a target="_blank" href="{{env('APP_URL')}}/${media.path}">

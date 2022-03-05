@@ -36,20 +36,20 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-        if($mediable_type == User::class)
+        if($mediable_type == User::class or $mediable_type == Auction::class)
         {
-            $medias = Media::query()->where('mediable_type',User::class)->where('mediable_id', $mediable_id)->get();
+            $medias = Media::query()->where('mediable_type',$mediable_type)->where('mediable_id', $mediable_id)->get();
 
             if (count($medias) > 0)
             {
                 return response()->json([
-                    'error' => 'exceeded_media_number_limit_user'
+                    'error' => 'exceeded_media_number_limit'
                 ]);
             }
         }
 
 
-        if($mediable_type != User::class)
+        if($mediable_type != User::class and $mediable_type!= Auction::class)
         {
             if( 2*$width != 3*$height)
             {

@@ -121,12 +121,16 @@
                                             <div class="m-1">
                                                 <a href="{{ route('videos.index', $asset->id) }}" type="button"
                                                    class="btn btn-success "> <i class="fa fa-video "></i> Live videos
+                                                    <span
+                                                        class="badge badge-danger">{{$asset->videos->count()}}</span>
                                                 </a>
                                             </div>
                                             <div class="m-1">
                                                 <a href="{{ route('contracts.index', $asset->id) }}" type="button"
                                                    class="btn btn-warning "> <i class="fa fa-file-contract "></i>
                                                     Contracts
+                                                    <span
+                                                        class="badge badge-primary">{{$asset->contracts->count()}}</span>
                                                 </a>
                                             </div>
                                         </div>
