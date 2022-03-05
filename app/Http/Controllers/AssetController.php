@@ -98,7 +98,7 @@ class AssetController extends Controller
         }
 
         $isMinted = false;
-        if (count($minteds) > 0){
+        if (count($minteds) > 0) {
             $isMinted = in_array(null, $minteds);
         }
 
@@ -154,6 +154,15 @@ class AssetController extends Controller
 
     public function changeStatus(Request $request, Asset $asset)
     {
+        $minteds = [];
+        foreach ($asset->contracts as $contract) {
+            array_push($minteds, $contract->minted);
+        }
+        if ($asset->status == 'unpublished') {
+            if (count($minteds) == 0 || in_array(null, $minteds)) {
+                return redirect()->back()->with(['message' => 'Asset has not been minted', 'icon' => 'error']);
+            }
+        }
         $asset->status = $request->status;
         $asset->save();
 
