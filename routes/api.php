@@ -56,6 +56,8 @@ Route::prefix('v1')->group(function () {
     Route::get('galleries', [\App\Http\Controllers\Api\GalleriesListController::class, 'getGalleries']);
 
     Route::post('newsletters', [\App\Http\Controllers\Api\NewslettersController::class, 'submit']);
+
+    Route::post('send-mail',[\App\Http\Controllers\Api\MailController::class,'sendMail']);
 });
 
 

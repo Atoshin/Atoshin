@@ -34,7 +34,7 @@ class AuctionsController extends Controller
             'material'=>$request->material
         ]);
 
-        return redirect()->route('upload.page.main',['type'=>Auction::class,'id'=>$auction->id]);
+        return redirect()->route('upload.page',['type'=>Auction::class,'id'=>$auction->id]);
     }
     public function show($auction_id)
     {
