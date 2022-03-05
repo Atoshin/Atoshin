@@ -93,11 +93,11 @@ class AssetController extends Controller
         $asset = Asset::query()->find($id);
 
         $minteds = [];
-        foreach ($asset->contracts as $contract){
+        foreach ($asset->contracts as $contract) {
             array_push($minteds, $contract->minted);
         }
 
-        $isMinted = count($minteds) > 0;
+        $isMinted = in_array(null, $minteds);
 
         return view('admin.asset.edit', compact('categories', 'galleries', 'artists', 'asset', 'isMinted'));
     }
