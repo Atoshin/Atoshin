@@ -72,11 +72,7 @@
             addRemoveLinks: true,
             maxFiles: 1,
             maxFilesize: 3,
-            //dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
-            // dictResponseError: 'خطایی در اپلود فایل رخ داده',
-            // dictMaxFilesExceeded: 'امکان اپلود فایل دیگر وجود ندارد , فقط یک فایل مجاز است',
 
-            // dictRemoveFile: 'Delete',
 
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -95,13 +91,14 @@
                 });
 
                 this.on("removedfile", function (file) {
+                    console.log(file)
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': "{{ csrf_token() }}"
                         }
                     });
                     $.ajax({
-                        url: `/media/delete/main/${file.id}`,
+                        url: `/media/delete/${file.id}`,
                         method: "delete",
                         success: function (res) {
                             console.log(res)
@@ -118,7 +115,8 @@
                 };
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile);
                 thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "{{asset(  $entity->medias->where('main',true)->first()->path)}}");
-                console.log(mockFile)
+                console.log(mockFile.id)
+
                 @endif
                 @else
 

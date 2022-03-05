@@ -36,16 +36,33 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-        if( 2*$width != 3*$height)
+        if($mediable_type == User::class)
         {
-            if($width != '1120' && $height!= '460')
+            $medias = Media::query()->where('mediable_type',User::class)->where('mediable_id', $mediable_id)->get();
+
+            if (count($medias) > 0)
             {
                 return response()->json([
-                    'error' => 'size_error'
+                    'error' => 'exceeded_media_number_limit_user'
                 ]);
             }
-
         }
+
+
+        if($mediable_type != User::class)
+        {
+            if( 2*$width != 3*$height)
+            {
+                if($width != '1120' && $height!= '460')
+                {
+                    return response()->json([
+                        'error' => 'size_error'
+                    ]);
+                }
+
+            }
+        }
+
 
         if ($mediable_type == Contract::class) {
             $response = Http::attach(
@@ -75,7 +92,9 @@ class MediaController extends Controller
 
 
             ]);
-        } else {
+        }
+
+        else {
 
             $media = Media::query()->create([
                 'ipfs_hash' => 'NOTHING',
@@ -298,6 +317,7 @@ class MediaController extends Controller
 
     public function delete($media_id)
     {
+
         $media = Media::find($media_id);
 //        Storage::delete(\asset(substr($media->path, 13, 50)));
         $media->delete();
