@@ -40,7 +40,7 @@
                                 <th>created at</th>
                                 <th>Minted At</th>
                                 <th>Signer Wallet Address</th>
-                                <th>Operations</th>
+{{--                                <th>Operations</th>--}}
                             </tr>
                             </thead>
                             <tbody>
@@ -68,11 +68,11 @@
                                     <td>
                                         {{$contract->minted ? $contract->minted->wallet->wallet_address : ''}}
                                     </td>
-                                    <td>
-                                        @if(!$contract->minted)
-                                            <div data-contractId="{{$contract->id}}" id="single-mint"></div>
-                                        @endif
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        @if(!$contract->minted)--}}
+{{--                                            <div data-contractId="{{$contract->id}}" id="single-mint"></div>--}}
+{{--                                        @endif--}}
+{{--                                    </td>--}}
                                     {{--                                        <td>--}}
                                     {{--                                            --}}{{--<a href="#" class="text-muted">--}}
                                     {{--                                            --}}{{--<i class="fas fa-search"></i>--}}
