@@ -44,8 +44,11 @@
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
                             <br>
-                            <h6 class="text-warning">please note that each media cannot be either main, homepage picture
-                                or gallery large picture at the same time. </h6>
+                            @if($type == \App\Models\Gallery::class)
+                                <h6 class="text-warning">please note that each media cannot be either main, homepage picture
+                                    or gallery large picture at the same time. </h6>
+                           @endif()
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
