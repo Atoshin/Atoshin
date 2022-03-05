@@ -11,18 +11,13 @@ class showArtistService
 {
     public static function getArtist($artist_id)
     {
-        try
-        {
-            $artist = Artist::query()->with(['news','medias','assets','auctions.media','assets.medias'])->where("id",$artist_id)->first();
+        try {
+            $artist = Artist::query()->with(['news', 'medias', 'assets', 'auctions.medias', 'assets.medias'])->where("id", $artist_id)->first();
             return $artist;
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
 
         }
     }
-
-
 
 
 }

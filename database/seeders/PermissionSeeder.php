@@ -63,6 +63,18 @@ class PermissionSeeder extends Seeder
             'guard_name'=>'admin'
         ]);
 
+        Permission::query()->create([
+            'name'=> 'manage newsletter',
+            'guard_name'=>'admin'
+        ]);
+
+        Permission::query()->create([
+            'name'=> 'manage setting',
+            'guard_name'=>'admin'
+        ]);
+
+
+
 
     }
 }
