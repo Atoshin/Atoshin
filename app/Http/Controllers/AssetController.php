@@ -97,7 +97,10 @@ class AssetController extends Controller
             array_push($minteds, $contract->minted);
         }
 
-        $isMinted = in_array(null, $minteds) || count($minteds) > 0;
+        $isMinted = false;
+        if (count($minteds) > 0){
+            $isMinted = in_array(null, $minteds);
+        }
 
         return view('admin.asset.edit', compact('categories', 'galleries', 'artists', 'asset', 'isMinted'));
     }
