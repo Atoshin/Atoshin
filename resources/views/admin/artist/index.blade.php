@@ -78,6 +78,7 @@
                                                    href="{{route('videoLink.index',['type'=>\App\Models\Artist::class,'id'=>$artist->id])}}"><i class="fa fa-video"></i> Edit
                                                     artist videos</a>
                                             </div>
+
                                             <div class="m-1">
                                                 <a href="{{env('FRONTEND_URL') . '/artists/' . str_replace(' ', '-', strtolower($artist->full_name)) . '/' . $artist->id}}"
                                                    type="button"
