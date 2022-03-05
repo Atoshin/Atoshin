@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT OR Apache-2.0
 pragma solidity ^0.8.3;
+//pragma experimental ABIEncoderV2;
+
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -16,6 +18,7 @@ contract NFTMarket is ReentrancyGuard {
     //    address private interactor = 0x9b638D9b79a7374403adc93Ae1A78acAE8655e98;
     uint256 listingPrice = 0.025 ether;
     uint256 commissionFee = 15;
+    mapping(uint => address) public owners;
 
     constructor() {
         owner = payable(msg.sender);
@@ -63,6 +66,18 @@ contract NFTMarket is ReentrancyGuard {
         commissionFee = newFee;
     }
 
+    function getArtworkOwners(uint beginRange, uint endRange) public view returns(address[] memory) {
+        require(beginRange <= endRange, 'Wrong parameters provided');
+        uint arrayLength = endRange - beginRange + 1;
+        address[] memory addresses = new address[](arrayLength);
+        for (uint i = beginRange; i <= endRange; i++) {
+            uint j = i - beginRange;
+            addresses[j] = owners[i];
+        }
+
+        return addresses;
+    }
+
     /* Places an item for sale on the marketplace */
     function createMarketItems(
         address nftContract,
@@ -93,7 +108,7 @@ contract NFTMarket is ReentrancyGuard {
                 mintedAts[i],
                 totalFractions
             );
-
+            owners[tokenIds[i]] = artworkOwner;
             emit MarketItemCreated(
                 itemId,
                 nftContract,
@@ -106,8 +121,6 @@ contract NFTMarket is ReentrancyGuard {
                 mintedAts[i],
                 totalFractions
             );
-
-            //            IERC721(nftContract).transferFrom(msg.sender, address(this), tokenIds[i]);
             IERC721(nftContract).transferFrom(address(this), msg.sender, tokenIds[i]);
         }
 
