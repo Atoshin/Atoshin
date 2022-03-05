@@ -19,7 +19,21 @@
 
         <div class="form-group m-1">
             <div class="m-1">
-                <label for="contract ">Upload Media (size: 1200x800-1800x1200-2400x1600-900x600)</label>
+                <div class="m-1">
+                    <h3>Upload Media</h3>
+                </div>
+
+                <div class="row text-warning ml-2" >
+                    <i class="material-icons mr-1">warning</i>
+                    <p >Note that all media sizes should have the ratio of 3:2 e.g. 1200x800-1800x1200-2400x1600-900x600</p>
+                </div>
+                @if($type == \App\Models\Gallery::class)
+                <div class="row text-warning ml-2" >
+                    <i class="material-icons mr-1">warning</i>
+                    <p >Gallery large picture should be 1120x460</p>
+                </div>
+
+                @endif
             </div>
 
             <div class="dropzone">
@@ -47,7 +61,7 @@
                             @if($type == \App\Models\Gallery::class)
                                 <h6 class="text-warning">please note that each media cannot be either main, homepage picture
                                     or gallery large picture at the same time. </h6>
-                           @endif()
+                           @endif
 
                         </div>
                         <!-- /.card-header -->
@@ -597,7 +611,7 @@
         $(function () {
             $("#example1").DataTable({
                 autoHeight: true,
-                "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false,
+                "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false,"bInfo" : false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
