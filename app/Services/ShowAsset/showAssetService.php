@@ -14,13 +14,15 @@ class showAssetService
     public static function getAsset($asset_id)
     {
         try {
-            $asset = Asset::query()->with(['medias', 'artist', 'gallery', 'videoLinks.media'])->where("id", $asset_id)->first();
+            $asset = Asset::query()->with(['medias', 'artist', 'gallery', 'videoLinks.media', 'contracts.minted'])->where("id", $asset_id)->first();
             $txns = [];
             $buyTransactions = [];
             foreach ($asset->contracts as $contract) {
                 if ($contract->minted) {
                     array_push($txns, $contract->minted->txn_hash);
-                    array_push($buyTransactions, $contract->minted->transaction->txn_hash);
+                    if ($contract->minted->transaction){
+                        array_push($buyTransactions, $contract->minted->transaction->txn_hash);
+                    }
                 }
             }
             $txns = array_unique($txns);
@@ -38,7 +40,7 @@ class showAssetService
                 array_push($transactions, ['txnHash' => $txn, 'createdAt' => $minted->created_at]);
             }
             $asset->mintTransactions = $transactions;
-            $asset->buyTransactions = $uniqueBuyTransactions->sortByDesc('token_quantity');
+            $asset->buyTransactions = $uniqueBuyTransactions;
             return $asset;
         } catch (\Exception $e) {
 
