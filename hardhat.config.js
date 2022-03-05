@@ -13,6 +13,10 @@ module.exports = {
         ropsten: {
             url: 'https://ropsten.infura.io/v3/0f88215d473a4d3e9445ce017bfa5ab0',
             accounts: [privateKey]
+        },
+        goerli: {
+            url: 'https://kovan.infura.io/v3/0f88215d473a4d3e9445ce017bfa5ab0',
+            accounts: [privateKey]
         }
         /*
         mumbai: {
