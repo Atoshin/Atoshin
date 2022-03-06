@@ -45,6 +45,7 @@ class AssetController extends Controller
      */
     public function store(storeAsset $request)
     {
+
         $asset = Asset::query()->create([
             'title' => $request->title,
             'bio' => $request->bio,
