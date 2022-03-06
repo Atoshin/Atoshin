@@ -57,7 +57,7 @@ class ContractController extends Controller
         ]);
 
 
-        return redirect()->route('upload.page.main', ['type' => Contract::class, 'id' => $contract->id]);
+        return redirect()->route('upload.page', ['type' => Contract::class, 'id' => $contract->id,'edit'=>0]);
 
     }
 

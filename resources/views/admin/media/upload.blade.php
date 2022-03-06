@@ -20,7 +20,7 @@
         <div class="form-group m-1">
             <div class="m-1">
 
-                @if($type != \App\Models\User::class and $type!= \App\Models\Auction::class)
+                @if($type != \App\Models\User::class and $type!= \App\Models\Auction::class and $type!= \App\Models\Contract::class)
                 <div class="row text-warning ml-2">
                     <i class="material-icons mr-1">warning</i>
                     <p>Note that all media sizes should have the ratio of 3:2 e.g.
@@ -86,7 +86,7 @@
                                         <th>Logo</th>
                                     @elseif($type == \App\Models\Artist::class)
                                         <th>Avatar</th>
-                                    @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class)
+                                    @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class or \App\Models\Contract::class)
                                     @else
                                         <th>main</th>
                                     @endif
@@ -132,7 +132,7 @@
                                             </td>
                                         @endif
 
-                                        @if($type!=\App\Models\User::class and $type != \App\Models\Auction::class)
+                                        @if($type!=\App\Models\User::class and $type != \App\Models\Auction::class and $type != \App\Models\Contract::class)
                                             <td>
                                                 <form action="{{route('main.media',$media->id)}}" method="post">
                                                     @csrf
@@ -316,6 +316,7 @@
 
             },
             success: function (file, response) {
+                console.error(response)
                 if (response.error == 'exceeded_media_number_limit') {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
@@ -323,6 +324,8 @@
                         error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as user Avatar</span></div>`;
                     @elseif($type == \App\Models\Auction::class)
                         error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as Auction media</span></div>`;
+                    @elseif($type == \App\Models\Contract::class)
+                        error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as Contract media</span></div>`;
                     @endif
                     setTimeout(() => {
                         $(file.previewElement).remove();
@@ -333,7 +336,7 @@
                 }
 
 
-                @if($type != \App\Models\User::class and $type != \App\Models\Auction::class)
+                @if($type != \App\Models\User::class and $type != \App\Models\Auction::class and $type != \App\Models\Contract::class)
                 if (response.error == 'size_error') {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
@@ -416,7 +419,8 @@
                                              </td>
                 </tr>`)
 
-                @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class)
+                @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class or $type == \App\Models\Contract::class)
+
                 tbody.prepend(`<tr>
                     <td>
                         <a target="_blank" href="{{env('APP_URL')}}/${media.path}">
