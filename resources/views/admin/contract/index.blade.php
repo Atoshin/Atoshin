@@ -21,6 +21,10 @@
                                 class="fa fa-plus mr-2 "></i> Add contract</a>
                         <div id="mint-button" data-assetId="{{$asset_id}}"></div>
                         <h3 class="card-title">Contract</h3>
+                        <br>
+                        <h6>
+                            Total Fraction: {{$asset->total_fractions}}
+                        </h6>
 
                     </div>
 

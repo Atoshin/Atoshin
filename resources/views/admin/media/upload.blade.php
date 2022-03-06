@@ -213,6 +213,37 @@
                             onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
+                @elseif($type == \App\Models\User::class)
+                    <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
+                @elseif($type == \App\Models\Auction::class)
+                    @php
+                        $auction = \App\Models\Auction::query()->find($id);
+                        $artist = $auction->artist;
+                    @endphp
+                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Next</a>
+                @elseif($type == \App\Models\Contract::class)
+                    @php
+                        $contract = \App\Models\Contract::query()->find($id);
+                        $asset = $contract->asset;
+                    @endphp
+                    <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
+                @endif
+            @elseif($edit == 0)
+
+                @if($type == \App\Models\User::class)
+                    <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
+                @elseif($type == \App\Models\Auction::class)
+                    @php
+                        $auction = \App\Models\Auction::query()->find($id);
+                        $artist = $auction->artist;
+                    @endphp
+                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Next</a>
+                @elseif($type == \App\Models\Contract::class)
+                    @php
+                        $contract = \App\Models\Contract::query()->find($id);
+                        $asset = $contract->asset;
+                    @endphp
+                    <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
                 @else
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">
