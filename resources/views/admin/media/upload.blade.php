@@ -88,8 +88,9 @@
                                         <th>Logo</th>
                                     @elseif($type == \App\Models\Artist::class)
                                         <th>Avatar</th>
-                                    @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class or \App\Models\Contract::class)
-                                    @else
+                                    @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class)
+                                    @elseif($type == \App\Models\Contract::class)
+                                    @elseif($type == \App\Models\Asset::class)
                                         <th>main</th>
                                     @endif
                                     @if($type == App\Models\Gallery::class)

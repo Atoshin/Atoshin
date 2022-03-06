@@ -157,4 +157,11 @@ class ArtistController extends Controller
         \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
     }
+    public function changeStatus(Request $request, Artist $artist)
+    {
+        $artist->status = $request->status;
+        $artist->save();
+
+        return redirect()->back();
+    }
 }

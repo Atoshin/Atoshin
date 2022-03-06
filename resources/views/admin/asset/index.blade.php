@@ -49,7 +49,7 @@
                             @foreach($assets as $asset)
                                 <tr>
 
-                                    <td><a href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
+                                    <td><a  href="{{route('assets.show',$asset->id)}}">{{$asset->title}}</a></td>
 
                                     <td>
                                         <form action="{{route('asset.change.status', $asset->id)}}" method="post">
@@ -233,6 +233,28 @@
 
 
 @endsection
+{{--@section('scripts')--}}
+{{--    <script>--}}
+{{--        const btn =document.getElementById('submitbtn')--}}
+{{--        btn.addEventListener('click',(event)=>{--}}
+{{--            @foreach($assets as $asset)--}}
+{{--            @if($asset->medias==null)--}}
+{{--            event.preventDefault()--}}
+{{--            Swal.fire({--}}
+{{--                target: 'body',--}}
+{{--                icon: 'error',--}}
+{{--                title: 'Homepage Video Link must have exactly one Media',--}}
+{{--                showCancelButton: false,--}}
+{{--                showConfirmButton: true,--}}
+{{--                timer: 100000,--}}
+{{--            })--}}
+{{--            @endif--}}
+{{--            @endforeach--}}
+
+
+{{--        })--}}
+{{--    </script>--}}
+{{--@endsection--}}
 
 
 
