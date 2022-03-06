@@ -33,6 +33,10 @@
                         <p>Gallery large picture should be 1120x460</p>
                     </div>
 
+
+
+
+
                     <div class="row text-warning ml-2">
                         <i class="material-icons mr-1">warning</i>
                         <p>please note that each media cannot be either main, homepage picture
