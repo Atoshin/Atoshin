@@ -13,7 +13,7 @@ class artistListService
     {
         try
         {
-            $artists = Artist::query()->with('medias')->where('order','!=',null)->get()->sortBy('order');
+            $artists = Artist::query()->with('medias')->where('order','!=',null)->get();
             return $artists;
         }
         catch (\Exception $e)

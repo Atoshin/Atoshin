@@ -19,20 +19,31 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        $admin = Admin::query()->where('username','atoshin')->first();
+        $permissions = Permission::all();
+
         $role = Role::query()->create([
             'name'=>'SuperAdmin',
             'guard_name'=>'admin'
         ]);
-        $permissions = Permission::all();
+
+
         foreach($permissions as $permission)
         {
             DB::table('role_has_permissions')->insert([
                 'role_id'=>$role->id,
                 'permission_id'=>$permission->id
             ]);
+
+            DB::table('model_has_permissions')->insert([
+                'model_id'=>$admin->id,
+                'model_type'=>Admin::class,
+                'permission_id'=>$permission->id
+            ]);
+
         }
 
-        $admin = Admin::query()->where('username','atoshin')->first();
+
 
         DB::table('model_has_roles')->insert([
             'role_id'=>$role->id,

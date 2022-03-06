@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
 {
@@ -16,6 +17,7 @@ class AdminDashboardController extends Controller
         $artists_count = Artist::query()->count();
         $assets_count = Asset::query()->count();
         $users_count = User::query()->count();
+
 
 
         return view('admin.dashboard',compact(['galleries_count','artists_count','assets_count','users_count']));

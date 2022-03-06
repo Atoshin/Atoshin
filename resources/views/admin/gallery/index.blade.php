@@ -80,7 +80,7 @@
                                             {{--                                                    location </a>--}}
                                             {{--                                            </div>--}}
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id]) }}"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$gallery->id,'edit'=>1]) }}"
                                                    type="button"
                                                    class="btn btn-primary "> <i class="fa fa-film "></i> Edit
                                                     media

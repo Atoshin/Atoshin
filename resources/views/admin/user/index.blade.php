@@ -55,7 +55,7 @@
                                                    class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\User::class,'id'=>$user->id]) }}" type="button"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\User::class,'id'=>$user->id,'edit'=>1]) }}" type="button"
                                                    class="btn btn-primary "> <i class="fa fa-film "></i> Edit media
                                                 </a>
                                             </div>

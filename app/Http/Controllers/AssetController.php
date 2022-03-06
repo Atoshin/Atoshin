@@ -50,7 +50,7 @@ class AssetController extends Controller
             'bio' => $request->bio,
             'price' => $request->price,
             'ownership_percentage' => $request->ownership_percentage,
-//            'commission_percentage' => $request->commission_percentage,
+            'commission_percentage' => 0,
             'royalties_percentage' => $request->royalties_percentage,
             'total_fractions' => $request->total_fractions,
             'sold_fractions' => $request->sold_fractions,
@@ -64,7 +64,7 @@ class AssetController extends Controller
             'material' => $request->material,
             'order' => $request->order,
         ]);
-        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id]);
+        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id,'edit'=>0]);
     }
 
     /**
@@ -98,7 +98,7 @@ class AssetController extends Controller
         }
 
         $isMinted = false;
-        if (count($minteds) > 0){
+        if (count($minteds) > 0) {
             $isMinted = in_array(null, $minteds);
         }
 
@@ -154,6 +154,15 @@ class AssetController extends Controller
 
     public function changeStatus(Request $request, Asset $asset)
     {
+        $minteds = [];
+        foreach ($asset->contracts as $contract) {
+            array_push($minteds, $contract->minted);
+        }
+        if ($asset->status == 'unpublished') {
+            if (count($minteds) == 0 || in_array(null, $minteds)) {
+                return redirect()->back()->with(['message' => 'Asset has not been minted', 'icon' => 'error']);
+            }
+        }
         $asset->status = $request->status;
         $asset->save();
 

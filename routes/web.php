@@ -119,7 +119,7 @@ Route::middleware('auth:admin')->group(function () {
 
     //region media
     Route::post('upload/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFile' ])->name('uploadFile');
-    Route::get('media/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
+    Route::get('media/upload/page/{type}/{id}/{edit}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
     Route::post('upload/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFile' ])->name('uploadFile.main');
     Route::get('media/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPageMain'])->name('upload.page.main');
     Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class,'homepage'])->name('homepage.media');

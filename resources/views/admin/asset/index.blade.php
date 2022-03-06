@@ -93,7 +93,7 @@
                                             {{--                                                </div>--}}
 
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$asset->id]) }}"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Asset::class,'id'=>$asset->id,'edit'=>1]) }}"
                                                    type="button"
                                                    class="btn btn-primary "> <i class="fa fa-film "></i> Edit
                                                     media
@@ -104,12 +104,14 @@
                                                    href="{{route('videoLink.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}"><i class="fa fa-video"></i> Edit
                                                     asset videos</a>
                                             </div>
+                                            @if($asset->status == 'published')
                                             <div class="m-1">
                                                 <a href="{{env('FRONTEND_URL') . '/show-asset/' . $asset->id}}"
                                                    type="button"
                                                    class="btn btn-danger"> <i class="fa fa-file "></i>
                                                     Show </a>
                                             </div>
+                                            @endif
 
 
                                         </div>
