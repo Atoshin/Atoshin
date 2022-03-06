@@ -25,7 +25,7 @@
                         <a href="{{route('artists.index')}}" type="button"
                            class="btn btn-primary mr-2 float-right"> <i
                                 class="fa fa-dollar-sign mr-2 "></i> Artist Table</a>
-                        <h3 class="card-title">Auction for {{$artist->full_name}}</h3>
+                        <h3 class="card-title">Auctions of {{$artist->full_name}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -53,7 +53,7 @@
                                                 </a>
                                             </div>
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Auction::class,'id'=>$auction->id]) }}"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Auction::class,'id'=>$auction->id,'edit'=>1]) }}"
                                                    type="button"
                                                    class="btn btn-primary "> <i class="fa fa-film "></i> Edit
                                                     media

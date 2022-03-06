@@ -19,36 +19,40 @@
 
         <div class="form-group m-1">
             <div class="m-1">
-                <div class="m-1">
-                    <h3>Upload Media</h3>
-                </div>
 
-                <div class="row text-warning ml-2" >
+                @if($type != \App\Models\User::class and $type!= \App\Models\Auction::class)
+                <div class="row text-warning ml-2">
                     <i class="material-icons mr-1">warning</i>
-                    <p >Note that all media sizes should have the ratio of 3:2 e.g. 1200x800-1800x1200-2400x1600-900x600</p>
+                    <p>Note that all media sizes should have the ratio of 3:2 e.g.
+                        1200x800-1800x1200-2400x1600-900x600</p>
                 </div>
+                @endif
                 @if($type == \App\Models\Gallery::class)
-                <div class="row text-warning ml-2" >
-                    <i class="material-icons mr-1">warning</i>
-                    <p >Gallery large picture should be 1120x460</p>
-                </div>
+                    <div class="row text-warning ml-2">
+                        <i class="material-icons mr-1">warning</i>
+                        <p>Gallery large picture should be 1120x460</p>
+                    </div>
+
+                    <div class="row text-warning ml-2">
+                        <i class="material-icons mr-1">warning</i>
+                        <p>please note that each media cannot be either main, homepage picture
+                            or gallery large picture at the same time.</p>
+                    </div>
 
                 @endif
             </div>
 
-            <div class="dropzone">
+            <div class="dropzone m-2 ">
 
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
 
                 </form>
             </div>
-            <div class="alert alert-danger d-none" id="error"></div>
+            <div class="alert alert-danger d-none m-1" id="error"></div>
 
 
         </div>
-
-
 
 
         <section class="content">
@@ -58,10 +62,7 @@
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
                             <br>
-                            @if($type == \App\Models\Gallery::class)
-                                <h6 class="text-warning">please note that each media cannot be either main, homepage picture
-                                    or gallery large picture at the same time. </h6>
-                           @endif
+
 
                         </div>
                         <!-- /.card-header -->
@@ -81,7 +82,7 @@
                                         <th>Avatar</th>
                                     @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class)
                                     @else
-                                    <th>main</th>
+                                        <th>main</th>
                                     @endif
                                     @if($type == App\Models\Gallery::class)
                                         <th>gallery large picture</th>
@@ -126,19 +127,19 @@
                                         @endif
 
                                         @if($type!=\App\Models\User::class and $type != \App\Models\Auction::class)
-                                        <td>
-                                            <form action="{{route('main.media',$media->id)}}" method="post">
-                                                @csrf
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                           @if($media->main == true) checked
-                                                           @endif id="mainSwitch-{{$index}}"
-                                                           onchange="submitForm(event)">
-                                                    <label class="custom-control-label"
-                                                           for="mainSwitch-{{$index}}"></label>
-                                                </div>
-                                            </form>
-                                        </td>
+                                            <td>
+                                                <form action="{{route('main.media',$media->id)}}" method="post">
+                                                    @csrf
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                               @if($media->main == true) checked
+                                                               @endif id="mainSwitch-{{$index}}"
+                                                               onchange="submitForm(event)">
+                                                        <label class="custom-control-label"
+                                                               for="mainSwitch-{{$index}}"></label>
+                                                    </div>
+                                                </form>
+                                            </td>
                                         @endif
 
                                         @if($type == \App\Models\Gallery::class)
@@ -190,32 +191,53 @@
         </section>
 
         <div class="card-footer">
-            @if($type == \App\Models\Contract::class)
-                @php
-                    $contract = \App\Models\Contract::query()->find($id);
-                    $asset = $contract->asset;
-                @endphp
-                <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
-            @elseif($type == \App\Models\User::class)
-                <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
-            @else
-                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.index' )
+            @if($edit == 1)
+                @if($type == \App\Models\Gallery::class)
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
-
-                @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'assets.index')
+                @elseif($type == \App\Models\Asset::class)
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
-
-                @elseif(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.index')
+                @elseif($type == \App\Models\Artist::class)
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
+                @elseif($type == \App\Models\User::class)
+                    <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
+                @elseif($type == \App\Models\Auction::class)
+                    @php
+                        $auction = \App\Models\Auction::query()->find($id);
+                        $artist = $auction->artist;
+                    @endphp
+                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Next</a>
+                @elseif($type == \App\Models\Contract::class)
+                    @php
+                        $contract = \App\Models\Contract::query()->find($id);
+                        $asset = $contract->asset;
+                    @endphp
+                    <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
+                @endif
+            @elseif($edit == 0)
+
+                @if($type == \App\Models\User::class)
+                    <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
+                @elseif($type == \App\Models\Auction::class)
+                    @php
+                        $auction = \App\Models\Auction::query()->find($id);
+                        $artist = $auction->artist;
+                    @endphp
+                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Next</a>
+                @elseif($type == \App\Models\Contract::class)
+                    @php
+                        $contract = \App\Models\Contract::query()->find($id);
+                        $asset = $contract->asset;
+                    @endphp
+                    <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
                 @else
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">
@@ -288,12 +310,11 @@
 
             },
             success: function (file, response) {
-                if(response.error == 'exceeded_media_number_limit')
-                {
+                if (response.error == 'exceeded_media_number_limit') {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
                     @if($type == \App\Models\User::class)
-                    error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as user Avatar</span></div>`;
+                        error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as user Avatar</span></div>`;
                     @elseif($type == \App\Models\Auction::class)
                         error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">Only one media can be uploaded as Auction media</span></div>`;
                     @endif
@@ -306,11 +327,8 @@
                 }
 
 
-
-
                 @if($type != \App\Models\User::class and $type != \App\Models\Auction::class)
-                if(response.error == 'size_error')
-                {
+                if (response.error == 'size_error') {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
                     error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">the media dimension ratio must be 3:2</span></div>`;
@@ -488,64 +506,59 @@
     </script>
 
     @if($type == \App\Models\Gallery::class)
-    <script>
-        function checkCheckboxes(event, href) {
+        <script>
+            function checkCheckboxes(event, href) {
 
-            let error_messages = [];
-            let main_checkeds = [];
-            let homepage_picture_checkeds = [];
-            let gallery_large_checkeds = [];
-            const rows = document.getElementById('medias-table').children;
-            for (let i = 0; i < rows.length; i++) {
-                const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
-                const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
-                const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
-                if (main_checked) {
-                    main_checkeds.push(main_checked)
+                let error_messages = [];
+                let main_checkeds = [];
+                let homepage_picture_checkeds = [];
+                let gallery_large_checkeds = [];
+                const rows = document.getElementById('medias-table').children;
+                for (let i = 0; i < rows.length; i++) {
+                    const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
+                    const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
+                    const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
+                    if (main_checked) {
+                        main_checkeds.push(main_checked)
+                    }
+                    if (homepage_checked) {
+                        homepage_picture_checkeds.push(homepage_checked)
+                    }
+                    if (large_checked) {
+                        gallery_large_checkeds.push(large_checked)
+                    }
                 }
-                if (homepage_checked) {
-                    homepage_picture_checkeds.push(homepage_checked)
-                }
-                if (large_checked) {
-                    gallery_large_checkeds.push(large_checked)
-                }
-            }
 
-            if(main_checkeds.length === 0)
-            {
-                error_messages.push('at least one main media should be selected');
-            }
-            if(homepage_picture_checkeds.length < 1 || homepage_picture_checkeds.length >1)
-            {
-                error_messages.push('exactly one homepage media should be selected')
-            }
-            if(gallery_large_checkeds.length === 0)
-            {
-                error_messages.push('at least one gallery large picture should be selected')
-            }
+                if (main_checkeds.length === 0) {
+                    error_messages.push('at least one main media should be selected');
+                }
+                if (homepage_picture_checkeds.length < 1 || homepage_picture_checkeds.length > 1) {
+                    error_messages.push('exactly one homepage media should be selected')
+                }
+                if (gallery_large_checkeds.length === 0) {
+                    error_messages.push('at least one gallery large picture should be selected')
+                }
 
-            if(error_messages.length === 0)
-            {
-                location.replace(href);
-            }
-            else{
-                console.log(error_messages)
-                event.preventDefault();
-                Swal.fire({
-                    html:  `<ul class="text-left">
-                                ${(error_messages.map( (msg) => `<li>${msg} </li>`)).join(' ')}
+                if (error_messages.length === 0) {
+                    location.replace(href);
+                } else {
+                    console.log(error_messages)
+                    event.preventDefault();
+                    Swal.fire({
+                        html: `<ul class="text-left">
+                                ${(error_messages.map((msg) => `<li>${msg} </li>`)).join(' ')}
                     <ul/>`,
-                    target: 'body',
-                    icon: 'error',
-                    title: 'the following errrors occured:',
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    timer: 100000,
-                })
-            }
+                        target: 'body',
+                        icon: 'error',
+                        title: 'the following errrors occured:',
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        timer: 100000,
+                    })
+                }
 
-        }
-    </script>
+            }
+        </script>
     @else
         <script>
             function checkCheckboxes(event, href) {
@@ -562,20 +575,17 @@
 
                 }
 
-                if(main_checkeds.length === 0)
-                {
+                if (main_checkeds.length === 0) {
                     error_messages.push('at least one main media should be selected');
                 }
 
-                if(error_messages.length === 0)
-                {
+                if (error_messages.length === 0) {
                     location.replace(href);
-                }
-                else{
+                } else {
                     event.preventDefault();
                     Swal.fire({
-                        html:  `<ul class="text-left">
-                                ${(error_messages.map( (msg) => `<li>${msg} </li>`)).join(' ')}
+                        html: `<ul class="text-left">
+                                ${(error_messages.map((msg) => `<li>${msg} </li>`)).join(' ')}
                     <ul/>`,
                         target: 'body',
                         icon: 'error',
@@ -611,8 +621,7 @@
         $(function () {
             $("#example1").DataTable({
                 autoHeight: true,
-                "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false,"bInfo" : false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false, "bInfo": false,"searching":false,"lengthChange": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
             //     "paging": true,

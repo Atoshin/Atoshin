@@ -117,7 +117,7 @@ class MediaController extends Controller
         ]);
     }
 
-    public function uploadPage($type, $id)
+    public function uploadPage($type, $id,$edit)
     {
 
         if ($type == User::class or $type == Contract::class) {
@@ -127,7 +127,7 @@ class MediaController extends Controller
         }
 
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->get();
-        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias'));
+        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias','edit'));
     }
 
     public function destroy($id)
@@ -469,7 +469,7 @@ class MediaController extends Controller
 
     public function uploadvideoFile(Request $request, $mediable_type, $mediable_id, $gallery_id)
     {
-        $gallery = Gallery::find($gallery_id);
+        $gallery = Gallery::query()->find($gallery_id);
         $video_link = VideoLink::query()->where('video_linkable_id', $gallery_id)->where('video_linkable_type', Gallery::class)->where('is_default', true)->first();
 
         if ($video_link->media) {
@@ -484,6 +484,37 @@ class MediaController extends Controller
         $fileName = time() . '.' . $file->extension();
         $uploadFolder = 'file';
         $path = $file->store($uploadFolder, 'public');
+        $height = Image::make($file)->height();
+        $width = Image::make($file)->width();
+
+        if($mediable_type == User::class or $mediable_type == Auction::class)
+        {
+            $medias = Media::query()->where('mediable_type',$mediable_type)->where('mediable_id', $mediable_id)->get();
+
+            if (count($medias) > 0)
+            {
+                return response()->json([
+                    'error' => 'exceeded_media_number_limit'
+                ]);
+            }
+        }
+
+
+        if($mediable_type != User::class and $mediable_type!= Auction::class)
+        {
+            if( 2*$width != 3*$height)
+            {
+                if($width != '1120' && $height!= '460')
+                {
+                    return response()->json([
+                        'error' => 'size_error'
+                    ]);
+                }
+
+            }
+        }
+
+
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));
 

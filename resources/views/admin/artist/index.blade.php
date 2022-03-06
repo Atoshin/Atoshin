@@ -67,7 +67,7 @@
                                             {{--                                            </div>--}}
 
                                             <div class="m-1">
-                                                <a href="{{ route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id]) }}"
+                                                <a href="{{ route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id,'edit'=>1]) }}"
                                                    type="button"
                                                    class="btn btn-primary "> <i class="fa fa-film "></i> Edit
                                                     media

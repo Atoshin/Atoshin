@@ -15,4 +15,9 @@ class Auction extends Model
         return $this->morphOne(Media::class, 'mediable');
     }
 
+    public function artist()
+    {
+        return $this->belongsTo(Artist::class,'artist_id');
+    }
+
 }

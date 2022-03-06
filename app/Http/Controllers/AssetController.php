@@ -50,7 +50,7 @@ class AssetController extends Controller
             'bio' => $request->bio,
             'price' => $request->price,
             'ownership_percentage' => $request->ownership_percentage,
-//            'commission_percentage' => $request->commission_percentage,
+            'commission_percentage' => 0,
             'royalties_percentage' => $request->royalties_percentage,
             'total_fractions' => $request->total_fractions,
             'sold_fractions' => $request->sold_fractions,
@@ -64,7 +64,7 @@ class AssetController extends Controller
             'material' => $request->material,
             'order' => $request->order,
         ]);
-        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id]);
+        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id,'edit'=>0]);
     }
 
     /**

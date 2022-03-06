@@ -7,6 +7,8 @@
         type="text/css"
     />
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 
 @endsection
 @section('content')
@@ -17,15 +19,21 @@
         </div>
 
         <div class="form-group">
-                <label for="contract ">Upload video picture (size: 1200x800-1800x1200-2400x1600-900x600)  <span class="text-danger">*</span></label>
+                <div class="m-1">
+                    <div class="row text-warning ml-2 mt-2">
+                        <i class="material-icons mr-1">warning</i>
+                        <p>Note that all media sizes should have the ratio of 3:2 e.g.
+                            1200x800, 1800x1200, 2400x1600, 900x600</p>
+                    </div>
+                </div>
 
-            <div class="dropzone">
+            <div class="dropzone m-1">
                 <form action="" method="post" enctype="multipart/form-data">
                     @csrf
 
                 </form>
             </div>
-            <div class="bg bg-danger" id="error"></div>
+            <div class="alert alert-danger m-1 d-none" id="error"></div>
         </div>
 
 
@@ -96,12 +104,7 @@
                     console.log(counter)
                 });
                 this.on("thumbnail", function(file) {
-                    if (file.width <= (3/2 * file.height) ) {
-                        file.rejectDimensions()
-                    }
-                    else {
-                        file.acceptDimensions();
-                    }
+
                 });
 
                 @if($videoLink->media != null)
@@ -118,6 +121,21 @@
             },
             success: function(file, response)
             {
+                @if($type != \App\Models\User::class and $type != \App\Models\Auction::class)
+                if (response.error == 'size_error') {
+                    const error = document.querySelector('#error');
+                    error.classList.remove('d-none');
+                    error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">the media dimension ratio must be 3:2</span></div>`;
+                    setTimeout(() => {
+                        $(file.previewElement).remove();
+                        error.classList.add('d-none');
+                        error.innerHTML = '';
+
+                    }, 5000)
+                }
+                @endif
+
+
                 document.getElementById('submitButton').classList.remove('d-none');
                 counter++;
                 mediaIds.push(response.media_id)
@@ -126,18 +144,15 @@
 
             error: function(file, message, xhr) {
                 const error = document.querySelector('#error');
-                error.innerHTML = ' <h3>an error occured. your file will be deleted from the dropzone shortly </h3>';
+                error.classList.remove('d-none');
+                error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">${message}</span></div>`;
                 setTimeout(() => {
                     $(file.previewElement).remove();
-                    console.log(counter);
                     error.innerHTML = '';
-                    location.reload();
+                    error.classList.add('d-none')
                 }, 5000)
             },
-            accept: function(file, done) {
-                file.acceptDimensions = done;
-                file.rejectDimensions = function() { done("Image width or height too big."); };
-            }
+
 
         });
     </script>

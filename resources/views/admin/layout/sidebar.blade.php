@@ -100,10 +100,10 @@
                 </li>
                 @endcan
                 @can('manage setting')
-                    <li class="nav-item">
+                    <li class="nav-item"  style="border-top: white 0.7px solid; border-bottom: white 0.7px solid;">
                         <a href="{{route('setting.index')}}" class="nav-link">
                             <i class="fas fa-wrench nav-icon"></i>
-                            <p>Setting</p>
+                            <p>Settings</p>
                         </a>
                     </li>
                 @endcan
@@ -114,7 +114,7 @@
 
         </nav>
         <!-- /.sidebar-menu -->
-        <div style="margin-top: auto">
+        <div class="mt-2">
             <form action="{{route('logout')}}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">Logout</button>
