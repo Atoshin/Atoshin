@@ -34,6 +34,14 @@
                 </div>
 
                 @endif
+
+                @if($type == \App\Models\Gallery::class)
+                    <div class="row text-warning ml-2" >
+                        <i class="material-icons mr-1">warning</i>
+                    <p>please note that each media cannot be either main, homepage picture
+                        or gallery large picture at the same time. </p>
+                    </div>
+                @endif
             </div>
 
             <div class="dropzone">
@@ -58,10 +66,10 @@
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
                             <br>
-                            @if($type == \App\Models\Gallery::class)
-                                <h6 class="text-warning">please note that each media cannot be either main, homepage picture
-                                    or gallery large picture at the same time. </h6>
-                           @endif
+{{--                            @if($type == \App\Models\Gallery::class)--}}
+{{--                                <h6 class="text-warning">please note that each media cannot be either main, homepage picture--}}
+{{--                                    or gallery large picture at the same time. </h6>--}}
+{{--                           @endif--}}
 
                         </div>
                         <!-- /.card-header -->
