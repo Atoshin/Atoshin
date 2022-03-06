@@ -37,6 +37,8 @@
 
 
 
+
+
                     <div class="row text-warning ml-2">
                         <i class="material-icons mr-1">warning</i>
                         <p>please note that each media cannot be either main, homepage picture
