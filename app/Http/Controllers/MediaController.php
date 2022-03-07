@@ -23,11 +23,11 @@ class MediaController extends Controller
     public function uploadFile(Request $request, $mediable_type, $mediable_id)
     {
 
-        if ($mediable_type == Contract::class) {
-            $request->validate([
-                'file' => 'required'
-            ]);
-        }
+//        if ($mediable_type == Contract::class) {
+//            $request->validate([
+//                'file' => 'required'
+//            ]);
+//        }
         $large_flag = false;
         $file = $request->file('file');
         $fileName = time() . '.' . $file->extension();
@@ -36,7 +36,7 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-        if($mediable_type == User::class or $mediable_type == Auction::class)
+        if($mediable_type == User::class or $mediable_type == Auction::class or $mediable_type == Contract::class)
         {
             $medias = Media::query()->where('mediable_type',$mediable_type)->where('mediable_id', $mediable_id)->get();
 
@@ -49,7 +49,7 @@ class MediaController extends Controller
         }
 
 
-        if($mediable_type != User::class and $mediable_type!= Auction::class)
+        if($mediable_type != User::class and $mediable_type!= Auction::class and $mediable_type!= Contract::class)
         {
             if( 2*$width != 3*$height)
             {
@@ -73,7 +73,9 @@ class MediaController extends Controller
                 'mime_type' => $file->getClientMimeType(),
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id
+                'mediable_id' => $mediable_id,
+                'width'=>$width,
+                'height'=>$height,
             ]);
 
             return redirect()->back();

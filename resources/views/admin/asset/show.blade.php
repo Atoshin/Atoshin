@@ -60,13 +60,13 @@
                                                                      href="{{route('galleries.show', $asset->gallery)}}">{{$asset->gallery->name}}</a>
                                     </div>
                                 {{--                Email: info@almasaeedstudio.com--}}
-                            </address>
+{{--                            </address>--}}
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
 
                             <address>
-                                <div class="mb-1"><b>Fractions:</b> {{$asset->sold_fractions.'/'.$asset->total_fractions}}<br></div>
+                                <div class="mb-1"><b>Fractions:</b> {{$asset->total_fractions-$asset->sold_fractions}}/{{$asset->total_fractions}}<br></div>
 
 
                                 <div class="mb-1">
@@ -215,3 +215,4 @@
 
 
 @endsection
+

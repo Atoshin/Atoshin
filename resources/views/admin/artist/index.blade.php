@@ -28,6 +28,7 @@
                             <thead>
                             <tr>
                                 <th> Full Name</th>
+                                <th>status</th>
                                 <th> Order</th>
                                 <th>Operation</th>
                                 <th>Related</th>
@@ -41,6 +42,16 @@
 
 
                                     <td><a href="{{route('artists.show',$artist->id)}}">{{$artist->full_name}}</a></td>
+                                    <td>
+                                        <form action="{{route('change.artist.status', $artist->id)}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="status"
+                                                   value="{{$artist->status == 'published' ? "unpublished" : 'published'}}">
+                                            <button
+                                                class="btn {{$artist->status== 'published' ? "btn-primary" : "btn-danger"}} btn-primary"
+                                                type="submit">{{$artist->status}}</button>
+                                        </form>
+                                    </td>
                                     <td>
                                         @if($artist->order!==null)
                                             {{$artist->order}}

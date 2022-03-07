@@ -51,10 +51,10 @@ class AssetController extends Controller
             'bio' => $request->bio,
             'price' => $request->price,
             'ownership_percentage' => $request->ownership_percentage,
-            'commission_percentage' => 0,
+//            'commission_percentage' => 0,
             'royalties_percentage' => $request->royalties_percentage,
             'total_fractions' => $request->total_fractions,
-            'sold_fractions' => $request->sold_fractions,
+            'sold_fractions' => ($request->ownership_percentage/100)*$request->total_fractions,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'category_id' => $request->category_id,
@@ -100,7 +100,7 @@ class AssetController extends Controller
 
         $isMinted = false;
         if (count($minteds) > 0) {
-            $isMinted = in_array(null, $minteds);
+            $isMinted = !in_array(null, $minteds);
         }
 
         return view('admin.asset.edit', compact('categories', 'galleries', 'artists', 'asset', 'isMinted'));
@@ -124,7 +124,7 @@ class AssetController extends Controller
 //        $asset->commission_percentage = $request->commission_percentage;
         $asset->royalties_percentage = $request->royalties_percentage;
         $asset->total_fractions = $request->total_fractions;
-        $asset->sold_fractions = $request->sold_fractions;
+        $asset->sold_fractions = ($request->ownership_percentage/100)*$request->total_fractions;
         $asset->start_date = $request->start_date;
         $asset->end_date = $request->end_date;
         $asset->category_id = $request->category_id;

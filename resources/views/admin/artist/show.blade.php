@@ -80,6 +80,7 @@
                                 @else
                                     <span>-</span>
                                 @endif
+                                <div class="mb-1"><b> Status:</b> {{$artist->status}}<br></div>
                                 {{--                                <div class="mb-1"><b>Youtube:</b>--}}
                                 {{--                                    @if($artist->youtube)--}}
 

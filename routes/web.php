@@ -158,6 +158,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::patch('auctions/{auction_id}/update',[\App\Http\Controllers\AuctionsController::class,'update'])->name('auctions.update');
     Route::get('auctions/{auction_id}/edit',[\App\Http\Controllers\AuctionsController::class,'edit'])->name('auctions.edit');
     Route::delete('auctions/{auction_id}/destroy',[\App\Http\Controllers\AuctionsController::class,'destroy'])->name('auctions.destroy');
+    Route::post('artist/change-status/{artist}', [\App\Http\Controllers\ArtistController::class, 'changeStatus'])->name('change.artist.status');
 
     //redirect region
     Route::get('redirect/{route}',function ($route) {

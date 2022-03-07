@@ -61,7 +61,7 @@
                     <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form-group">
+                <div style="display: none" class="form-group">
                     <label for="exampleInputPassword1">Sold Fractions <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" {{$isMinted ? 'disabled' : ''}} name="sold_fractions" placeholder="Sold Fractions" value="{{$asset->sold_fractions}}">
                     @error('sold_fractions')
