@@ -369,6 +369,13 @@
                 const media = response.medias[response.medias.length - 1]
 
                 const rows = document.getElementById('medias-table').children;
+                let counter;
+                if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
+                {
+                    rows[0].remove();
+                }
+                counter = rows.length;
+
                 @if($type == \App\Models\Gallery::class)
 
                 tbody.prepend(`<tr>
@@ -388,10 +395,10 @@
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
-                       id="customSwitch-${rows.length}"
+                       id="customSwitch-${counter}"
                                    onchange="submitForm(event)"/>
                             <label class="custom-control-label"
-                                   for="customSwitch-${rows.length}"></label>
+                                   for="customSwitch-${counter}"></label>
                             </div>
                         </form>
                     </td>
@@ -401,10 +408,10 @@
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
-                     id="mainSwitch-${rows.length}"
+                     id="mainSwitch-${counter}"
                      onchange="submitForm(event)">
                 <label class="custom-control-label"
-                    for="mainSwitch-${rows.length}"></label>
+                    for="mainSwitch-${counter}"></label>
                             </div>
                         </form>
                     </td>
@@ -414,10 +421,10 @@
                                                     @csrf
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input"
-                     id="largeSwitch-${rows.length}"
+                     id="largeSwitch-${counter}"
                                                                onchange="submitForm(event)">
                                                         <label class="custom-control-label"
-                                                               for="largeSwitch-${rows.length}}"></label>
+                                                               for="largeSwitch-${counter}"></label>
                                                     </div>
                                                 </form>
                                             </td>
@@ -481,10 +488,10 @@
                            @csrf
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
-                     id="mainSwitch-${rows.length}"
+                     id="mainSwitch-${counter}"
                      onchange="submitForm(event)">
                 <label class="custom-control-label"
-                    for="mainSwitch-${rows.length}"></label>
+                    for="mainSwitch-${counter}"></label>
                             </div>
                         </form>
                     </td>
