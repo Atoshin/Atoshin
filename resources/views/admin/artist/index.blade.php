@@ -27,9 +27,9 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th> Full Name</th>
-                                <th>status</th>
-                                <th> Order</th>
+                                <th>Full Name</th>
+                                <th>Status</th>
+                                <th>Order</th>
                                 <th>Operation</th>
                                 <th>Related</th>
                                 {{--                                <th>operations</th>--}}
