@@ -1,4 +1,5 @@
 
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -21,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
-                    <a href="{{route('admin.dashboard')}}" class="nav-link">
+                    <a href="{{route('admin.dashboard')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName() == 'admin.dashboard' ? 'active' : ''}}">
 {{--                        <i class="far fa-circle nav-icon"></i>--}}
                         <i class="fa fa-align-left nav-icon"></i>
                         <p>Dashboard</p>
@@ -29,7 +30,7 @@
                 </li>
                 @can('manage galleries')
                 <li class="nav-item">
-                    <a href="{{route('galleries.index')}}" class="nav-link">
+                    <a href="{{route('galleries.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName() == 'galleries.index' ? 'active' : ''}} ">
                         <i class="fa fa-building nav-icon"></i>
                         <p>Galleries</p>
                     </a>
@@ -37,7 +38,7 @@
                 @endcan
                 @can('manage artists')
                 <li class="nav-item">
-                    <a href="{{route('artists.index')}}" class="nav-link">
+                    <a href="{{route('artists.index')}} "   class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'artists.index' ? 'active' : ''}}">
                         <i class="fa fa-palette nav-icon"></i>
                         <p>Artists</p>
                     </a>
@@ -45,7 +46,8 @@
                 @endcan
                 @can('manage assets')
                 <li class="nav-item">
-                    <a href="{{route('assets.index')}}" class="nav-link">
+                    <a href="{{route('assets.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'assets.index' ? 'active': ''}}">
+
                         <i class="fas fa-paint-brush nav-icon"></i>
                         <p>Assets</p>
                     </a>
@@ -53,7 +55,7 @@
                 @endcan
                 @can('manage categories')
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
-                    <a href="{{route('categories.index')}}" class="nav-link">
+                    <a href="{{route('categories.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'categories.index' ? 'active': ''}}">
                         <i class="fa fa-cubes nav-icon"></i>
                         <p>Categories</p>
                     </a>
@@ -61,7 +63,7 @@
                 @endcan
                 @can('manage users')
                 <li class="nav-item" style="border-bottom: white 0.7px solid;">
-                    <a href="{{route('users.index')}}" class="nav-link">
+                    <a href="{{route('users.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'users.index' ? 'active': ''}}">
                         <i class="fa fa-user nav-icon"></i>
                         <p>Users</p>
                     </a>
@@ -69,7 +71,7 @@
                 @endcan
                 @can('manage newsletter')
                     <li class="nav-item" style="border-bottom: white 0.7px solid;">
-                        <a href="{{route('newsletters.index')}}" class="nav-link">
+                        <a href="{{route('newsletters.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'newsletters.index' ? 'active': ''}}">
                             <i class="fa fa-newspaper nav-icon"></i>
                             <p>NewsLetter</p>
                         </a>
@@ -77,7 +79,7 @@
                 @endcan
                 @can('manage admins')
                 <li class="nav-item">
-                    <a href="{{route('admins.index')}}" class="nav-link">
+                    <a href="{{route('admins.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'admins.index' ? 'active': ''}}">
                         <i class="fas fa-certificate nav-icon"></i>
                         <p>Admins</p>
                     </a>
@@ -85,7 +87,7 @@
                 @endcan
                 @can('manage roles')
                 <li class="nav-item">
-                    <a href="{{route('roles.index')}}" class="nav-link">
+                    <a href="{{route('roles.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'roles.index' ? 'active': ''}}">
                         <i class="fas fa-user-circle nav-icon"></i>
                         <p>Roles</p>
                     </a>
@@ -93,7 +95,7 @@
                 @endcan
                 @can('manage permissions')
                 <li class="nav-item">
-                    <a href="{{route('permissions.index')}}" class="nav-link">
+                    <a href="{{route('permissions.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'permissions.index' ? 'active': ''}}">
                         <i class="fas fa-lock nav-icon"></i>
                         <p>Permissions</p>
                     </a>
@@ -101,7 +103,7 @@
                 @endcan
                 @can('manage setting')
                     <li class="nav-item"  style="border-top: white 0.7px solid; border-bottom: white 0.7px solid;">
-                        <a href="{{route('setting.index')}}" class="nav-link">
+                        <a href="{{route('setting.index')}}" class="nav-link {{Illuminate\Support\Facades\Route::getCurrentRoute()->getName()== 'setting.index' ? 'active': ''}}">
                             <i class="fas fa-wrench nav-icon"></i>
                             <p>Settings</p>
                         </a>

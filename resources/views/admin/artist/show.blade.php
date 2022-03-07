@@ -3,10 +3,11 @@
     <style>
         .avatar {
             border-radius: 50%;
-        }
+        }`
     </style>
 @endsection
 @section('content')
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2" style="align-items: center;">
