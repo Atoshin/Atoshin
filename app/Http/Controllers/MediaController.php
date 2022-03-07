@@ -78,7 +78,7 @@ class MediaController extends Controller
                 'height'=>$height,
             ]);
 
-            return redirect()->back();
+
         } elseif ($mediable_type == Asset::class) {
             $response = Http::attach(
                 'attachment', file_get_contents($request->file('file')), $fileName

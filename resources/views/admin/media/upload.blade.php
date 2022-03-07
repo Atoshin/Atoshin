@@ -15,29 +15,34 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">upload Media </h3>
+            <div class="float-right">
+
+                <a href="{{route('assets.edit',$id)}}" class="btn btn-warning">
+                    <span class="row">
+                         <i class="material-icons">arrow_back</i>
+                            Back
+                    </span>
+
+                </a>
+            </div>
+
         </div>
 
         <div class="form-group m-1">
             <div class="m-1">
 
                 @if($type != \App\Models\User::class and $type!= \App\Models\Auction::class and $type!= \App\Models\Contract::class)
-                <div class="row text-warning ml-2">
-                    <i class="material-icons mr-1">warning</i>
-                    <p>Note that all media sizes should have the ratio of 3:2 e.g.
-                        1200x800-1800x1200-2400x1600-900x600</p>
-                </div>
+                    <div class="row text-warning ml-2">
+                        <i class="material-icons mr-1">warning</i>
+                        <p>Note that all media sizes should have the ratio of 3:2 e.g.
+                            1200x800-1800x1200-2400x1600-900x600</p>
+                    </div>
                 @endif
                 @if($type == \App\Models\Gallery::class)
                     <div class="row text-warning ml-2">
                         <i class="material-icons mr-1">warning</i>
                         <p>Gallery large picture should be 1120x460</p>
                     </div>
-
-
-
-
-
-
 
                     <div class="row text-warning ml-2">
                         <i class="material-icons mr-1">warning</i>
@@ -61,12 +66,10 @@
         </div>
 
 
-
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="card col-sm-12">
+                    <div class="card col-sm-12 mx-2">
                         <div class="card-header">
                             <h2 class="card-title"><b>Media</b></h2>
                             <br>
@@ -207,10 +210,17 @@
                         Next
                     </button>
                 @elseif($type == \App\Models\Asset::class)
+                    <a href="{{route('assets.edit',$id)}}" class="btn btn-outline-warning">
+                        <span class="row">
+                             <i class="material-icons">arrow_back</i>
+                                Back
+                        </span>
+                    </a>
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
                     </button>
+
                 @elseif($type == \App\Models\Artist::class)
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">
@@ -229,7 +239,8 @@
                         $contract = \App\Models\Contract::query()->find($id);
                         $asset = $contract->asset;
                     @endphp
-                    <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
+                    <a class="btn btn-primary " id="submitButton"
+                       href="{{route('contracts.index', $asset->id)}}">Submit</a>
                 @endif
             @elseif($edit == 0)
 
@@ -246,7 +257,8 @@
                         $contract = \App\Models\Contract::query()->find($id);
                         $asset = $contract->asset;
                     @endphp
-                    <a class="btn btn-primary " id="submitButton" href="{{route('contracts.index', $asset->id)}}">Submit</a>
+                    <a class="btn btn-primary " id="submitButton"
+                       href="{{route('contracts.index', $asset->id)}}">Submit</a>
                 @else
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">
@@ -319,7 +331,7 @@
 
             },
             success: function (file, response) {
-                console.error(response)
+
                 if (response.error == 'exceeded_media_number_limit') {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
@@ -356,7 +368,7 @@
                 const tbody = $('#medias-table');
                 const media = response.medias[response.medias.length - 1]
 
-
+                const rows = document.getElementById('medias-table').children;
                 @if($type == \App\Models\Gallery::class)
 
                 tbody.prepend(`<tr>
@@ -376,10 +388,10 @@
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
-                       id="customSwitch-${media.id}"
+                       id="customSwitch-${rows.length}"
                                    onchange="submitForm(event)"/>
                             <label class="custom-control-label"
-                                   for="customSwitch-${media.id}"></label>
+                                   for="customSwitch-${rows.length}"></label>
                             </div>
                         </form>
                     </td>
@@ -389,10 +401,10 @@
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
-                     id="mainSwitch-${media.id}"
+                     id="mainSwitch-${rows.length}"
                      onchange="submitForm(event)">
                 <label class="custom-control-label"
-                    for="mainSwitch-${media.id}"></label>
+                    for="mainSwitch-${rows.length}"></label>
                             </div>
                         </form>
                     </td>
@@ -402,10 +414,10 @@
                                                     @csrf
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input"
-                     id="largeSwitch-${media.id}}"
+                     id="largeSwitch-${rows.length}"
                                                                onchange="submitForm(event)">
                                                         <label class="custom-control-label"
-                                                               for="largeSwitch-${media.id}}"></label>
+                                                               for="largeSwitch-${rows.length}}"></label>
                                                     </div>
                                                 </form>
                                             </td>
@@ -465,15 +477,14 @@
 
 
                     <td>
-                        <form action="{{env('APP_URL')}}/media/main/${media.id}" method="post">
+                <form action="{{env('APP_URL')}}/media/main/${media.id}" method="post">
                            @csrf
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
-
-                     id="mainSwitch-${media.id}"
+                     id="mainSwitch-${rows.length}"
                      onchange="submitForm(event)">
                 <label class="custom-control-label"
-                    for="mainSwitch-${media.id}"></label>
+                    for="mainSwitch-${rows.length}"></label>
                             </div>
                         </form>
                     </td>
@@ -527,10 +538,12 @@
                 let homepage_picture_checkeds = [];
                 let gallery_large_checkeds = [];
                 const rows = document.getElementById('medias-table').children;
+
                 for (let i = 0; i < rows.length; i++) {
                     const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
                     const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
                     const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
+                    console.log(main_checked, homepage_checked, large_checked)
                     if (main_checked) {
                         main_checkeds.push(main_checked)
                     }
@@ -633,8 +646,13 @@
     <script>
         $(function () {
             $("#example1").DataTable({
-                autoHeight: true,
-                "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false, "bInfo": false,"searching":false,"lengthChange": false,
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "ordering": false,
+                "bInfo": false,
+                "searching": false,
+                "paging": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
             //     "paging": true,
