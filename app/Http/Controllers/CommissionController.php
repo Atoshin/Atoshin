@@ -24,7 +24,15 @@ class CommissionController extends Controller
      */
     public function create()
     {
-        return view('admin.commission.create');
+        $MarketPath = resource_path() . "/artifacts/contracts/Market.sol/NFTMarket.json";
+        $MarketJson = json_decode(file_get_contents($MarketPath), true);
+        $MarketAbi = $MarketJson['abi'];
+
+        $marketAddress = env('MARKET_CONTRACT_ADDRESS');
+        $nftAddress = env('NFT_CONTRACT_ADDRESS');
+        $provider = env('JSONRPC_ENDPOINT');
+
+        return view('admin.commission.create', compact('MarketAbi', 'marketAddress', 'provider', 'nftAddress'));
     }
 
     /**
