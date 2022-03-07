@@ -22,5 +22,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/admin/dist', 'public/admin/js')
     .css('resources/admin/dist/css/adminlte.min.css', 'public/admin/dist/css')
     .js("resources/admin/mint/app.js", "public/admin/mint").react()
-    .js("resources/admin/mint/single/app.js", "public/admin/mint/single").react();
+    .js("resources/admin/mint/single/app.js", "public/admin/mint/single").react()
+    .js("resources/admin/mint/commissions/app.js", "public/admin/mint/commissions").react();
 
