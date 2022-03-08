@@ -52,6 +52,7 @@
                                                     <i class="fa fa-edit "></i> edit
                                                 </a>
                                             </div>
+
                                             <div class="m-1">
                                                 <button type="button"
                                                         onclick="deleteModal(this)"
@@ -60,6 +61,7 @@
                                                         class="fa fa-trash "></i>delete
                                                 </button>
                                             </div>
+
 
                                             {{--                                            <div class="m-1">--}}
                                             {{--                                                <a href="{{route('locations.create', $gallery->id)}}" type="button"--}}
