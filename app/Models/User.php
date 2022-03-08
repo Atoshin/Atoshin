@@ -62,7 +62,7 @@ class User extends Authenticatable
         return $this->morphOne(Media::class, 'mediable');
     }
 
-    public function transaction()
+    public function transactions()
     {
         return $this->morphMany(Transaction::class, 'transactable');
     }
