@@ -36,12 +36,10 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-        if($mediable_type == User::class or $mediable_type == Auction::class or $mediable_type == Contract::class)
-        {
-            $medias = Media::query()->where('mediable_type',$mediable_type)->where('mediable_id', $mediable_id)->get();
+        if ($mediable_type == User::class or $mediable_type == Auction::class or $mediable_type == Contract::class) {
+            $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
 
-            if (count($medias) > 0)
-            {
+            if (count($medias) > 0) {
                 return response()->json([
                     'error' => 'exceeded_media_number_limit'
                 ]);
@@ -49,12 +47,9 @@ class MediaController extends Controller
         }
 
 
-        if($mediable_type != User::class and $mediable_type!= Auction::class and $mediable_type!= Contract::class)
-        {
-            if( 2*$width != 3*$height)
-            {
-                if($width != '1120' && $height!= '460')
-                {
+        if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class) {
+            if (2 * $width != 3 * $height) {
+                if ($width != '1120' && $height != '460') {
                     return response()->json([
                         'error' => 'size_error'
                     ]);
@@ -74,8 +69,8 @@ class MediaController extends Controller
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id,
-                'width'=>$width,
-                'height'=>$height,
+                'width' => $width,
+                'height' => $height,
             ]);
 
 
@@ -89,14 +84,12 @@ class MediaController extends Controller
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id,
-                'width'=>$width,
-                'height'=>$height
+                'width' => $width,
+                'height' => $height
 
 
             ]);
-        }
-
-        else {
+        } else {
 
             $media = Media::query()->create([
                 'ipfs_hash' => 'NOTHING',
@@ -104,9 +97,9 @@ class MediaController extends Controller
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
                 'mediable_id' => $mediable_id,
-                'width'=>$width,
-                'height'=>$height,
-                'gallery_large_picture'=> $large_flag
+                'width' => $width,
+                'height' => $height,
+                'gallery_large_picture' => $large_flag
 
             ]);
 
@@ -119,7 +112,7 @@ class MediaController extends Controller
         ]);
     }
 
-    public function uploadPage($type, $id,$edit)
+    public function uploadPage($type, $id, $edit)
     {
 
         if ($type == User::class or $type == Contract::class) {
@@ -129,7 +122,7 @@ class MediaController extends Controller
         }
 
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->get();
-        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias','edit'));
+        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit'));
     }
 
     public function destroy($id)
@@ -229,8 +222,6 @@ class MediaController extends Controller
             ]);
 
         }
-
-
 
 
         return response()->json([
@@ -411,9 +402,8 @@ class MediaController extends Controller
 
         if ($media->gallery_large_picture == false) {
 
-            if($media->width != '1120' or $media->height != '460')
-            {
-                return redirect()->back()->with(['message'=>'the size of gallery large picture should be 1120x460','icon'=>'error']);
+            if ($media->width != '1120' or $media->height != '460') {
+                return redirect()->back()->with(['message' => 'the size of gallery large picture should be 1120x460', 'icon' => 'error']);
             }
 
             if (count($large_medias) >= 1) {
@@ -489,12 +479,10 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-        if($mediable_type == User::class or $mediable_type == Auction::class)
-        {
-            $medias = Media::query()->where('mediable_type',$mediable_type)->where('mediable_id', $mediable_id)->get();
+        if ($mediable_type == User::class or $mediable_type == Auction::class) {
+            $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
 
-            if (count($medias) > 0)
-            {
+            if (count($medias) > 0) {
                 return response()->json([
                     'error' => 'exceeded_media_number_limit'
                 ]);
@@ -502,12 +490,9 @@ class MediaController extends Controller
         }
 
 
-        if($mediable_type != User::class and $mediable_type!= Auction::class)
-        {
-            if( 2*$width != 3*$height)
-            {
-                if($width != '1120' && $height!= '460')
-                {
+        if ($mediable_type != User::class and $mediable_type != Auction::class) {
+            if (2 * $width != 3 * $height) {
+                if ($width != '1120' && $height != '460') {
                     return response()->json([
                         'error' => 'size_error'
                     ]);
@@ -515,7 +500,6 @@ class MediaController extends Controller
 
             }
         }
-
 
 
 //        $path = Storage::putFile('public/' . $path, $request->file('file'));

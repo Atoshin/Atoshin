@@ -250,18 +250,22 @@ class AssetController extends Controller
         $token = Signature::query()->where('hash', $token)->first();
 
         DB::transaction(function () use ($request, $token, $asset) {
-            $txn = Transaction::query()->create([
-                'txn_hash' => $request->txnHash,
-                'transactable_type' => User::class,
-                'transactable_id' => $token->user->id,
-                'token_quantity' => count($request->mintedIds),
-            ]);
-            $asset->soldFractions = $asset->soldFractions + count($request->mintedIds);
-            $asset->save();
+            if ($request->txnHash !== '0x0000000000000000000000000000000000000000000000000000000000000000'){
+                $txn = Transaction::query()->create([
+                    'txn_hash' => $request->txnHash,
+                    'transactable_type' => User::class,
+                    'transactable_id' => $token->user->id,
+                    'token_quantity' => count($request->mintedIds),
+                ]);
+                $asset->soldFractions = $asset->soldFractions + count($request->mintedIds);
+                $asset->save();
+            }
             foreach ($request->mintedIds as $mintedId) {
                 $minted = Minted::query()->find($mintedId);
                 $minted->status = $request->txnStatus;
-                $minted->txn_id = $txn->id;
+                if ($request->txnHash != '0x0000000000000000000000000000000000000000000000000000000000000000'){
+                    $minted->txn_id = $txn->id;
+                }
                 $minted->save();
             }
         });
