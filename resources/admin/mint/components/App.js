@@ -68,7 +68,7 @@ export default function App() {
                 const signer = provider.getSigner();
 
                 let contract = new ethers.Contract(addresses.NFT, NFT.abi, signer)
-                let transaction = await contract.createTokens(urls)
+                let transaction = await contract.createTokens(urls, contractData.asset.gallery.wallet.walletAddress, contractData.asset.ownershipPercentage)
                 let tx = await transaction.wait()
                 const txnHash = tx.transactionHash
                 let event = tx.events[0]

@@ -27,17 +27,22 @@ contract NFT is ERC721URIStorage {
     }
 
 
-    function createTokens(string[] memory tokenURIs) public returns (uint) {
+    function createTokens(string[] memory tokenURIs, address gallery, uint ownershipPercentage) public returns (uint) {
+        require(((tokenURIs.length * ownershipPercentage) / 100) % 1 == 0, "the modulus of total amount of tokens divided by the ownership percentage must be 0");
         uint prevId = _tokenIds.current();
-        for (uint256 i = 0; i < tokenURIs.length; i++) {
+        uint galleryTokensLength = ((tokenURIs.length * ownershipPercentage) / 100) - 1;
+        for (uint256 i = tokenURIs.length - 1; i >= 0; i--) {
             _tokenIds.increment();
             uint256 newItemId = _tokenIds.current();
-
-            _mint(contractAddress, newItemId);
+            if (i == galleryTokensLength) {
+                _mint(gallery, newItemId);
+                galleryTokensLength--;
+            } else {
+                _mint(contractAddress, newItemId);
+            }
             _setTokenURI(newItemId, tokenURIs[i]);
             setApprovalForAll(contractAddress, true);
         }
-
         return prevId;
     }
 }

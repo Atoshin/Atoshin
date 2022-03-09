@@ -60,7 +60,7 @@ class AssetController extends Controller
     public function getContracts(Asset $asset)
     {
         $contracts = Contract::query()->where('asset_id', $asset->id)->with('media')->get();
-        $asset = Asset::query()->where('id', $asset->id)->with('medias')->first();
+        $asset = Asset::query()->where('id', $asset->id)->with('medias', 'gallery.wallet')->first();
         $notMinted = [];
         foreach ($contracts as $contract) {
             if (!$contract->minted) {
