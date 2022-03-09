@@ -18,7 +18,7 @@
                 <div class="card col-sm-12">
                     <div class="card-header">
                         <a href="{{route('videos.create', $asset_id)}}" type="button" class="btn btn-success mr-2 float-right"> <i
-                                class="fa fa-plus mr-2 "></i> Add Video </a>
+                                class="fa fa-plus mr-2 "></i> Add Live Video </a>
                         <a href="{{route('assets.index',$asset_id)}}" type="button"
                            class="btn btn-primary mr-2 float-right"> <i
                                 class="fa fa-paint-brush mr-2 "></i> Asset Table</a>

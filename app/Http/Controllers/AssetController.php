@@ -148,8 +148,9 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        $asset = Asset::query()->findOrFail($id);
-        $asset->delete();
+        $assets = Asset::find($id);
+        $assets->delete();
+        \request()->session()->flash('message', 'deleted successfully');
         return redirect()->back();
     }
 

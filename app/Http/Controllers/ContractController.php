@@ -103,7 +103,10 @@ class ContractController extends Controller
      */
     public function destroy($id)
     {
-
+        $contracts = Contract::find($id);
+        $contracts->delete();
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
     }
 
     public function uploadFile(Request $request)

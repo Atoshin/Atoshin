@@ -44,6 +44,11 @@
                                 <th>created at</th>
                                 <th>Minted At</th>
                                 <th>Signer Wallet Address</th>
+
+                                <th>
+                                    Operation
+                                </th>
+
 {{--                                <th>Operations</th>--}}
                             </tr>
                             </thead>
@@ -71,6 +76,19 @@
                                     </td>
                                     <td>
                                         {{$contract->minted ? $contract->minted->wallet->wallet_address : ''}}
+                                    </td>
+                                    <td>
+                                        @if($contract->hash == null)
+
+                                            <div class="m-1">
+                                                <button type="button"
+                                                        onclick="deleteModal(this)"
+                                                        data-id="{{$contract->id}}"
+                                                        class="btn btn-danger "><i
+                                                        class="fa fa-trash "></i>delete
+                                                </button>
+                                            </div>
+                                        @endif
                                     </td>
 {{--                                    <td>--}}
 {{--                                        @if(!$contract->minted)--}}
@@ -104,12 +122,16 @@
 
         <!-- /.row -->
         </div>
+        <form action="" id="delete-form" method="POST">
+            @method('delete')
+            @csrf
+        </form>
 
     </section>
-    <form action="" id="delete-form" method="POST">
-        @method('delete')
-        @csrf
-    </form>
+{{--    <form action="" id="delete-form" method="POST">--}}
+{{--        @method('delete')--}}
+{{--        @csrf--}}
+{{--    </form>--}}
 
 
 @endsection
@@ -150,6 +172,34 @@
             const element = document.getElementById("example1_filter");
             element.style.float = 'inline-end';
         });
+    </script>
+    <script>
+        function deleteModal(element) {
+            var contractsId = $(element).data('id');
+            document.getElementById('delete-form').action = "/contracts/"+contractsId+"/destroy";
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to delete this contract?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: `yes`,
+                cancelButtonText: `no`,
+                confirmButtonColor: '#22303d',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    $("#delete-form").submit();
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire({
+                        title: 'the removal request was canceled',
+                        icon: 'info',
+                        confirmButtonText: 'ok',
+                        confirmButtonColor: '#22303d'
+                    });
+
+                }
+            })
+        }
     </script>
 
 @endsection

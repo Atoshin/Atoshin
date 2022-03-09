@@ -104,6 +104,7 @@
                                                    href="{{route('videoLink.index',['type'=>\App\Models\Asset::class,'id'=>$asset->id])}}"><i class="fa fa-video"></i> Edit
                                                     asset videos</a>
                                             </div>
+
                                             @if($asset->status == 'published')
                                             <div class="m-1">
                                                 <a href="{{env('FRONTEND_URL') . '/show-asset/' . $asset->id}}"
@@ -155,7 +156,10 @@
         {{--            @method('delete')--}}
         {{--            @csrf--}}
         {{--        </form>--}}
-
+        <form action="" id="delete-form" method="POST">
+            @method('delete')
+            @csrf
+        </form>
     </section>
 
 
@@ -193,6 +197,35 @@
             // });
         });
     </script>
+{{--    <script>--}}
+{{--        function deleteModal(element) {--}}
+{{--            var assetsId = $(element).data('id');--}}
+{{--            document.getElementById('delete-form').action = "/assets/"+assetsId+"/destroy";--}}
+{{--            Swal.fire({--}}
+{{--                icon: 'warning',--}}
+{{--                title: 'Do you want to delete this news?',--}}
+{{--                showCancelButton: true,--}}
+{{--                showConfirmButton: true,--}}
+{{--                confirmButtonText: `yes`,--}}
+{{--                cancelButtonText: `no`,--}}
+{{--                confirmButtonColor: '#22303d',--}}
+{{--            }).then((result) => {--}}
+{{--                /* Read more about isConfirmed, isDenied below */--}}
+{{--                if (result.value) {--}}
+{{--                    $("#delete-form").submit();--}}
+{{--                } else if (result.dismiss === 'cancel') {--}}
+{{--                    Swal.fire({--}}
+{{--                        title: 'the removal request was canceled',--}}
+{{--                        icon: 'info',--}}
+{{--                        confirmButtonText: 'ok',--}}
+{{--                        confirmButtonColor: '#22303d'--}}
+{{--                    });--}}
+
+{{--                }--}}
+{{--            })--}}
+{{--        }--}}
+{{--    </script>--}}
+
     {{--    <script>--}}
 
     {{--        $(".delete-icon").on("click", function () {--}}
