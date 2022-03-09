@@ -25,7 +25,7 @@ class updateArtist extends FormRequest
             'linkedin'=>'url|nullable',
             'youtube'=>'url|nullable',
             'ranking_link'=>'url|nullable',
-            'order'=>'regex:/^([0-9]{1})$/|nullable'
+            'order'=>'regex:/^([0-9]{1})$/|nullable|unique:artists,order,' . $this->artist,
         ];
     }
 }

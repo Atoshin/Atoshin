@@ -68,7 +68,7 @@
 {{--                    <input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
 {{--                    <label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
 {{--                </div>--}}
-                <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\User::class,'id'=>$user->id])}}">edit user avatar</a>
+{{--                <a  class="btn btn-primary" href="{{route('upload.page.main.edit',['type'=>\App\Models\User::class,'id'=>$user->id])}}">edit user avatar</a>--}}
             </div>
             <!-- /.card-body -->
 

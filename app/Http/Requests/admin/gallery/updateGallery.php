@@ -25,7 +25,7 @@ class updateGallery extends FormRequest
             'instagram'=>'url|nullable',
             'linkedin'=>'url|nullable',
             'youtube'=>'url|nullable',
-            'order'=>'regex:/^([0-9]{1})$/|nullable',
+            'order'=>'regex:/^([0-9]{1})$/|nullable|unique:galleries,order,' . $this->gallery,
             'lat' => 'required|numeric',
             'long' => 'required|numeric',
             'address' => 'required|string',
