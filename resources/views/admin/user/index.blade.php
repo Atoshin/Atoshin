@@ -27,7 +27,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>UserName</th>
+                                <th>UserName | Wallet</th>
                                 <th>Wallet address</th>
                                 <th>Operation</th>
                             </tr>
@@ -42,7 +42,7 @@
                                         @if($user->username)
                                             <a href="{{route('users.show',$user->id)}}">{{$user->username}}</a>
                                         @else
-                                            <span>-</span>
+                                            <a href="{{route('users.show',$user->id)}}">{{substr($user->wallet->wallet_address,0,25) . '...'}}</a>
                                         @endif
                                     </td>
 
