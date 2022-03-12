@@ -22,6 +22,7 @@ Route::prefix('v1')->group(function () {
 
     //region home page
 
+    Route::get('landing/content', [\App\Http\Controllers\Api\LandingController::class, 'getLandingContent']);
     Route::get('homepage/material', [\App\Http\Controllers\Api\HomePageController::class, 'gethomePageMaterial'])->name('homepage');
     Route::post('assets/{type}/{asset_id}/media/upload', [\App\Http\Controllers\Api\MediaController::class, 'upload']);
     Route::post('wallets/store/signature', [\App\Http\Controllers\Api\WalletController::class, 'storeSignature']);
