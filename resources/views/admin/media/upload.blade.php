@@ -391,8 +391,7 @@
 
                     <td>
                         <form action="{{env('APP_URL')}}/media/home/page/${media.id}" method="post">
-{{--                            @csrf--}}
-                    <input type="hidden" value="{{ csrf_token() }}"/>
+                            @csrf
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
@@ -405,7 +404,7 @@
                     </td>
                     <td>
                         <form action="{{env('APP_URL')}}/media/main/${media.id}" method="post">
-                    <input type="hidden" value="{{ csrf_token() }}"/>
+                           @csrf
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
 
@@ -419,7 +418,7 @@
 
                     <td>
                                                 <form action="{{env('APP_URL')}}/media/gallery/large/picture/${media.id}" method="post">
-                    <input type="hidden" value="{{ csrf_token() }}"/>
+                                                    @csrf
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input"
                      id="largeSwitch-${counter}"
@@ -486,7 +485,7 @@
 
                     <td>
                 <form action="{{env('APP_URL')}}/media/main/${media.id}" method="post">
-                    <input type="hidden" value="{{ csrf_token() }}"/>
+                           @csrf
                 <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input"
                      id="mainSwitch-${counter}"
