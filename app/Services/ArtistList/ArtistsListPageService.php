@@ -12,18 +12,13 @@ class ArtistsListPageService
 {
     public static function getArtists()
     {
-        try
-        {
-            $artists = Artist::query()->with(['medias'])->get();
+        try {
+            $artists = Artist::query()->with(['medias'])->where('status', 'published')->where('order', '!=', null)->get()->sortBy('order')->values()->all();
             return $artists;
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
 
         }
     }
-
-
 
 
 }
