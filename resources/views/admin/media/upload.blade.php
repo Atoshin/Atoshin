@@ -6,7 +6,7 @@
         href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
         type="text/css"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 
 
 @endsection
@@ -17,13 +17,15 @@
             <h3 class="card-title">upload Media </h3>
             <div class="float-right">
 
-                <a href="{{route('assets.edit',$id)}}" class="btn btn-warning">
+                @if($edit == 0)
+                <a href="{{route('galleries.edit',$id)}}" class="btn btn-outline-primary">
                     <span class="row">
                          <i class="material-icons">arrow_back</i>
                             Back
                     </span>
 
                 </a>
+                @endif
             </div>
 
         </div>
@@ -207,15 +209,10 @@
                 @if($type == \App\Models\Gallery::class)
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('galleries.index', ['type'=>$type ,'id'=>$id])}}')">
-                        Next
+                        Save
                     </button>
                 @elseif($type == \App\Models\Asset::class)
-                    <a href="{{route('assets.edit',$id)}}" class="btn btn-outline-warning">
-                        <span class="row">
-                             <i class="material-icons">arrow_back</i>
-                                Back
-                        </span>
-                    </a>
+
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">
                         Next
@@ -227,42 +224,42 @@
                         Next
                     </button>
                 @elseif($type == \App\Models\User::class)
-                    <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
+                    <a href="{{route('users.index')}}" class="btn btn-primary">Save</a>
                 @elseif($type == \App\Models\Auction::class)
                     @php
                         $auction = \App\Models\Auction::query()->find($id);
                         $artist = $auction->artist;
                     @endphp
-                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Next</a>
+                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Save</a>
                 @elseif($type == \App\Models\Contract::class)
                     @php
                         $contract = \App\Models\Contract::query()->find($id);
                         $asset = $contract->asset;
                     @endphp
                     <a class="btn btn-primary " id="submitButton"
-                       href="{{route('contracts.index', $asset->id)}}">Submit</a>
+                       href="{{route('contracts.index', $asset->id)}}">Save</a>
                 @endif
             @elseif($edit == 0)
 
                 @if($type == \App\Models\User::class)
-                    <a href="{{route('users.index')}}" class="btn btn-primary">Next</a>
+                    <a href="{{route('users.index')}}" class="btn btn-primary">Save</a>
                 @elseif($type == \App\Models\Auction::class)
                     @php
                         $auction = \App\Models\Auction::query()->find($id);
                         $artist = $auction->artist;
                     @endphp
-                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Next</a>
+                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Save</a>
                 @elseif($type == \App\Models\Contract::class)
                     @php
                         $contract = \App\Models\Contract::query()->find($id);
                         $asset = $contract->asset;
                     @endphp
                     <a class="btn btn-primary " id="submitButton"
-                       href="{{route('contracts.index', $asset->id)}}">Submit</a>
+                       href="{{route('contracts.index', $asset->id)}}">Save</a>
                 @else
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('videoLink.index', ['type'=>$type ,'id'=>$id])}}')">
-                        Next
+                        Save
                     </button>
                 @endif
 
@@ -370,14 +367,14 @@
 
                 const rows = document.getElementById('medias-table').children;
                 let counter;
+
+
+                @if($type == \App\Models\Gallery::class)
                 if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
                 {
                     rows[0].remove();
                 }
                 counter = rows.length;
-
-                @if($type == \App\Models\Gallery::class)
-
                 tbody.prepend(`<tr>
                     <td>
                         <a target="_blank" href="{{env('APP_URL')}}/${media.path}">
@@ -442,7 +439,11 @@
                 </tr>`)
 
                 @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class or $type == \App\Models\Contract::class)
-
+                if(rows[0].innerHTML === '<td valign="top" colspan="3" class="dataTables_empty">No data available in table</td>')
+                {
+                    rows[0].remove();
+                }
+                counter = rows.length;
                 tbody.prepend(`<tr>
                     <td>
                         <a target="_blank" href="{{env('APP_URL')}}/${media.path}">
@@ -471,6 +472,11 @@
 
                 </tr>`)
                 @else
+                if(rows[0].innerHTML === '<td valign="top" colspan="4" class="dataTables_empty">No data available in table</td>')
+                {
+                    rows[0].remove();
+                }
+                counter = rows.length;
                 tbody.prepend(`<tr>
                     <td>
                         <a target="_blank" href="{{env('APP_URL')}}/${media.path}">
@@ -546,36 +552,66 @@
                 let gallery_large_checkeds = [];
                 const rows = document.getElementById('medias-table').children;
 
-                for (let i = 0; i < rows.length; i++) {
-                    const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
-                    const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
-                    const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
-                    console.log(main_checked, homepage_checked, large_checked)
-                    if (main_checked) {
-                        main_checkeds.push(main_checked)
+                if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
+                {
+                    error_messages.push('not enough files uploaded')
+                }
+                else {
+                    for (let i = 0; i < rows.length; i++) {
+                        const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
+                        const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
+                        const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
+                        console.log(main_checked, homepage_checked, large_checked)
+                        if (main_checked) {
+                            main_checkeds.push(main_checked)
+                        }
+                        if (homepage_checked) {
+                            homepage_picture_checkeds.push(homepage_checked)
+                        }
+                        if (large_checked) {
+                            gallery_large_checkeds.push(large_checked)
+                        }
                     }
-                    if (homepage_checked) {
-                        homepage_picture_checkeds.push(homepage_checked)
+
+                    if (main_checkeds.length === 0) {
+                        error_messages.push('at least one main media should be selected');
                     }
-                    if (large_checked) {
-                        gallery_large_checkeds.push(large_checked)
+                    if (homepage_picture_checkeds.length < 1 || homepage_picture_checkeds.length > 1) {
+                        error_messages.push('exactly one homepage media should be selected')
+                    }
+                    if (gallery_large_checkeds.length === 0) {
+                        error_messages.push('at least one gallery large picture should be selected')
                     }
                 }
 
-                if (main_checkeds.length === 0) {
-                    error_messages.push('at least one main media should be selected');
-                }
-                if (homepage_picture_checkeds.length < 1 || homepage_picture_checkeds.length > 1) {
-                    error_messages.push('exactly one homepage media should be selected')
-                }
-                if (gallery_large_checkeds.length === 0) {
-                    error_messages.push('at least one gallery large picture should be selected')
-                }
 
                 if (error_messages.length === 0) {
-                    location.replace(href);
+                    const buttons = `<a class="btn btn-outline-primary float-left" href="{{route('galleries.edit',$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to Gallery Edit
+                    </span>
+
+                </a>
+
+                <a href="{{route('videoLink.index',['type'=>\App\Models\Gallery::class,'id'=>$id])}}" id="continue" class="btn btn-outline-primary float-right">
+                    <span class="row">
+                            Go to Video Link Section
+                            <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>`
+                    Swal.fire({
+                        target: 'body',
+                        icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                        title: 'Gallery Media saved successfully',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 100000,
+                        html: buttons
+                    })
+                    // location.replace(href);
                 } else {
-                    console.log(error_messages)
                     event.preventDefault();
                     Swal.fire({
                         html: `<ul class="text-left">
@@ -583,7 +619,7 @@
                     <ul/>`,
                         target: 'body',
                         icon: 'error',
-                        title: 'the following errrors occured:',
+                        title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
                         showCancelButton: false,
                         showConfirmButton: true,
                         timer: 100000,
