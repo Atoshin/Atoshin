@@ -20,12 +20,8 @@ class showUserService
         $transactions = $user->transactions;
         $assets = [];
         foreach ($transactions as $transaction) {
-            $minteds = Minted::query()->where('txn_id', $transaction->id)->get();
-            foreach ($minteds as $minted) {
-                if (!in_array($minted->contract->asset->load('medias'), $assets)) {
-                    array_push($assets, $minted->contract->asset->load('medias'));
-                }
-            }
+            $minted = Minted::query()->where('txn_id', $transaction->id)->first();
+            array_push($assets, $minted->contract->asset->load('medias'));
         }
         $user->assets = $assets;
         return $user;
