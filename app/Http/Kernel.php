@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'authorize_metamask' => AuthorizeMetamask::class,
+        'csrf_get' => \App\Http\Middleware\VerifyCsrfTokenGet::class,
         'request_logger' => \App\Http\Middleware\LogRequests::class
     ];
 }

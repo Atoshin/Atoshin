@@ -14,9 +14,8 @@ class LandingSeeder extends Seeder
      */
     public function run()
     {
-        $landing = Landing::query()->create([
+        Landing::query()->create([
             'text' => 'Increase Access And Enable New Communities',
-
         ]);
 
     }

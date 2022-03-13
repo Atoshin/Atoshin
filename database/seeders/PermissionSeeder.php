@@ -17,63 +17,65 @@ class PermissionSeeder extends Seeder
     {
 
 
-
         Permission::query()->create([
-            'name'=> 'manage galleries',
-            'guard_name'=>'admin'
+            'name' => 'manage galleries',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage assets',
-            'guard_name'=>'admin'
+            'name' => 'mint contracts',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage artists',
-            'guard_name'=>'admin'
+            'name' => 'manage assets',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage categories',
-            'guard_name'=>'admin'
+            'name' => 'manage artists',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage users',
-            'guard_name'=>'admin'
+            'name' => 'manage categories',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage admins',
-            'guard_name'=>'admin'
+            'name' => 'manage users',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage roles',
-            'guard_name'=>'admin'
+            'name' => 'manage admins',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage permissions',
-            'guard_name'=>'admin'
+            'name' => 'manage roles',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage galleryings',
-            'guard_name'=>'admin'
+            'name' => 'manage permissions',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage newsletter',
-            'guard_name'=>'admin'
+            'name' => 'manage galleryings',
+            'guard_name' => 'admin'
         ]);
 
         Permission::query()->create([
-            'name'=> 'manage setting',
-            'guard_name'=>'admin'
+            'name' => 'manage newsletter',
+            'guard_name' => 'admin'
         ]);
 
-
+        Permission::query()->create([
+            'name' => 'manage setting',
+            'guard_name' => 'admin'
+        ]);
 
 
     }

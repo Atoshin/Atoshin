@@ -46,13 +46,6 @@ Route::prefix('v1')->group(function () {
     Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
     Route::get('gallery/{id}/show', [\App\Http\Controllers\Api\ShowGalleryController::class, 'show']);
 
-    Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
-    Route::get('contract/{id}/data', [\App\Http\Controllers\Api\AssetController::class, 'getContract']);
-    Route::post('contract/{contract}/ipfs-hash', [\App\Http\Controllers\Api\AssetController::class, 'setIpfsHash']);
-    Route::post('asset/{asset}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setAssetMintRecord']);
-    Route::post('contract/{contract}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setContractMintRecord']);
-
-
     Route::get('marketplace', [\App\Http\Controllers\Api\MarketPlaceController::class, 'getAssets']);
     Route::get('artists', [\App\Http\Controllers\Api\ArtistsListController::class, 'getArtists']);
     Route::get('galleries', [\App\Http\Controllers\Api\GalleriesListController::class, 'getGalleries']);

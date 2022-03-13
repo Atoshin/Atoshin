@@ -3,6 +3,7 @@ import {ethers} from "ethers";
 import axios from 'axios';
 import {create as ipfsClient} from 'ipfs-http-client';
 import NFT from '../../../artifacts/contracts/NFT.sol/NFT.json';
+import getMeta from '../functions/getMeta';
 
 let client;
 export default function App() {
@@ -15,7 +16,11 @@ export default function App() {
     useEffect(() => {
         const getContractData = async () => {
             const assetId = document.getElementById('mint-button').getAttribute("data-assetId")
-            const response = await axios.get(`/api/v1/asset/${assetId}/contracts`)
+            const response = await axios.get(`/asset/${assetId}/contracts`, {
+                headers: {
+                    'X-CSRF-TOKEN': getMeta('csrf-token')
+                }
+            })
             setContractData(response.data)
             const auth = 'Basic ' + Buffer.from(response.data.keys.projectId + ":" + response.data.keys.projectSecret).toString('base64')
             client = ipfsClient({
@@ -51,6 +56,10 @@ export default function App() {
                     urls.push(`https://ipfs.infura.io/ipfs/${added.path}`)
                     await axios.post(`/api/v1/contract/${contracts[i].id}/ipfs-hash`, {
                         'ipfs-hash': added.path
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': getMeta('csrf-token')
+                        }
                     })
                 }
             }
@@ -80,6 +89,10 @@ export default function App() {
                     previousTokenId: value.toNumber(),
                     mintedContractsLength: urls.length,
                     signerWalletAddress: address
+                }, {
+                    headers: {
+                        'X-CSRF-TOKEN': getMeta('csrf-token')
+                    }
                 })
                 window.location.reload()
             }

@@ -18,8 +18,8 @@ Route::get('/', function () {
     return redirect()->route('admin.dashboard');
 });
 //auth routes
-Route::get('login/page',[\App\Http\Controllers\Auth\LoginController::class,'loginPage'])->name('login.page');
-Route::post('login/process',[\App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
+Route::get('login/page', [\App\Http\Controllers\Auth\LoginController::class, 'loginPage'])->name('login.page');
+Route::post('login/process', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
@@ -27,9 +27,9 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 //end
 
 //gallery register
-Route::get('gallery/register/page', [\App\Http\Controllers\GalleryRegisterController::class,'registerPage'])->name('gallery.register.page');
-Route::post('gallery/register', [\App\Http\Controllers\GalleryRegisterController::class,'register'])->name('gallery.register');
-Route::get('gallery/register/success', [\App\Http\Controllers\GalleryRegisterController::class,'successPage'])->name('gallery.register.success');
+Route::get('gallery/register/page', [\App\Http\Controllers\GalleryRegisterController::class, 'registerPage'])->name('gallery.register.page');
+Route::post('gallery/register', [\App\Http\Controllers\GalleryRegisterController::class, 'register'])->name('gallery.register');
+Route::get('gallery/register/success', [\App\Http\Controllers\GalleryRegisterController::class, 'successPage'])->name('gallery.register.success');
 //end
 
 Route::middleware('auth:admin')->group(function () {
@@ -43,10 +43,18 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     });
 
+    Route::group(['middleware' => ['permission:mint contracts', 'csrf_get']], function () {
+        Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
+        Route::get('contract/{id}/data', [\App\Http\Controllers\Api\AssetController::class, 'getContract']);
+        Route::post('contract/{contract}/ipfs-hash', [\App\Http\Controllers\Api\AssetController::class, 'setIpfsHash']);
+        Route::post('asset/{asset}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setAssetMintRecord']);
+        Route::post('contract/{contract}/mint-record', [\App\Http\Controllers\Api\AssetController::class, 'setContractMintRecord']);
+    });
+
     Route::middleware('permission:manage admins')->group(function () {
         Route::resource('admins', \App\Http\Controllers\AdminController::class);
-        Route::get('admin/{admin}/roles/page', [\App\Http\Controllers\RoleController::class,'adminrolespage'])->name('admin.roles.page');
-        Route::post('admin/{admin}/roles', [\App\Http\Controllers\RoleController::class,'storeadminroles'])->name('admin.roles.store');
+        Route::get('admin/{admin}/roles/page', [\App\Http\Controllers\RoleController::class, 'adminrolespage'])->name('admin.roles.page');
+        Route::post('admin/{admin}/roles', [\App\Http\Controllers\RoleController::class, 'storeadminroles'])->name('admin.roles.store');
     });
 
     Route::middleware('permission:manage users')->group(function () {
@@ -60,23 +68,23 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('news/{artist_id}', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
         Route::get('news/{artist_id}/create', [\App\Http\Controllers\NewsController::class, 'create'])->name('news.create');
         Route::post('news/{artist_id}/store', [\App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
-        Route::get('news/{news_id}/edit',[\App\Http\Controllers\NewsController::class,'edit'])->name('news.edit');
-        Route::patch('news/{news_id}/update',[\App\Http\Controllers\NewsController::class,'update'])->name('news.update');
-        Route::delete('news/{news_id}/destroy',[\App\Http\Controllers\NewsController::class,'destroy'])->name('news.destroy');
+        Route::get('news/{news_id}/edit', [\App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
+        Route::patch('news/{news_id}/update', [\App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
+        Route::delete('news/{news_id}/destroy', [\App\Http\Controllers\NewsController::class, 'destroy'])->name('news.destroy');
         //end
     });
 
     Route::middleware('permission:manage galleryings')->group(function () {
         Route::resource('gallerying', \App\Http\Controllers\GalleryingController::class);
-        Route::get('gallerying/index/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'indexgallerying'])->name('index.gallerying');
-        Route::post('gallerying/store/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'storegallerying'])->name('store.gallerying');
-        Route::get('gallerying/create/{gallery_id}', [\App\Http\Controllers\GalleryingController::class,'creategallerying'])->name('create.gallerying');
+        Route::get('gallerying/index/{gallery_id}', [\App\Http\Controllers\GalleryingController::class, 'indexgallerying'])->name('index.gallerying');
+        Route::post('gallerying/store/{gallery_id}', [\App\Http\Controllers\GalleryingController::class, 'storegallerying'])->name('store.gallerying');
+        Route::get('gallerying/create/{gallery_id}', [\App\Http\Controllers\GalleryingController::class, 'creategallerying'])->name('create.gallerying');
     });
 
     Route::middleware('permission:manage roles')->group(function () {
         Route::resource('roles', \App\Http\Controllers\RoleController::class);
-        Route::get('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class,'rolepermissionpage'])->name('role.permission.page');
-        Route::post('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class,'storePermissions'])->name('role.permissions.store');
+        Route::get('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class, 'rolepermissionpage'])->name('role.permission.page');
+        Route::post('roles/{role}/permissions', [\App\Http\Controllers\RoleController::class, 'storePermissions'])->name('role.permissions.store');
     });
 
     Route::middleware('permission:manage permissions')->group(function () {
@@ -99,74 +107,73 @@ Route::middleware('auth:admin')->group(function () {
         //end
 
         //contracts region
-        Route::get('contracts/{asset_id}',[\App\Http\Controllers\ContractController::class,'index'])->name('contracts.index');
-        Route::get('contracts/{asset_id}/create',[\App\Http\Controllers\ContractController::class,'create'])->name('contracts.create');
-        Route::delete('contracts/{id}/destroy',[\App\Http\Controllers\ContractController::class,'destroy'])->name('contracts.destroy');
-        Route::post('contracts/store',[\App\Http\Controllers\ContractController::class,'store'])->name('contracts.store');
+        Route::get('contracts/{asset_id}', [\App\Http\Controllers\ContractController::class, 'index'])->name('contracts.index');
+        Route::get('contracts/{asset_id}/create', [\App\Http\Controllers\ContractController::class, 'create'])->name('contracts.create');
+        Route::delete('contracts/{id}/destroy', [\App\Http\Controllers\ContractController::class, 'destroy'])->name('contracts.destroy');
+        Route::post('contracts/store', [\App\Http\Controllers\ContractController::class, 'store'])->name('contracts.store');
         //end
 
         //region videos
-        Route::get('videos/{asset_id}',[\App\Http\Controllers\VideoController::class,'index'])->name('videos.index');
-        Route::get('videos/{asset_id}/create',[\App\Http\Controllers\VideoController::class,'create'])->name('videos.create');
-        Route::patch('videos/{asset_id}/update',[\App\Http\Controllers\VideoController::class,'update'])->name('videos.update');
-        Route::delete('videos/{asset_id}/destroy',[\App\Http\Controllers\VideoController::class,'destroy'])->name('videos.destroy');
-        Route::get('videos/{asset_id}/edit',[\App\Http\Controllers\VideoController::class,'edit'])->name('videos.edit');
-        Route::post('videos/{asset_id}/store',[\App\Http\Controllers\VideoController::class,'store'])->name('videos.store');
+        Route::get('videos/{asset_id}', [\App\Http\Controllers\VideoController::class, 'index'])->name('videos.index');
+        Route::get('videos/{asset_id}/create', [\App\Http\Controllers\VideoController::class, 'create'])->name('videos.create');
+        Route::patch('videos/{asset_id}/update', [\App\Http\Controllers\VideoController::class, 'update'])->name('videos.update');
+        Route::delete('videos/{asset_id}/destroy', [\App\Http\Controllers\VideoController::class, 'destroy'])->name('videos.destroy');
+        Route::get('videos/{asset_id}/edit', [\App\Http\Controllers\VideoController::class, 'edit'])->name('videos.edit');
+        Route::post('videos/{asset_id}/store', [\App\Http\Controllers\VideoController::class, 'store'])->name('videos.store');
         //end
     });
 
 
-
     //region media
-    Route::post('upload/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFile' ])->name('uploadFile');
-    Route::get('media/upload/page/{type}/{id}/{edit}',[\App\Http\Controllers\MediaController::class,'uploadPage'])->name('upload.page');
-    Route::post('upload/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFile' ])->name('uploadFile.main');
-    Route::get('media/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadPageMain'])->name('upload.page.main');
-    Route::post('media/home/page/{id}',[\App\Http\Controllers\MediaController::class,'homepage'])->name('homepage.media');
-    Route::post('media/main/{id}',[\App\Http\Controllers\MediaController::class,'makeMain'])->name('main.media');
-    Route::post('media/gallery/large/picture/{id}',[\App\Http\Controllers\MediaController::class,'makeLarge'])->name('large.media');
-    Route::post('upload/edit/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadFileEdit' ])->name('uploadFile.update');
-    Route::get('media/edit/upload/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPage'])->name('upload.page.edit');
-    Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [ \App\Http\Controllers\MediaController::class, 'uploadMainFileEdit' ])->name('uploadFile.main.update');
-    Route::get('media/edit/upload/page/main/{type}/{id}',[\App\Http\Controllers\MediaController::class,'uploadEditPageMain'])->name('upload.page.main.edit');
-    Route::get('media/index/page/{type}/{id}',[\App\Http\Controllers\MediaController::class,'index'])->name('media.index');
-    Route::delete('media/delete/main/{media_id}',[\App\Http\Controllers\MediaController::class,'deleteMain'])->name('media.main.delete');
-    Route::delete('media/delete/{media_id}',[\App\Http\Controllers\MediaController::class,'delete'])->name('media.delete');
-    Route::delete('my/media/delete/{media_id}',[\App\Http\Controllers\MediaController::class,'deleteMedia'])->name('my.media.delete');
-    Route::post('upload/video/{mediable_type}/{mediable_id}/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadvideoFile' ])->name('uploadFile.video');
-    Route::get('upload/video/page/{type}/{id}/{gallery_id}',[\App\Http\Controllers\MediaController::class,'uploadvideoPage'])->name('upload.page.video');
+    Route::post('upload/{mediable_type}/{mediable_id}', [\App\Http\Controllers\MediaController::class, 'uploadFile'])->name('uploadFile');
+    Route::get('media/upload/page/{type}/{id}/{edit}', [\App\Http\Controllers\MediaController::class, 'uploadPage'])->name('upload.page');
+    Route::post('upload/main/{mediable_type}/{mediable_id}', [\App\Http\Controllers\MediaController::class, 'uploadMainFile'])->name('uploadFile.main');
+    Route::get('media/upload/page/main/{type}/{id}', [\App\Http\Controllers\MediaController::class, 'uploadPageMain'])->name('upload.page.main');
+    Route::post('media/home/page/{id}', [\App\Http\Controllers\MediaController::class, 'homepage'])->name('homepage.media');
+    Route::post('media/main/{id}', [\App\Http\Controllers\MediaController::class, 'makeMain'])->name('main.media');
+    Route::post('media/gallery/large/picture/{id}', [\App\Http\Controllers\MediaController::class, 'makeLarge'])->name('large.media');
+    Route::post('upload/edit/{mediable_type}/{mediable_id}', [\App\Http\Controllers\MediaController::class, 'uploadFileEdit'])->name('uploadFile.update');
+    Route::get('media/edit/upload/page/{type}/{id}', [\App\Http\Controllers\MediaController::class, 'uploadEditPage'])->name('upload.page.edit');
+    Route::post('upload/edit/main/{mediable_type}/{mediable_id}', [\App\Http\Controllers\MediaController::class, 'uploadMainFileEdit'])->name('uploadFile.main.update');
+    Route::get('media/edit/upload/page/main/{type}/{id}', [\App\Http\Controllers\MediaController::class, 'uploadEditPageMain'])->name('upload.page.main.edit');
+    Route::get('media/index/page/{type}/{id}', [\App\Http\Controllers\MediaController::class, 'index'])->name('media.index');
+    Route::delete('media/delete/main/{media_id}', [\App\Http\Controllers\MediaController::class, 'deleteMain'])->name('media.main.delete');
+    Route::delete('media/delete/{media_id}', [\App\Http\Controllers\MediaController::class, 'delete'])->name('media.delete');
+    Route::delete('my/media/delete/{media_id}', [\App\Http\Controllers\MediaController::class, 'deleteMedia'])->name('my.media.delete');
+    Route::post('upload/video/{mediable_type}/{mediable_id}/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'uploadvideoFile'])->name('uploadFile.video');
+    Route::get('upload/video/page/{type}/{id}/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'uploadvideoPage'])->name('upload.page.video');
 
-    Route::get('media/upload/page/gallery/large/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureUploadPage'])->name('upload.page.gallery.large');
-    Route::post('upload/gallery/large/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePicture' ])->name('uploadFile.gallery.large');
+    Route::get('media/upload/page/gallery/large/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'galleryLargePictureUploadPage'])->name('upload.page.gallery.large');
+    Route::post('upload/gallery/large/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'uploadGalleryLargePicture'])->name('uploadFile.gallery.large');
 
-    Route::get('media/upload/page/gallery/large/edit/{gallery_id}',[\App\Http\Controllers\MediaController::class,'galleryLargePictureEditUploadPage'])->name('upload.gallery.large.picture.edit');
-    Route::post('upload/gallery/large/edit/{gallery_id}', [ \App\Http\Controllers\MediaController::class, 'uploadGalleryLargePictureEdit' ])->name('uploadFile.gallery.large.edit');
+    Route::get('media/upload/page/gallery/large/edit/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'galleryLargePictureEditUploadPage'])->name('upload.gallery.large.picture.edit');
+    Route::post('upload/gallery/large/edit/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'uploadGalleryLargePictureEdit'])->name('uploadFile.gallery.large.edit');
 
-    Route::get('crop/page',[\App\Http\Controllers\CropController::class,'cropPage'])->name('crop');
+    Route::get('crop/page', [\App\Http\Controllers\CropController::class, 'cropPage'])->name('crop');
 
     //end
 
     //video link
-    Route::post('video/link/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'store'])->name('videoLink.store');
-    Route::get('video/links/{type}/{id}',[\App\Http\Controllers\VideoLinkController::class,'index'])->name('videoLink.index');
-    Route::delete('video/link/{id}/destroy',[\App\Http\Controllers\VideoLinkController::class,'destroy'])->name('videos.destroy');
+    Route::post('video/link/{type}/{id}', [\App\Http\Controllers\VideoLinkController::class, 'store'])->name('videoLink.store');
+    Route::get('video/links/{type}/{id}', [\App\Http\Controllers\VideoLinkController::class, 'index'])->name('videoLink.index');
+    Route::delete('video/link/{id}/destroy', [\App\Http\Controllers\VideoLinkController::class, 'destroy'])->name('videos.destroy');
     //auction
     Route::get('auctions/{artist_id}', [\App\Http\Controllers\AuctionsController::class, 'index'])->name('auctions.index');
     Route::get('auctions/{artist_id}/create', [\App\Http\Controllers\AuctionsController::class, 'create'])->name('auctions.create');
     Route::post('auctions/{artist_id}/store', [\App\Http\Controllers\AuctionsController::class, 'store'])->name('auctions.store');
     Route::get('auctions/{auction_id}/show', [\App\Http\Controllers\AuctionsController::class, 'show'])->name('auctions.show');
-    Route::patch('auctions/{auction_id}/update',[\App\Http\Controllers\AuctionsController::class,'update'])->name('auctions.update');
-    Route::get('auctions/{auction_id}/edit',[\App\Http\Controllers\AuctionsController::class,'edit'])->name('auctions.edit');
-    Route::delete('auctions/{auction_id}/destroy',[\App\Http\Controllers\AuctionsController::class,'destroy'])->name('auctions.destroy');
+    Route::patch('auctions/{auction_id}/update', [\App\Http\Controllers\AuctionsController::class, 'update'])->name('auctions.update');
+    Route::get('auctions/{auction_id}/edit', [\App\Http\Controllers\AuctionsController::class, 'edit'])->name('auctions.edit');
+    Route::delete('auctions/{auction_id}/destroy', [\App\Http\Controllers\AuctionsController::class, 'destroy'])->name('auctions.destroy');
     Route::post('artist/change-status/{artist}', [\App\Http\Controllers\ArtistController::class, 'changeStatus'])->name('change.artist.status');
 
     //redirect region
-    Route::get('redirect/{route}',function ($route) {
+    Route::get('redirect/{route}', function ($route) {
         return redirect()->route($route);
     })->name('redirect');
 
-    Route::get('redirect/{route}/{arguments}',function ($route,$arguments) {
-        return redirect()->route($route,$arguments);
+    Route::get('redirect/{route}/{arguments}', function ($route, $arguments) {
+        return redirect()->route($route, $arguments);
     })->name('redirect.with.arguments');
     //end
 //newsletter
@@ -176,8 +183,9 @@ Route::middleware('auth:admin')->group(function () {
         'update', 'edit', 'store'
     ]);
     Route::resource('commissions', \App\Http\Controllers\CommissionController::class)->only([
-         'create'
+        'create'
     ]);
+
 
 });
 

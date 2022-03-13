@@ -3,6 +3,7 @@ import {ethers} from "ethers";
 import axios from 'axios';
 import {create as ipfsClient} from 'ipfs-http-client';
 import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
+import getMeta from "../../functions/getMeta";
 
 let client;
 export default function App() {
@@ -11,7 +12,11 @@ export default function App() {
         e.preventDefault();
         const parentNode = e.target.parentNode
         const contractId = parentNode.getAttribute('data-contractid')
-        const response = await axios.get(`/api/v1/contract/${contractId}/data`)
+        const response = await axios.get(`/api/v1/contract/${contractId}/data`, {
+            headers: {
+                'X-CSRF-TOKEN': getMeta('csrf-token')
+            }
+        })
 
         const auth = 'Basic ' + Buffer.from(response.data.keys.projectId + ":" + response.data.keys.projectSecret).toString('base64')
         client = ipfsClient({
@@ -41,6 +46,10 @@ export default function App() {
                 url = `${added.path}`
                 await axios.post(`/api/v1/contract/${contract.id}/ipfs-hash`, {
                     'ipfs-hash': added.path
+                }, {
+                    headers: {
+                        'X-CSRF-TOKEN': getMeta('csrf-token')
+                    }
                 })
             }
             createSale(url, addresses, contract)
@@ -68,6 +77,10 @@ export default function App() {
                     txnHash,
                     tokenId: value.toNumber(),
                     signerWalletAddress: address
+                }, {
+                    headers: {
+                        'X-CSRF-TOKEN': getMeta('csrf-token')
+                    }
                 })
             }
         } else {
