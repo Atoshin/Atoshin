@@ -200,8 +200,14 @@ class AssetController extends Controller
         })->count();
 
         $request->validate([
-            'amount' => "required|numeric|min:1|max:$count"
+            'amount' => "required|numeric|min:1"
         ]);
+
+        if ($request->amount > $count){
+            return response()->json([
+                'message' => 'The amount of fractions you chose are currently being sold, try a little less!'
+            ], 422);
+        }
 
         $contracts = Contract::query()->where('asset_id', $asset->id)->whereHas('minted', function ($minted) {
             $minted->where('status', 'unsold');

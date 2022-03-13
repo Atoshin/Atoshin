@@ -14,7 +14,7 @@ class galleryService
         try
         {
 
-            $gallery = Gallery::query()->with(['medias','videoLinks.media'])->where('status','published')->where('order','!=' ,null)->get()->sortBy('order');
+            $gallery = Gallery::query()->with(['medias','videoLinks.media'])->where('status','published')->where('order','!=' ,null)->get()->sortBy('order')->values()->all();
             return $gallery;
         }
         catch (\Exception $e)

@@ -13,7 +13,7 @@ class GalleryList
     {
         try
         {
-            $galleries = Gallery::query()->with(['medias'])->where('status','published')->get();
+            $galleries = Gallery::query()->with(['medias'])->where('status','published')->where('order', '!=', null)->get()->sortBy('order')->values()->all();
             return $galleries;
         }
         catch (\Exception $e)
