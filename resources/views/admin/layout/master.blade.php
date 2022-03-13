@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('admin/leaflet/leaflet.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     @yield('styles')
 
     <style>
@@ -81,9 +82,10 @@
             target: 'body',
             icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
             title: '{{\Illuminate\Support\Facades\Session::get('message')}}',
-            showCancelButton: true,
-            showConfirmButton: false,
+            showCancelButton: false,
+            showConfirmButton: true,
             timer: 100000,
+
         })
     </script>
 

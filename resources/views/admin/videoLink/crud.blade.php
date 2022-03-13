@@ -110,18 +110,14 @@
         <div  class="card-footer " id="submitButton" >
             @if($type == "App\Models\Gallery")
                 {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
-                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'galleries.edit')
 
-                        <a class="btn btn-primary"
-                           href="{{route('galleries.edit' , ['gallery'=>$id])}}" id="submitbtn">Submit</a>
-
-                @else
-
-                        <a class="btn btn-primary"
-                           href="{{route('galleries.index')}}" id="submitbtn">Submit</a>
+                <button class="btn btn-primary " id="submitButton"
+                        onclick="check(event)">
+                    Save
+                </button>
 
 
-                @endif
+
             @elseif($type == "App\Models\Artist")
                 @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.edit')
                     <a class="btn btn-primary"
@@ -177,34 +173,63 @@
         }
     </script>
     <script>
-        const btn =document.getElementById('submitbtn')
-        btn.addEventListener('click',(event)=>{
-            @foreach($video_links as $videolink)
-            @if($videolink->is_default==true)
-            @if($videolink->media==null)
+
+        function check(event)
+        {
+                @foreach($video_links as $videolink)
+                @if($videolink->is_default==true)
+                @if($videolink->media==null)
                 event.preventDefault()
-            Swal.fire({
-                target: 'body',
-                icon: 'error',
-                title: 'Homepage Video Link must have exactly one Media',
-                showCancelButton: false,
-                showConfirmButton: true,
-                timer: 100000,
-            })
-            @endif
-            @endif
-            @endforeach
+                Swal.fire({
+                    target: 'body',
+                    icon: 'error',
+                    title: 'Homepage Video Link must have exactly one Media',
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    timer: 100000,
+                })
+                @else
+                const buttons = `
+                    <a href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id,'edit'=>0])}}" id="continue" class="btn btn-outline-primary float-left">
+                    <span class="row">
+                    <i class="material-icons">arrow_back</i>
+                            Go to Media section
+
+                    </span>
+
+                    </a>
+
+                    <a class="btn btn-outline-primary float-right" href="{{route('galleries.index')}}">
+                    <span class="row">
+                        Go to galleries
+                        <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>
+
+                `
+                Swal.fire({
+                    target: 'body',
+                    icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                    title: 'video link saved successfully',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 100000,
+                    html: buttons
 
 
-        })
+                })
+
+                @endif
+                @endif
+                @endforeach
 
 
 
-
-
-
+        }
 
     </script>
+
 
 {{--    <script>--}}
 {{--        let flag = false;--}}

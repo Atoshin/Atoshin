@@ -159,7 +159,7 @@ class GalleryController extends Controller
             ]);
         }
         $gallery->save();
-        return redirect()->route('galleries.index');
+        return redirect()->back()->with(['success'=>'true','title'=>'Gallery Saved successfully']);
     }
 
     /**
