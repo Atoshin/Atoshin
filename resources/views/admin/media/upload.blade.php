@@ -630,6 +630,7 @@
         </script>
     @else
         <script>
+
             function checkCheckboxes(event, href) {
 
                 let error_messages = [];
@@ -649,7 +650,31 @@
                 }
 
                 if (error_messages.length === 0) {
-                    location.replace(href);
+                    const buttons = `<a class="btn btn-outline-primary float-left" href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+
+                </a>
+
+                <a href="{{route('videoLink.index',['type'=>$type,'id'=>$id])}}" id="continue" class="btn btn-outline-primary float-right">
+                    <span class="row">
+                            Go to Video Link Section
+                            <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>`
+                    Swal.fire({
+                        target: 'body',
+                        icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                        title: 'Medias saved successfully',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 100000,
+                        html: buttons
+                    })
+                    // location.replace(href);
                 } else {
                     event.preventDefault();
                     Swal.fire({
@@ -658,12 +683,14 @@
                     <ul/>`,
                         target: 'body',
                         icon: 'error',
-                        title: 'the following errrors occured:',
+                        title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
                         showCancelButton: false,
                         showConfirmButton: true,
-                        timer: 5000,
+                        timer: 100000,
                     })
                 }
+
+
 
             }
         </script>

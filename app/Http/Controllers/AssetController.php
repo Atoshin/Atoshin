@@ -136,7 +136,7 @@ class AssetController extends Controller
         $asset->order = $request->order;
         $asset->save();
 
-        return redirect()->route('assets.index');
+        return redirect()->back()->with(['success'=>'true','title'=>'Asset Saved successfully']);
 
     }
 

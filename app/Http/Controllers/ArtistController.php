@@ -141,7 +141,7 @@ class ArtistController extends Controller
             $artist->save();
         }
 
-        return redirect()->route('artists.index');
+        return redirect()->back()->with(['success'=>'true','title'=>'Artist Saved successfully']);
     }
 
     /**

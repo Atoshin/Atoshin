@@ -114,6 +114,31 @@ class MediaController extends Controller
 
     public function uploadPage($type, $id, $edit)
     {
+        if($type == Artist::class)
+        {
+            $route = 'artists.edit';
+        }
+        elseif ($type == Gallery::class)
+        {
+            $route = 'galleries.edit';
+        }
+        elseif ($type == Asset::class)
+        {
+            $route = 'assets.edit';
+        }
+        elseif ($type == User::class)
+        {
+            $route = 'users.edit';
+        }
+        elseif($type == Auction::class)
+        {
+            $route = 'auctions.edit';
+        }
+        elseif ($type == Contract::class)
+        {
+            $route = 'contracts.edit';
+        }
+
 
         if ($type == User::class or $type == Contract::class) {
             $entity = $type::query()->with('media')->where('id', $id)->first();
@@ -122,7 +147,7 @@ class MediaController extends Controller
         }
 
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->get();
-        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit'));
+        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit','route'));
     }
 
     public function destroy($id)

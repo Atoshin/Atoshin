@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\admin\videoLink\storeVideoLink;
+use App\Models\Artist;
+use App\Models\Asset;
+use App\Models\Auction;
+use App\Models\Contract;
+use App\Models\Gallery;
+use App\Models\User;
 use App\Models\VideoLink;
 use Illuminate\Http\Request;
 
@@ -11,14 +17,39 @@ class VideoLinkController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index($type , $id )
     {
+        if($type == Artist::class)
+        {
+            $route = 'artists.index';
+        }
+        elseif ($type == Gallery::class)
+        {
+            $route = 'galleries.index';
+        }
+        elseif ($type == Asset::class)
+        {
+            $route = 'assets.index';
+        }
+        elseif ($type == User::class)
+        {
+            $route = 'users.index';
+        }
+        elseif($type == Auction::class)
+        {
+            $route = 'auctions.index';
+        }
+        elseif ($type == Contract::class)
+        {
+            $route = 'contracts.index';
+        }
+
         $video_links = VideoLink::query()->where('video_linkable_type',$type)->where('video_linkable_id',$id)
             ->orderBy("created_at" ,"desc")->get();
 
-        return view('admin.videoLink.crud',compact('type','id','video_links'));
+        return view('admin.videoLink.crud',compact('type','id','video_links','route'));
     }
 
     /**
@@ -56,7 +87,7 @@ class VideoLinkController extends Controller
             'video_linkable_type' => $type,
             'video_linkable_id' => $id
         ]);
-        return redirect()->back();
+        return redirect()->back()->with(['success'=>'true','title'=>' videoLinks Saved successfully']);
     }
 
     /**
