@@ -50,6 +50,7 @@
                                             <button
                                                 class="btn {{$artist->status== 'published' ? "btn-primary" : "btn-danger"}} btn-primary"
                                                 type="submit">{{$artist->status}}</button>
+
                                         </form>
                                     </td>
                                     <td>
@@ -174,6 +175,10 @@
             // });
         });
     </script>
+
+
+
+
     {{--    <script>--}}
 
     {{--        $(".delete-icon").on("click", function () {--}}

@@ -47,7 +47,7 @@ class MediaController extends Controller
         }
 
 
-        if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class) {
+        if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class and $mediable_type!= Asset::class) {
             if (2 * $width != 3 * $height) {
                 if ($width != '1120' && $height != '460') {
                     return response()->json([
@@ -114,6 +114,31 @@ class MediaController extends Controller
 
     public function uploadPage($type, $id, $edit)
     {
+        if($type == Artist::class)
+        {
+            $route = 'artists.edit';
+        }
+        elseif ($type == Gallery::class)
+        {
+            $route = 'galleries.edit';
+        }
+        elseif ($type == Asset::class)
+        {
+            $route = 'assets.edit';
+        }
+        elseif ($type == User::class)
+        {
+            $route = 'users.edit';
+        }
+        elseif($type == Auction::class)
+        {
+            $route = 'auctions.edit';
+        }
+        elseif ($type == Contract::class)
+        {
+            $route = '';
+        }
+
 
         if ($type == User::class or $type == Contract::class) {
             $entity = $type::query()->with('media')->where('id', $id)->first();
@@ -122,7 +147,7 @@ class MediaController extends Controller
         }
 
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->get();
-        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit'));
+        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit','route'));
     }
 
     public function destroy($id)
@@ -368,6 +393,16 @@ class MediaController extends Controller
     public function makeMain($id)
     {
         $media = Media::query()->find($id);
+
+        if($media->mediable_type == Asset::class)
+        {
+            if (2 * $media->width != 3 * $media->height) {
+                    return redirect()->back()->with(['message'=>'main media should be 3:2']);
+
+
+            }
+        }
+
 
         if ($media->main == false) {
             $main_medias = Media::query()->where('mediable_type', $media->mediable_type)

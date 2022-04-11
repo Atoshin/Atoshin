@@ -105,14 +105,13 @@
                                                     asset videos</a>
                                             </div>
 
-                                            @if($asset->status == 'published')
                                             <div class="m-1">
                                                 <a href="{{env('FRONTEND_URL') . '/show-asset/' . $asset->id}}"
                                                    type="button"
                                                    class="btn btn-danger"> <i class="fa fa-file "></i>
                                                     Show </a>
                                             </div>
-                                            @endif
+
 
 
                                         </div>

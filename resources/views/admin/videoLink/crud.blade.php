@@ -94,8 +94,9 @@
                                     </button>
                                 </div>
                                 @if($videoLink->is_default == true)
-                                <a class="btn btn-primary"
-                                   href="{{route('upload.page.video' , ['type'=>\App\Models\VideoLink::class,'id'=>$videoLink->id,'gallery_id'=>$id])}}">upload video picture</a>
+                                    <a class="btn btn-primary"
+                                       href="{{route('upload.page.video' , ['type'=>\App\Models\VideoLink::class,'id'=>$videoLink->id,'gallery_id'=>$id])}}">upload
+                                        video picture</a>
                                 @endif
                                 @if($videoLink->is_default == true)
                                     <i class="fa fa-crown" style="color: #CC8D1D"></i>
@@ -107,34 +108,20 @@
                 </tbody>
             </table>
         </div>
-        <div  class="card-footer " id="submitButton" >
-            @if($type == "App\Models\Gallery")
-                {{--            {{app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()}}--}}
-
+        <div class="card-footer " >
+            @if($type == \App\Models\Gallery::class)
                 <button class="btn btn-primary " id="submitButton"
-                        onclick="check(event)">
+                        onclick="proceed(event)">
                     Save
                 </button>
-
-
-
-            @elseif($type == "App\Models\Artist")
-                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'artists.edit')
-                    <a class="btn btn-primary"
-                       href="{{route('artists.edit' , ['artist'=>$id])}}">Submit</a>
-                @else
-                    <a class="btn btn-primary"
-                       href="{{route('artists.index')}}">Submit</a>
-                @endif
-            @elseif($type == "App\Models\Asset")
-                @if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'assets.edit')
-                    <a class="btn btn-primary"
-                       href="{{route('assets.edit' , ['asset'=>$id])}}">Submit</a>
-                @else
-                    <a class="btn btn-primary"
-                       href="{{route('assets.index')}}">Submit</a>
-                @endif
+            @else
+                <button class="btn btn-primary " id="submitButton"
+                        onclick="proceed(event)">
+                    Save
+                </button>
             @endif
+
+
         </div>
     </div>
     <form action="" id="delete-form" method="POST">
@@ -174,23 +161,24 @@
     </script>
     <script>
 
-        function check(event)
-        {
-                @foreach($video_links as $videolink)
-                @if($videolink->is_default==true)
-                @if($videolink->media==null)
-                event.preventDefault()
-                Swal.fire({
-                    target: 'body',
-                    icon: 'error',
-                    title: 'Homepage Video Link must have exactly one Media',
-                    showCancelButton: false,
-                    showConfirmButton: true,
-                    timer: 100000,
-                })
-                @else
-                const buttons = `
-                    <a href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id,'edit'=>0])}}" id="continue" class="btn btn-outline-primary float-left">
+        function check(event) {
+            console.log('hi')
+            @foreach($video_links as $videolink)
+            @if($videolink->is_default==true)
+            @if($videolink->media==null)
+            event.preventDefault()
+            Swal.fire({
+                target: 'body',
+                icon: 'error',
+                title: 'Homepage Video Link must have exactly one Media',
+                showCancelButton: false,
+                showConfirmButton: true,
+                timer: 100000,
+            })
+            @else
+            event.preventDefault()
+            const buttons = `
+                    <a href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id,'edit'=>0])}}" id="continue" class="btn btn-outline-info float-left">
                     <span class="row">
                     <i class="material-icons">arrow_back</i>
                             Go to Media section
@@ -199,7 +187,7 @@
 
                     </a>
 
-                    <a class="btn btn-outline-primary float-right" href="{{route('galleries.index')}}">
+                    <a class="btn btn-outline-info float-right" href="{{route('galleries.index')}}">
                     <span class="row">
                         Go to galleries
                         <i class="material-icons">arrow_forward</i>
@@ -208,21 +196,21 @@
                 </a>
 
                 `
-                Swal.fire({
-                    target: 'body',
-                    icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
-                    title: 'video link saved successfully',
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    timer: 100000,
-                    html: buttons
+            Swal.fire({
+                target: 'body',
+                icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                title: 'video link saved successfully',
+                showCancelButton:,
+                showConfirmButton: false,
+                timer: 100000,
+                html: buttons
 
 
-                })
+            })
 
-                @endif
-                @endif
-                @endforeach
+            @endif
+            @endif
+            @endforeach
 
 
 
@@ -231,18 +219,58 @@
     </script>
 
 
-{{--    <script>--}}
-{{--        let flag = false;--}}
-{{--        @foreach($video_links as $video_link)--}}
-{{--            @if($video_link->is_default)--}}
-{{--                @if($video_link->media)--}}
-{{--                    flag = true--}}
-{{--                @endif--}}
-{{--            @endif--}}
-{{--        @endforeach--}}
-{{--        if(flag === true)--}}
-{{--        {--}}
-{{--            document.getElementById('submitButton').classList.remove('d-none')--}}
-{{--        }--}}
-{{--    </script>--}}
+    <script type="text/javascript">
+        function proceed(event) {
+            const buttons = `<a class="btn btn-outline-info float-right" href="{{route($route,$id)}}">
+                    <span class="row">
+
+                       Go to {{strtok($route, '.')}} index
+                       <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>
+
+                <a href="{{route('upload.page',['type'=>$type,'id'=>$id,'edit'=>1])}}" id="continue" class="btn btn-outline-info float-left">
+                    <span class="row">
+                            <i class="material-icons">arrow_back</i>
+                            Go to media Section
+
+                    </span
+
+                </a>`
+            Swal.fire({
+                target: 'body',
+                icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                title: 'Video Links saved successfully',
+                showCancelButton: false,
+                showConfirmButton: false,
+                timer: 100000,
+                html: buttons
+
+
+            })
+
+        }
+
+
+    </script>
+
+
+
+
+
+    {{--    <script>--}}
+    {{--        let flag = false;--}}
+    {{--        @foreach($video_links as $video_link)--}}
+    {{--            @if($video_link->is_default)--}}
+    {{--                @if($video_link->media)--}}
+    {{--                    flag = true--}}
+    {{--                @endif--}}
+    {{--            @endif--}}
+    {{--        @endforeach--}}
+    {{--        if(flag === true)--}}
+    {{--        {--}}
+    {{--            document.getElementById('submitButton').classList.remove('d-none')--}}
+    {{--        }--}}
+    {{--    </script>--}}
 @endsection

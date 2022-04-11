@@ -92,14 +92,14 @@
                                                         class="fa fa-video "></i>
                                                     Edit gallery videos</a>
                                             </div>
-                                            @if($gallery->status=='published')
+
                                             <div class="m-1">
                                                 <a href="{{env('FRONTEND_URL') . '/museums-and-galleries/' . $gallery->id}}"
                                                    type="button"
                                                    class="btn btn-danger"> <i class="fa fa-file "></i>
                                                     Show</a>
                                             </div>
-                                                @endif
+
                                         </div>
 
 

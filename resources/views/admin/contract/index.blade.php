@@ -23,7 +23,7 @@
                         <h3 class="card-title">Contract</h3>
                         <br>
                         <h6>
-                            Total Fraction: {{$asset->total_fractions}}
+                            Total Fraction(s): {{$asset->total_fractions}}
                         </h6>
 
                     </div>

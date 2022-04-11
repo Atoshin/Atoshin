@@ -18,7 +18,7 @@
             <div class="float-right">
 
                 @if($edit == 0)
-                <a href="{{route('galleries.edit',$id)}}" class="btn btn-outline-primary">
+                <a href="{{route('galleries.edit',$id)}}" class="btn btn-outline-info">
                     <span class="row">
                          <i class="material-icons">arrow_back</i>
                             Back
@@ -542,6 +542,37 @@
         });
     </script>
 
+    <script>
+
+            const rows = document.getElementById('medias-table').children;
+            for (let i = 0; i < rows.length; i++) {
+                const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
+
+                @if($type == \App\Models\Gallery::class)
+                const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
+                const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
+                if(homepage_checked)
+                {
+                    document.getElementById(`customSwitch-${i}`).disabled = true;
+                }
+                if(large_checked)
+                {
+                    document.getElementById.disabled = true;
+                }
+                @endif
+
+                if(main_checked)
+                {
+                    document.getElementById(`mainSwitch-${i}`).disabled =true;
+                }
+
+            }
+
+
+
+
+    </script>
+
     @if($type == \App\Models\Gallery::class)
         <script>
             function checkCheckboxes(event, href) {
@@ -586,7 +617,7 @@
 
 
                 if (error_messages.length === 0) {
-                    const buttons = `<a class="btn btn-outline-primary float-left" href="{{route('galleries.edit',$id)}}">
+                    const buttons = `<a class="btn btn-outline-info float-left" href="{{route('galleries.edit',$id)}}">
                     <span class="row">
                         <i class="material-icons">arrow_back</i>
                         Back to Gallery Edit
@@ -594,7 +625,7 @@
 
                 </a>
 
-                <a href="{{route('videoLink.index',['type'=>\App\Models\Gallery::class,'id'=>$id])}}" id="continue" class="btn btn-outline-primary float-right">
+                <a href="{{route('videoLink.index',['type'=>\App\Models\Gallery::class,'id'=>$id])}}" id="continue" class="btn btn-outline-info float-right">
                     <span class="row">
                             Go to Video Link Section
                             <i class="material-icons">arrow_forward</i>
@@ -616,19 +647,27 @@
                     Swal.fire({
                         html: `<ul class="text-left">
                                 ${(error_messages.map((msg) => `<li>${msg} </li>`)).join(' ')}
-                    <ul/>`,
+                    </ul>
+                        <div class="mt-4">
+                        <a class="btn btn-outline-info " href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+                    </a>
+                     </div>`,
                         target: 'body',
                         icon: 'error',
                         title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
                         showCancelButton: false,
-                        showConfirmButton: true,
+                        showConfirmButton: false,
                         timer: 100000,
                     })
                 }
 
             }
         </script>
-    @else
+    @elseif($type != \App\Models\Contract::class)
         <script>
             function checkCheckboxes(event, href) {
 
@@ -649,21 +688,55 @@
                 }
 
                 if (error_messages.length === 0) {
-                    location.replace(href);
+                    const buttons = `<a class="btn btn-outline-info float-left" href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+
+                </a>
+
+                <a href="{{route('videoLink.index',['type'=>$type,'id'=>$id])}}" id="continue" class="btn btn-outline-info float-right">
+                    <span class="row">
+                            Go to Video Link Section
+                            <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>`
+                    Swal.fire({
+                        target: 'body',
+                        icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                        title: 'Medias saved successfully',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 100000,
+                        html: buttons
+                    })
+                    // location.replace(href);
                 } else {
                     event.preventDefault();
                     Swal.fire({
                         html: `<ul class="text-left">
                                 ${(error_messages.map((msg) => `<li>${msg} </li>`)).join(' ')}
-                    <ul/>`,
+                    </ul>
+                    <div class="mt-4">
+                        <a class="btn btn-outline-info " href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+                    </a>
+                     </div>`,
                         target: 'body',
                         icon: 'error',
-                        title: 'the following errrors occured:',
+                        title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
                         showCancelButton: false,
-                        showConfirmButton: true,
-                        timer: 5000,
+                        showConfirmButton: false,
+                        timer: 100000,
                     })
                 }
+
+
 
             }
         </script>
