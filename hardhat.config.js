@@ -12,7 +12,7 @@ module.exports = {
             chainId: 1337
         },
         ropsten: {
-            url: 'https://ropsten.infura.io/v3/0f88215d473a4d3e9445ce017bfa5ab0',
+            url: 'https://ropsten.infura.io/v3/5a3dec24fe3a460b871f0aef6a1a0e47',
             accounts: [privateKey]
         },
         rinkeby: {
