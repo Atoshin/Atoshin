@@ -178,7 +178,7 @@
             @else
             event.preventDefault()
             const buttons = `
-                    <a href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id,'edit'=>0])}}" id="continue" class="btn btn-outline-primary float-left">
+                    <a href="{{route('upload.page',['type'=>\App\Models\Gallery::class,'id'=>$id,'edit'=>0])}}" id="continue" class="btn btn-outline-info float-left">
                     <span class="row">
                     <i class="material-icons">arrow_back</i>
                             Go to Media section
@@ -187,7 +187,7 @@
 
                     </a>
 
-                    <a class="btn btn-outline-primary float-right" href="{{route('galleries.index')}}">
+                    <a class="btn btn-outline-info float-right" href="{{route('galleries.index')}}">
                     <span class="row">
                         Go to galleries
                         <i class="material-icons">arrow_forward</i>
@@ -221,7 +221,7 @@
 
     <script type="text/javascript">
         function proceed(event) {
-            const buttons = `<a class="btn btn-outline-primary float-right" href="{{route($route,$id)}}">
+            const buttons = `<a class="btn btn-outline-info float-right" href="{{route($route,$id)}}">
                     <span class="row">
 
                        Go to {{strtok($route, '.')}} index
@@ -230,7 +230,7 @@
 
                 </a>
 
-                <a href="{{route('upload.page',['type'=>$type,'id'=>$id,'edit'=>1])}}" id="continue" class="btn btn-outline-primary float-left">
+                <a href="{{route('upload.page',['type'=>$type,'id'=>$id,'edit'=>1])}}" id="continue" class="btn btn-outline-info float-left">
                     <span class="row">
                             <i class="material-icons">arrow_back</i>
                             Go to media Section

@@ -80,7 +80,7 @@
     <script type="text/javascript">
         Swal.fire({
             target: 'body',
-            icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+            icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'warning'}}',
             title: '{{\Illuminate\Support\Facades\Session::get('message')}}',
             showCancelButton: false,
             showConfirmButton: true,

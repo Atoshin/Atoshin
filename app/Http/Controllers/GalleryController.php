@@ -183,6 +183,43 @@ class GalleryController extends Controller
 
     public function changeStatus(Request $request, Gallery $gallery)
     {
+        if($request->status == 'published')
+        {
+            $medias = $gallery->medias;
+            $logo_tmp = [];
+            $large_tmp = [];
+            $homepage_tmp = [];
+            foreach($medias as $media)
+            {
+                if($media->main == 1)
+                {
+                    $logo_tmp[] = true;
+                }
+                if($media->homeapage_picture == 1)
+                {
+                    $homepage_tmp[] = true;
+                }
+                if($media->gallery_large_picture == 1)
+                {
+                    $large_tmp[] = true;
+                }
+
+            }
+            if(count($logo_tmp) > 1 or count($logo_tmp) < 1)
+            {
+                return redirect()->back()->with(['message'=>'please upload a logo for this gallery before publishing']);
+            }
+            if(count($large_tmp) > 1 or count($large_tmp) < 1)
+            {
+                return redirect()->back()->with(['message'=>'please upload a large picture for this gallery before publishing']);
+            }
+            if(count($homepage_tmp) > 1 or count($homepage_tmp) < 1)
+            {
+                return redirect()->back()->with(['message'=>'please upload a homepage picture for this gallery before publishing']);
+            }
+        }
+
+
         $gallery->status = $request->status;
         $gallery->save();
 

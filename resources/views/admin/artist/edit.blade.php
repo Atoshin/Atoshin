@@ -164,7 +164,7 @@
     @if(\Illuminate\Support\Facades\Session::has('success'))
         @if(\Illuminate\Support\Facades\Session::get('success') == 'true')
             <script type="text/javascript">
-                const buttons = `<a class="btn btn-outline-primary float-left" href="{{route('artists.index')}}">
+                const buttons = `<a class="btn btn-outline-info float-left" href="{{route('artists.index')}}">
                     <span class="row">
                         <i class="material-icons">arrow_back</i>
                         Back to Artists
@@ -172,7 +172,7 @@
 
                 </a>
 
-                <a href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id,'edit'=>1])}}" id="continue" class="btn btn-outline-primary float-right">
+                <a href="{{route('upload.page',['type'=>\App\Models\Artist::class,'id'=>$artist->id,'edit'=>1])}}" id="continue" class="btn btn-outline-info float-right">
                     <span class="row">
                             Go to Media section
                             <i class="material-icons">arrow_forward</i>

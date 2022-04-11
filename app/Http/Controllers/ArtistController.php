@@ -159,6 +159,25 @@ class ArtistController extends Controller
     }
     public function changeStatus(Request $request, Artist $artist)
     {
+        if($request->status == 'published')
+        {
+            $medias = $artist->medias;
+            $tmp = [];
+            $flag = false;
+            foreach($medias as $media)
+            {
+                if($media->main == 1)
+                {
+                    $tmp[] = true;
+                }
+            }
+            if(count($tmp) > 1 or count($tmp) < 1)
+            {
+                return redirect()->back()->with(['message'=>'publishing this artist is not possible. please upload an avatar for the artist']);
+            }
+        }
+        
+
         $artist->status = $request->status;
         $artist->save();
 

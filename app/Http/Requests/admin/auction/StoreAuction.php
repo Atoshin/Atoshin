@@ -25,7 +25,9 @@ class StoreAuction extends FormRequest
     {
         return [
             'auction_name'=>'required',
-            'asset_name'=>'required'
+            'asset_name'=>'required',
+            'auction_date'=>'regex:/[1000-2500]/'
+
 
 
 

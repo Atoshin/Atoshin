@@ -157,6 +157,25 @@ class AssetController extends Controller
     public function changeStatus(Request $request, Asset $asset)
     {
         $minteds = [];
+
+        if($request->status == 'published')
+        {
+            $medias = $asset->medias;
+            $tmp = [];
+            $flag = false;
+            foreach($medias as $media)
+            {
+                if($media->main == 1)
+                {
+                    $tmp[] = true;
+                }
+            }
+            if(count($tmp) > 1 or count($tmp) < 1)
+            {
+                return redirect()->back()->with(['message'=>'publishing this asset is not possible. please upload a main media for the asset']);
+            }
+        }
+
         foreach ($asset->contracts as $contract) {
             array_push($minteds, $contract->minted);
         }
