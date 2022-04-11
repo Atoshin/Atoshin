@@ -43,7 +43,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     });
 
-    Route::group(['middleware' => ['permission:mint contracts']], function () {
+    Route::group(['middleware' => ['permission:mint contracts', 'csrf_get']], function () {
         Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
         Route::get('contract/{id}/data', [\App\Http\Controllers\Api\AssetController::class, 'getContract']);
         Route::post('contract/{contract}/ipfs-hash', [\App\Http\Controllers\Api\AssetController::class, 'setIpfsHash']);

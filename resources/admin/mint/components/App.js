@@ -54,7 +54,7 @@ export default function App() {
                     })
                     const added = await client.add(data)
                     urls.push(`https://ipfs.infura.io/ipfs/${added.path}`)
-                    await axios.post(`/api/v1/contract/${contracts[i].id}/ipfs-hash`, {
+                    await axios.post(`/contract/${contracts[i].id}/ipfs-hash`, {
                         'ipfs-hash': added.path
                     }, {
                         headers: {
