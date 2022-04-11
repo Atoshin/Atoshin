@@ -84,7 +84,7 @@ export default function App() {
                 let value = await event.args[2]
                 const address = await signer.getAddress();
 
-                await axios.post(`/api/v1/asset/${asset.id}/mint-record`, {
+                await axios.post(`/asset/${asset.id}/mint-record`, {
                     txnHash,
                     previousTokenId: value.toNumber(),
                     mintedContractsLength: urls.length,
