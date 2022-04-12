@@ -21,10 +21,10 @@ class ProfileController extends Controller
     public function update(Request $request, $address)
     {
         $request->validate([
-            'firstName' => 'required|string',
-            'lastName' => 'required|string',
-            'email' => 'required|email|string',
-            'avatar' => 'required|string'
+            'firstName' => 'nullable|string',
+            'lastName' => 'nullable|string',
+            'email' => 'nullable|email|string',
+            'avatar' => 'nullable|string'
         ]);
         $user = showUserService::getUser($address);
         $user->first_name = $request->firstName;
