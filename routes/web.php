@@ -151,6 +151,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('upload/gallery/large/edit/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'uploadGalleryLargePictureEdit'])->name('uploadFile.gallery.large.edit');
 
     Route::get('crop/page', [\App\Http\Controllers\CropController::class, 'cropPage'])->name('crop');
+    Route::post('crop/download', [\App\Http\Controllers\CropController::class, 'download'])->name('crop.download');
 
     //end
 

@@ -13,25 +13,29 @@
         <div class="row">
 
             <div class="col-md-6" style="height: 50%; margin: auto;">
+                <div class="dropzone">
+                    <form action="{{route('crop.download')}}" method="POST" enctype="multipart/form-data" id="post-form"
+                          style="margin-bottom: 20px; border: 2px solid grey; padding: 30px 20px;">
+                        @csrf
+                        <fieldset class="form-group">
 
-                <form method="POST" enctype="multipart/form-data" id="post-form"
-                      style="margin-bottom: 20px; border: 2px solid grey; padding: 30px 20px;">
-                    <fieldset class="form-group">
+                            <label for="id_image">Image</label><br>
+                            <input type="file" id="id_image" name="image" accept="image/*" ><br>
 
-                        <label for="id_image">Image</label><br>
-                        <input type="file" id="id_image" name="image" accept="image/*"><br>
+                        </fieldset>
+                        <div class="form-group">
+                            <div id="image-box" class="image-container"></div>
+                            <button class="btn btn-outline-info" id="crop-btn"
+                                    style="width: 100%; margin-top: 10px; display: none;" type="button">Crop
+                            </button>
+                            <button class="btn btn-outline-info" id="confirm-btn" style="width: 100%; margin-top: 10px;"
+                                    type="submit">Post
+                            </button>
+                        </div>
+                    </form>
 
-                    </fieldset>
-                    <div class="form-group">
-                        <div id="image-box" class="image-container"></div>
-                        <button class="btn btn-outline-info" id="crop-btn"
-                                style="width: 100%; margin-top: 10px; display: none;" type="button">Crop
-                        </button>
-                        <button class="btn btn-outline-info" id="confirm-btn" style="width: 100%; margin-top: 10px;"
-                                type="submit">Post
-                        </button>
-                    </div>
-                </form>
+                </div>
+
             </div>
             <div class="col-md-6">
                 <div class="docs-data " id="docsData" style="display: none">
@@ -193,7 +197,7 @@
             document.getElementById('docsData').style.display = 'block'
 
             const options = {
-                aspectRatio: 321 / 180,
+                aspectRatio: 3 / 2,
                 preview: '.img-preview',
                 ready: function (e) {
                     console.log(e.type);
@@ -254,6 +258,98 @@
 
                 });
             });
+        });
+    </script>
+
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
+    <script>
+        const mediaIds = []
+        var maxImageWidth = 1000, maxImageHeight = 1000;
+        let counter = 0;
+        // Dropzone has been added as a global variable.
+        const dropzone = new Dropzone("div.dropzone", {
+            url: "",
+            autoDiscover: false,
+            acceptedFiles: ".jpeg,.jpg,.png",
+            addRemoveLinks: true,
+            // autoProcessQueue: false,
+            maxFiles: 1,
+            maxFilesize: 3,
+            // dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"> <h4 class="display-inline"> برای آپلود عکس محصول فایل را اینجا بکشید یا کلیک کنید</h4></span>',
+            // dictResponseError: 'خطایی در اپلود فایل رخ داده',
+            // dictMaxFilesExceeded: 'امکان اپلود فایل دیگر وجود ندارد , فقط یک فایل مجاز است',
+
+            // dictRemoveFile: 'Delete',
+
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            init: function () {
+                let thisDropzone = this;
+
+                var submitButton = document.querySelector("#submitButton");
+                myDropzone = this;
+                submitButton.addEventListener("click", function (e) {
+                    if (counter < 1) {
+                        e.preventDefault();
+                        alert("Not enough files!");
+                    }
+
+                });
+
+                this.on("thumbnail", function(file) {
+                    if (file.width === 3/2 * file.height ) {
+                        file.rejectDimensions()
+                    }
+                    else {
+                        file.acceptDimensions();
+                    }
+                });
+
+                this.on("removedfile", function (file) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        }
+                    });
+
+                    $.ajax({
+                        url: `/media/delete/${file.id}`,
+                        method: "delete",
+                        success: function (res) {
+                            console.log(res)
+                        }
+                    })
+                    counter--;
+
+                });
+            },
+            success: function(file, response)
+            {
+                document.getElementById('submitButton').classList.remove('d-none')
+                counter++;
+
+                mediaIds.push(response.media_id)
+
+            },
+
+            error: function(file, message, xhr) {
+                const error = document.querySelector('#error');
+                error.innerHTML = ' <h3>an error occured your file will be deleted from the dropzone shortly </h3>';
+                setTimeout(() => {
+                    $(file.previewElement).remove();
+                    console.log(counter);
+                    error.innerHTML = '';
+                    location.reload();
+                }, 5000)
+            },
+
+            accept: function(file, done) {
+                file.acceptDimensions = done;
+                file.rejectDimensions = function() { done("Image width or height too big."); };
+            }
+
         });
     </script>
 
