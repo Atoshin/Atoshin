@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,12 @@ class LoginController extends Controller
             'username' => 'required|string',
             'password' => 'required'
         ]);
+        $admin = Admin::query()->where('username',$request->username)->first();
+
+        if($admin->blocked)
+        {
+            return redirect()->back()->with('message','You are blocked!');
+        }
 
         if (Auth::guard('admin')->attempt($creds)){
 

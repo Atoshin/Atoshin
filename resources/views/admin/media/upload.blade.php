@@ -674,6 +674,11 @@
                 let error_messages = [];
                 let main_checkeds = [];
                 const rows = document.getElementById('medias-table').children;
+                if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
+                {
+                    error_messages.push('not enough files uploaded')
+                }
+
                 for (let i = 0; i < rows.length; i++) {
                     const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
 
@@ -703,6 +708,58 @@
                     </span>
 
                 </a>`
+                    Swal.fire({
+                        target: 'body',
+                        icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                        title: 'Medias saved successfully',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 100000,
+                        html: buttons
+                    })
+                    // location.replace(href);
+                } else {
+                    event.preventDefault();
+                    Swal.fire({
+                        html: `<ul class="text-left">
+                                ${(error_messages.map((msg) => `<li>${msg} </li>`)).join(' ')}
+                    </ul>
+                    <div class="mt-4">
+                        <a class="btn btn-outline-info " href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+                    </a>
+                     </div>`,
+                        target: 'body',
+                        icon: 'error',
+                        title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        timer: 100000,
+                    })
+                }
+
+
+
+            }
+        </script>
+    @elseif($type == \App\Models\Contract::class)
+        <script>
+            function checkCheckboxes(event, href) {
+
+                let error_messages = [];
+                let main_checkeds = [];
+                const rows = document.getElementById('medias-table').children;
+                if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
+                {
+                    error_messages.push('not enough files uploaded')
+                }
+
+
+
+
                     Swal.fire({
                         target: 'body',
                         icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',

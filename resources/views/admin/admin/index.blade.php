@@ -89,6 +89,7 @@
 
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Status</th>
                                 <th>Operations</th>
                             </tr>
                             </thead>
@@ -99,6 +100,27 @@
                                     <td>{{$admin->username}}
                                     </td>
                                     <td>{{$admin->email}}</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="{{$admin->blocked ? "badge badge-pill badge-danger" : "badge badge-pill badge-success"}}">{{$admin->blocked ? "Blocked" : "Active"}}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <form action="{{route('admin.change.status',$admin)}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="status"
+                                                           value="{{$admin->blocked ? 0 : 1}}">
+                                                    <button type="submit"
+                                                            class="btn {{!$admin->blocked  ? "btn btn-danger btn-sm" : "btn btn-success btn-sm"}}">
+                                                        {{$admin->blocked ? 'Unblock' : 'Block'}}
+                                                    </button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+
+
+                                    </td>
                                     <td>
                                         <div class="row">
                                             <div class="m-1">
@@ -208,6 +230,18 @@
                 }
             })
         }
+    </script>
+
+    <script>
+        const blockbtn = document.getElementById("BlockBtn")
+        const activebtn = document.getElementById("ActiveBtn")
+
+        blockbtn.addEventListener('click',()=>{
+            blockbtn.parent.classList.remove('btn-danger');
+            blockbtn.parent.classList.add('btn-outline-danger');
+        });
+
+
     </script>
 
 @endsection
