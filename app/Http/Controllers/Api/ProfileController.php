@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Wallet;
 use App\Services\ShowUser\showUserService;
 use Illuminate\Http\Request;
 
@@ -21,12 +23,13 @@ class ProfileController extends Controller
     public function update(Request $request, $address)
     {
         $request->validate([
-            'firstName' => 'required|string',
-            'lastName' => 'required|string',
-            'email' => 'required|email|string',
-            'avatar' => 'required|string'
+            'firstName' => 'nullable|string',
+            'lastName' => 'nullable|string',
+            'email' => 'nullable|email|string',
+            'avatar' => 'nullable|string'
         ]);
-        $user = showUserService::getUser($address);
+        $user = $wallet = Wallet::query()->where('wallet_address', $address)->first();
+        $user = User::query()->find($wallet->walletable_id);
         $user->first_name = $request->firstName;
         $user->last_name = $request->lastName;
         $user->email = $request->email;
