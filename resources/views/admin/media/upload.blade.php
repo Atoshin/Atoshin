@@ -7,6 +7,105 @@
         type="text/css"
     />
 
+    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+
+    <style>
+        button,
+        button::after {
+            padding: 16px 20px;
+            font-size: 18px;
+            background: linear-gradient(45deg, transparent 5%, #781D42 5%);
+            border: 0;
+            color: #fff;
+            letter-spacing: 3px;
+            line-height: 1;
+            box-shadow: 6px 0px 0px #A3423C;
+            outline: transparent;
+            position: relative;
+        }
+
+        button::after {
+            --slice-0: inset(50% 50% 50% 50%);
+            --slice-1: inset(80% -6px 0 0);
+            --slice-2: inset(50% -6px 30% 0);
+            --slice-3: inset(10% -6px 85% 0);
+            --slice-4: inset(40% -6px 43% 0);
+            --slice-5: inset(80% -6px 5% 0);
+            content: "crop";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 3%, #A3423C 3%, #A3423C 5%, #781D42 5%);
+            text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+            clip-path: var(--slice-0);
+        }
+
+        button:hover::after {
+            animation: 1s glitch;
+            animation-timing-function: steps(2, end);
+        }
+
+        @keyframes glitch {
+            0% {
+                clip-path: var(--slice-1);
+                transform: translate(-20px, -10px);
+            }
+
+            10% {
+                clip-path: var(--slice-3);
+                transform: translate(10px, 10px);
+            }
+
+            20% {
+                clip-path: var(--slice-1);
+                transform: translate(-10px, 10px);
+            }
+
+            30% {
+                clip-path: var(--slice-3);
+                transform: translate(0px, 5px);
+            }
+
+            40% {
+                clip-path: var(--slice-2);
+                transform: translate(-5px, 0px);
+            }
+
+            50% {
+                clip-path: var(--slice-3);
+                transform: translate(5px, 0px);
+            }
+
+            60% {
+                clip-path: var(--slice-4);
+                transform: translate(5px, 10px);
+            }
+
+            70% {
+                clip-path: var(--slice-2);
+                transform: translate(-10px, 10px);
+            }
+
+            80% {
+                clip-path: var(--slice-5);
+                transform: translate(20px, -10px);
+            }
+
+            90% {
+                clip-path: var(--slice-1);
+                transform: translate(-10px, 0px);
+            }
+
+            100% {
+                clip-path: var(--slice-1);
+                transform: translate(0);
+            }
+        }
+    </style>
+
 
 
 @endsection
@@ -18,13 +117,13 @@
             <div class="float-right">
 
                 @if($edit == 0)
-                <a href="{{route('galleries.edit',$id)}}" class="btn btn-outline-info">
+                    <a href="{{route('galleries.edit',$id)}}" class="btn btn-outline-info">
                     <span class="row">
                          <i class="material-icons">arrow_back</i>
                             Back
                     </span>
 
-                </a>
+                    </a>
                 @endif
             </div>
 
@@ -277,6 +376,7 @@
 
 
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script src="https://unpkg.com/cropperjs"></script>
 
     <script>
         const mediaIds = []
@@ -327,6 +427,99 @@
 
 
             },
+            transformFile: function (file, done) {
+
+
+                var myDropZone = this;
+                // Create the image editor overlay
+                var editor = document.createElement('div');
+                editor.style.position = 'absolute';
+                editor.style.left = 0;
+                editor.style.right = 0;
+                editor.style.top = 0;
+                editor.style.bottom = 0;
+                editor.style.zIndex = 9999;
+                editor.style.backgroundColor = '#000';
+                document.body.appendChild(editor);
+
+                // Create confirm button at the top left of the viewport
+                var buttonConfirm = document.createElement('button');
+                buttonConfirm.style.position = 'absolute';
+                buttonConfirm.style.fontSize = '18px';
+
+                buttonConfirm.style.right = '10px';
+                buttonConfirm.style.top = '10px';
+                buttonConfirm.style.zIndex = 9999;
+                buttonConfirm.textContent = 'crop';
+                editor.appendChild(buttonConfirm);
+                buttonConfirm.addEventListener('click', function () {
+                    // Get the canvas with image data from Cropper.js
+                    var canvas = cropper.getCroppedCanvas({
+                        width: 256,
+                        height: 256
+                    });
+                    // Turn the canvas into a Blob (file object without a name)
+                    canvas.toBlob(function (blob) {
+                        // Return the file to Dropzone
+                        // Create a new Dropzone file thumbnail
+                        myDropZone.createThumbnail(
+                            blob,
+                            myDropZone.options.thumbnailWidth,
+                            myDropZone.options.thumbnailHeight,
+                            myDropZone.options.thumbnailMethod,
+                            false,
+                            function (dataURL) {
+
+                                // Update the Dropzone file thumbnail
+                                myDropZone.emit('thumbnail', file, dataURL);
+                                // Return the file to Dropzone
+                                done(blob);
+                            });
+                    });
+                    // Remove the editor from the view
+                    document.body.removeChild(editor);
+
+                });
+
+                // Create an image node for Cropper.js
+                var image = new Image();
+                image.src = URL.createObjectURL(file);
+                editor.appendChild(image);
+
+                // Create Cropper.js
+                const options = {
+                    aspectRatio: 3 / 2,
+                    preview: '.img-preview',
+                    ready: function (e) {
+                        console.log(e.type);
+                    },
+                    cropstart: function (e) {
+                        console.log(e.type, e.detail.action);
+                    },
+                    cropmove: function (e) {
+                        console.log(e.type, e.detail.action);
+                    },
+                    cropend: function (e) {
+                        console.log(e.type, e.detail.action);
+                    },
+                    crop: function (e) {
+                        var data = e.detail;
+
+                        console.log(e.type);
+                        dataX.value = Math.round(data.x);
+                        dataY.value = Math.round(data.y);
+                        dataHeight.value = Math.round(data.height);
+                        dataWidth.value = Math.round(data.width);
+                        dataRotate.value = typeof data.rotate !== 'undefined' ? data.rotate : '';
+                        dataScaleX.value = typeof data.scaleX !== 'undefined' ? data.scaleX : '';
+                        dataScaleY.value = typeof data.scaleY !== 'undefined' ? data.scaleY : '';
+                    },
+                    zoom: function (e) {
+                        console.log(e.type, e.detail.ratio);
+                    }
+                };
+                var cropper = new Cropper(image, options);
+            },
             success: function (file, response) {
 
                 if (response.error == 'exceeded_media_number_limit') {
@@ -352,7 +545,7 @@
                 if (response.error == 'size_error') {
                     const error = document.querySelector('#error');
                     error.classList.remove('d-none');
-                    error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">the media dimension ratio must be 3:2</span></div>`;
+                    error.innerHTML = ` <div class="row"><i class="material-icons mr-1">error</i> <strong>Error:</strong> <span class="ml-1">the media dimension ratio must be 3:2. your picture size is ${response.width}x${response.height}.ratio ${response.ratio}</span></div>`;
                     setTimeout(() => {
                         $(file.previewElement).remove();
                         error.classList.add('d-none');
@@ -370,8 +563,7 @@
 
 
                 @if($type == \App\Models\Gallery::class)
-                if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
-                {
+                if (rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>') {
                     rows[0].remove();
                 }
                 counter = rows.length;
@@ -439,8 +631,7 @@
                 </tr>`)
 
                 @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class or $type == \App\Models\Contract::class)
-                if(rows[0].innerHTML === '<td valign="top" colspan="3" class="dataTables_empty">No data available in table</td>')
-                {
+                if (rows[0].innerHTML === '<td valign="top" colspan="3" class="dataTables_empty">No data available in table</td>') {
                     rows[0].remove();
                 }
                 counter = rows.length;
@@ -472,8 +663,7 @@
 
                 </tr>`)
                 @else
-                if(rows[0].innerHTML === '<td valign="top" colspan="4" class="dataTables_empty">No data available in table</td>')
-                {
+                if (rows[0].innerHTML === '<td valign="top" colspan="4" class="dataTables_empty">No data available in table</td>') {
                     rows[0].remove();
                 }
                 counter = rows.length;
@@ -544,31 +734,26 @@
 
     <script>
 
-            const rows = document.getElementById('medias-table').children;
-            for (let i = 0; i < rows.length; i++) {
-                const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
+        const rows = document.getElementById('medias-table').children;
+        for (let i = 0; i < rows.length; i++) {
+            const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
 
-                @if($type == \App\Models\Gallery::class)
-                const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
-                const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
-                if(homepage_checked)
-                {
-                    document.getElementById(`customSwitch-${i}`).disabled = true;
-                }
-                if(large_checked)
-                {
-                    document.getElementById.disabled = true;
-                }
-                @endif
+            @if($type == \App\Models\Gallery::class)
+            const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
+            const large_checked = document.getElementById(`largeSwitch-${i}`).checked;
+            if (homepage_checked) {
+                document.getElementById(`customSwitch-${i}`).disabled = true;
+            }
+            if (large_checked) {
+                document.getElementById.disabled = true;
+            }
+            @endif
 
-                if(main_checked)
-                {
-                    document.getElementById(`mainSwitch-${i}`).disabled =true;
-                }
-
+            if (main_checked) {
+                document.getElementById(`mainSwitch-${i}`).disabled = true;
             }
 
-
+        }
 
 
     </script>
@@ -583,11 +768,9 @@
                 let gallery_large_checkeds = [];
                 const rows = document.getElementById('medias-table').children;
 
-                if(rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>')
-                {
+                if (rows[0].innerHTML === '<td valign="top" colspan="6" class="dataTables_empty">No data available in table</td>') {
                     error_messages.push('not enough files uploaded')
-                }
-                else {
+                } else {
                     for (let i = 0; i < rows.length; i++) {
                         const main_checked = document.getElementById(`mainSwitch-${i}`).checked;
                         const homepage_checked = document.getElementById(`customSwitch-${i}`).checked;
@@ -658,7 +841,7 @@
                      </div>`,
                         target: 'body',
                         icon: 'error',
-                        title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
+                        title: error_messages.length === 1 ? 'the following error occured:' : 'the following errors occured:',
                         showCancelButton: false,
                         showConfirmButton: false,
                         timer: 100000,
@@ -729,13 +912,12 @@
                      </div>`,
                         target: 'body',
                         icon: 'error',
-                        title: error_messages.length === 1 ?'the following error occured:':'the following errors occured:',
+                        title: error_messages.length === 1 ? 'the following error occured:' : 'the following errors occured:',
                         showCancelButton: false,
                         showConfirmButton: false,
                         timer: 100000,
                     })
                 }
-
 
 
             }
@@ -834,5 +1016,9 @@
             form.submit()
         }
     </script>
+
+
+
+
 
 @endsection

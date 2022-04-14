@@ -48,10 +48,12 @@ class MediaController extends Controller
 
 
         if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class and $mediable_type!= Asset::class) {
-            if (2 * $width != 3 * $height) {
+            if ( floor($width/$height*100)/100 != 3/2  ) {
                 if ($width != '1120' && $height != '460') {
                     return response()->json([
-                        'error' => 'size_error'
+                        'error' => 'size_error',
+                        'height'=> $height,
+                        'width'=>$width,
                     ]);
                 }
 

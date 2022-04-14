@@ -32,6 +32,28 @@
                         </button>
                     </div>
                 </form>
+
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="medias-table">
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
             </div>
             <div class="col-md-6">
                 <div class="docs-data " id="docsData" style="display: none">
@@ -193,7 +215,7 @@
             document.getElementById('docsData').style.display = 'block'
 
             const options = {
-                aspectRatio: 321 / 180,
+                aspectRatio: 3 / 2,
                 preview: '.img-preview',
                 ready: function (e) {
                     console.log(e.type);
@@ -252,9 +274,25 @@
                     // Display the Post button
                     document.getElementById('confirm-btn').style.display = 'block'
 
+                    const table = document.getElementById('medias-table');
+                    table.prepend()
+
+
                 });
             });
         });
     </script>
 
+
+
 @endsection
+
+<tr>
+    <td>
+            <img src="{{env('APP_URL')}}/${media.path}" class="avatar" alt="" width="100"
+                 height="100"/>
+    </td>
+    <td><a target="_blank"
+           href="{{env('APP_URL')}}/${img_data.name}">${media.path.slice(13, 57)}</a>
+    </td>
+</tr>
