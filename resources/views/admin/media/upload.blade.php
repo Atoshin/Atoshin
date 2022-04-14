@@ -534,8 +534,8 @@
                 var cropper = new Cropper(image, options);
 
                 buttonLarge.addEventListener('click', ()=> {
-                    cropper.options.data.width = 1120;
-                    cropper.options.data.height = 460;
+                    cropper.options.data.width(1120);
+                    cropper.height(460);
                     cropper.options.cropBoxResizable = false;
                 });
             },

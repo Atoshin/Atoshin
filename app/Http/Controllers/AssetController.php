@@ -54,7 +54,7 @@ class AssetController extends Controller
 //            'commission_percentage' => 0,
             'royalties_percentage' => $request->royalties_percentage,
             'total_fractions' => $request->total_fractions,
-            'sold_fractions' => ($request->ownership_percentage/100)*$request->total_fractions,
+            'sold_fractions' => ($request->ownership_percentage / 100) * $request->total_fractions,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'category_id' => $request->category_id,
@@ -65,7 +65,7 @@ class AssetController extends Controller
             'material' => $request->material,
             'order' => $request->order,
         ]);
-        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id,'edit'=>0]);
+        return redirect()->route('upload.page', ['type' => Asset::class, 'id' => $asset->id, 'edit' => 0]);
     }
 
     /**
@@ -118,7 +118,7 @@ class AssetController extends Controller
         $asset = Asset::query()->findOrFail($id);
         $minteds = [];
         foreach ($asset->contracts as $contract) {
-            array_push($minteds, $contract->minted);
+            $minteds[] = $contract->minted;
         }
 
         $isMinted = false;
@@ -126,48 +126,45 @@ class AssetController extends Controller
             $isMinted = !in_array(null, $minteds);
         }
 
-        if($isMinted)
-        {
+        if ($isMinted) {
             $validation = $request->validate([
-                'total_fractions'=>'numeric',
-//            'sold_fractions'=>'numeric',
-                'end_date'=>'date|nullable|after_or_equal:start_date',
-                'start_date'=>'date|nullable',
-                'creator_id'=>'required',
-                'artist_id'=>'required',
-                'category_id'=>'required',
-                'creation'=>'nullable',
-                'order'=>'regex:/^([0-4]{1})$/|nullable|unique:assets,order,' . $asset,
+                'total_fractions' => 'numeric',
+                'end_date' => 'date|nullable|after_or_equal:start_date',
+                'start_date' => 'date|nullable',
+                'creator_id' => 'required',
+                'artist_id' => 'required',
+                'category_id' => 'required',
+                'creation' => 'nullable',
+                'order' => 'regex:/^([0-4]{1})$/|nullable|unique:assets,order,' . $asset,
             ]);
-        } else
-        {
+        } else {
             $validation = $request->validate([
-                'title'=>'required|min:3',
-                'price'=>'required',
-                'bio'=>'required|max:1024',
-                'ownership_percentage'=>'required|numeric',
-                'royalties_percentage'=>'required|numeric',
-                'total_fractions'=>'numeric',
-//            'sold_fractions'=>'numeric',
-                'end_date'=>'date|nullable|after_or_equal:start_date',
-                'start_date'=>'date|nullable',
-                'creator_id'=>'required',
-                'artist_id'=>'required',
-                'category_id'=>'required',
-                'creation'=>'nullable',
-                'order'=>'regex:/^([0-4]{1})$/|nullable|unique:assets,order,' . $asset,
+                'title' => 'required|min:3',
+                'price' => 'required',
+                'bio' => 'required|max:1024',
+                'ownership_percentage' => 'required|numeric',
+                'royalties_percentage' => 'required|numeric',
+                'total_fractions' => 'numeric',
+                'end_date' => 'date|nullable|after_or_equal:start_date',
+                'start_date' => 'date|nullable',
+                'creator_id' => 'required',
+                'artist_id' => 'required',
+                'category_id' => 'required',
+                'creation' => 'nullable',
+                'order' => 'regex:/^([0-4]{1})$/|nullable|unique:assets,order,' . $asset,
             ]);
         }
 
-
-
-        $asset->title = $request->title;
-        $asset->bio = $request->bio;
-        $asset->price = $request->price;
-        $asset->ownership_percentage = $request->ownership_percentage;
-        $asset->royalties_percentage = $request->royalties_percentage;
+        if(!$isMinted)
+        {
+            $asset->title = $request->title;
+            $asset->bio = $request->bio;
+            $asset->price = $request->price;
+            $asset->ownership_percentage = $request->ownership_percentage;
+            $asset->royalties_percentage = $request->royalties_percentage;
+        }
         $asset->total_fractions = $request->total_fractions;
-        $asset->sold_fractions = ($request->ownership_percentage/100)*$request->total_fractions;
+        $asset->sold_fractions = ($request->ownership_percentage / 100) * $request->total_fractions;
         $asset->start_date = $request->start_date;
         $asset->end_date = $request->end_date;
         $asset->category_id = $request->category_id;
@@ -179,7 +176,7 @@ class AssetController extends Controller
         $asset->order = $request->order;
         $asset->save();
 
-        return redirect()->back()->with(['success'=>'true','title'=>'Asset Saved successfully']);
+        return redirect()->back()->with(['success' => 'true', 'title' => 'Asset Saved successfully']);
 
     }
 
@@ -201,21 +198,17 @@ class AssetController extends Controller
     {
         $minteds = [];
 
-        if($request->status == 'published')
-        {
+        if ($request->status == 'published') {
             $medias = $asset->medias;
             $tmp = [];
             $flag = false;
-            foreach($medias as $media)
-            {
-                if($media->main == 1)
-                {
+            foreach ($medias as $media) {
+                if ($media->main == 1) {
                     $tmp[] = true;
                 }
             }
-            if(count($tmp) > 1 or count($tmp) < 1)
-            {
-                return redirect()->back()->with(['message'=>'publishing this asset is not possible. please upload a main media for the asset']);
+            if (count($tmp) > 1 or count($tmp) < 1) {
+                return redirect()->back()->with(['message' => 'publishing this asset is not possible. please upload a main media for the asset']);
             }
         }
 
