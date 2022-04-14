@@ -446,7 +446,6 @@
                 var buttonConfirm = document.createElement('button');
                 buttonConfirm.style.position = 'absolute';
                 buttonConfirm.style.fontSize = '18px';
-
                 buttonConfirm.style.right = '10px';
                 buttonConfirm.style.top = '10px';
                 buttonConfirm.style.zIndex = 9999;
@@ -481,6 +480,15 @@
 
                 });
 
+                let buttonLarge = document.createElement('button');
+                buttonLarge.style.position = 'absolute';
+                buttonLarge.style.fontSize = '18px';
+                buttonLarge.style.right = '120px';
+                buttonLarge.style.top = '10px';
+                buttonLarge.style.zIndex = 9999;
+                buttonLarge.textContent = 'Large picture';
+                editor.appendChild(buttonLarge);
+
                 // Create an image node for Cropper.js
                 var image = new Image();
                 image.src = URL.createObjectURL(file);
@@ -502,6 +510,11 @@
                     cropend: function (e) {
                         console.log(e.type, e.detail.action);
                     },
+                    cropBoxResizable: true,
+                    data:{ //define cropbox size
+                        width: 240,
+                        height:  90,
+                    },
                     crop: function (e) {
                         var data = e.detail;
 
@@ -519,6 +532,12 @@
                     }
                 };
                 var cropper = new Cropper(image, options);
+
+                buttonLarge.addEventListener('click', ()=> {
+                    cropper.options.data.width(1120);
+                    cropper.height(460);
+                    cropper.options.cropBoxResizable = false;
+                });
             },
             success: function (file, response) {
 
