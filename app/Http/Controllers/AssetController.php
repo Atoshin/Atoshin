@@ -113,15 +113,58 @@ class AssetController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(updateAsset $request, $id)
+    public function update(Request $request, $id)
     {
-
         $asset = Asset::query()->findOrFail($id);
+        $minteds = [];
+        foreach ($asset->contracts as $contract) {
+            array_push($minteds, $contract->minted);
+        }
+
+        $isMinted = false;
+        if (count($minteds) > 0) {
+            $isMinted = !in_array(null, $minteds);
+        }
+
+        if($isMinted)
+        {
+            $validation = $request->validate([
+                'total_fractions'=>'numeric',
+//            'sold_fractions'=>'numeric',
+                'end_date'=>'date|nullable|after_or_equal:start_date',
+                'start_date'=>'date|nullable',
+                'creator_id'=>'required',
+                'artist_id'=>'required',
+                'category_id'=>'required',
+                'creation'=>'nullable',
+                'order'=>'regex:/^([0-4]{1})$/|nullable|unique:assets,order,' . $this->asset,
+            ]);
+        } else
+        {
+            $validation = $request->validate([
+                'title'=>'required|min:3',
+                'price'=>'required',
+                'bio'=>'required|max:1024',
+                'ownership_percentage'=>'required|numeric',
+                'royalties_percentage'=>'required|numeric',
+                'total_fractions'=>'numeric',
+//            'sold_fractions'=>'numeric',
+                'end_date'=>'date|nullable|after_or_equal:start_date',
+                'start_date'=>'date|nullable',
+                'creator_id'=>'required',
+                'artist_id'=>'required',
+                'category_id'=>'required',
+                'creation'=>'nullable',
+                'order'=>'regex:/^([0-4]{1})$/|nullable|unique:assets,order,' . $this->asset,
+            ]);
+        }
+
+
+
         $asset->title = $request->title;
         $asset->bio = $request->bio;
         $asset->price = $request->price;
         $asset->ownership_percentage = $request->ownership_percentage;
-//        $asset->commission_percentage = $request->commission_percentage;
         $asset->royalties_percentage = $request->royalties_percentage;
         $asset->total_fractions = $request->total_fractions;
         $asset->sold_fractions = ($request->ownership_percentage/100)*$request->total_fractions;
