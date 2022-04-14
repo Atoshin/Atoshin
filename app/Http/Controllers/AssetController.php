@@ -162,8 +162,9 @@ class AssetController extends Controller
             $asset->price = $request->price;
             $asset->ownership_percentage = $request->ownership_percentage;
             $asset->royalties_percentage = $request->royalties_percentage;
+            $asset->total_fractions = $request->total_fractions;
         }
-        $asset->total_fractions = $request->total_fractions;
+
         $asset->sold_fractions = ($request->ownership_percentage / 100) * $request->total_fractions;
         $asset->start_date = $request->start_date;
         $asset->end_date = $request->end_date;
