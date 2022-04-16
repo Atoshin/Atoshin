@@ -110,7 +110,7 @@ class MediaController extends Controller
 
         $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
         return response()->json([
-            'medias' => $medias
+            'medias' => $medias,
         ]);
     }
 

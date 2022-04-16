@@ -489,6 +489,15 @@
                 buttonLarge.textContent = 'Large picture';
                 editor.appendChild(buttonLarge);
 
+                // let buttonRatio = document.createElement('button');
+                // buttonRatio.style.position = 'absolute';
+                // buttonRatio.style.fontSize = '18px';
+                // buttonRatio.style.right = '230px';
+                // buttonRatio.style.top = '10px';
+                // buttonRatio.style.zIndex = 9999;
+                // buttonRatio.textContent = '3:2 Image';
+                // editor.appendChild(buttonRatio);
+
                 // Create an image node for Cropper.js
                 var image = new Image();
                 image.src = URL.createObjectURL(file);
@@ -531,13 +540,20 @@
                         console.log(e.type, e.detail.ratio);
                     }
                 };
-                var cropper = new Cropper(image, options);
+                let cropper = new Cropper(image, options);
 
                 buttonLarge.addEventListener('click', ()=> {
-                    cropper.options.data.width(1120);
-                    cropper.height(460);
-                    cropper.options.cropBoxResizable = false;
+                    let contData = cropper.getContainerData();
+                    console.log(contData);//Get container data
+                    options.data.width = 1120;
+                    options.data.height = 460;
+                    options.cropBoxResizable = false;
+                    cropper.reset();
+                    // cropper.setCropBoxData({ height: contData.height, width: contData.width  })
+                    // cropper.setCropBoxResizable(false) ;
                 });
+
+
             },
             success: function (file, response) {
 
