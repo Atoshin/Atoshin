@@ -454,8 +454,6 @@
                 buttonConfirm.addEventListener('click', function () {
                     // Get the canvas with image data from Cropper.js
                     var canvas = cropper.getCroppedCanvas({
-                        width: 256,
-                        height: 256
                     });
                     // Turn the canvas into a Blob (file object without a name)
                     canvas.toBlob(function (blob) {
@@ -480,6 +478,7 @@
 
                 });
 
+                @if($type == \App\Models\Gallery::class)
                 let buttonLarge = document.createElement('button');
                 buttonLarge.style.position = 'absolute';
                 buttonLarge.style.fontSize = '18px';
@@ -489,26 +488,39 @@
                 buttonLarge.textContent = 'Large picture';
                 editor.appendChild(buttonLarge);
 
+                let buttonRatio = document.createElement('button');
+                buttonRatio.style.position = 'absolute';
+                buttonRatio.style.fontSize = '18px';
+                buttonRatio.style.right = '320px';
+                buttonRatio.style.top = '10px';
+                buttonRatio.style.zIndex = 9999;
+                buttonRatio.textContent = '3:2 Image';
+                editor.appendChild(buttonRatio);
+                @endif
+
                 // Create an image node for Cropper.js
                 var image = new Image();
                 image.src = URL.createObjectURL(file);
                 editor.appendChild(image);
-
+                let options = {};
+                let cropper = {};
                 // Create Cropper.js
-                const options = {
+                @if($type == \App\Models\Gallery::class or $type == \App\Models\Artist::class or $type == \App\Models\Asset::class)
+                 options = {
                     aspectRatio: 3 / 2,
                     preview: '.img-preview',
+
                     ready: function (e) {
-                        console.log(e.type);
+
                     },
                     cropstart: function (e) {
-                        console.log(e.type, e.detail.action);
+
                     },
                     cropmove: function (e) {
-                        console.log(e.type, e.detail.action);
+
                     },
                     cropend: function (e) {
-                        console.log(e.type, e.detail.action);
+
                     },
                     cropBoxResizable: true,
                     data:{ //define cropbox size
@@ -518,7 +530,6 @@
                     crop: function (e) {
                         var data = e.detail;
 
-                        console.log(e.type);
                         dataX.value = Math.round(data.x);
                         dataY.value = Math.round(data.y);
                         dataHeight.value = Math.round(data.height);
@@ -528,16 +539,80 @@
                         dataScaleY.value = typeof data.scaleY !== 'undefined' ? data.scaleY : '';
                     },
                     zoom: function (e) {
-                        console.log(e.type, e.detail.ratio);
+
                     }
                 };
-                var cropper = new Cropper(image, options);
+               cropper = new Cropper(image, options);
+                @else
+                options = {
+                    aspectRatio: 3 / 2,
+                    preview: '.img-preview',
+
+                    ready: function (e) {
+
+                    },
+                    cropstart: function (e) {
+
+                    },
+                    cropmove: function (e) {
+
+                    },
+                    cropend: function (e) {
+
+                    },
+                    cropBoxResizable: true,
+                    data:{ //define cropbox size
+                        width: 240,
+                        height:  90,
+                    },
+                    crop: function (e) {
+                        var data = e.detail;
+
+                        dataX.value = Math.round(data.x);
+                        dataY.value = Math.round(data.y);
+                        dataHeight.value = Math.round(data.height);
+                        dataWidth.value = Math.round(data.width);
+                        dataRotate.value = typeof data.rotate !== 'undefined' ? data.rotate : '';
+                        dataScaleX.value = typeof data.scaleX !== 'undefined' ? data.scaleX : '';
+                        dataScaleY.value = typeof data.scaleY !== 'undefined' ? data.scaleY : '';
+                    },
+                    zoom: function (e) {
+
+                    }
+                };
+                cropper = new Cropper(image, options);
+                @endif
+                @if($type == \App\Models\Gallery::class)
+                buttonRatio.addEventListener('click', ()=> {
+                    let contData = cropper.getContainerData();
+                    options.aspectRatio = 3/2;
+                    options.data.width = 900;
+                    options.data.height = 600;
+                    options.cropBoxResizable = true ;
+                    cropper.destroy();
+                    cropper = new Cropper(image, options);
+
+
+                    // cropper.setCropBoxData({ height: contData.height, width: contData.width  })
+                    // cropper.setCropBoxResizable(false) ;
+                });
 
                 buttonLarge.addEventListener('click', ()=> {
-                    cropper.options.data.width(1120);
-                    cropper.height(460);
-                    cropper.options.cropBoxResizable = false;
+                    let contData = cropper.getContainerData();
+                    options.aspectRatio = NaN;
+                    options.data.width = 1120;
+                    options.data.height = 460;
+                    options.cropBoxResizable = false ;
+                    cropper.destroy();
+                    cropper = new Cropper(image, options);
+
+
+                    // cropper.setCropBoxData({ height: contData.height, width: contData.width  })
+                    // cropper.setCropBoxResizable(false) ;
                 });
+                @endif
+
+
             },
             success: function (file, response) {
 
@@ -586,6 +661,13 @@
                     rows[0].remove();
                 }
                 counter = rows.length;
+                let check = '';
+                console.log(file.width,file.height)
+                if(response.large_flag === true )
+                {
+                    check = 'checked';
+                }
+
                 tbody.prepend(`<tr>
                     <td>
                         <a target="_blank" href="{{env('APP_URL')}}/${media.path}">
@@ -630,6 +712,7 @@
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input"
                      id="largeSwitch-${counter}"
+                     ${check}
                                                                onchange="submitForm(event)">
                                                         <label class="custom-control-label"
                                                                for="largeSwitch-${counter}"></label>
@@ -648,6 +731,12 @@
                                                  </div>
                                              </td>
                 </tr>`)
+
+                if(response.large_flag === true)
+                {
+                    location.reload();
+                }
+
 
                 @elseif($type == \App\Models\User::class or $type == \App\Models\Auction::class or $type == \App\Models\Contract::class)
                 if (rows[0].innerHTML === '<td valign="top" colspan="3" class="dataTables_empty">No data available in table</td>') {
