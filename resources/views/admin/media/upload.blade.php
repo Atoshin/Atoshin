@@ -114,18 +114,7 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">upload Media </h3>
-            <div class="float-right">
 
-                @if($edit == 0)
-                    <a href="{{route('galleries.edit',$id)}}" class="btn btn-outline-info">
-                    <span class="row">
-                         <i class="material-icons">arrow_back</i>
-                            Back
-                    </span>
-
-                    </a>
-                @endif
-            </div>
 
         </div>
 
@@ -206,6 +195,7 @@
 
                                 <tbody id="medias-table">
                                 @foreach($medias->sortByDesc('created_at') as $index=>$media)
+                                    @if($media->mime_type == 'image/png' or $media->mime_type == 'image/jpg' or $media->mime_type == 'image/jpeg')
                                     <tr>
                                         <td>
                                             <a target="_blank" href="{{env('APP_URL'). '/'.$media->path}}">
@@ -283,6 +273,7 @@
 
 
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>

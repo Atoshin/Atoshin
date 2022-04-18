@@ -206,21 +206,26 @@
                                 @if(count($gallery->medias)>=1)
                                     <div class="row">
                                         @foreach($gallery->medias as $media)
-                                            @if($media ->main==false && $media->gallery_large_picture==false)
-                                                <a target="_blank" href="{{env('APP_URL') . '/'.$media->path}}">
-                                                    <img src="{{asset($media->path)}}" class="mx-2 mb-2"
-                                                         alt="white sample" width="100" height="100"/>
-                                                </a>
-                                            @elseif($media->gallery_large_picture==true)
-                                                <div class="large-picture-container">
+                                            @if($media->mime_type != 'image/png' and $media->mime_type != 'image/jpg' and $media->mime_type != 'image/jpeg')
+                                                <p>Download the gallery Brochure</p><a href="{{asset($media->path)}}">here</a>
+                                            @else
+                                                @if($media ->main==false && $media->gallery_large_picture==false)
+                                                    <a target="_blank" href="{{env('APP_URL') . '/'.$media->path}}">
+                                                        <img src="{{asset($media->path)}}" class="mx-2 mb-2"
+                                                             alt="white sample" width="100" height="100"/>
+                                                    </a>
+                                                @elseif($media->gallery_large_picture==true)
+                                                    <div class="large-picture-container">
 
-                                                <a target="_blank" href="{{env('APP_URL'). '/'.$media->path}}">
-                                                    <img src="{{asset($media->path)}}" class="mx-2"
-                                                         alt="white sample" width="100" height="100"/>
-                                                </a>
-                                                <p class="mx-2" >Large Picture</p>
-                                                </div>
+                                                        <a target="_blank" href="{{env('APP_URL'). '/'.$media->path}}">
+                                                            <img src="{{asset($media->path)}}" class="mx-2"
+                                                                 alt="white sample" width="100" height="100"/>
+                                                        </a>
+                                                        <p class="mx-2" >Large Picture</p>
+                                                    </div>
+                                                @endif
                                             @endif
+
                                         @endforeach
                                     </div>
 
