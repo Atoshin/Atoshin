@@ -206,6 +206,7 @@
 
                                 <tbody id="medias-table">
                                 @foreach($medias->sortByDesc('created_at') as $index=>$media)
+                                    @if($media->mime_type == 'image/png' or $media->mime_type == 'image/jpeg' or $media->mime_type == 'image/jpg')
                                     <tr>
                                         <td>
                                             <a target="_blank" href="{{env('APP_URL'). '/'.$media->path}}">
@@ -283,6 +284,7 @@
 
 
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
@@ -478,6 +480,15 @@
 
                 });
 
+                let buttonCenter = document.createElement('button');
+                buttonCenter.style.position = 'absolute';
+                buttonCenter.style.fontSize = '18px';
+                buttonCenter.style.right = '520px';
+                buttonCenter.style.top = '10px';
+                buttonCenter.style.zIndex = 9999;
+                buttonCenter.textContent = 'center';
+                editor.appendChild(buttonCenter);
+
                 @if($type == \App\Models\Gallery::class)
                 let buttonLarge = document.createElement('button');
                 buttonLarge.style.position = 'absolute';
@@ -545,7 +556,7 @@
                cropper = new Cropper(image, options);
                 @else
                 options = {
-                    aspectRatio: 3 / 2,
+                    aspectRatio: NaN,
                     preview: '.img-preview',
 
                     ready: function (e) {
@@ -563,7 +574,7 @@
                     cropBoxResizable: true,
                     data:{ //define cropbox size
                         width: 240,
-                        height:  90,
+                        height:  160,
                     },
                     crop: function (e) {
                         var data = e.detail;
@@ -611,6 +622,12 @@
                     // cropper.setCropBoxResizable(false) ;
                 });
                 @endif
+
+                buttonCenter.addEventListener('click', ()=> {
+                    cropper.moveTo(0,0)
+                    // cropper.destroy();
+                    // cropper = new Cropper(image, options);
+                });
 
 
             },
