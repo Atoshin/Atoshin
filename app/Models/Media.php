@@ -23,14 +23,12 @@ class Media extends Model
 
     public function getSizeAttribute()
     {
-        if ($this->mediable_type != Contract::class){
+        if ($this->mediable_type != Contract::class) {
             $data = getimagesize($this->path);
             return [
-                'width' => $data[0],
-                'height' => $data[1]
             ];
-        }else {
-            return [];
         }
+
+
     }
 }

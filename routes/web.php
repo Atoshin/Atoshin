@@ -55,6 +55,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('admins', \App\Http\Controllers\AdminController::class);
         Route::get('admin/{admin}/roles/page', [\App\Http\Controllers\RoleController::class, 'adminrolespage'])->name('admin.roles.page');
         Route::post('admin/{admin}/roles', [\App\Http\Controllers\RoleController::class, 'storeadminroles'])->name('admin.roles.store');
+        Route::post('admin/{admin}/change/status', [\App\Http\Controllers\AdminController::class, 'changeStatus'])->name('admin.change.status');
     });
 
     Route::middleware('permission:manage users')->group(function () {
@@ -150,6 +151,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('upload/gallery/large/edit/{gallery_id}', [\App\Http\Controllers\MediaController::class, 'uploadGalleryLargePictureEdit'])->name('uploadFile.gallery.large.edit');
 
     Route::get('crop/page', [\App\Http\Controllers\CropController::class, 'cropPage'])->name('crop');
+    Route::post('crop/download', [\App\Http\Controllers\CropController::class, 'download'])->name('crop.download');
 
     //end
 

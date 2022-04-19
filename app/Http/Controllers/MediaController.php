@@ -47,6 +47,7 @@ class MediaController extends Controller
         }
 
 
+
         if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class and $mediable_type!= Asset::class) {
             if ( floor($width/$height*100)/100 != 3/2  ) {
                 if ($width != '1120' && $height != '460') {
@@ -105,17 +106,33 @@ class MediaController extends Controller
 
             ]);
 
+            if($media->width == 1120 && $media->height == 460)
+            {
+                $this->makeLarge($media->id);
+                $large_flag = true;
+            }
+
 
         }
 
         $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
-        return response()->json([
-            'medias' => $medias,
-        ]);
+        if($mediable_type == Gallery::class)
+        {
+            return response()->json([
+                'medias' => $medias,
+                'large_flag'=> $large_flag
+            ]);
+        } else {
+            return response()->json([
+                'medias' => $medias
+            ]);
+        }
+
     }
 
     public function uploadPage($type, $id, $edit)
     {
+        $index_route = '';
         if($type == Artist::class)
         {
             $route = 'artists.edit';
@@ -130,10 +147,12 @@ class MediaController extends Controller
         }
         elseif ($type == User::class)
         {
+            $index_route = 'users.index';
             $route = 'users.edit';
         }
         elseif($type == Auction::class)
         {
+            $index_route = 'auctions.index';
             $route = 'auctions.edit';
         }
         elseif ($type == Contract::class)
@@ -149,7 +168,7 @@ class MediaController extends Controller
         }
 
         $medias = Media::query()->where('mediable_type', $type)->where('mediable_id', $id)->get();
-        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit','route'));
+        return view('admin.media.upload', compact('type', 'id', 'entity', 'medias', 'edit','route','index_route'));
     }
 
     public function destroy($id)

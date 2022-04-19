@@ -107,6 +107,14 @@ AdminController extends Controller
         return redirect()->back();
     }
 
+    public function changeStatus(Admin $admin)
+    {
+        $admin->blocked = !$admin->blocked;
+        $admin->save();
+
+        return redirect()->back();
+    }
+
 
 
 }

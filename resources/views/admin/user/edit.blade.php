@@ -91,4 +91,37 @@
         });
 
     </script>
+
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        @if(\Illuminate\Support\Facades\Session::get('success') == 'true')
+            <script type="text/javascript">
+                const buttons = `<a class="btn btn-outline-info float-left" href="{{route('users.index')}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to Users
+                    </span>
+
+                </a>
+
+                <a href="{{route('upload.page',['type'=>\App\Models\User::class,'id'=>$user->id,'edit'=>1])}}" id="continue" class="btn btn-outline-info float-right">
+                    <span class="row">
+                            Go to Media section
+                            <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>`
+                Swal.fire({
+                    target: 'body',
+                    icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                    title: '{{\Illuminate\Support\Facades\Session::get('title')}}',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 100000,
+                    html: buttons
+
+
+                })
+            </script>
+        @endif
+    @endif
 @endsection

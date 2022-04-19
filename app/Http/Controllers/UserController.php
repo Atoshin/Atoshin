@@ -115,7 +115,7 @@ class UserController extends Controller
                 'walletable_type' => 'App\Models\User'
             ]);
         }
-        return redirect()->route('users.index');
+        return redirect()->back()->with(['success'=>'true','title'=>'User Saved successfully']);
     }
 
     /**

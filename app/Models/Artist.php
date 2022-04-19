@@ -34,7 +34,7 @@ class Artist extends Model
 
     public function auctions()
     {
-        return $this->hasMany(Auction::class);
+        return $this->hasMany(Auction::class)->orderByDesc('auction_date');
     }
 
     public function getAvatarUrlAttribute()
