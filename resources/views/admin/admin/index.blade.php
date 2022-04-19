@@ -110,10 +110,12 @@
                                                     @csrf
                                                     <input type="hidden" name="status"
                                                            value="{{$admin->blocked ? 0 : 1}}">
+                                                    @if($admin->id != \Illuminate\Support\Facades\Auth::user()->id)
                                                     <button type="submit"
                                                             class="btn {{!$admin->blocked  ? "btn btn-danger btn-sm" : "btn btn-success btn-sm"}}">
                                                         {{$admin->blocked ? 'Unblock' : 'Block'}}
                                                     </button>
+                                                    @endif
                                                 </form>
 
                                             </div>

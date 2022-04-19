@@ -59,7 +59,7 @@ class AuctionsController extends Controller
         $auctions->size= $request->size;
         $auctions->material= $request->material;
         $auctions->save();
-        return redirect()->route('auctions.index',$auctions->artist_id);
+        return redirect()->back()->with(['success'=>'true','title'=>'Auction Saved successfully']);
     }
     public function destroy($auction_id)
     {

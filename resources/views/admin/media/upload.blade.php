@@ -316,22 +316,24 @@
 
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('assets.index', ['type'=>$type ,'id'=>$id])}}')">
-                        Next
+                        Save
                     </button>
 
                 @elseif($type == \App\Models\Artist::class)
                     <button class="btn btn-primary " id="submitButton"
                             onclick="checkCheckboxes(event, '{{route('artists.index', ['type'=>$type ,'id'=>$id])}}')">
-                        Next
+                        Save
                     </button>
                 @elseif($type == \App\Models\User::class)
-                    <a href="{{route('users.index')}}" class="btn btn-primary">Save</a>
+                    <button class="btn btn-primary " id="submitButton"
+                            onclick="save(event)">
+                        Save
+                    </button>
                 @elseif($type == \App\Models\Auction::class)
-                    @php
-                        $auction = \App\Models\Auction::query()->find($id);
-                        $artist = $auction->artist;
-                    @endphp
-                    <a class="btn btn-primary" href="{{route('auctions.index',$artist->id)}}">Save</a>
+                    <button class="btn btn-primary " id="submitButton"
+                            onclick="save(event)">
+                        Save
+                    </button>
                 @elseif($type == \App\Models\Contract::class)
                     @php
                         $contract = \App\Models\Contract::query()->find($id);
@@ -480,14 +482,7 @@
 
                 });
 
-                let buttonCenter = document.createElement('button');
-                buttonCenter.style.position = 'absolute';
-                buttonCenter.style.fontSize = '18px';
-                buttonCenter.style.right = '520px';
-                buttonCenter.style.top = '10px';
-                buttonCenter.style.zIndex = 9999;
-                buttonCenter.textContent = 'center';
-                editor.appendChild(buttonCenter);
+
 
                 @if($type == \App\Models\Gallery::class)
                 let buttonLarge = document.createElement('button');
@@ -622,13 +617,6 @@
                     // cropper.setCropBoxResizable(false) ;
                 });
                 @endif
-
-                buttonCenter.addEventListener('click', ()=> {
-                    cropper.moveTo(0,0)
-                    // cropper.destroy();
-                    // cropper = new Cropper(image, options);
-                });
-
 
             },
             success: function (file, response) {
@@ -975,7 +963,7 @@
 
             }
         </script>
-    @elseif($type != \App\Models\Contract::class)
+        @elseif($type != \App\Models\Contract::class and $type!=\App\Models\Auction::class and $type!= \App\Models\User::class )
         <script>
             function checkCheckboxes(event, href) {
 
@@ -1046,6 +1034,70 @@
 
 
             }
+        </script>
+
+
+
+    @endif
+
+    @if($type == \App\Models\User::class or $type == \App\Models\Auction::class)
+        <script>
+
+
+            function save(event) {
+                let buttons = '';
+                @if($type ==\App\Models\User::class)
+                buttons = `<a class="btn btn-outline-info float-left" href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+
+                </a>
+
+
+                <a href="{{route($index_route)}}" id="continue" class="btn btn-outline-info float-right">
+                    <span class="row">
+                            Go to {{strtok($index_route, '.')}} index
+                            <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>`
+                @elseif($type == \App\Models\Auction::class)
+                @php
+                    $myauction = \App\Models\Auction::query()->find($id)
+                @endphp
+                 buttons = `<a class="btn btn-outline-info float-left" href="{{route($route,$id)}}">
+                    <span class="row">
+                        <i class="material-icons">arrow_back</i>
+                        Back to {{strtok($route, '.')}} Edit
+                    </span>
+
+                </a>
+
+
+
+                <a href="{{route($index_route,$myauction->artist_id)}}" id="continue" class="btn btn-outline-info float-right">
+                    <span class="row">
+                            Go to {{strtok($index_route, '.')}} index
+                            <i class="material-icons">arrow_forward</i>
+                    </span>
+
+                </a>`
+                @endif
+
+
+                Swal.fire({
+                    target: 'body',
+                    icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                    title: 'Medias saved successfully',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 100000,
+                    html: buttons
+                })
+            }
+
         </script>
 
     @endif
