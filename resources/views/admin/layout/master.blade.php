@@ -23,6 +23,8 @@
     @yield('styles')
 
     <style>
+
+
         ::-webkit-calendar-picker-indicator {
             filter: invert(1);
         }
