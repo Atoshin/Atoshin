@@ -42,7 +42,6 @@ class MediaController extends Controller
 
         $large_flag = false;
         $file = $request->file('file');
-        $fileName = time() . '.' . $file->extension();
         $uploadFolder = 'file';
         $path = $file->store($uploadFolder, 'public');
         $height = Image::make($file)->height();
@@ -74,37 +73,6 @@ class MediaController extends Controller
         }
 
 
-        if ($mediable_type == Contract::class) {
-            $response = Http::attach(
-                'attachment', file_get_contents($request->file('file')), $fileName
-            )->post('https://ipfs.infura.io:5001/api/v0/add');
-            $media = Media::query()->create([
-                'ipfs_hash' => $response->json()['Hash'],
-                'mime_type' => $file->getClientMimeType(),
-                'path' => 'storage/' . $path,
-                'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id,
-                'width' => $width,
-                'height' => $height,
-            ]);
-
-
-        } elseif ($mediable_type == Asset::class) {
-            $response = Http::attach(
-                'attachment', file_get_contents($request->file('file')), $fileName
-            )->post('https://ipfs.infura.io:5001/api/v0/add');
-            $media = Media::query()->create([
-                'ipfs_hash' => $response->json()['Hash'],
-                'mime_type' => $file->getClientMimeType(),
-                'path' => 'storage/' . $path,
-                'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id,
-                'width' => $width,
-                'height' => $height
-
-
-            ]);
-        } else {
 
             $media = Media::query()->create([
                 'ipfs_hash' => 'NOTHING',
@@ -125,7 +93,7 @@ class MediaController extends Controller
             }
 
 
-        }
+
 
         $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
         if($mediable_type == Gallery::class)
