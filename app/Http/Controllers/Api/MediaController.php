@@ -21,6 +21,12 @@ class MediaController extends Controller
 
     public function uploadFile(Request $request,$mediable_type,$mediable_id)
     {
+        if($request->has('file'))
+        {
+            return response()->json([
+                'error' => 'missing_file'
+            ]);
+        }
         if($mediable_type == User::class)
         {
             $medias = Media::query()->where('mediable_type',User::class)->where('mediable_id',$mediable_id)->get();
@@ -32,6 +38,7 @@ class MediaController extends Controller
                 }
             }
         }
+
 
         $large_flag = false;
         $file = $request->file('file');
