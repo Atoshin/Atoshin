@@ -41,7 +41,7 @@ Route::prefix('v1')->group(function () {
 //    });
 
 
-    Route::post('file', [\App\Http\Controllers\Api\MediaController::class, 'uploadFile']);
+    Route::post('file/{mediable_type}/{mediable_id}', [\App\Http\Controllers\Api\MediaController::class, 'uploadFile']);
 
     Route::get('artist/{id}/show', [\App\Http\Controllers\Api\ShowArtistController::class, 'show']);
     Route::get('gallery/{id}/show', [\App\Http\Controllers\Api\ShowGalleryController::class, 'show']);
