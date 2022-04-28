@@ -21,7 +21,7 @@ class MediaController extends Controller
 
     public function uploadFile(Request $request, $mediable_type, $mediable_id)
     {
-        if (!$request->has('File')) {
+        if (!$request->has('file')) {
             return response()->json([
                 'error' => 'missing_file'
             ]);
