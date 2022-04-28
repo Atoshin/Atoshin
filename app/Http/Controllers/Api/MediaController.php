@@ -19,21 +19,17 @@ use Intervention\Image\Facades\Image;
 class MediaController extends Controller
 {
 
-    public function uploadFile(Request $request,$mediable_type,$mediable_id)
+    public function uploadFile(Request $request, $mediable_type, $mediable_id)
     {
-        if(!$request->has('file'))
-        {
+        if (!$request->has('File')) {
             return response()->json([
                 'error' => 'missing_file'
             ]);
         }
-        if($mediable_type == User::class)
-        {
-            $medias = Media::query()->where('mediable_type',User::class)->where('mediable_id',$mediable_id)->get();
-            if($medias)
-            {
-                foreach ($medias as $media)
-                {
+        if ($mediable_type == User::class) {
+            $medias = Media::query()->where('mediable_type', User::class)->where('mediable_id', $mediable_id)->get();
+            if ($medias) {
+                foreach ($medias as $media) {
                     $media->delete();
                 }
             }
@@ -58,14 +54,13 @@ class MediaController extends Controller
         }
 
 
-
-        if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class and $mediable_type!= Asset::class) {
-            if ( floor($width/$height*100)/100 != 3/2  ) {
+        if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class and $mediable_type != Asset::class) {
+            if (floor($width / $height * 100) / 100 != 3 / 2) {
                 if ($width != '1120' && $height != '460') {
                     return response()->json([
                         'error' => 'size_error',
-                        'height'=> $height,
-                        'width'=>$width,
+                        'height' => $height,
+                        'width' => $width,
                     ]);
                 }
 
@@ -73,34 +68,29 @@ class MediaController extends Controller
         }
 
 
+        $media = Media::query()->create([
+            'ipfs_hash' => 'NOTHING',
+            'mime_type' => $file->getClientMimeType(),
+            'path' => 'storage/' . $path,
+            'mediable_type' => $mediable_type,
+            'mediable_id' => $mediable_id,
+            'width' => $width,
+            'height' => $height,
+            'gallery_large_picture' => $large_flag
 
-            $media = Media::query()->create([
-                'ipfs_hash' => 'NOTHING',
-                'mime_type' => $file->getClientMimeType(),
-                'path' => 'storage/' . $path,
-                'mediable_type' => $mediable_type,
-                'mediable_id' => $mediable_id,
-                'width' => $width,
-                'height' => $height,
-                'gallery_large_picture' => $large_flag
+        ]);
 
-            ]);
-
-            if($media->width == 1120 && $media->height == 460)
-            {
-                $this->makeLarge($media->id);
-                $large_flag = true;
-            }
-
-
+        if ($media->width == 1120 && $media->height == 460) {
+            $this->makeLarge($media->id);
+            $large_flag = true;
+        }
 
 
         $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
-        if($mediable_type == Gallery::class)
-        {
+        if ($mediable_type == Gallery::class) {
             return response()->json([
                 'medias' => $medias,
-                'large_flag'=> $large_flag
+                'large_flag' => $large_flag
             ]);
         } else {
             return response()->json([
