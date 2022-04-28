@@ -21,6 +21,7 @@ class MediaController extends Controller
 
     public function uploadFile(Request $request,$mediable_type,$mediable_id)
     {
+
         if(!$request->has('file'))
         {
             return response()->json([
@@ -47,30 +48,9 @@ class MediaController extends Controller
         $height = Image::make($file)->height();
         $width = Image::make($file)->width();
 
-        if ($mediable_type == User::class or $mediable_type == Auction::class or $mediable_type == Contract::class) {
-            $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
-
-            if (count($medias) > 0) {
-                return response()->json([
-                    'error' => 'exceeded_media_number_limit'
-                ]);
-            }
-        }
 
 
 
-        if ($mediable_type != User::class and $mediable_type != Auction::class and $mediable_type != Contract::class and $mediable_type!= Asset::class) {
-            if ( floor($width/$height*100)/100 != 3/2  ) {
-                if ($width != '1120' && $height != '460') {
-                    return response()->json([
-                        'error' => 'size_error',
-                        'height'=> $height,
-                        'width'=>$width,
-                    ]);
-                }
-
-            }
-        }
 
 
 
@@ -86,26 +66,12 @@ class MediaController extends Controller
 
             ]);
 
-            if($media->width == 1120 && $media->height == 460)
-            {
-                $this->makeLarge($media->id);
-                $large_flag = true;
-            }
-
-
-
 
         $medias = Media::query()->where('mediable_type', $mediable_type)->where('mediable_id', $mediable_id)->get();
-        if($mediable_type == Gallery::class)
-        {
-            return response()->json([
-                'medias' => $medias,
-                'large_flag'=> $large_flag
-            ]);
-        } else {
+
             return response()->json([
                 'medias' => $medias
             ]);
-        }
+
     }
 }

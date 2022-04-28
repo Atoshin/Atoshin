@@ -26,14 +26,12 @@ class ProfileController extends Controller
             'firstName' => 'nullable|string',
             'lastName' => 'nullable|string',
             'email' => 'nullable|email|string',
-            'avatar' => 'nullable|string'
         ]);
         $user = $wallet = Wallet::query()->where('wallet_address', $address)->first();
         $user = User::query()->find($wallet->walletable_id);
         $user->first_name = $request->firstName;
         $user->last_name = $request->lastName;
         $user->email = $request->email;
-        $user->avatar = $request->avatar;
         $user->save();
 
     }
