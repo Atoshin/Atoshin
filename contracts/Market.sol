@@ -6,10 +6,11 @@ pragma solidity ^0.8.3;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 import "hardhat/console.sol";
 
-contract NFTMarket is ReentrancyGuard {
+contract NFTMarket is ReentrancyGuard, Initializable {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
@@ -20,10 +21,12 @@ contract NFTMarket is ReentrancyGuard {
     uint256 commissionFee = 15;
     mapping(uint => address) public owners;
 
-    constructor() {
+    function initialize() public initializer {
         owner = payable(msg.sender);
     }
 
+
+    constructor() initializer {}
     struct MarketItem {
         uint256 itemId;
         address nftContract;

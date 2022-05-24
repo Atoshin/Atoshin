@@ -1,4 +1,5 @@
-require("@nomiclabs/hardhat-waffle");
+require('@nomiclabs/hardhat-ethers');
+require('@openzeppelin/hardhat-upgrades');
 const fs = require('fs');
 // const privateKey = fs.readFileSync(".secret").toString().trim() || "01234567890123456789";
 // const infuraId = fs.readFileSync(".infuraid").toString().trim() || "";
@@ -21,6 +22,14 @@ module.exports = {
         },
         goerli: {
             url: 'https://kovan.infura.io/v3/0f88215d473a4d3e9445ce017bfa5ab0',
+            accounts: [privateKey]
+        },
+        solana: {
+            url: 'https://api.testnet.solana.com',
+            accounts: [privateKey]
+        },
+        mumbai: {
+            url: "https://rpc-mumbai.matic.today",
             accounts: [privateKey]
         }
         /*

@@ -1,24 +1,24 @@
-const hre = require("hardhat");
+const {ethers, upgrades, network} = require("hardhat");
 const fs = require('fs');
 
 async function main() {
-    const NFTMarket = await hre.ethers.getContractFactory("NFTMarket");
-    const nftMarket = await NFTMarket.deploy();
-    await nftMarket.deployed();
-    console.log("nftMarket deployed to:", nftMarket.address);
+    const NFTMarket = await ethers.getContractFactory("NFTMarket");
+    const market = await upgrades.deployProxy(NFTMarket, undefined, {initializer: 'initialize'})
+    await market.deployed();
+    console.log("nftMarket deployed to:", market.address);
 
-    const NFT = await hre.ethers.getContractFactory("NFT");
-    const nft = await NFT.deploy(nftMarket.address);
+    const NFT = await ethers.getContractFactory("NFT");
+    const nft = await NFT.deploy(market.address);
     await nft.deployed();
     console.log("nft deployed to:", nft.address);
 
     let config = `
-  export const nftMarketAddress = "${nftMarket.address}"
-  export const nftAddress = "${nft.address}"
+    export const nftMarketAddress = "${market.address}"
+    export const nftAddress = "${nft.address}"
   `
 
     let data = JSON.stringify(config)
-    fs.writeFileSync('config.js', JSON.parse(data))
+    fs.writeFileSync(`${network.name}Config.js`, JSON.parse(data))
 
 }
 
