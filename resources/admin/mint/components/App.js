@@ -39,7 +39,7 @@ export default function App() {
         e.preventDefault();
         const contracts = contractData.contracts
         const asset = contractData.asset
-        const addresses = contractData.addresses
+        const addresses = contractData.addresses[network]
         const urls = []
         try {
             for (let i = 0; i < contracts.length; i++) {
@@ -63,13 +63,13 @@ export default function App() {
                     })
                 }
             }
-            createSale(urls, addresses, asset, network)
+            createSale(urls, addresses, asset)
         } catch (e) {
             console.error(e)
         }
     }
 
-    const createSale = async (urls, addresses, asset, network) => {
+    const createSale = async (urls, addresses, asset) => {
         if (window.ethereum) {
             if (urls.length) {
                 const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -102,16 +102,18 @@ export default function App() {
     }
 
     const networks = [
-        'eth',
-        'weth'
+        'ethereum',
+        'solana',
+        'polygon'
     ]
 
     return <>
         {networks.map((network, idx) => {
-            return <button key={idx} disabled={contractData.asset.totalFractions !== contractData.contracts.length} onClick={(e) => mint(e, network)}
+            return <button key={idx} disabled={contractData.asset.totalFractions !== contractData.contracts.length}
+                           onClick={(e) => mint(e, network)}
                            className="btn btn-success mr-2 float-right">
                 <i className="fa fa-link mr-2 "/>
-                Mint contracts
+                Mint contracts on {network}
             </button>
         })}
     </>

@@ -73,8 +73,18 @@ class AssetController extends Controller
             'asset' => $asset,
             'contracts' => $notMinted,
             'addresses' => [
-                'NFT' => env('NFT_CONTRACT_ADDRESS'),
-                'Market' => env('MARKET_CONTRACT_ADDRESS')
+                'ethereum' => [
+                    'NFT' => env('NFT_CONTRACT_ADDRESS_ETH'),
+                    'Market' => env('MARKET_CONTRACT_ADDRESS_ETH')
+                ],
+                'solana' => [
+                    'NFT' => env('NFT_CONTRACT_ADDRESS_SOL'),
+                    'Market' => env('MARKET_CONTRACT_ADDRESS_SOL')
+                ],
+                'polygon' => [
+                    'NFT' => env('NFT_CONTRACT_ADDRESS_MATIC'),
+                    'Market' => env('MARKET_CONTRACT_ADDRESS_MATIC')
+                ]
             ],
             'keys' => [
                 'projectId' => env('IPFS_PROJECT_ID'),
@@ -101,6 +111,7 @@ class AssetController extends Controller
             return response()->json([
                 "message" => 'hash stored successfully'
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                 "message" => $e
@@ -203,7 +214,7 @@ class AssetController extends Controller
             'amount' => "required|numeric|min:1"
         ]);
 
-        if ($request->amount > $count){
+        if ($request->amount > $count) {
             return response()->json([
                 'message' => 'The amount of fractions you chose are currently being sold, try a little less!'
             ], 422);
@@ -256,7 +267,7 @@ class AssetController extends Controller
         $token = Signature::query()->where('hash', $token)->first();
 
         DB::transaction(function () use ($request, $token, $asset) {
-            if ($request->txnHash !== '0x0000000000000000000000000000000000000000000000000000000000000000'){
+            if ($request->txnHash !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
                 $txn = Transaction::query()->create([
                     'txn_hash' => $request->txnHash,
                     'transactable_type' => User::class,
@@ -269,7 +280,7 @@ class AssetController extends Controller
             foreach ($request->mintedIds as $mintedId) {
                 $minted = Minted::query()->find($mintedId);
                 $minted->status = $request->txnStatus;
-                if ($request->txnHash != '0x0000000000000000000000000000000000000000000000000000000000000000'){
+                if ($request->txnHash != '0x0000000000000000000000000000000000000000000000000000000000000000') {
                     $minted->txn_id = $txn->id;
                 }
                 $minted->save();
