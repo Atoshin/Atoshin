@@ -4,29 +4,30 @@ pragma solidity ^0.8.3;
 
 
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 import "hardhat/console.sol";
 
-contract NFTMarket is ReentrancyGuard, Initializable {
+contract Market is Initializable, ReentrancyGuardUpgradeable {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
 
     address payable owner;
     //    address private interactor = 0x9b638D9b79a7374403adc93Ae1A78acAE8655e98;
-    uint256 listingPrice = 0.025 ether;
-    uint256 commissionFee = 15;
+//    uint256 listingPrice;
+    uint256 commissionFee;
     mapping(uint => address) public owners;
 
     function initialize() public initializer {
         owner = payable(msg.sender);
+        commissionFee = 15;
     }
 
 
-    constructor() initializer {}
+//    constructor() initializer {}
     struct MarketItem {
         uint256 itemId;
         address nftContract;
@@ -134,25 +135,25 @@ contract NFTMarket is ReentrancyGuard, Initializable {
 
     /* Creates the sale of a marketplace item */
     /* Transfers ownership of the item, as well as funds between parties */
-    function createMarketSale(address nftContract, uint256 itemId)
-    public
-    payable
-    nonReentrant
-    {
-        uint256 price = idToMarketItem[itemId].price;
-        uint256 tokenId = idToMarketItem[itemId].tokenId;
-        require(
-            msg.value == price,
-            "Please submit the asking price in order to complete the purchase"
-        );
-
-        idToMarketItem[itemId].creator.transfer(msg.value);
-        IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
-        idToMarketItem[itemId].owner = payable(msg.sender);
-        idToMarketItem[itemId].sold = true;
-        _itemsSold.increment();
-        payable(owner).transfer(listingPrice);
-    }
+//    function createMarketSale(address nftContract, uint256 itemId)
+//    public
+//    payable
+//    nonReentrant
+//    {
+//        uint256 price = idToMarketItem[itemId].price;
+//        uint256 tokenId = idToMarketItem[itemId].tokenId;
+//        require(
+//            msg.value == price,
+//            "Please submit the asking price in order to complete the purchase"
+//        );
+//
+//        idToMarketItem[itemId].creator.transfer(msg.value);
+//        IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
+//        idToMarketItem[itemId].owner = payable(msg.sender);
+//        idToMarketItem[itemId].sold = true;
+//        _itemsSold.increment();
+//        payable(owner).transfer(listingPrice);
+//    }
 
     /* Returns all unsold market items */
     function fetchMarketItems() public view returns (MarketItem[] memory) {

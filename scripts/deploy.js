@@ -2,7 +2,7 @@ const {ethers, upgrades, network} = require("hardhat");
 const fs = require('fs');
 
 async function main() {
-    const NFTMarket = await ethers.getContractFactory("NFTMarket");
+    const NFTMarket = await ethers.getContractFactory("Market");
     const market = await upgrades.deployProxy(NFTMarket, undefined, {initializer: 'initialize'})
     await market.deployed();
     console.log("nftMarket deployed to:", market.address);
