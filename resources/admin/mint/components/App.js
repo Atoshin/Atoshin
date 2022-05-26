@@ -63,13 +63,13 @@ export default function App() {
                     })
                 }
             }
-            createSale(urls, addresses, asset)
+            createSale(urls, addresses, asset, network)
         } catch (e) {
             console.error(e)
         }
     }
 
-    const createSale = async (urls, addresses, asset) => {
+    const createSale = async (urls, addresses, asset, network) => {
         if (window.ethereum) {
             if (urls.length) {
                 const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -88,7 +88,8 @@ export default function App() {
                     txnHash,
                     previousTokenId: value.toNumber(),
                     mintedContractsLength: urls.length,
-                    signerWalletAddress: address
+                    signerWalletAddress: address,
+                    network
                 }, {
                     headers: {
                         'X-CSRF-TOKEN': getMeta('csrf-token')
@@ -103,7 +104,7 @@ export default function App() {
 
     const networks = [
         'ethereum',
-        'solana',
+        // 'solana',
         'polygon'
     ]
 

@@ -131,12 +131,18 @@ class AssetController extends Controller
             'mintedContractsLength' => 'required|numeric',
             'signerWalletAddress' => 'required|string|regex:/0x[a-fA-F0-9]{40}/',
             'txnHash' => 'required|string|regex:/0x[a-fA-F0-9]{64}/',
+            'network' => 'required|string'
         ]);
         try {
             if ($request->mintedContractsLength == $asset->contracts->count()) {
                 DB::transaction(function () use ($asset, $request) {
-
-                    $response = Http::get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
+                    if ($request->network === 'ethereum') {
+                        $response = Http::get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
+                        $asset->traded_currency = 'ETH';
+                    } elseif ($request->network === 'polygon') {
+                        $response = Http::get('https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=USD');
+                        $asset->traded_currency = "MATIC";
+                    }
                     $ethUsdPrice = $response->collect()['USD'];
                     $asset->eth_price_per_fraction = (($asset->price / $ethUsdPrice) / $asset->contracts->count());
                     $asset->save();
