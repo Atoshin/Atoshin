@@ -14,7 +14,7 @@ class UpdateAssets2Table extends Migration
     public function up()
     {
         Schema::table('assets', function (Blueprint $table) {
-            $table->string('traded_currency')->nullable();
+            $table->string('traded_currency')->default('ETH');
         });
     }
 
