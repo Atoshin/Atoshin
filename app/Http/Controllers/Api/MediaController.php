@@ -41,7 +41,7 @@ class MediaController extends Controller
         }
 
 
-        $large_flag = false;
+
         $file = $request->file('file');
         $uploadFolder = 'file';
         $path = $file->store($uploadFolder, 'public');
@@ -62,7 +62,7 @@ class MediaController extends Controller
                 'mediable_id' => $mediable_id,
                 'width' => $width,
                 'height' => $height,
-                'gallery_large_picture' => $large_flag
+                'gallery_large_picture' => 0
 
             ]);
 
