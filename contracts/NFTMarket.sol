@@ -10,7 +10,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 import "hardhat/console.sol";
 
-contract Market is Initializable, ReentrancyGuardUpgradeable {
+contract NFTMarket is Initializable, ReentrancyGuardUpgradeable {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
