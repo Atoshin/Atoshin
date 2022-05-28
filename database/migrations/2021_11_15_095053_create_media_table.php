@@ -17,9 +17,12 @@ class CreateMediaTable extends Migration
             $table->id();
             $table->integer('mediable_id');
             $table->string('mediable_type');
-            $table->string('ipfs_hash');
+            $table->string('ipfs_hash')->nullable();
+            $table->boolean('main')->default(false);
+            $table->boolean('homeapage_picture')->default(false);
             $table->string('path');
             $table->string('mime_type');
+
 
             $table->timestamps();
         });

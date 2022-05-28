@@ -17,13 +17,19 @@ class CreateArtistsTable extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('avatar')->nullable();
-            $table->string('bio')->nullable();
+            $table->longText('bio')->nullable();
+            $table->longText('summary')->nullable();
             $table->string('website')->nullable();
             $table->string('youtube')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('linkedin')->nullable();
+            $table->integer('order')->nullable();
+            $table->string('world_ranking')->nullable();
+            $table->string('iran_ranking')->nullable();
+            $table->string('ranking_link')->nullable();
+            $table->boolean('homepage')->default(false);
             $table->timestamps();
         });
     }

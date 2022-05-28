@@ -16,17 +16,23 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('bio')->nullable();
+            $table->longText('bio')->nullable();
             $table->string('price')->nullable();
             $table->integer('ownership_percentage')->default(40);
+//            $table->integer('commission_percentage');
+            $table->integer('royalties_percentage');
+            $table->integer('order')->nullable();
             $table->integer('total_fractions')->default(100);
             $table->integer('sold_fractions')->default(0);
-            $table->timestamp('start_date')->default(\Carbon\Carbon::now());
+            $table->timestamp('start_date')->default(\Carbon\Carbon::now())->nullable();
             $table->timestamp('end_date')->nullable();
             $table->enum('status', ['published','unpublished'])->default('unpublished');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('creator_id');
             $table->unsignedBigInteger('artist_id');
+            $table->string('material')->nullable();
+            $table->string('size')->nullable();
+            $table->string('creation')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')

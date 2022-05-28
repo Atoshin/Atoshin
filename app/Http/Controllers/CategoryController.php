@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\category\storeCategory;
+use App\Http\Requests\admin\category\updateCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::query()->orderBy("created_at","desc")->get();
         return view('admin.category.index',['categories' => $categories]);
     }
 
@@ -34,9 +36,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeCategory $request)
     {
-        //
+        Category::query()->create([
+            'title' => $request->title,
+        ]);
+
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -58,7 +65,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category =Category::find($id);
+
+        return view('admin.category.edit', compact( 'category'));
     }
 
     /**
@@ -68,19 +77,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(updateCategory $request, $id)
     {
-        //
+        $category =Category::find($id);
+        $category->title=$request->title;
+        $category->save();
+        return redirect()->route('categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $category =Category::find($id);
+        $category->delete();
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
     }
 }

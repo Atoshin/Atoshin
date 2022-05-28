@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use \Eloquence\Behaviours\CamelCasing;
 
 
     protected $guarded = [];
@@ -31,10 +32,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-//    protected $hidden = [
-//        'password',
-//        'remember_token',
-//    ];
+    protected $hidden = [
+        'remember_token'
+    ];
+    protected $appends = ['avatar_url'];
 
     /**
      * The attributes that should be cast.
@@ -45,10 +46,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function wallet()
-    {
-        return $this->hasOne(Wallet::class);
-    }
+//    public function wallet()
+//    {
+//        return $this->hasOne(Wallet::class);
+//    }
 
     public function signatures()
     {
@@ -58,5 +59,20 @@ class User extends Authenticatable
     public function media()
     {
         return $this->morphOne(Media::class, 'mediable');
+    }
+
+    public function transactions()
+    {
+        return $this->morphMany(Transaction::class, 'transactable');
+    }
+
+    public function wallet()
+    {
+        return $this->morphOne(Wallet::class, 'walletable');
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return env('APP_URL') . $this->avatar;
     }
 }

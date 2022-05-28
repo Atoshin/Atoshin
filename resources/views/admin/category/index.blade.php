@@ -1,105 +1,84 @@
 @extends('admin.layout.master')
-
 @section('content')
-{{--@foreach()--}}
-{{--<div class="card-body table-responsive p-0">--}}
-{{--    --}}{{--<button type="button" href="{{route('categories.create')}}" class="btn btn-secondary btn-sm">Create</button>--}}
-{{--    <a href="{{route('categories.create')}}" class="btn btn-secondary btn-sm">Create</a>--}}
-{{--    <table class="table table-striped table-valign-middle">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th>Title</th>--}}
-{{--            <th>Parent category</th>--}}
-{{--            --}}{{--<th>Sales</th>--}}
-{{--            <th>More</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
-{{--        @foreach($categories as $category)--}}
-{{--            <tr>--}}
-{{--                <td>--}}
-{{--                    {{$category->title}}--}}
-{{--                </td>--}}
-{{--                <td>--}}
-{{--                    {{$category->parent ? $category->parent->title : "-"}}--}}
-{{--                </td>--}}
-{{--                <td>--}}
-{{--                    --}}{{--<a href="#" class="text-muted">--}}
-{{--                        --}}{{--<i class="fas fa-search"></i>--}}
-{{--                    --}}{{--</a>--}}
-{{--                    <button type="button" class="btn btn-primary btn-sm">Edit</button>--}}
-{{--                    <button type="button" class="btn btn-danger btn-sm">Delete</button>--}}
-{{--                </td>--}}
-{{--            </tr>--}}
-{{--            @endforeach--}}
-{{--        </tbody>--}}
-{{--    </table>--}}
-{{--</div>--}}
-
-
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>DataTables</h1>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
-
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-
-            <div class="card col-sm-12">
-                <div class="card-header">
-                    <h3 class="card-title">Category</h3>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Category Table</h1>
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Parent category</th>
-                            <th>More</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        @foreach($categories as $category)
-                            <tr>
-                                <td>
-                                    {{$category->title}}
-                                </td>
-                                <td>
-                                    {{$category->parent ? $category->parent->title : "-"}}
-                                </td>
-                                <td>
-                                    {{--<a href="#" class="text-muted">--}}
-                                    {{--<i class="fas fa-search"></i>--}}
-                                    {{--</a>--}}
-                                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-sm-12">
+                    <div class="card-header">
+                        <a href="{{route('categories.create')}}" type="button" class="btn btn-success mr-2 float-right"> <i
+                                class="fa fa-plus mr-2 "></i> Add category</a>
+                        <h3 class="card-title">Category</h3>
+                    </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+{{--                                    <th>Parent category</th>--}}
+                                    <th>Options</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach($categories as $category)
+                                    <tr>
+                                        <td>
+                                            {{$category->title}}
+                                        </td>
+                                        <td>
+
+                                            <div class="row">
+                                                <div class="m-1">
+                                                    <a href="{{route('categories.edit',$category->id)}}" type="button"
+                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>
+                                                </div>
+                                                <div class="m-1">
+                                                    <button type="button"
+                                                            onclick="deleteModal(this)"
+                                                            data-id="{{$category->id}}"
+                                                            class="btn btn-danger "><i
+                                                            class="fa fa-trash "></i>delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <form action="" id="delete-form" method="POST">
+                @method('delete')
+                @csrf
+            </form>
+            <!-- /.row -->
         </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
-    </div>
 
-</section>
-
+    </section>
+    <form action="" id="delete-form" method="POST">
+        @method('delete')
+        @csrf
+    </form>
 
 @endsection
 
@@ -117,21 +96,64 @@
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <script src="{{asset('admin/js/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
     <script>
         $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": true, "lengthChange": false, "autoWidth": false,"ordering": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            const element = document.getElementById("example1_filter");
+            element.style.float = 'inline-end';
+        });
+    </script>
+    <script>
+
+        $(".delete-icon").on("click", function () {
+            var CategoryId = $(this).data('id');
+            $("#delete-form").attr("action", "/categories/" + CategoryId)
+        });
+
+    </script>
+    <script>
+        function deleteModal(element) {
+            var CategoryID = $(element).data('id');
+
+            document.getElementById('delete-form').action = "/categories/" + CategoryID;
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to delete this category?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: `yes`,
+                cancelButtonText: `no`,
+                confirmButtonColor: '#22303d',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    $("#delete-form").submit();
+                } else if (result.dismiss === 'cancel') {
+                    Swal.fire({
+                        title: 'the removal request was canceled',
+                        icon: 'info',
+                        confirmButtonText: 'ok',
+                        confirmButtonColor: '#22303d'
+
+
+                    });
+
+                }
+            })
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            const element = document.getElementById("example1_filter");
+            element.style.float = 'inline-end';
         });
     </script>
 

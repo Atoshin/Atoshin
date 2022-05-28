@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
     use HasFactory;
+    use \Eloquence\Behaviours\CamelCasing;
+
     protected $guarded = [];
+    protected $dates = ['start_date', 'end_date'];
+    protected $appends = ['artist_name'];
 
-
-    public function videoFeeds()
+    public function videos()
     {
-        return $this->hasMany(VideoFeed::class);
+        return $this->hasMany(Video::class);
     }
 
     public function category()
@@ -34,5 +37,20 @@ class Asset extends Model
     public function medias()
     {
         return $this->morphMany(Media::class, 'mediable');
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function videoLinks()
+    {
+        return $this->morphMany(VideoLink::class, 'video_linkable');
+    }
+
+    public function getArtistNameAttribute()
+    {
+        return $this->artist->full_name;
     }
 }

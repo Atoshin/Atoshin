@@ -10,9 +10,15 @@ class Gallery extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function asset()
+    public static function find($id)
     {
-        return $this->hasOne(Asset::class, 'creator_id');
+    }
+
+    use \Eloquence\Behaviours\CamelCasing;
+
+    public function assets()
+    {
+        return $this->hasMany(Asset::class, 'creator_id');
     }
 
     public function location()
@@ -23,5 +29,19 @@ class Gallery extends Model
     public function medias()
     {
         return $this->morphMany(Media::class, 'mediable');
+    }
+
+    public function wallet()
+    {
+        return $this->morphOne(Wallet::class, 'walletable');
+    }
+
+    public function videoLinks()
+    {
+        return $this->morphMany(VideoLink::class, 'video_linkable');
+    }
+    public function gallerymanager()
+    {
+        return $this->hasMany(Gallerying::class,'gallery_id');
     }
 }

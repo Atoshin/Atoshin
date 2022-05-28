@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\admin\admin\storeAdmin;
+use App\Http\Requests\admin\admin\updateAdmin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class
 AdminController extends Controller
@@ -15,7 +18,8 @@ AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin:: all();
+        $admins = Admin::query()->orderBy("created_at","desc")->get();
+
         return view('admin.admin.index', compact('admins'));
     }
 
@@ -35,16 +39,17 @@ AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(storeAdmin $request)
     {
         Admin::query()->create([
             'email' => $request->email,
             'username' => $request->username,
             'password' => $request->password,
+//            'password' => Hash::make($request->password),
         ]);
 
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admins.index');
     }
 
     /**
@@ -79,26 +84,34 @@ AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(updateAdmin $request, $id)
     {
         $admin =Admin::find($id);
         $admin->email=$request->email;
         $admin->username=$request->username;
         $admin->save();
-        return redirect()->route('admin.index');
+        return redirect()->route('admins.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $admin =Admin::find($id);
         $admin->delete();
-//        \request()->session()->flash('message', 'deleted successfully');
+        \request()->session()->flash('message', 'deleted successfully');
+        return redirect()->back();
+    }
+
+    public function changeStatus(Admin $admin)
+    {
+        $admin->blocked = !$admin->blocked;
+        $admin->save();
+
         return redirect()->back();
     }
 
