@@ -110,7 +110,13 @@
                                                class="btn btn-success "> <i class="fa fa-location-arrow "></i> Manager
                                             </a>
                                         </div>
+                                        <div class="m-1">
+                                            <a href="{{route('gallery.contract.create', $gallery->id)}}" type="button"
+                                               class="btn btn-success "> <i class="fa fa- "></i> contract
+                                            </a>
+                                        </div>
                                     </td>
+
 
                                 </tr>
                             @endforeach

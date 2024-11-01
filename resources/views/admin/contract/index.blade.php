@@ -1,4 +1,43 @@
 @extends('admin.layout.master')
+@section('styles')
+    <style>
+        #loading {
+            display: none; /* Initially hidden */
+            margin: 1%;
+            background-color: #9d1e15;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex-direction: row;
+            justify-content: left;
+            align-items: center;
+
+        }
+
+        .spinner {
+            border: 5px solid #003e80; /* Light grey */
+            border-top: 5px solid #FFFFFF; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            /*margin: 0 auto;*/
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading-text {
+            margin-left: 1%;
+            font-size: 18px;
+            color: #fff;
+        }
+    </style>
+
+@endsection
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -10,21 +49,80 @@
         </div><!-- /.container-fluid -->
     </section>
 
+    <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="card col-sm-12">
+                        <div class="card-header">
+                            <h3 class="card-title">Fraction this asset</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{route('asset.nft.fraction',$asset_id)}}" id="myform" method="POST" style="display: inline" onsubmit="showLoading('Your NFT is being fractioned. Please wait...')">
+                                @CSRF
+                                <div class="form-group">
+                                    <label >token name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="tokenName" placeholder="tokenName">
+                                    @error('tokenName')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label >token symbol <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="tokenSymbol" placeholder="tokenSymbol">
+                                    @error('tokenSymbol')
+                                    <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                                    <button type="submit" class="btn btn-primary" id="btnSubmit">Fraction</button>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
 
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="card col-sm-12">
+
                     <div class="card-header">
                         <a href="{{route('contracts.create',$asset_id)}}" type="button"
                            class="btn btn-success mr-2 float-right"> <i
                                 class="fa fa-plus mr-2 "></i> Add contract</a>
-                        <div id="mint-button" data-assetId="{{$asset_id}}"></div>
+                        <div class="float-right mr-2">
+                            <form action="{{ route('asset.ipfs.mint',$asset_id) }}" myform="myform" method="POST" style="display: inline;" onsubmit="showLoading('Your NFT is being minted. Please wait...')">
+                                @csrf
+                                <button id="btnSubmit" type="submit" class="btn btn-primary">Mint</button>
+
+                            </form>
+
+                        </div>
+
                         <h3 class="card-title">Contract</h3>
                         <br>
                         <h6>
                             Total Fraction(s): {{$asset->total_fractions}}
                         </h6>
+
+
+
+                        <div id="loading">
+
+                                <div class="spinner"></div>
+                                <div id="loading-text">
+                                    @if(session('status'))
+                                        {{ session('status') }}
+                                    @else
+                                        Your NFT is being minted. Please wait...
+                                    @endif
+                                </div>
+                        </div>
+
+
+
 
                     </div>
 
@@ -201,6 +299,60 @@
             })
         }
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            window.showLoading = function(text) {
+                var loadingElement = document.getElementById('loading');
+                var loadingText = document.getElementById('loading-text');
+                if (!loadingElement) {
+                    console.error("Loading element not found!");
+                    return;
+                }
+
+                // Show the loading element
+                loadingElement.style.display = 'flex';
+                loadingText.innerHTML = text;
+            };
+        });
+    </script>
+
+    <script>
+        $("#myform").on('submit',function (){
+            $("#btnSubmit").attr("disabled", true);
+        });
+
+    </script>
+
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        @if(\Illuminate\Support\Facades\Session::get('success') == 'true')
+            <script type="text/javascript">
+                Swal.fire({
+                    target: 'body',
+                    icon: '{{\Illuminate\Support\Facades\Session::has('icon') ? \Illuminate\Support\Facades\Session::get('icon') : 'success'}}',
+                    title: '{{\Illuminate\Support\Facades\Session::get('title')}}',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 100000,
+                })
+            </script>
+        @else
+            <script type="text/javascript">
+                Swal.fire({
+                    target: 'body',
+                    icon: 'warning',
+                    title: '{{\Illuminate\Support\Facades\Session::get('error')}}',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer: 100000,
+                })
+            </script>
+        @endif
+
+    @endif
+
+
+
 
 @endsection
 

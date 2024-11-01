@@ -1,24 +1,32 @@
 const {ethers, upgrades, network} = require("hardhat");
 const fs = require('fs');
 
+
 async function main() {
-    const NFTMarket = await ethers.getContractFactory("NFTMarket");
-    const market = await upgrades.deployProxy(NFTMarket, undefined, {initializer: 'initialize'})
-    await market.deployed();
-    console.log("nftMarket deployed to:", market.address);
+    const NFTContract = await ethers.getContractFactory("NFTContract");
+    const nftContract = await NFTContract.deploy("NFTContract", "NFTC");
+    await nftContract.deployed();
+    console.log("ArtworkNFT deployed to:", nftContract.address);
 
-    const NFT = await ethers.getContractFactory("NFT");
-    const nft = await NFT.deploy(market.address);
-    await nft.deployed();
-    console.log("nft deployed to:", nft.address);
 
-    let config = `
-    export const nftMarketAddress = "${market.address}"
-    export const nftAddress = "${nft.address}"
-  `
 
-    let data = JSON.stringify(config)
-    fs.writeFileSync(`${network.name}Config.js`, JSON.parse(data))
+  //   const NFTMarket = await ethers.getContractFactory("NFTMarket");
+  //   const market = await upgrades.deployProxy(NFTMarket, undefined, {initializer: 'initialize'})
+  //   await market.deployed();
+  //   console.log("nftMarket deployed to:", market.address);
+  //
+  //   const NFT = await ethers.getContractFactory("NFT");
+  //   const nft = await NFT.deploy(market.address);
+  //   await nft.deployed();
+  //   console.log("nft deployed to:", nft.address);
+  //
+  //   let config = `
+  //   export const nftMarketAddress = "${market.address}"
+  //   export const nftAddress = "${nft.address}"
+  // `
+  //
+  //   let data = JSON.stringify(config)
+  //   fs.writeFileSync(`${network.name}Config.js`, JSON.parse(data))
 
 }
 
@@ -28,3 +36,5 @@ main()
         console.error(error);
         process.exit(1);
     });
+
+

@@ -62,7 +62,7 @@ class MediaController extends Controller
                 'attachment', file_get_contents($request->file('file')), $fileName
             )->post('https://ipfs.infura.io:5001/api/v0/add');
             $media = Media::query()->create([
-                'ipfs_hash' => $response->json()['Hash'],
+//                'ipfs_hash' => $response->json()['Hash'],
                 'mime_type' => $file->getClientMimeType(),
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,
@@ -77,7 +77,7 @@ class MediaController extends Controller
                 'attachment', file_get_contents($request->file('file')), $fileName
             )->post('https://ipfs.infura.io:5001/api/v0/add');
             $media = Media::query()->create([
-                'ipfs_hash' => $response->json()['Hash'],
+//                'ipfs_hash' => $response->json()['Hash'],
                 'mime_type' => $file->getClientMimeType(),
                 'path' => 'storage/' . $path,
                 'mediable_type' => $mediable_type,

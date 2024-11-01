@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.16.7",
+        "@nomiclabs/hardhat-etherscan": "^3.1.8",
         "axios": "^0.21.4",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
@@ -29,12 +30,14 @@
         "@openzeppelin/hardhat-upgrades": "^1.17.0",
         "chai": "^4.3.4",
         "crypto-js": "^4.1.1",
+        "dotenv": "^16.4.5",
         "ethereum-waffle": "^3.4.0",
-        "ethers": "^5.5.2",
-        "hardhat": "^2.8.0",
+        "ethers": "^5.7.2",
+        "hardhat": "^2.22.14",
         "ipfs-http-client": "^55.0.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "web3": "^1.7.0"
+        "web3": "^1.7.0",
+        "yargs": "^17.7.2"
     }
 }

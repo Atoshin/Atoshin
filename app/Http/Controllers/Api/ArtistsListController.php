@@ -19,7 +19,7 @@ class ArtistsListController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'an error occured',
-                'error' => $e
+                'error' => $e->getMessage()
             ]);
         }
     }

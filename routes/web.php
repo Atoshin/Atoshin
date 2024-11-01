@@ -43,7 +43,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     });
 
-    Route::group(['middleware' => ['permission:mint contracts', 'csrf_get']], function () {
+    Route::group(['middleware' => ['permission:mint contracts']], function () {
         Route::get('asset/{asset}/contracts', [\App\Http\Controllers\Api\AssetController::class, 'getContracts']);
         Route::get('contract/{id}/data', [\App\Http\Controllers\Api\AssetController::class, 'getContract']);
         Route::post('contract/{contract}/ipfs-hash', [\App\Http\Controllers\Api\AssetController::class, 'setIpfsHash']);
@@ -98,6 +98,8 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('locations/{gallery_id}/create', [\App\Http\Controllers\LocationController::class, 'create'])->name('locations.create');
         Route::post('locations/{gallery_id}/store', [\App\Http\Controllers\LocationController::class, 'store'])->name('locations.store');
         Route::post('gallery/change-status/{gallery}', [\App\Http\Controllers\GalleryController::class, 'changeStatus'])->name('change.gallery.status');
+        Route::get('gallery/{gallery_id}/contract/create', [\App\Http\Controllers\GalleryContractController::class, 'create'])->name('gallery.contract.create');
+        Route::post('gallery/{gallery_id}/contract/store', [\App\Http\Controllers\GalleryContractController::class, 'store'])->name('gallery.contract.store');
         //end
     });
 
@@ -105,6 +107,7 @@ Route::middleware('auth:admin')->group(function () {
         //region assets
         Route::resource('assets', \App\Http\Controllers\AssetController::class);
         Route::post('asset/change-status/{asset}', [\App\Http\Controllers\AssetController::class, 'changeStatus'])->name('asset.change.status');
+        Route::post('asset/{asset_id}/nft/fraction', [\App\Http\Controllers\AssetFractionController::class, 'fraction'])->name('asset.nft.fraction');
         //end
 
         //contracts region
@@ -177,7 +180,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('redirect/{route}/{arguments}', function ($route, $arguments) {
         return redirect()->route($route, $arguments);
     })->name('redirect.with.arguments');
+
+    Route::post('asset/{asset_id}/mint/ipfs',[\App\Http\Controllers\ipfsController::class, 'mint'])->name('asset.ipfs.mint');
     //end
+
 //newsletter
     Route::resource('newsletters', \App\Http\Controllers\NewsLetterController::class);
     //landing

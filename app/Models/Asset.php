@@ -49,6 +49,16 @@ class Asset extends Model
         return $this->morphMany(VideoLink::class, 'video_linkable');
     }
 
+    public function metadata()
+    {
+        return $this->hasOne(MetaData::class);
+    }
+
+    public function assetFraction()
+    {
+        return $this->hasOne(AssetFraction::class,'asset_id');
+    }
+
     public function getArtistNameAttribute()
     {
         return $this->artist->full_name;

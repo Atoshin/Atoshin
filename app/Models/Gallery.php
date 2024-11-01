@@ -44,4 +44,8 @@ class Gallery extends Model
     {
         return $this->hasMany(Gallerying::class,'gallery_id');
     }
+
+    public function galleryContract(){
+        return $this->hasOne(GalleryContract::class,'gallery_id');
+    }
 }
