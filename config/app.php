@@ -123,6 +123,10 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'NFT_CONTRACT_ADDRESS'=>env('NFT_CONTRACT_ADDRESS'),
+    'NODE_SERVER_URL'=>env('NODE_SERVER_URL'),
+    'SALES_CONTRACT_ADDRESS'=>env('SALES_CONTRACT_ADDRESS'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

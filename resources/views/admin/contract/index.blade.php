@@ -49,10 +49,68 @@
         </div><!-- /.container-fluid -->
     </section>
 
+
+    @if($asset->metadata)
     <section class="content">
+
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{$asset->title}} NFT <a class="text-warning" href="https://sepolia.etherscan.io/nft/{{config('app.NFT_CONTRACT_ADDRESS')}}/{{$asset->metadata->token_id}}">view in etherscan</a></h3>
+                </div>
+                <div class="card-body">
+
+                    <div class="callout callout-info ckeditor-text">
+                        <h5><i></i>asset nft uri:</h5>
+                        {!!$asset->metadata->metadata_uri!!}
+
+
+                    </div>
+                    <div class="callout callout-warning">
+                        <h5><i></i>nft id</h5>
+                        {!!$asset->metadata->token_id!!}
+
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+    @endif
+    @if($asset->assetFraction)
+    <section class="content">
+
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{$asset->title}} Token</h3>
+                </div>
+                <div class="card-body">
+
+                    <div class="callout callout-primary">
+                        <h5><i></i>asset Token address:</h5>
+                        {{$asset->assetFraction->token_address}}
+                        <a class="text-warning" href="https://sepolia.etherscan.io/token/{!!$asset->assetFraction->token_address!!}">view in etherscan</a>
+                    </div>
+                    <div class="callout callout-info">
+                        <h5><i></i>token name</h5>
+                        {!!$asset->assetFraction->token_name!!}
+                    </div>
+                    <div class="callout callout-info">
+                        <h5><i></i>token symbol</h5>
+                        {!!$asset->assetFraction->token_symbol!!}
+                    </div>
+                    <div class="callout callout-info">
+                        <h5><i></i>token supply</h5>
+                        {!!$asset->assetFraction->total_supply!!}
+                    </div>
+                </div>
+            </div>
+
+    </section>
+    @elseif($asset->metadata)
+        <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="card col-sm-12">
+                    <div class="card card-primary col-sm-12">
                         <div class="card-header">
                             <h3 class="card-title">Fraction this asset</h3>
                         </div>
@@ -73,7 +131,7 @@
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
                                 </div>
-                                    <button type="submit" class="btn btn-primary" id="btnSubmit">Fraction</button>
+                                <button type="submit" class="btn btn-primary" id="btnSubmit">Fraction</button>
 
 
                             </form>
@@ -81,25 +139,48 @@
                     </div>
                 </div>
             </div>
-    </section>
-
-    <section class="content">
+        </section>
+        @else
+        <br>
+    @endif
+        <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="card col-sm-12">
 
                     <div class="card-header">
-                        <a href="{{route('contracts.create',$asset_id)}}" type="button"
-                           class="btn btn-success mr-2 float-right"> <i
-                                class="fa fa-plus mr-2 "></i> Add contract</a>
-                        <div class="float-right mr-2">
-                            <form action="{{ route('asset.ipfs.mint',$asset_id) }}" myform="myform" method="POST" style="display: inline;" onsubmit="showLoading('Your NFT is being minted. Please wait...')">
-                                @csrf
-                                <button id="btnSubmit" type="submit" class="btn btn-primary">Mint</button>
+{{--                        <a href="{{route('contracts.create',$asset_id)}}" type="button"--}}
+{{--                           class="btn btn-success mr-2 float-right"> <i--}}
+{{--                                class="fa fa-plus mr-2 "></i> Add contract</a>--}}
+                        @if(!$asset->metadata)
 
-                            </form>
+                            <div class="float-right mr-2">
+                                <form action="{{ route('asset.ipfs.mint',$asset_id) }}" myform="myform" method="POST" style="display: inline;" onsubmit="showLoading('Your NFT is being minted. Please wait...')">
+                                    @csrf
+                                    <button id="btnSubmit" type="submit" class="btn btn-primary">Mint</button>
 
-                        </div>
+                                </form>
+
+                            </div>
+                        @else
+                            <div class="float-right mr-2">
+                                <form action="" myform="myform" method="POST" style="display: inline;" onsubmit="showLoading('Your NFT is being minted. Please wait...')">
+                                    @csrf
+                                    <button id="btnSubmit" type="submit" class="btn btn-primary">List for Sale</button>
+
+                                </form>
+
+                            </div>
+                            <div class="float-right mr-2">
+                                <form action="" myform="myform" method="POST" style="display: inline;" onsubmit="showLoading('Your NFT is being minted. Please wait...')">
+                                    @csrf
+                                    <button id="btnSubmit" type="submit" class="btn btn-primary">List for Auction</button>
+
+                                </form>
+
+                            </div>
+                        @endif
+
 
                         <h3 class="card-title">Contract</h3>
                         <br>
@@ -131,86 +212,86 @@
                 {{--                            <h3 class="card-title">Contract</h3>--}}
                 {{--                        </div>--}}
                 <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>Contract Number</th>
-                                <th>Hash</th>
-                                <th>Image</th>
-                                <th>Asset</th>
-                                <th>created at</th>
-                                <th>Minted At</th>
-                                <th>Signer Wallet Address</th>
+{{--                    <div class="card-body">--}}
+{{--                        <table id="example1" class="table table-bordered table-striped">--}}
+{{--                            <thead>--}}
+{{--                            <tr>--}}
+{{--                                <th>Contract Number</th>--}}
+{{--                                <th>Hash</th>--}}
+{{--                                <th>Image</th>--}}
+{{--                                <th>Asset</th>--}}
+{{--                                <th>created at</th>--}}
+{{--                                <th>Minted At</th>--}}
+{{--                                <th>Signer Wallet Address</th>--}}
 
-                                <th>
-                                    Operation
-                                </th>
+{{--                                <th>--}}
+{{--                                    Operation--}}
+{{--                                </th>--}}
 
 {{--                                <th>Operations</th>--}}
-                            </tr>
-                            </thead>
-                            <tbody>
+{{--                            </tr>--}}
+{{--                            </thead>--}}
+{{--                            <tbody>--}}
 
-                            @foreach($contracts as $contract)
-                                <tr>
-                                    <td>
-                                        {{$contract->contract_number}}
-                                    </td>
-                                    <td>
-                                        {{$contract->hash}}
-                                    </td>
-                                    <td>
-                                        <img src="https://ipfs.infura.io/ipfs/{{$contract->hash}}" alt="">
-                                    </td>
-                                    <td>
-                                        {{$contract->asset->title}}
-                                    </td>
-                                    <td>
-                                        {{$contract->created_at}}
-                                    </td>
-                                    <td>
-                                        {{$contract->minted ? $contract->minted->created_at : ''}}
-                                    </td>
-                                    <td>
-                                        {{$contract->minted ? $contract->minted->wallet->wallet_address : ''}}
-                                    </td>
-                                    <td>
-                                        @if($contract->hash == null)
+{{--                            @foreach($contracts as $contract)--}}
+{{--                                <tr>--}}
+{{--                                    <td>--}}
+{{--                                        {{$contract->contract_number}}--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        {{$contract->hash}}--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        <img src="https://ipfs.infura.io/ipfs/{{$contract->hash}}" alt="">--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        {{$contract->asset->title}}--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        {{$contract->created_at}}--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        {{$contract->minted ? $contract->minted->created_at : ''}}--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        {{$contract->minted ? $contract->minted->wallet->wallet_address : ''}}--}}
+{{--                                    </td>--}}
+{{--                                    <td>--}}
+{{--                                        @if($contract->hash == null)--}}
 
-                                            <div class="m-1">
-                                                <button type="button"
-                                                        onclick="deleteModal(this)"
-                                                        data-id="{{$contract->id}}"
-                                                        class="btn btn-danger "><i
-                                                        class="fa fa-trash "></i>delete
-                                                </button>
-                                            </div>
-                                        @endif
-                                    </td>
+{{--                                            <div class="m-1">--}}
+{{--                                                <button type="button"--}}
+{{--                                                        onclick="deleteModal(this)"--}}
+{{--                                                        data-id="{{$contract->id}}"--}}
+{{--                                                        class="btn btn-danger "><i--}}
+{{--                                                        class="fa fa-trash "></i>delete--}}
+{{--                                                </button>--}}
+{{--                                            </div>--}}
+{{--                                        @endif--}}
+{{--                                    </td>--}}
 {{--                                    <td>--}}
 {{--                                        @if(!$contract->minted)--}}
 {{--                                            <div data-contractId="{{$contract->id}}" id="single-mint"></div>--}}
 {{--                                        @endif--}}
 {{--                                    </td>--}}
-                                    {{--                                        <td>--}}
-                                    {{--                                            --}}{{--<a href="#" class="text-muted">--}}
-                                    {{--                                            --}}{{--<i class="fas fa-search"></i>--}}
-                                    {{--                                            --}}{{--</a>--}}
-                                    {{--                                            <div class="row">--}}
-                                    {{--                                                <div class="col-md-3">--}}
-                                    {{--                                                    <a href="{{route('contracts.edit',$contract->id)}}" type="button"--}}
-                                    {{--                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>--}}
-                                    {{--                                                </div>--}}
+{{--                                    --}}{{--                                        <td>--}}
+{{--                                    --}}{{--                                            --}}{{----}}{{--<a href="#" class="text-muted">--}}
+{{--                                    --}}{{--                                            --}}{{----}}{{--<i class="fas fa-search"></i>--}}
+{{--                                    --}}{{--                                            --}}{{----}}{{--</a>--}}
+{{--                                    --}}{{--                                            <div class="row">--}}
+{{--                                    --}}{{--                                                <div class="col-md-3">--}}
+{{--                                    --}}{{--                                                    <a href="{{route('contracts.edit',$contract->id)}}" type="button"--}}
+{{--                                    --}}{{--                                                       class="btn btn-primary "> <i class="fa fa-edit "></i> edit </a>--}}
+{{--                                    --}}{{--                                                </div>--}}
 
-                                    {{--                                            </div>--}}
-                                    {{--                                        </td>--}}
-                                </tr>
-                            @endforeach
+{{--                                    --}}{{--                                            </div>--}}
+{{--                                    --}}{{--                                        </td>--}}
+{{--                                </tr>--}}
+{{--                            @endforeach--}}
 
-                            </tbody>
-                        </table>
-                    </div>
+{{--                            </tbody>--}}
+{{--                        </table>--}}
+{{--                    </div>--}}
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->

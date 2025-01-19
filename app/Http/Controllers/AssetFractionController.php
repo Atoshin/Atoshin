@@ -14,27 +14,42 @@ class AssetFractionController extends Controller
 {
     public function fraction(Request $request,$asset_id)
     {
-
         $asset = Asset::with(['assetFraction', 'metadata','gallery'])->where('id', $asset_id)->first();
         if (!$asset->metadata) {
             return redirect()->back()->with(['success'=>'false','title'=>'Mint an nft for this asset first!']);
         }
         if ($asset->assetFraction) {
+
             return redirect()->back()->with(['success'=>'false','title'=>'This asset has already been fractioned']);
         }
 
         $galleryShare = ($asset->ownership_pecentage * $asset->total_fractions)/100;
-        $atoshinShare = ($asset->royalties * $asset->total_fractions)/100;
+
         try {
-            $job = new FractionNftJob($asset->gallery->galleryContract->contract_address,env('NFT_CONTRACT_ADDRESS'),$asset->metadata->token_id,$request->tokenName,$request->tokenSymbol,$asset->total_fractions,$galleryShare,$atoshinShare);
+
+            $job = new FractionNftJob($request->tokenName,$request->tokenSymbol);
             $output = $job->handle();
-            dd($output);
-//            Transaction::create([
-//                'txn_hash' => $output['deploymentTransaction'],
-//                'transactable_id' => $contract->id,
-//                'transactable_type' => AssetFraction::class,
-//                'token_quantity' => 0,
-//            ]);
+//            dd(str_contains($output, 'Error:'));
+            if (is_string($output) && str_contains($output, 'Error:')) {
+                // Log or handle the error message as needed
+                return redirect()->back()->with(['success'=>'false','error'=>$output]);
+            }
+            $contract = AssetFraction::create([
+                'asset_id' => $asset_id,
+                'total_supply' => $asset->total_fractions,
+                'gallery_supply' => $asset->ownership_percentage,
+                'atoshin_supply'=>$asset->royalties_percentage,
+                'token_name'=>$request->tokenName,
+                'token_symbol'=>$request->tokenSymbol,
+                'token_address'=>$output['fractionTokenAddress']
+            ]);
+            Transaction::create([
+                'txn_hash' => $output['transactionHash'],
+                'transactable_id' => $contract->id,
+                'transactable_type' => AssetFraction::class,
+                'token_quantity' => 0,
+            ]);
+            return redirect()->back()->with(['success'=>'true','title'=>'Fraction received!']);
         }catch (\Exception $exception){
             return redirect()->back()->with(['success'=>'false','error'=>$exception->getMessage()]);
         }

@@ -21,15 +21,16 @@ class ContractController extends Controller
      */
     public function index($asset_id)
     {
-        $NFTpath = resource_path() . "/artifacts/contracts/NFT.sol/NFT.json";
-        $NFTjson = json_decode(file_get_contents($NFTpath), true);
-        $NFTabi = $NFTjson['abi'];
-        $MarketPath = resource_path() . "/artifacts/contracts/Market.sol/NFTMarket.json";
-        $MarketJson = json_decode(file_get_contents($MarketPath), true);
-        $MarketAbi = $MarketJson['abi'];
-        $contracts = Contract::query()->where('asset_id', $asset_id)->orderBy("created_at", "desc")->get();
-        $asset = Asset::find($asset_id);
-        return view('admin.contract.index', compact('contracts', 'asset_id', 'asset', 'NFTabi', 'MarketAbi'));
+//        $NFTpath = resource_path() . "/artifacts/contracts/NFT.sol/NFT.json";
+//        $NFTjson = json_decode(file_get_contents($NFTpath), true);
+//        $NFTabi = $NFTjson['abi'];
+//        $MarketPath = resource_path() . "/artifacts/contracts/Market.sol/NFTMarket.json";
+//        $MarketJson = json_decode(file_get_contents($MarketPath), true);
+//        $MarketAbi = $MarketJson['abi'];
+//        $contracts = Contract::query()->where('asset_id', $asset_id)->orderBy("created_at", "desc")->get();
+        $asset = Asset::with(['metadata','assetFraction'])->where('id', $asset_id)->first();
+
+        return view('admin.contract.index', compact( 'asset_id', 'asset'));
     }
 
     /**

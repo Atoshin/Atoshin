@@ -18,17 +18,17 @@ if (!galleryAddress || !metadataUri) {
 
 // Connect to Ethereum provider
 function getProvider() {
-    return new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_API_URL);
+    return new ethers.providers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/NuZ9eDOiXbZfOKfAXbZlV1j0edIiV50b");
 }
 
 // Get wallet connected to the provider
 function getWallet(provider) {
-    return new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+    return new ethers.Wallet("a3846e3abd1f32ee9daf97fff417532ee7fe2b814c96418f06fa2c66dcd0857b", provider);
 }
 
 // Get NFT contract instance
 function getContract(wallet) {
-    return new ethers.Contract(contractAddress, contractABI, wallet);
+    return new ethers.Contract("0x5754217e78eAE5FF76C4411899D2c7e48a7D322A", contractABI, wallet);
 }
 
 // Mint and transfer NFT to the gallery, return the tokenId
@@ -64,6 +64,6 @@ async function main() {
 }
 
 main().catch(error => {
-    console.error(`Error: ${error.message}`);
+    console.error(`Error: ${error.stack}`);
     process.exit(1);
 });

@@ -31,7 +31,7 @@ class ipfsController extends Controller
         $abi = json_decode(file_get_contents(resource_path('artifacts/contracts/NFTContract.sol/NFTContract.json')), true); // Load ABI
 
         $this->contract = new Contract($this->web3->provider, $abi);
-        $this->contract->at(env('NFT_CONTRACT_ADDRESS')); // Replace with your contract's address
+        $this->contract->at(config('app.NFT_CONTRACT_ADDRESS')); // Replace with your contract's address
 
 
         // Load wallet address and private key from .env
@@ -55,7 +55,7 @@ class ipfsController extends Controller
 
         // Upload image to IPFS
         $imageHash = $this->ipfsService->add(file_get_contents($asset->medias()->where('main',true)->first()->path));
-        $imageUri = "ipfs://{$imageHash}";
+        $imageUri = "ipfs://".$imageHash;
 
         // Create metadata
         $metadata = [
@@ -79,7 +79,7 @@ class ipfsController extends Controller
             $job = new MintNFTJob($galleryAddress, $metadataUri);
             $tokenId = $job->handle(); // Execute the job and get the tokenId
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
+            return redirect()->back()->with(['success'=>'false','error'=>$e->getMessage()]);
         }
         // Update the asset record
         MetaData::query()->create([
@@ -93,11 +93,7 @@ class ipfsController extends Controller
 //            'is_minted' => true,
 //        ]);
 
-        return response()->json([
-            'message' => 'NFT minted successfully',
-            'token_id' => $tokenId,
-            'metadata_uri' => $metadataUri,
-        ]);
+        return redirect()->back()->with(['success'=>'true','title'=>'NFT minted successfully!']);
     }
 
     private function mintNFTOnBlockchain($galleryAddress, $metadataUri)

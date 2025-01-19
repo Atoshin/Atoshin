@@ -38,17 +38,11 @@
 
 @endsection
 @section('content')
-
+    @if(!$gallery->galleryContract)
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Deploy {{$gallery->name}} Contract</h3>
         </div>
-        @if($gallery->galleryContract !== null)
-            <div class="m-2">
-                <h1>This gallery already has a contract</h1>
-            </div>
-
-        @else
             <form action="{{route('gallery.contract.store',[$gallery->id])}}" method="POST" id="myform" onsubmit="showLoading()">
                 @CSRF
                 <div class="card-body">
@@ -62,25 +56,26 @@
                     <button type="submit" id="btnSubmit" class="btn btn-primary">Deploy Contract</button>
                 </div>
             </form>
-        @endif
-
-
     </div>
-    @if($gallery->galleryContract)
-        <div class="card card-primary">
+
+    @else
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">{{$gallery->name}} Contract info</h3>
+            </div>
             <div class="card-body">
 
-                <div class="callout callout-info ckeditor-text">
+                <div class="callout callout-success ckeditor-text">
                     <h5><i></i>contract address:</h5>
                     {!!$gallery->GalleryContract->contract_address!!}
-                    <a href="https://sepolia.etherscan.io/address/{!!$gallery->GalleryContract->contract_address!!}">view in etherscan</a>
+                    <a class="text text-olive" href="https://sepolia.etherscan.io/address/{!!$gallery->GalleryContract->contract_address!!}">view in etherscan</a>
 
                 </div>
-                <div class="callout callout-warning">
+                <div class="callout callout-success">
                     <h5><i></i>contract deployment transaction hash number:</h5>
                     @if($gallery->GalleryContract->transaction)
                         {!!$gallery->GalleryContract->transaction->txn_hash!!}
-                        <a class="" href="https://sepolia.etherscan.io/tx/{!!$gallery->GalleryContract->transaction->txn_hash!!}">view in etherscan</a>
+                        <a class="text text-olive" href="https://sepolia.etherscan.io/tx/{!!$gallery->GalleryContract->transaction->txn_hash!!}">view in etherscan</a>
                     @endif
                 </div>
             </div>

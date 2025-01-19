@@ -25,31 +25,25 @@ class deployFractionContract
 
     /**
      * Execute the job.
-
      */
     public function handle()
     {
-        $scriptPath = base_path('scripts/deployFNFT.js');
-        $command = "node $scriptPath deploy -g $this->galleryAddress";
+        $client = new \GuzzleHttp\Client();
+        $url =config('app.NODE_SERVER_URL').'/deploy';
 
-        $output = '';
-        $returnVar = 0;
-        exec($command . ' 2>&1', $output, $returnVar);
+        try {
+            $response = $client->post($url, [
+                'json' => [
+                    'galleryAddress' => $this->galleryAddress
+                ]
+            ]);
 
-        // Check if the command was successful
-        if ($returnVar !== 0) {
-            // Join the output lines into a single error message
-            $errorMessage = implode("\n", $output);
-            throw new \Exception("JavaScript Error: " . $errorMessage);
+            // Decode the JSON response
+            return json_decode($response->getBody()->getContents(), true);
+
+        } catch (\Exception $e) {
+            return "Error: " . $e;
         }
-        // Decode JSON output
-        $jsonString = implode("\n", $output);
-        $decodedOutput = json_decode($jsonString, true);
-        if ($decodedOutput == null) {
-            throw new \Exception("Error decoding JSON output from script.");
-        }
-
-        return $decodedOutput;
 
     }
 }

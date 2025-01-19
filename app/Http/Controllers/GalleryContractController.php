@@ -27,7 +27,10 @@ class GalleryContractController extends Controller
         try {
             $job = new deployFractionContract($gallery->wallet->wallet_address);
             $output = $job->handle();// Execute the job and get the tokenId
-
+            if (is_string($output) && str_contains($output, 'Error:')) {
+                // Log or handle the error message as needed
+                return redirect()->back()->with(['success'=>'false','error'=>$output]);
+            }
             $contract = GalleryContract::create([
                 'contract_address' => $output['contractAddress'],
                 'contract' => json_encode($output['contract']),

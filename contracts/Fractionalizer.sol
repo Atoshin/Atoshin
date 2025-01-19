@@ -7,13 +7,40 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 // Custom ERC20 token for each fractionalized NFT
 contract FractionToken is ERC20 {
+    address public salesContract;
+    address public owner;
+
     constructor(
         string memory name,
         string memory symbol,
         uint256 initialSupply,
-        address owner
+        address _owner
     ) ERC20(name, symbol) {
-        _mint(owner, initialSupply);
+        _mint(_owner, initialSupply);
+        owner = _owner;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not authorized");
+        _;
+    }
+
+    function setSalesContract(address _salesContract) external onlyOwner {
+        salesContract = _salesContract;
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal override {
+        require(
+            to == address(0) || // Allow burning
+            to == salesContract || // Allow transfers to sales contract
+            from == address(0), // Allow minting
+            "Transfers restricted to the sales contract"
+        );
+        super._beforeTokenTransfer(from, to, amount);
     }
 }
 
@@ -25,7 +52,7 @@ contract NFTFractionalizer is Ownable {
         uint256 tokenId;          // ID of the NFT (for reference)
         uint256 totalSupply;      // Total supply of fraction tokens
         uint256 galleryShare;     // Number of tokens allocated to gallery
-        uint256 atoshinShare;     // Number of tokens allocated to Atoshin
+
         bool isActive;            // Whether the fractionalization is active
     }
 
@@ -37,8 +64,7 @@ contract NFTFractionalizer is Ownable {
         address indexed nftAddress,
         uint256 indexed tokenId,
         uint256 totalSupply,
-        uint256 galleryShare,
-        uint256 atoshinShare
+        uint256 galleryShare
     );
 
     constructor(address _galleryAddress) {
@@ -51,11 +77,9 @@ contract NFTFractionalizer is Ownable {
         string memory tokenName,
         string memory tokenSymbol,
         uint256 totalSupply,
-        uint256 galleryShare,
-        uint256 atoshinShare
+        uint256 galleryShare
     ) external returns (address) {
         require(galleryShare <= totalSupply, "Gallery share cannot exceed total supply");
-        require(atoshinShare <= totalSupply, "Atoshin share cannot exceed total supply");
         require(
             IERC721(nftAddress).ownerOf(tokenId) == galleryAddress,
             "NFT must be owned by gallery"
@@ -76,7 +100,6 @@ contract NFTFractionalizer is Ownable {
             tokenId: tokenId,
             totalSupply: totalSupply,
             galleryShare: galleryShare,
-            atoshinShare:atoshinShare,
             isActive: true
         });
 
@@ -84,17 +107,14 @@ contract NFTFractionalizer is Ownable {
         if (galleryShare > 0) {
             newToken.transfer(galleryAddress, galleryShare);
         }
-        if(atoshinShare > 0){
-            newToken.transfer(msg.sender,atoshinShare);
-        }
+
 
         emit NFTFractionalized(
             address(newToken),
             nftAddress,
             tokenId,
             totalSupply,
-            galleryShare,
-            atoshinShare
+            galleryShare
         );
 
         return address(newToken);
@@ -127,3 +147,4 @@ contract NFTFractionalizer is Ownable {
         return FractionToken(fractionToken).balanceOf(address(this));
     }
 }
+
