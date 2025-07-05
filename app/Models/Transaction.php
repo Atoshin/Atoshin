@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    use \Eloquence\Behaviours\CamelCasing;
 
 
     protected $guarded = [];

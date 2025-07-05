@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
     use HasFactory;
-    use \Eloquence\Behaviours\CamelCasing;
 
     protected $guarded = [];
     protected $dates = ['start_date', 'end_date'];

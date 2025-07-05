@@ -180,7 +180,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Eloquence\EloquenceServiceProvider::class
+//        Eloquence\EloquenceServiceProvider::class
 
     ],
 

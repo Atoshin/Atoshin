@@ -10,7 +10,6 @@ class Artist extends Model
     use HasFactory;
     protected $guarded = [];
     protected $appends = ['avatar_url'];
-    use \Eloquence\Behaviours\CamelCasing;
 
     public function assets()
     {

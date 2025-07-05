@@ -15,17 +15,17 @@ class storeArtist extends FormRequest
     public function rules()
     {
         return [
-            'full_name'=>'required',
-            'bio'=>'max:3000|required',
-            'summary'=>'max:3000|required',
-            'website'=>'url|nullable',
-            'twitter'=>'url|nullable',
-            'facebook'=>'url|nullable',
-            'instagram'=>'url|nullable',
-            'linkedin'=>'url|nullable',
-            'youtube'=>'url|nullable',
-            'ranking_link'=>'url|nullable',
-            'order'=>'regex:/^([0-9]{1})$/|unique:artists|nullable'
+//            'full_name'=>'required',
+////            'bio'=>'max:3000|required',
+//            'summary'=>'max:3000|required',
+//            'website'=>'url|nullable',
+//            'twitter'=>'url|nullable',
+//            'facebook'=>'url|nullable',
+//            'instagram'=>'url|nullable',
+//            'linkedin'=>'url|nullable',
+//            'youtube'=>'url|nullable',
+//            'ranking_link'=>'url|nullable',
+//            'order'=>'regex:/^([0-9]{1})$/|unique:artists|nullable'
         ];
     }
 }

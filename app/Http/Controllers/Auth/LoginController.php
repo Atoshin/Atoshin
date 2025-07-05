@@ -28,7 +28,6 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
         $admin = Admin::query()->where('username',$request->username)->first();
-
         if($admin->blocked)
         {
             return redirect()->back()->with('message','You are blocked!');
