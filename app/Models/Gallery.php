@@ -14,7 +14,6 @@ class Gallery extends Model
     {
     }
 
-    use \Eloquence\Behaviours\CamelCasing;
 
     public function assets()
     {

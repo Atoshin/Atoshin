@@ -10,7 +10,6 @@ class Media extends Model
     use HasFactory;
     protected $guarded = [];
     protected $appends = ['url', 'size'];
-    use \Eloquence\Behaviours\CamelCasing;
 
     public function mediable()
     {
