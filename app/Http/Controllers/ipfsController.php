@@ -24,19 +24,19 @@ class ipfsController extends Controller
 
     public function __construct(IPFSService $ipfsService)
     {
-        $this->ipfsService = $ipfsService;
-        $sepoliaUrl = 'https://eth-sepolia.g.alchemy.com/v2/NuZ9eDOiXbZfOKfAXbZlV1j0edIiV50b';
-        $this->web3 = new Web3($sepoliaUrl);// Connect to your blockchain node
-        $this->web3->eth->defaultAccount = env('WALLET_ADDRESS');
-        $abi = json_decode(file_get_contents(resource_path('artifacts/contracts/NFTContract.sol/NFTContract.json')), true); // Load ABI
-
-        $this->contract = new Contract($this->web3->provider, $abi);
-        $this->contract->at(config('app.NFT_CONTRACT_ADDRESS')); // Replace with your contract's address
-
-
-        // Load wallet address and private key from .env
-        $this->walletAddress = env('WALLET_ADDRESS');
-        $this->privateKey = env('PRIVATE_KEY');
+//        $this->ipfsService = $ipfsService;
+//        $sepoliaUrl = 'https://eth-sepolia.g.alchemy.com/v2/NuZ9eDOiXbZfOKfAXbZlV1j0edIiV50b';
+//        $this->web3 = new Web3($sepoliaUrl);// Connect to your blockchain node
+//        $this->web3->eth->defaultAccount = env('WALLET_ADDRESS');
+//        $abi = json_decode(file_get_contents(resource_path('artifacts/contracts/NFTContract.sol/NFTContract.json')), true); // Load ABI
+//
+//        $this->contract = new Contract($this->web3->provider, $abi);
+//        $this->contract->at(config('app.NFT_CONTRACT_ADDRESS')); // Replace with your contract's address
+//
+//
+//        // Load wallet address and private key from .env
+//        $this->walletAddress = env('WALLET_ADDRESS');
+//        $this->privateKey = env('PRIVATE_KEY');
     }
 
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->enum('type', \App\Models\Category::$type);
             $table->enum('status', \App\Models\Category::$status)->default('active');
-            $table->morphs('categoryable');
+            $table->nullableMorphs('categoryable');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')
                 ->references('id')

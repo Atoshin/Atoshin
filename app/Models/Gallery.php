@@ -8,12 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Gallery extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
-
-    public static function find($id)
-    {
-    }
-
 
     public function assets()
     {
@@ -39,12 +35,14 @@ class Gallery extends Model
     {
         return $this->morphMany(VideoLink::class, 'video_linkable');
     }
+
     public function gallerymanager()
     {
         return $this->hasMany(Gallerying::class,'gallery_id');
     }
 
-    public function galleryContract(){
+    public function galleryContract()
+    {
         return $this->hasOne(GalleryContract::class,'gallery_id');
     }
 }

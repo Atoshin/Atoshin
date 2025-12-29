@@ -5,7 +5,7 @@ namespace Modules\Admin\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Modules\Admin\Http\Requests\CategoryStoreRequest;
+use Modules\Admin\Http\Requests\category\GalleryStoreRequest;
 use Modules\Admin\Transformers\CategoryResource;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -14,34 +14,41 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = (int)$request->input('page.size', 15);
-        $perPage = max(1, min($perPage, 100)); // سقف منطقی
+        $perPage = (int) $request->integer('per_page', 15);
+        $perPage = max(1, min($perPage, 500)); // safety cap
 
-        $categories = QueryBuilder::for(Category::class)
-            ->allowedIncludes(['parent', 'children']) // include=parent,children
-            ->allowedSorts(['id', 'title', 'slug', 'status', 'type', 'created_at']) // sort=title یا sort=-id
+        $query = QueryBuilder::for(Category::query())
+            ->allowedIncludes([
+                'parent',
+                'children',
+            ])
+            ->allowedSorts([
+                'id',
+                'title',
+                'created_at',
+            ])
+            ->defaultSort('-id')
             ->allowedFilters([
-                AllowedFilter::partial('title'),
-                AllowedFilter::partial('slug'),
+                AllowedFilter::callback('search', function ($q, $value) {
+                    $value = trim((string) $value);
+                    if ($value === '') return;
+
+                    $q->where(function ($qq) use ($value) {
+                        $qq->where('title', 'LIKE', "%{$value}%")
+                            ->orWhere('slug', 'LIKE', "%{$value}%");
+                    });
+                }),
                 AllowedFilter::exact('status'),
                 AllowedFilter::exact('type'),
                 AllowedFilter::exact('parent_id'),
+            ]);
 
-                AllowedFilter::callback('search', function ($query, $value) {
-                    $query->where(function ($q) use ($value) {
-                        $q->where('title', 'like', "%{$value}%")
-                            ->orWhere('slug', 'like', "%{$value}%");
-                    });
-                }),
-            ])
-            ->defaultSort('-id')
-            ->paginate($perPage)
-            ->appends($request->query());
+        $paginator = $query->paginate($perPage)->appends($request->query());
 
-        return CategoryResource::collection($categories);
+        return CategoryResource::collection($paginator);
     }
 
-    public function store(CategoryStoreRequest $request)
+    public function store(GalleryStoreRequest $request)
     {
         $data = $request->validated();
         $category = Category::create($data);
@@ -60,7 +67,7 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function update(CategoryStoreRequest $request, Category $category)
+    public function update(GalleryStoreRequest $request, Category $category)
     {
         $data = $request->validated();
         if (isset($data['parent_id']) && (int)$data['parent_id'] === (int)$category->id) {
