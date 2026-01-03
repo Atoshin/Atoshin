@@ -2,55 +2,170 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
+use Modules\Admin\Http\Requests\admin\AdminStoreRequest;
+use Modules\Admin\Http\Requests\admin\AdminUpdateRequest;
+use Modules\Admin\Transformers\AdminResource;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin::index');
+
+        $perPage = (int) $request->query('per_page', 15);
+        $perPage = max(1, min($perPage, 500));
+        $query = QueryBuilder::for($this->adminsQuery())
+            ->allowedIncludes([
+                 'roles',
+                 'permissions',
+            ])->with('roles','permissions')
+            ->allowedSorts(['id', 'name', 'email','status', 'created_at'])
+            ->defaultSort('-id')
+            ->allowedFilters([
+                AllowedFilter::partial('name'),
+                AllowedFilter::partial('email'),
+                 AllowedFilter::exact('status'),
+
+                AllowedFilter::callback('search', function ($q, $value) {
+                    $v = trim((string) $value);
+                    if ($v === '') return;
+
+                    $q->where(function ($qq) use ($v) {
+                        $qq->where('name', 'like', "%{$v}%")
+                            ->orWhere('email', 'like', "%{$v}%");
+                    });
+                }),
+            ]);
+
+        $paginated = $query
+            ->paginate($perPage)
+            ->appends($request->query());
+
+        return AdminResource::collection($paginated);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(AdminStoreRequest $request)
     {
-        return view('admin::create');
+        $data = $request->validated();
+
+        $user = new User();
+        $user->email = $data['email'];
+        $user->username = $data['username'] ?? null;
+
+        $plain = $data['password'] ?? null;
+        $user->password = $plain ? Hash::make($plain) : Hash::make(str()->random(32));
+
+        $user->is_admin = true;
+        $user->save();
+
+        // ✅ roles (from role_ids)
+        if (!empty($data['role_ids']) && is_array($data['role_ids'])) {
+            $roles = Role::query()
+                ->whereIn('id', $data['role_ids'])
+                ->where('guard_name', 'sanctum')
+                ->get();
+
+            $user->syncRoles($roles);
+        }
+
+        // ✅ permissions (optional: permission_ids)
+        if (!empty($data['permission_ids']) && is_array($data['permission_ids'])) {
+            $perms = Permission::query()
+                ->whereIn('id', $data['permission_ids'])
+                ->where('guard_name', 'sanctum')
+                ->get();
+
+            $user->syncPermissions($perms);
+        }
+
+        $user->load(['roles', 'permissions']);
+
+        return response()->json(['data' => new AdminResource($user)], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function update(AdminUpdateRequest $request, User $admin)
     {
-        return view('admin::show');
+        abort_unless($this->isAdmin($admin), 404);
+
+        $data = $request->validated();
+
+        if (array_key_exists('email', $data)) {
+            $admin->email = $data['email'];
+        }
+
+        if (array_key_exists('username', $data)) {
+            $admin->username = $data['username'];
+        }
+
+        if (!empty($data['password'])) {
+            $admin->password = Hash::make($data['password']);
+        }
+
+        // همیشه admin نگه دار
+        $admin->is_admin = true;
+        $admin->save();
+
+        // ✅ roles sync
+        if (array_key_exists('role_ids', $data)) {
+            $roles = Role::query()
+                ->whereIn('id', $data['role_ids'] ?? [])
+                ->where('guard_name', 'sanctum')
+                ->get();
+
+            $admin->syncRoles($roles);
+        }
+
+        // ✅ permissions sync
+        if (array_key_exists('permission_ids', $data)) {
+            $perms = Permission::query()
+                ->whereIn('id', $data['permission_ids'] ?? [])
+                ->where('guard_name', 'sanctum')
+                ->get();
+
+            $admin->syncPermissions($perms);
+        }
+
+        $admin->load(['roles', 'permissions']);
+
+        return response()->json(['data' => new AdminResource($admin)]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function show(User $admin)
     {
-        return view('admin::edit');
+        // اطمینان از اینکه واقعاً admin است
+        abort_unless($this->isAdmin($admin), 404);
+
+        return new AdminResource($admin);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) {}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
+    public function destroy(User $admin)
+    {
+        abort_unless($this->isAdmin($admin), 404);
+
+        $admin->delete();
+
+        return response()->json(['message' => 'Admin deleted successfully.']);
+    }
+
+
+    private function adminsQuery()
+    {
+        return User::query()->where('is_admin', true);
+    }
+
+    private function isAdmin(User $user): bool
+    {
+        return (bool) $user->is_admin;
+    }
+
+
 }

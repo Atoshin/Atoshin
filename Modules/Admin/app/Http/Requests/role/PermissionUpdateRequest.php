@@ -1,0 +1,17 @@
+<?php
+
+namespace Modules\Admin\Http\Requests\role;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PermissionUpdateRequest extends FormRequest
+{
+    public function authorize(): bool { return true; }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['sometimes','required','string','max:255'],
+        ];
+    }
+}
